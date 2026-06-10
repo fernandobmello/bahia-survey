@@ -1,23 +1,3 @@
-// ============================================================
-// Google Apps Script — Bahia Survey collector
-// ------------------------------------------------------------
-// Setup steps:
-//
-//   1. Go to script.google.com → New project
-//   2. Delete any existing code, paste this entire file
-//   3. Click Deploy → New deployment → Web app
-//      - Execute as: Me
-//      - Who has access: Anyone
-//      Click Deploy → authorise when prompted → copy the URL
-//   4. In each survey HTML file, replace:
-//        PASTE_YOUR_APPS_SCRIPT_URL_HERE
-//      with the URL you just copied
-// ============================================================
-
-// ← Spreadsheet ID taken directly from the URL:
-// https://docs.google.com/spreadsheets/d/11iyfnnv1Zy9rQtMJi01eJ_CW3ql8QYqroav_-aRkH5E/
-const SPREADSHEET_ID = '11iyfnnv1Zy9rQtMJi01eJ_CW3ql8QYqroav_-aRkH5E';
-
 const COLUMN_ORDER = [
   'timestamp','nte','teacher','school','student','consent',
   'a1','a2','a3','a4',
@@ -40,22 +20,16 @@ const COLUMN_ORDER = [
   'conjoint_tasks'
 ];
 
-function getSheet() {
-  return SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
-}
-
 function doPost(e) {
   try {
     const data  = JSON.parse(e.postData.contents);
-    const sheet = getSheet();
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
 
-    // Write header row once
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(COLUMN_ORDER);
       sheet.setFrozenRows(1);
     }
 
-    // Build row in fixed column order
     const row = COLUMN_ORDER.map(col => {
       const v = data[col];
       if (v === undefined || v === null) return '';
@@ -65,23 +39,22 @@ function doPost(e) {
     });
 
     sheet.appendRow(row);
+    SpreadsheetApp.flush();
 
     return ContentService
-      .createTextOutput(JSON.stringify({ result: 'success' }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .createTextOutput('OK')
+      .setMimeType(ContentService.MimeType.TEXT);
 
   } catch (err) {
     return ContentService
-      .createTextOutput(JSON.stringify({ error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .createTextOutput('ERROR: ' + err.toString())
+      .setMimeType(ContentService.MimeType.TEXT);
   }
 }
 
-// Run this manually in the Apps Script editor to confirm
-// the script can find and write to the correct sheet
 function testWrite() {
-  const sheet = getSheet();
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   sheet.appendRow(['TEST_ROW', new Date().toISOString()]);
-  Logger.log('Success — wrote to: ' + sheet.getParent().getName());
-  Logger.log('Sheet tab: ' + sheet.getName());
+  SpreadsheetApp.flush();
+  console.log('Done. Rows now: ' + sheet.getLastRow());
 }

@@ -1,16 +1,28 @@
 // ============================================================
 // Google Apps Script — Bahia Survey collector
 // ------------------------------------------------------------
-// Setup steps:
-//   1. Go to script.google.com → New project
-//   2. Paste this entire file, replacing any existing code
-//   3. Click Deploy → New deployment → Web app
+// CORRECT SETUP STEPS:
+//
+//   1. Go to Google Drive → New → Google Sheets
+//      Name it e.g. "Bahia Survey Responses"
+//
+//   2. Inside that sheet: Extensions menu → Apps Script
+//      (This binds the script to YOUR sheet automatically)
+//
+//   3. Delete any existing code in the editor, paste this
+//      entire file
+//
+//   4. Click Deploy → New deployment → Web app
 //      - Execute as: Me
 //      - Who has access: Anyone
-//   4. Click Deploy, copy the Web App URL
+//      Click Deploy → authorise when prompted → copy the URL
+//
 //   5. In each survey HTML file, replace:
 //        PASTE_YOUR_APPS_SCRIPT_URL_HERE
 //      with the URL you just copied
+//
+// ⚠️  Do NOT create this at script.google.com as a standalone
+//     script — it won't know which sheet to write to.
 // ============================================================
 
 const COLUMN_ORDER = [
@@ -43,7 +55,6 @@ function doPost(e) {
     // Write header row once
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(COLUMN_ORDER);
-      // Freeze header
       sheet.setFrozenRows(1);
     }
 
@@ -69,9 +80,10 @@ function doPost(e) {
   }
 }
 
-// Test function — run this manually to check the sheet is writable
+// Test function — run this manually inside the Apps Script editor
+// to confirm the script can write to the sheet before deploying
 function testWrite() {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  sheet.appendRow(['TEST', new Date().toISOString()]);
-  Logger.log('Test row written.');
+  sheet.appendRow(['TEST_ROW', new Date().toISOString()]);
+  Logger.log('Test row written successfully.');
 }

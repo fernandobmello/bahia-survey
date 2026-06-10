@@ -62,6 +62,56 @@
     margin-bottom: 8px;
   }
 
+  /* ── PAUSE BUTTON (header top-right) ── */
+  .survey-header { position: relative; }
+  #pause-btn {
+    position: absolute; top: 14px; right: 16px;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+    color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.76rem;
+    cursor: pointer; display: none; align-items: center; gap: 4px;
+    transition: background 0.2s;
+  }
+  #pause-btn:hover { background: rgba(255,255,255,0.32); }
+
+  /* ── PAUSE MODAL ── */
+  #pause-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 2000; display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .pause-box {
+    background: #fff; border-radius: 18px; padding: 32px 28px;
+    max-width: 360px; width: 100%; text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  }
+  .pause-box h3 { font-size: 1.15rem; margin-bottom: 6px; color: var(--text); }
+  .pause-box .sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 20px; }
+  .pin-display {
+    font-size: 2.6rem; font-weight: 800; letter-spacing: 0.18em;
+    color: var(--primary); background: #eff6ff; border-radius: 12px;
+    padding: 14px 20px; margin: 0 auto 14px; font-family: monospace;
+  }
+  .pin-hint { font-size: 0.79rem; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+
+  /* ── RESUME SECTION (screen 0) ── */
+  .resume-wrap {
+    margin-top: 18px; padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+  .resume-toggle {
+    background: none; border: none; color: var(--primary); font-size: 0.87rem;
+    cursor: pointer; text-decoration: underline; padding: 0;
+  }
+  #resume-input-wrap { display: none; margin-top: 12px; }
+  .resume-row { display: flex; gap: 8px; justify-content: center; align-items: center; }
+  #resume-pin-input {
+    width: 140px; padding: 10px 14px; border: 2px solid var(--border);
+    border-radius: 10px; font-size: 1.05rem; text-align: center;
+    letter-spacing: 0.12em; font-family: monospace;
+  }
+  #resume-pin-input:focus { outline: none; border-color: var(--primary); }
+  #resume-error { color: #dc2626; font-size: 0.82rem; margin-top: 8px; display: none; }
+
   /* ── CONTAINER ── */
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
 
@@ -410,11 +460,27 @@
 <div class="survey-header">
   <h1>📋 Pesquisa sobre Mídia e Informação</h1>
   <div class="section-label" id="section-label">Seção 1 de 6</div>
+  <button id="pause-btn" onclick="pauseSurvey()">⏸ Pausar</button>
   <div class="progress-bar-wrap">
     <div class="progress-bar-track">
       <div class="progress-bar-fill" id="progress-fill"></div>
     </div>
     <div class="progress-label" id="progress-label">0 de 30</div>
+  </div>
+</div>
+
+<!-- PAUSE MODAL -->
+<div id="pause-modal">
+  <div class="pause-box">
+    <div style="font-size:2.2rem; margin-bottom:6px;">⏸</div>
+    <h3>Pesquisa pausada!</h3>
+    <p class="sub">Anote este código para continuar de onde parou:</p>
+    <div class="pin-display" id="pause-pin-display">000000</div>
+    <p class="pin-hint">💡 O código fica salvo <strong>neste computador</strong>.<br>Use-o ao voltar para retomar do mesmo ponto.</p>
+    <button class="btn btn-primary" style="width:100%"
+      onclick="document.getElementById('pause-modal').style.display='none'">
+      Entendi — vou anotar ✓
+    </button>
   </div>
 </div>
 
@@ -454,6 +520,21 @@
     <button class="btn btn-primary btn-lg" id="btn-consent" onclick="goTo(1)" disabled>
       Começar a pesquisa →
     </button>
+    <div class="resume-wrap">
+      <p style="color:var(--muted); font-size:0.85rem; margin-bottom:8px;">Já começou antes e quer continuar?</p>
+      <button class="resume-toggle"
+        onclick="document.getElementById('resume-input-wrap').style.display='block'; this.style.display='none'">
+        Continuar de onde parei →
+      </button>
+      <div id="resume-input-wrap">
+        <div class="resume-row">
+          <input id="resume-pin-input" type="text" inputmode="numeric"
+            maxlength="6" placeholder="000000" autocomplete="off">
+          <button class="btn btn-primary" onclick="resumeSurvey()">Continuar →</button>
+        </div>
+        <div id="resume-error">Código não encontrado. Verifique os números e tente novamente.</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1173,6 +1254,8 @@ let CONJOINT_TASKS;  // assigned on name confirmation, not at page load
 let currentScreen = 0;
 const TOTAL_SCREENS = 36;
 const responses = {};
+let DISCERNMENT_ORDER  = null;   // shuffled DISCERNMENT_ITEMS; saved for resume
+let OPINION_PAIRS_ORDER = null;  // shuffled OPINION_PAIRS; saved for resume
 
 // ═══════════════════════════════════════════════════════
 // INIT
@@ -1319,7 +1402,8 @@ function populateM7() {
 function generateDiscernmentScreens() {
   const container = document.querySelector('.container');
   const refScreen = document.getElementById('screen-22');
-  const discItems = shuffle(DISCERNMENT_ITEMS);   // new random order per student
+  if (!DISCERNMENT_ORDER) DISCERNMENT_ORDER = shuffle(DISCERNMENT_ITEMS);
+  const discItems = DISCERNMENT_ORDER;
   discItems.forEach((item, idx) => {
     const screenNum = 10 + idx;
     const div = document.createElement('div');
@@ -1405,7 +1489,8 @@ function generateConjointScreens() {
 function generateOpinionScreens() {
   const container = document.querySelector('.container');
   const refScreen = document.getElementById('screen-33');
-  OPINION_PAIRS.forEach((pair, idx) => {
+  if (!OPINION_PAIRS_ORDER) OPINION_PAIRS_ORDER = shuffle([...OPINION_PAIRS]);
+  OPINION_PAIRS_ORDER.forEach((pair, idx) => {
     const screenNum = 29 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
@@ -1433,6 +1518,86 @@ function generateOpinionScreens() {
         </div>
       </div>`;
     container.insertBefore(div, refScreen);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// PAUSE / RESUME  (localStorage, 6-digit PIN)
+// ═══════════════════════════════════════════════════════
+function pauseSurvey() {
+  const pin = String(Math.floor(100000 + Math.random() * 900000));
+  const state = {
+    v: 1,
+    ts: Date.now(),
+    screen: currentScreen,
+    responses: Object.assign({}, responses),
+    conjointTasks: CONJOINT_TASKS,
+    discernmentOrder: DISCERNMENT_ORDER,
+    opinionOrder: OPINION_PAIRS_ORDER
+  };
+  try {
+    localStorage.setItem('bahiasv_' + pin, JSON.stringify(state));
+  } catch(e) {
+    alert('Não foi possível salvar neste dispositivo.');
+    return;
+  }
+  document.getElementById('pause-pin-display').textContent = pin;
+  document.getElementById('pause-modal').style.display = 'flex';
+}
+
+function resumeSurvey() {
+  const pin = document.getElementById('resume-pin-input').value.replace(/\D/g, '').trim();
+  const errorEl = document.getElementById('resume-error');
+  errorEl.style.display = 'none';
+
+  const raw = localStorage.getItem('bahiasv_' + pin);
+  if (!raw) { errorEl.style.display = 'block'; return; }
+
+  let state;
+  try { state = JSON.parse(raw); } catch(e) { errorEl.style.display = 'block'; return; }
+
+  // Restore survey state
+  Object.assign(responses, state.responses);
+  CONJOINT_TASKS      = state.conjointTasks;
+  DISCERNMENT_ORDER   = state.discernmentOrder;
+  OPINION_PAIRS_ORDER = state.opinionOrder;
+
+  // Re-generate dynamic screens using the saved randomization order
+  generateDiscernmentScreens();
+  generateConjointScreens();
+  generateOpinionScreens();
+  randomizeOptions();
+
+  // Navigate to the saved screen
+  goTo(state.screen);
+
+  // Re-populate any visible form elements from saved responses
+  requestAnimationFrame(restoreFormState);
+}
+
+function restoreFormState() {
+  Object.entries(responses).forEach(([k, v]) => {
+    if (v === null || v === undefined || v === '') return;
+    // Checkbox array
+    if (Array.isArray(v)) {
+      v.forEach(val => {
+        const el = document.querySelector(`input[type="checkbox"][name="${k}"][value="${val}"]`);
+        if (el) { el.checked = true; el.closest('.opt')?.classList.add('selected'); }
+      });
+      return;
+    }
+    // Radio
+    const radio = document.querySelector(`input[type="radio"][name="${k}"][value="${String(v)}"]`);
+    if (radio) { radio.checked = true; radio.closest('.opt')?.classList.add('selected'); return; }
+    // Range slider
+    const range = document.querySelector(`input[type="range"][name="${k}"]`);
+    if (range) { range.value = v; range.dispatchEvent(new Event('input')); return; }
+    // Select
+    const sel = document.querySelector(`select[name="${k}"]`);
+    if (sel) { sel.value = v; return; }
+    // Textarea
+    const ta = document.querySelector(`textarea[name="${k}"]`);
+    if (ta) { ta.value = v; }
   });
 }
 
@@ -1486,6 +1651,8 @@ function goTo(n) {
     updateProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateDiscernmentDots(n);
+    // Show Pausar button once the survey is in progress (screen 2+)
+    document.getElementById('pause-btn').style.display = n >= 2 ? 'inline-flex' : 'none';
   }
 }
 

@@ -1279,7 +1279,7 @@ function onTeacherChange() {
   const allStudents = [...new Set(
     teacher.schools.flatMap(s => s.students)
   )].sort();
-  populateStudents(allStudents, studentSelect);
+  fillStudentSelect(allStudents, studentSelect);
   blockStudent.style.display = 'block';
 
   if (teacher.schools.length === 1) {
@@ -1309,7 +1309,7 @@ function onSchoolChange() {
   checkIdentifiers();
 }
 
-function populateStudents(students, selectEl) {
+function fillStudentSelect(students, selectEl) {
   students.forEach(name => {
     const opt = document.createElement('option');
     opt.value = name;

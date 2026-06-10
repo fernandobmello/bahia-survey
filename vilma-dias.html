@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pesquisa – Grupo de Controle</title>
+<title>Pesquisa – Grupo de Tratamento</title>
 <style>
   :root {
     --primary: #1a56db;
@@ -459,7 +459,7 @@
 <!-- HEADER -->
 <div class="survey-header">
   <h1>📋 Pesquisa sobre Mídia e Informação</h1>
-  <div class="section-label" id="section-label">Seção 1 de 5</div>
+  <div class="section-label" id="section-label">Seção 1 de 6</div>
   <button id="pause-btn" onclick="pauseSurvey()">⏸ Pausar</button>
   <div class="progress-bar-wrap">
     <div class="progress-bar-track">
@@ -587,9 +587,65 @@
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
-     SCREEN 3 — SECTION B (DL5–DL8)
+     SCREEN 2 — SECTION A
 ══════════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-2">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Quantas sessões do programa na sua escola você frequentou?</div>
+      <div class="options" id="q-a1">
+        <label class="opt"><input type="radio" name="a1" value="6"><label>Todas as seis</label></label>
+        <label class="opt"><input type="radio" name="a1" value="5"><label>Cinco</label></label>
+        <label class="opt"><input type="radio" name="a1" value="4"><label>Quatro</label></label>
+        <label class="opt"><input type="radio" name="a1" value="3"><label>Três</label></label>
+        <label class="opt"><input type="radio" name="a1" value="2"><label>Duas</label></label>
+        <label class="opt"><input type="radio" name="a1" value="1"><label>Uma</label></label>
+        <label class="opt"><input type="radio" name="a1" value="0"><label>Nenhuma</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-a2" style="display:none;">
+      <div class="question-text">Por que você não conseguiu participar de todas as sessões?</div>
+      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
+      <div class="options" id="q-a2">
+        <label class="opt"><input type="checkbox" name="a2" value="1"><label>O local ou horário da escola era inconveniente</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="2"><label>Eu tinha outras obrigações escolares (ex.: aulas de reforço)</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="3"><label>Eu tinha outras obrigações em casa (ex.: trabalho, tarefas domésticas)</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="4"><label>Eu não estava interessado(a) no conteúdo</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="5"><label>Eu não fui informado(a) sobre as sessões</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="6"><label>Outro</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Você recebeu algum material impresso das aulas? Se sim, como?</div>
+      <div class="options" id="q-a3">
+        <label class="opt"><input type="radio" name="a3" value="1"><label>Sim, o professor distribuiu na aula</label></label>
+        <label class="opt"><input type="radio" name="a3" value="2"><label>Sim, outro estudante me entregou</label></label>
+        <label class="opt"><input type="radio" name="a3" value="3"><label>Não recebi nenhum material impresso</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Pensando nas sessões que você frequentou, qual foi o principal tema ensinado?</div>
+      <div class="options" id="q-a4">
+        <label class="opt"><input type="radio" name="a4" value="1"><label>Como consumir informação de forma responsável</label></label>
+        <label class="opt"><input type="radio" name="a4" value="2"><label>Inglês conversacional</label></label>
+        <label class="opt"><input type="radio" name="a4" value="3"><label>Física básica</label></label>
+        <label class="opt"><input type="radio" name="a4" value="4"><label>Eleições</label></label>
+        <label class="opt"><input type="radio" name="a4" value="5"><label>Como interagir com outras pessoas</label></label>
+        <label class="opt"><input type="radio" name="a4" value="6"><label>Não sei</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-a">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['a1','a3','a4'], 'alert-a', 3)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 3 — SECTION B (DL5–DL8)
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-3">
   <div class="card">
 
     <div class="question-block">
@@ -646,8 +702,8 @@
 
     <div class="alert" id="alert-b1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['dl5','dl6','dl7','dl8'], 'alert-b1', 3)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['dl5','dl6','dl7','dl8'], 'alert-b1', 4)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -655,7 +711,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 4 — M1 + M7
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-3">
+<div class="screen" id="screen-4">
   <div class="card">
 
     <div class="question-block">
@@ -695,8 +751,8 @@
 
     <div class="alert" id="alert-m">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateM1M7(4)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateM1M7(5)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -704,7 +760,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 5 — T1, T2, P1
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-4">
+<div class="screen" id="screen-5">
   <div class="card">
 
     <div class="question-block">
@@ -745,8 +801,8 @@
 
     <div class="alert" id="alert-b2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['t1','t2','p1'], 'alert-b2', 5)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['t1','t2','p1'], 'alert-b2', 6)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -754,7 +810,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 6 — SECTION C (B1–B4)
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-5">
+<div class="screen" id="screen-6">
   <div class="card">
 
     <div class="question-block">
@@ -808,8 +864,8 @@
 
     <div class="alert" id="alert-c1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['b1','b2','b3','b4'], 'alert-c1', 6)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['b1','b2','b3','b4'], 'alert-c1', 7)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -817,7 +873,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 7 — B5–B10
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-6">
+<div class="screen" id="screen-7">
   <div class="card">
     <div class="question-subtext" style="margin-bottom:20px;">Para cada afirmação abaixo, indique o quanto você concorda ou discorda.</div>
 
@@ -908,8 +964,8 @@
 
     <div class="alert" id="alert-c2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSectionD(6, 7)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSectionD(7, 8)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -917,7 +973,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 8 — ATTENTION CHECK 1
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-7">
+<div class="screen" id="screen-8">
   <div class="card">
     <div class="question-block">
       <div class="question-text">As pessoas gostam de diferentes tipos de conteúdo online. Nesta pergunta, pedimos que você selecione <strong>"Notícias e acontecimentos atuais"</strong>, independentemente da sua preferência real, para confirmar que está lendo as instruções.</div>
@@ -931,8 +987,8 @@
     </div>
     <div class="alert" id="alert-att1">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 8)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 9)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -940,7 +996,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 9 — SECTION D INTRO
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-8">
+<div class="screen" id="screen-9">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">🔍</div>
     <div class="intro-title">Seção D — Discernimento</div>
@@ -951,8 +1007,8 @@
       Não há penalidades por respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(9)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(8)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(10)">Começar →</button>
     </div>
   </div>
 </div>
@@ -964,7 +1020,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 22 — CONJOINT INTRO
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-21">
+<div class="screen" id="screen-22">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">💬</div>
     <div class="intro-title">Tarefa — Mensagens do WhatsApp</div>
@@ -976,8 +1032,8 @@
       Estamos interessados em suas reações honestas às mensagens que você vê.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(20)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(22)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(21)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(23)">Começar →</button>
     </div>
   </div>
 </div>
@@ -989,7 +1045,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 28 — OPINION INTRO
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-27">
+<div class="screen" id="screen-28">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📰</div>
     <div class="intro-title">Jornalismo Informativo vs. de Opinião</div>
@@ -998,8 +1054,8 @@
       Em cada caso, identifique aquele com maior probabilidade de fornecer <strong>informação objetiva e detalhada</strong> sobre os fatos do assunto.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(26)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(28)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(27)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(29)">Começar →</button>
     </div>
   </div>
 </div>
@@ -1011,7 +1067,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 33 — ATTENTION CHECK 2
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-32">
+<div class="screen" id="screen-33">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Queremos ter certeza de que você está lendo com atenção. Apenas neste item, por favor selecione a opção <strong>"Discordo totalmente"</strong>.</div>
@@ -1024,8 +1080,8 @@
     </div>
     <div class="alert" id="alert-att2">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(31)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 33)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(32)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 34)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1033,7 +1089,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 34 — CTFC1
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-33">
+<div class="screen" id="screen-34">
   <div class="card">
 
     <div class="question-block">
@@ -1057,8 +1113,8 @@
 
     <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(32)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateCTFC1(34)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(33)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(35)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1066,7 +1122,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SCREEN 35 — THANK YOU
 ══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-34">
+<div class="screen" id="screen-35">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
@@ -1091,45 +1147,73 @@
 
 const TEACHERS_DATA = [
 {
-"nte": "NTE 11 - Barreiras",
-"name": "JÉSSICA DOS SANTOS SAMPAIO",
+"nte": "NTE 22 - Jequié",
+"name": "VILMA SOLANGE DOS SANTOS DIAS",
 "schools": [
-{"name": " COLEGIO ESTADUAL DE TEMPO INTEGRAL MARIA OTILIA LUTZ", "students": [
-"ANNA CLARA BETTI FERNANDES",
-"ANNY KETHELLEY DA CRUZ SILVA",
-"ANY GRASIELLY NUNES SOUZA",
-"BRUNNA CAVALCANTE SANTOS",
-"CAMILY DA SILVA BATISTA",
-"DEBORAH RAQUEL GONCALVES DE OLIVEIRA",
-"DHENIFFER DAIANA MACEDO DA SILVA",
-"EMANUELLY JESUS DA SILVA",
-"ENZO DE FREITAS MOREIRA",
-"GRAZIELLY BARBOSA DE MATOS",
-"GUILHERME MANTOVANI REIS",
-"JAN HENRY DOURADO BASTOS",
-"JESSICA DAMACENO DE ALMEIDA",
-"JHEYNE SUZAN FERREIRA SANTOS",
-"JHONATA DE MOURA MACEDO",
-"JOABE GUIMARAES DE SOUZA JUNIOR",
-"JOANNA CAROLINI BARBOSA DOS SANTOS",
-"JOAO MARTINS RODRIGUES RAMOS",
-"JOSE APARECIDO DE SOUZA DA SILVA",
-"JULIA ARAUJO TOTOLA",
-"JULIA NUNES MEDEIROS",
-"JULIO ALVES MARTINS",
-"KARINE CUNHA MATOS",
-"KAUAN SCHOMMER NICOLI",
-"LOHANNY GOMES BARBOSA",
-"LUCAS NANDERSON FERNANDES DE OLIVERA",
-"LUNA RAMALHO LIESENFELD",
-"MANUELLA PEREIRA ARAUJO AZEVEDO",
-"MARIA EDUARDA SANTIAGO CIUPKA",
-"MONIQUE REBEKA ARAUJO COSTA",
-"NADDYA MELISSA BONIFACIO SILVA",
-"PAULO VITOR NASCIMENTO RIBEIRO DA SILVA",
-"RAQUELY SILVA ALVES",
-"RONNALD MORAIS DOS SANTOS",
-"THAYS RAMOS MOTA"
+{"name": "COLEGIO ESTADUAL GILDA RAMOS DOS SANTOS", "students": [
+"ADAILTON RAMOS SOARES",
+"ALANA GABRIELLA CRUZ DOS SANTOS",
+"ALICE DE JESUS SANTIAGO",
+"ALISSA VITORIA SANTANA DIAS",
+"ANA BEATRIZ ARCANJO DOS SANTOS",
+"BARBARA SILVA CARVALHO",
+"CAROL SANTOS DE SOUZA",
+"CASSIELE SANTANA DE SOUZA",
+"CAYLA SANTOS DA CRUZ",
+"CLARA SANTANA MOREIRA",
+"CLARA SANTOS",
+"EDUARDO BRITO QUERINO",
+"EDUARDO DE JESUS SILVA",
+"ELOA SANTOS DE OLIVEIRA",
+"ELOYSA GONCALVES NASCIMENTO",
+"EMANUEL OLIVEIRA DE SANTANA",
+"EMERSON SANTOS BATISTA",
+"EMILY SENA SANTOS",
+"ESTEFANY DE JESUS DIAS",
+"EVELLYN VICTORIA ALVES DA SILVA",
+"FABIANO GOMES PEIXOTO",
+"FLAVIA HILDA SANTOS ROCHA",
+"GEOVANA APOSTOLO DO NASCIMENTO",
+"GUSTAVO SANTOS DE JESUS",
+"HERCULES DO CARMO COSTA",
+"IRYS DA SILVA MARCELO",
+"JAIRLAN JESUS SANTOS",
+"JEFERSON DE JESUS SANTOS",
+"JESSICA MIRANDA MENDES",
+"JHENNY SEYLLEN BATISTA SAMPAIO",
+"JONILSON EVANGELISTA",
+"JUCIETE OLIVEIRA DE SOUZA EVANGELISTA",
+"KELVY DOS SANTOS CALIXTO ALVES",
+"LARAH JAINE",
+"LARAH JAINE SILVA BASTOS",
+"LORRANE MARINHO DA SILVA",
+"LUAN DE ARAUJO SANTOS",
+"LUARA KAINNY COSTA SANTOS",
+"MARCOS ANTONIO XAVIER DOS SANTOS",
+"MARIA CLARA SANTOS OLIVEIRA",
+"MARIA FERNANDA DE OLIVEIRA CRUZ",
+"MARIA ISABEL FERREIRA DE JESUS",
+"MARINA SOUZA DA SILVA",
+"MARLY MENDES OLIVEIRA",
+"MATHEUS HENRIQUI CARDOSO ALVES DA SILVA",
+"MAURINA JESUS SANTOS",
+"NATIELE DE JESUS SANTOS",
+"PABLO RIBEIRO ALVES",
+"PHEROLLA XAVIER BARRETO",
+"RAFAEL SANTOS SILVA",
+"RAFAELA SILVA SOUZA",
+"RAI JESUS DAMACENA",
+"RAKEL CLIMENE LINHARES FLOZINI PEREIRA",
+"RENATA SILVA OLIVEIRA",
+"ROSINEIDE VIEIRA GOMES",
+"RUAN ALBERTINO OLIVEIRA",
+"TELISVAN OLIVEIRA GONZAGA",
+"THAISSA SANTOS DE FRANCA",
+"VAGNER SOUZA DOS SANTOS",
+"VICENTE ALFREDO SOARES DOS SANTOS",
+"VITORIA PEREIRA BORGES ARAUJO",
+"YASMIN SANTOS DA SILVA",
+"YVILI OLIVEIRA FELIX"
 ]}
 ]
 }
@@ -1224,7 +1308,7 @@ let CONJOINT_TASKS;  // assigned on name confirmation, not at page load
 // STATE
 // ═══════════════════════════════════════════════════════
 let currentScreen = 0;
-const TOTAL_SCREENS = 35;
+const TOTAL_SCREENS = 36;
 const responses = {};
 let DISCERNMENT_ORDER  = null;   // shuffled DISCERNMENT_ITEMS; saved for resume
 let OPINION_PAIRS_ORDER = null;  // shuffled OPINION_PAIRS; saved for resume
@@ -1373,11 +1457,11 @@ function populateM7() {
 
 function generateDiscernmentScreens() {
   const container = document.querySelector('.container');
-  const refScreen = document.getElementById('screen-21');
+  const refScreen = document.getElementById('screen-22');
   if (!DISCERNMENT_ORDER) DISCERNMENT_ORDER = shuffle(DISCERNMENT_ITEMS);
   const discItems = DISCERNMENT_ORDER;
   discItems.forEach((item, idx) => {
-    const screenNum = 9 + idx;
+    const screenNum = 10 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
     div.id = `screen-${screenNum}`;
@@ -1426,9 +1510,9 @@ function generateDiscernmentScreens() {
 
 function generateConjointScreens() {
   const container = document.querySelector('.container');
-  const refScreen = document.getElementById('screen-27');
+  const refScreen = document.getElementById('screen-28');
   CONJOINT_TASKS.forEach((task, idx) => {
-    const screenNum = 22 + idx;
+    const screenNum = 23 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
     div.id = `screen-${screenNum}`;
@@ -1460,10 +1544,10 @@ function generateConjointScreens() {
 
 function generateOpinionScreens() {
   const container = document.querySelector('.container');
-  const refScreen = document.getElementById('screen-32');
+  const refScreen = document.getElementById('screen-33');
   if (!OPINION_PAIRS_ORDER) OPINION_PAIRS_ORDER = shuffle([...OPINION_PAIRS]);
   OPINION_PAIRS_ORDER.forEach((pair, idx) => {
-    const screenNum = 28 + idx;
+    const screenNum = 29 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
     div.id = `screen-${screenNum}`;
@@ -1578,7 +1662,7 @@ function restoreFormState() {
 // ═══════════════════════════════════════════════════════
 // Shuffle answer options on load; pin "Não sei / Outro / Nenhuma" to bottom.
 function randomizeOptions() {
-  const groups = ['q-dl5','q-dl8','q-m1','q-b1','q-b2','q-b3','q-b4','q-b7','q-b10'];
+  const groups = ['q-a4','q-dl5','q-dl8','q-m1','q-b1','q-b2','q-b3','q-b4','q-b7','q-b10'];
   const lastPattern = /não sei|não quero|nenhuma|outro/i;
   groups.forEach(id => {
     const container = document.getElementById(id);
@@ -1606,11 +1690,12 @@ function randomizeOptions() {
 // 5: Discernimento & Tarefas (8–31)
 // 6: Pensamento Crítico & Encerramento (32–33)
 function getSectionLabel(n) {
-  if (n <= 1)  return 'Seção 1 de 5';  // Intro & Identifiers
-  if (n <= 4)  return 'Seção 2 de 5';  // Consumo de Mídia
-  if (n <= 6)  return 'Seção 3 de 5';  // Conhecimento
-  if (n <= 31) return 'Seção 4 de 5';  // Discernimento & Tarefas
-  return 'Seção 5 de 5';               // Pensamento Crítico
+  if (n <= 1)  return 'Seção 1 de 6';
+  if (n === 2) return 'Seção 2 de 6';
+  if (n <= 5)  return 'Seção 3 de 6';
+  if (n <= 7)  return 'Seção 4 de 6';
+  if (n <= 33) return 'Seção 5 de 6';
+  return 'Seção 6 de 6';
 }
 
 function goTo(n) {
@@ -1635,8 +1720,8 @@ function updateProgress() {
 }
 
 function updateDiscernmentDots(n) {
-  if (n >= 9 && n <= 20) {
-    const idx = n - 9;
+  if (n >= 10 && n <= 21) {
+    const idx = n - 10;
     for (let task = 0; task < 12; task++) {
       for (let dot = 0; dot < 12; dot++) {
         const el = document.getElementById(`disc-dot-${task}-${dot}`);

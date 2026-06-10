@@ -1220,7 +1220,7 @@ function pickConjointTasks() {
   });
 }
 
-const CONJOINT_TASKS = pickConjointTasks();
+let CONJOINT_TASKS;  // assigned on name confirmation, not at page load
 
 // ═══════════════════════════════════════════════════════
 // STATE
@@ -1235,12 +1235,11 @@ const responses = {};
 document.addEventListener('DOMContentLoaded', () => {
   populateStudents();
   populateM7();
-  generateDiscernmentScreens();
-  generateConjointScreens();
-  generateOpinionScreens();
   updateProgress();
   setupOptionListeners();
-  randomizeOptions();
+  // generateDiscernmentScreens / generateConjointScreens / generateOpinionScreens
+  // / randomizeOptions are called inside validateAndGoTo() so randomization
+  // is seeded from the moment the student confirms their identity, not page load.
 });
 
 function populateStudents() {
@@ -1742,6 +1741,12 @@ function validateAndGoTo(next, alertId, checkFn) {
   responses.student = sel === '__other__'
     ? document.getElementById('new-name-input').value.trim()
     : sel;
+  // ── Randomize NOW, tied to this specific student's confirmation ──
+  randomizeOptions();
+  CONJOINT_TASKS = pickConjointTasks();
+  generateDiscernmentScreens();
+  generateConjointScreens();
+  generateOpinionScreens();
   goTo(next);
 }
 

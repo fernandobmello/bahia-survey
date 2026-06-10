@@ -1297,16 +1297,21 @@ function onTeacherChange() {
 
   blockSchool.style.display = 'block';
 
+  // Always show ALL students for this teacher across every school,
+  // sorted alphabetically and deduplicated.
+  const allStudents = [...new Set(
+    teacher.schools.flatMap(s => s.students)
+  )].sort();
+  populateStudents(allStudents, studentSelect);
+  blockStudent.style.display = 'block';
+
   if (teacher.schools.length === 1) {
-    // Single school: show static label and populate students immediately
-    const school = teacher.schools[0];
-    schoolDisplay.textContent = school.name;
+    // Single school: auto-fill, no choice needed
+    schoolDisplay.textContent = teacher.schools[0].name;
     schoolDisplay.style.display = 'block';
-    document.getElementById('school-select').value = school.name;
-    populateStudents(school.students, studentSelect);
-    blockStudent.style.display = 'block';
+    document.getElementById('school-select').value = teacher.schools[0].name;
   } else {
-    // Multiple schools: show dropdown, wait for selection
+    // Multiple schools: show dropdown so student can identify their school
     teacher.schools.forEach(s => {
       const opt = document.createElement('option');
       opt.value = s.name;
@@ -1320,26 +1325,10 @@ function onTeacherChange() {
 }
 
 function onSchoolChange() {
-  const teacherName   = document.getElementById('teacher-select').value;
-  const schoolName    = document.getElementById('school-select-dropdown').value;
-  const studentSelect = document.getElementById('student-select');
-  const blockStudent  = document.getElementById('block-student');
-
-  studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
-  document.getElementById('new-name-wrap').style.display = 'none';
-  document.getElementById('school-select').value = '';
-
-  if (!schoolName) { blockStudent.style.display = 'none'; checkIdentifiers(); return; }
-
+  // School change only updates the hidden school-select value; student list
+  // is already fully populated and does not change.
+  const schoolName = document.getElementById('school-select-dropdown').value;
   document.getElementById('school-select').value = schoolName;
-
-  const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
-  if (!teacher) return;
-  const school = teacher.schools.find(s => s.name === schoolName);
-  if (!school) return;
-
-  populateStudents(school.students, studentSelect);
-  blockStudent.style.display = 'block';
   checkIdentifiers();
 }
 

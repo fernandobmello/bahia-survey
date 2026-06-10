@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links por Professor — Grupo Controle</title>
+<style>
+  *{box-sizing:border-box;}
+  body{font-family:system-ui,sans-serif;max-width:780px;margin:40px auto;
+       padding:0 16px;color:#1e293b;background:#f0f4f8;}
+  h1{color:#0f766e;font-size:1.35rem;margin-bottom:4px;}
+  .subtitle{color:#64748b;font-size:0.88rem;margin-bottom:24px;}
+  .search-wrap{margin-bottom:24px;}
+  #search{width:100%;padding:11px 16px;border:2px solid #cbd5e1;border-radius:10px;
+          font-size:0.95rem;outline:none;}
+  #search:focus{border-color:#0f766e;}
+  .nte-group{margin-bottom:20px;}
+  .nte-header{font-weight:700;font-size:0.82rem;text-transform:uppercase;
+              letter-spacing:.05em;color:#475569;padding:6px 0 8px;
+              border-bottom:2px solid #e2e8f0;margin-bottom:8px;}
+  .badge{display:inline-block;background:#f0fdfa;color:#0f766e;font-size:0.72rem;
+         font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px;
+         text-transform:none;letter-spacing:0;}
+  .teacher-card{display:flex;align-items:center;justify-content:space-between;
+                background:#fff;border-radius:10px;padding:10px 14px;
+                margin-bottom:6px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+  .teacher-name{font-weight:600;font-size:0.9rem;flex:1;}
+  .teacher-school{font-size:0.78rem;color:#64748b;flex:2;padding:0 12px;
+                  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .btn{background:#0f766e;color:#fff;border:none;padding:7px 14px;
+       border-radius:7px;font-size:0.82rem;cursor:pointer;
+       text-decoration:none;white-space:nowrap;}
+  .btn:hover{background:#0d6060;}
+  .hidden{display:none;}
+  #no-results{text-align:center;color:#94a3b8;padding:32px;display:none;}
+  .back{display:inline-block;margin-bottom:20px;font-size:0.85rem;
+        color:#0f766e;text-decoration:none;}
+  .back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← Voltar ao índice</a>
+<h1>🔗 Links por Professor — Grupo Controle</h1>
+<p class="subtitle">3 professores · pesquisável por nome, escola ou NTE</p>
+<div class="search-wrap">
+  <input id="search" type="search" placeholder="Buscar professor, escola ou NTE…"
+         oninput="filterTeachers()" autocomplete="off">
+</div>
+<div id="teacher-list">
+    <div class="nte-group" data-nte="NTE 26 - Salvador">
+    <div class="nte-header">NTE 26 - Salvador<span class="badge">3 professores</span></div>
+          <div class="teacher-card">
+            <div class="teacher-name">AILA HILARIO DE SOUZA</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA · COLEGIO ESTADUAL …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/aila-souza-2.html" target="_blank">Abrir →</a>
+          </div>
+          <div class="teacher-card">
+            <div class="teacher-name">DELOR GERBASE GRAMACHO</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - UNIDADE II CPM LOBATO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/delor-gramacho-2.html" target="_blank">Abrir →</a>
+          </div>
+          <div class="teacher-card">
+            <div class="teacher-name">RODRIGO BORGES TELES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO COPQUE ·  COLEGIO ESTADUAL PROFESSORA NADIR AR…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/rodrigo-teles-2.html" target="_blank">Abrir →</a>
+          </div>
+    </div>
+</div>
+<div id="no-results">Nenhum professor encontrado.</div>
+<script>
+function filterTeachers() {
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const groups = document.querySelectorAll(".nte-group");
+  let any = false;
+  groups.forEach(g => {
+    let hit = false;
+    g.querySelectorAll(".teacher-card").forEach(c => {
+      const show = !q || c.textContent.toLowerCase().includes(q);
+      c.classList.toggle("hidden", !show);
+      if (show) hit = true;
+    });
+    g.classList.toggle("hidden", !hit);
+    if (hit) any = true;
+  });
+  document.getElementById("no-results").style.display = any ? "none" : "block";
+}
+</script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Survey – Treatment Group</title>
+<title>Pesquisa – Grupo de Tratamento</title>
 <style>
   :root {
     --primary: #1a56db;
@@ -408,13 +408,13 @@
 
 <!-- HEADER -->
 <div class="survey-header">
-  <h1>📋 Media and Information Survey</h1>
-  <div class="section-label" id="section-label">Section 1 of 6</div>
+  <h1>📋 Pesquisa sobre Mídia e Informação</h1>
+  <div class="section-label" id="section-label">Seção 1 de 6</div>
   <div class="progress-bar-wrap">
     <div class="progress-bar-track">
       <div class="progress-bar-fill" id="progress-fill"></div>
     </div>
-    <div class="progress-label" id="progress-label">0 of 30</div>
+    <div class="progress-label" id="progress-label">0 de 30</div>
   </div>
 </div>
 
@@ -426,33 +426,33 @@
 <div class="screen active" id="screen-0">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📖</div>
-    <div class="intro-title">Hello! Welcome to the survey</div>
+    <div class="intro-title">Olá! Bem-vindo(a) à pesquisa</div>
     <div class="intro-sub">
-      We are researchers conducting a study on how young people use media and process information on various topics.<br><br>
-      The survey takes approximately <strong>35–40 minutes</strong>. There are no right or wrong answers — we only want your honest opinion.<br><br>
-      Your responses are <strong>completely confidential</strong> and will be used for research purposes only.
+      Somos pesquisadores realizando um estudo sobre como os jovens utilizam a mídia e processam informações sobre diversos temas.<br><br>
+      A pesquisa leva cerca de <strong>35–40 minutos</strong>. Não há respostas certas ou erradas — queremos apenas sua opinião honesta.<br><br>
+      Suas respostas são <strong>completamente confidenciais</strong> e serão usadas apenas para fins de pesquisa.
     </div>
     <div style="margin-bottom:20px;">
-      <span class="info-pill">⏱ 35–40 minutes</span>
-      <span class="info-pill">🔒 Confidential</span>
-      <span class="info-pill">📱 Please answer honestly</span>
+      <span class="info-pill">⏱ 35–40 minutos</span>
+      <span class="info-pill">🔒 Confidencial</span>
+      <span class="info-pill">📱 Responda com honestidade</span>
     </div>
-    <div class="question-text" style="margin-bottom:16px;">Do you agree to participate?</div>
+    <div class="question-text" style="margin-bottom:16px;">Você concorda em participar?</div>
     <div class="options" style="max-width:360px; margin:0 auto 20px;">
       <label class="opt" id="consent-yes">
         <input type="radio" name="consent" value="yes" onchange="enableNext('btn-consent')">
-        <label>✅ Yes, I agree to participate.</label>
+        <label>✅ Sim, concordo em participar.</label>
       </label>
       <label class="opt" id="consent-no" onclick="showNoConsent()">
         <input type="radio" name="consent" value="no">
-        <label>❌ No, I do not agree.</label>
+        <label>❌ Não, não concordo.</label>
       </label>
     </div>
     <div id="no-consent-msg" style="display:none; background:#fef2f2; border-radius:10px; padding:16px; color:#b91c1c; margin-bottom:16px;">
-      That's fine. Thank you for your time. You may close this page.
+      Tudo bem. Obrigado pelo seu tempo. Você pode fechar esta página.
     </div>
     <button class="btn btn-primary btn-lg" id="btn-consent" onclick="goTo(1)" disabled>
-      Begin the survey →
+      Começar a pesquisa →
     </button>
   </div>
 </div>
@@ -463,41 +463,44 @@
 <div class="screen" id="screen-1">
   <div class="card">
     <div class="question-block">
-      <div class="question-number">Your regional office (NTE)</div>
-      <div class="question-text">Select the NTE (Territorial Education Hub) of your school:</div>
+      <div class="question-number">Sua regional (NTE)</div>
+      <div class="question-text">Selecione o NTE (Núcleo Territorial de Educação) da sua escola:</div>
       <select id="nte-select" onchange="onNTEChange()">
-        <option value="">— Select your NTE —</option>
+        <option value="">— Selecione seu NTE —</option>
       </select>
     </div>
     <div class="question-block" id="block-teacher" style="display:none;">
-      <div class="question-number">Teacher confirmation</div>
-      <div class="question-text">Select your teacher's name:</div>
+      <div class="question-number">Confirmação do professor</div>
+      <div class="question-text">Selecione o nome do seu professor:</div>
       <select id="teacher-select" onchange="onTeacherChange()">
-        <option value="">— Select teacher —</option>
+        <option value="">— Selecione o professor —</option>
       </select>
     </div>
     <div class="question-block" id="block-school" style="display:none;">
-      <div class="question-number">Your school</div>
-      <div class="question-text">School:</div>
-      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500;"></div>
+      <div class="question-number">Sua escola</div>
+      <div class="question-text">Escola:</div>
+      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500; display:none;"></div>
+      <select id="school-select-dropdown" onchange="onSchoolChange()" style="display:none; width:100%; padding:12px 16px; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); background:#fff; cursor:pointer;">
+        <option value="">— Selecione sua escola —</option>
+      </select>
       <input type="hidden" id="school-select">
     </div>
     <div class="question-block" id="block-student" style="display:none;">
-      <div class="question-number">Your name</div>
-      <div class="question-text">Select your name from the list:</div>
-      <div class="question-subtext">If your name is not in the list, select "My name is not in the list".</div>
+      <div class="question-number">Seu nome</div>
+      <div class="question-text">Selecione seu nome na lista:</div>
+      <div class="question-subtext">Se seu nome não estiver na lista, selecione "Meu nome não está na lista".</div>
       <select id="student-select" onchange="onStudentChange()">
-        <option value="">— Select your name —</option>
+        <option value="">— Selecione seu nome —</option>
       </select>
       <div id="new-name-wrap" style="display:none; margin-top:12px;">
-        <label class="input-label">Enter your full name:</label>
-        <input type="text" id="new-name-input" placeholder="Full name" oninput="checkIdentifiers()">
+        <label class="input-label">Insira seu nome completo:</label>
+        <input type="text" id="new-name-input" placeholder="Nome completo" oninput="checkIdentifiers()">
       </div>
     </div>
-    <div class="alert" id="alert-id">Please fill in all fields above.</div>
+    <div class="alert" id="alert-id">Por favor, preencha todos os campos acima.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
-      <button class="btn btn-primary" onclick="validateAndGoTo(2, 'alert-id', checkIdentifiers)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(0)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAndGoTo(2, 'alert-id', checkIdentifiers)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -508,52 +511,52 @@
 <div class="screen" id="screen-2">
   <div class="card">
     <div class="question-block">
-      <div class="question-text">How many program sessions at your school did you attend?</div>
+      <div class="question-text">Quantas sessões do programa na sua escola você frequentou?</div>
       <div class="options" id="q-a1">
-        <label class="opt"><input type="radio" name="a1" value="6"><label>All six</label></label>
-        <label class="opt"><input type="radio" name="a1" value="5"><label>Five</label></label>
-        <label class="opt"><input type="radio" name="a1" value="4"><label>Four</label></label>
-        <label class="opt"><input type="radio" name="a1" value="3"><label>Three</label></label>
-        <label class="opt"><input type="radio" name="a1" value="2"><label>Two</label></label>
-        <label class="opt"><input type="radio" name="a1" value="1"><label>One</label></label>
-        <label class="opt"><input type="radio" name="a1" value="0"><label>None</label></label>
+        <label class="opt"><input type="radio" name="a1" value="6"><label>Todas as seis</label></label>
+        <label class="opt"><input type="radio" name="a1" value="5"><label>Cinco</label></label>
+        <label class="opt"><input type="radio" name="a1" value="4"><label>Quatro</label></label>
+        <label class="opt"><input type="radio" name="a1" value="3"><label>Três</label></label>
+        <label class="opt"><input type="radio" name="a1" value="2"><label>Duas</label></label>
+        <label class="opt"><input type="radio" name="a1" value="1"><label>Uma</label></label>
+        <label class="opt"><input type="radio" name="a1" value="0"><label>Nenhuma</label></label>
       </div>
     </div>
     <div class="question-block" id="block-a2" style="display:none;">
-      <div class="question-text">Why were you unable to attend all of the sessions?</div>
-      <div class="question-subtext">Select all that apply.</div>
+      <div class="question-text">Por que você não conseguiu participar de todas as sessões?</div>
+      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
       <div class="options" id="q-a2">
-        <label class="opt"><input type="checkbox" name="a2" value="1"><label>The school location or schedule was inconvenient</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="2"><label>I had other school obligations (e.g., tutoring classes)</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="3"><label>I had other obligations at home (e.g., work, household chores)</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="4"><label>I was not interested in the content</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="5"><label>I was not informed about the sessions</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="6"><label>Other</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="1"><label>O local ou horário da escola era inconveniente</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="2"><label>Eu tinha outras obrigações escolares (ex.: aulas de reforço)</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="3"><label>Eu tinha outras obrigações em casa (ex.: trabalho, tarefas domésticas)</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="4"><label>Eu não estava interessado(a) no conteúdo</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="5"><label>Eu não fui informado(a) sobre as sessões</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="6"><label>Outro</label></label>
       </div>
     </div>
     <div class="question-block">
-      <div class="question-text">Did you receive any printed materials from the classes? If so, how?</div>
+      <div class="question-text">Você recebeu algum material impresso das aulas? Se sim, como?</div>
       <div class="options" id="q-a3">
-        <label class="opt"><input type="radio" name="a3" value="1"><label>Yes, the teacher handed them out in class</label></label>
-        <label class="opt"><input type="radio" name="a3" value="2"><label>Yes, another student gave them to me</label></label>
-        <label class="opt"><input type="radio" name="a3" value="3"><label>I did not receive any printed materials</label></label>
+        <label class="opt"><input type="radio" name="a3" value="1"><label>Sim, o professor distribuiu na aula</label></label>
+        <label class="opt"><input type="radio" name="a3" value="2"><label>Sim, outro estudante me entregou</label></label>
+        <label class="opt"><input type="radio" name="a3" value="3"><label>Não recebi nenhum material impresso</label></label>
       </div>
     </div>
     <div class="question-block">
-      <div class="question-text">Thinking about the sessions you attended, what was the main topic taught?</div>
+      <div class="question-text">Pensando nas sessões que você frequentou, qual foi o principal tema ensinado?</div>
       <div class="options" id="q-a4">
-        <label class="opt"><input type="radio" name="a4" value="1"><label>How to consume information responsibly</label></label>
-        <label class="opt"><input type="radio" name="a4" value="2"><label>Conversational English</label></label>
-        <label class="opt"><input type="radio" name="a4" value="3"><label>Basic Physics</label></label>
-        <label class="opt"><input type="radio" name="a4" value="4"><label>Elections</label></label>
-        <label class="opt"><input type="radio" name="a4" value="5"><label>How to interact with other people</label></label>
-        <label class="opt"><input type="radio" name="a4" value="6"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="a4" value="1"><label>Como consumir informação de forma responsável</label></label>
+        <label class="opt"><input type="radio" name="a4" value="2"><label>Inglês conversacional</label></label>
+        <label class="opt"><input type="radio" name="a4" value="3"><label>Física básica</label></label>
+        <label class="opt"><input type="radio" name="a4" value="4"><label>Eleições</label></label>
+        <label class="opt"><input type="radio" name="a4" value="5"><label>Como interagir com outras pessoas</label></label>
+        <label class="opt"><input type="radio" name="a4" value="6"><label>Não sei</label></label>
       </div>
     </div>
-    <div class="alert" id="alert-a">Please answer all questions in this section.</div>
+    <div class="alert" id="alert-a">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
-      <button class="btn btn-primary" onclick="validateSection(['a1','a3','a4'], 'alert-a', 3)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['a1','a3','a4'], 'alert-a', 3)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -565,61 +568,61 @@
   <div class="card">
 
     <div class="question-block">
-      <div class="question-text">Thinking about the apps and platforms you use, what are the three main reasons you use them?</div>
-      <div class="question-subtext">Select up to 3 options.</div>
+      <div class="question-text">Pensando nos aplicativos e plataformas que você usa, quais são os três principais motivos pelos quais os utiliza?</div>
+      <div class="question-subtext">Selecione até 3 opções.</div>
       <div class="options" id="q-dl5">
-        <label class="opt"><input type="checkbox" name="dl5" value="a"><label>Communicate with friends and family</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="b"><label>Entertainment (music, videos, memes, etc.)</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="c"><label>Schoolwork or studying</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="d"><label>Get news and information about current events</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="e"><label>Follow politics or political content</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="f"><label>Buy or sell products</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="g"><label>Play games</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="h"><label>Create content (post photos, videos, etc.)</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="i"><label>Other</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="a"><label>Comunicar-me com amigos e familiares</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="b"><label>Entretenimento (música, vídeos, memes, etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="c"><label>Trabalhos escolares ou estudos</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="d"><label>Obter notícias e informações sobre eventos atuais</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="e"><label>Acompanhar política ou conteúdo político</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="f"><label>Comprar ou vender produtos</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="g"><label>Jogar</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="h"><label>Criar conteúdo (postar fotos, vídeos, etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="i"><label>Outro</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">On average, how many hours a day do you spend on social media or messaging apps?</div>
+      <div class="question-text">Em média, quantas horas por dia você passa em redes sociais ou aplicativos de mensagens?</div>
       <div class="options" id="q-dl6">
-        <label class="opt"><input type="radio" name="dl6" value="1"><label>Less than 1 hour</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="2"><label>1–2 hours</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="3"><label>3–4 hours</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="4"><label>5–6 hours</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="5"><label>More than 6 hours</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="1"><label>Menos de 1 hora</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="2"><label>1–2 horas</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="3"><label>3–4 horas</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="4"><label>5–6 horas</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="5"><label>Mais de 6 horas</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">How often do you use the internet specifically to look for news or information about politics and current events?</div>
+      <div class="question-text">Com que frequência você usa a internet especificamente para buscar notícias ou informações sobre política e eventos atuais?</div>
       <div class="options" id="q-dl7">
-        <label class="opt"><input type="radio" name="dl7" value="5"><label>Many times a day</label></label>
-        <label class="opt"><input type="radio" name="dl7" value="4"><label>Once or twice a day</label></label>
-        <label class="opt"><input type="radio" name="dl7" value="3"><label>A few times a week</label></label>
-        <label class="opt"><input type="radio" name="dl7" value="2"><label>Once a week or less</label></label>
-        <label class="opt"><input type="radio" name="dl7" value="1"><label>Never</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="5"><label>Muitas vezes por dia</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="4"><label>Uma ou duas vezes por dia</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="3"><label>Algumas vezes por semana</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="2"><label>Uma vez por semana ou menos</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="1"><label>Nunca</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">Have you ever performed any of the following online activities?</div>
-      <div class="question-subtext">Select all that apply.</div>
+      <div class="question-text">Você já realizou alguma das seguintes atividades online?</div>
+      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
       <div class="options" id="q-dl8">
-        <label class="opt"><input type="checkbox" name="dl8" value="a"><label>I searched for information to check whether a piece of news is true</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="b"><label>I accessed a fact-checking website (e.g., Aos Fatos, Agência Lupa, AFP Fact Check)</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="c"><label>I reported false or misleading content on a platform</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="d"><label>I used reverse image search to verify authenticity</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="e"><label>I researched the ownership or funding of a news outlet</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="f"><label>I shared a news item or political content with friends or family</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="g"><label>None of the above</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="a"><label>Busquei informações para verificar se uma notícia é verdadeira</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="b"><label>Acessei um site de verificação de fatos (ex.: Aos Fatos, Agência Lupa, AFP Fact Check)</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="c"><label>Denunciei conteúdo falso ou enganoso em uma plataforma</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="d"><label>Usei pesquisa reversa de imagens para verificar autenticidade</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="e"><label>Pesquisei a propriedade ou financiamento de um veículo de comunicação</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="f"><label>Compartilhei uma notícia ou conteúdo político com amigos ou familiares</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="g"><label>Nenhuma das anteriores</label></label>
       </div>
     </div>
 
-    <div class="alert" id="alert-b1">Please answer all questions in this section.</div>
+    <div class="alert" id="alert-b1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
-      <button class="btn btn-primary" onclick="validateSection(['dl6','dl7'], 'alert-b1', 4)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['dl5','dl6','dl7','dl8'], 'alert-b1', 4)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -631,31 +634,31 @@
   <div class="card">
 
     <div class="question-block">
-      <div class="question-text">How do you usually get information about what is happening in the world?</div>
-      <div class="question-subtext">Select all that apply.</div>
+      <div class="question-text">Como você geralmente obtém informações sobre o que está acontecendo no mundo?</div>
+      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
       <div class="options" id="q-m1">
-        <label class="opt"><input type="checkbox" name="m1" value="a"><label>I read a print newspaper or magazine</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="b"><label>I watch TV news</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="c"><label>I listen to news on the radio</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="d"><label>I get news online through news websites or portals</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="e"><label>I get news through social media or messaging apps (WhatsApp, Instagram, TikTok, etc.)</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="f"><label>By talking with family members</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="g"><label>By talking with friends or acquaintances</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="h"><label>I don't usually follow the news</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="a"><label>Leio jornal ou revista impressa</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="b"><label>Assisto ao noticiário na TV</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="c"><label>Ouço notícias no rádio</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="d"><label>Obtenho notícias online por meio de sites ou portais de notícias</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="e"><label>Obtenho notícias por redes sociais ou aplicativos de mensagens (WhatsApp, Instagram, TikTok, etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="f"><label>Conversando com familiares</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="g"><label>Conversando com amigos ou conhecidos</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="h"><label>Normalmente não acompanho as notícias</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">For each of the following news outlets, indicate:</div>
-      <div class="question-subtext">(a) Have you heard of it? &nbsp; (b) Got news from it in the past month? &nbsp; (c) Consider it reliable?</div>
+      <div class="question-text">Para cada um dos seguintes veículos de comunicação, indique:</div>
+      <div class="question-subtext">(a) Você já ouviu falar? &nbsp; (b) Obteve notícias no último mês? &nbsp; (c) Considera fonte confiável?</div>
       <div style="overflow-x:auto;">
         <table class="grid-table" id="m7-table">
           <thead>
             <tr>
-              <th>Outlet</th>
-              <th>(a) Heard of it?</th>
-              <th>(b) Used in the past month?</th>
-              <th>(c) Reliable?</th>
+              <th>Veículo</th>
+              <th>(a) Conhece?</th>
+              <th>(b) Usou no último mês?</th>
+              <th>(c) Confiável?</th>
             </tr>
           </thead>
           <tbody>
@@ -665,9 +668,10 @@
       </div>
     </div>
 
+    <div class="alert" id="alert-m">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(5)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateM1M7(5)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -679,45 +683,45 @@
   <div class="card">
 
     <div class="question-block">
-      <div class="question-text">In general, how much do you trust the information provided by news media in Brazil?</div>
+      <div class="question-text">Em geral, o quanto você confia nas informações fornecidas pela mídia noticiosa no Brasil?</div>
       <div class="options" id="q-t1">
-        <label class="opt"><input type="radio" name="t1" value="5"><label>I trust it completely</label></label>
-        <label class="opt"><input type="radio" name="t1" value="4"><label>I somewhat trust it</label></label>
-        <label class="opt"><input type="radio" name="t1" value="3"><label>I neither trust nor distrust it</label></label>
-        <label class="opt"><input type="radio" name="t1" value="2"><label>I don't trust it much</label></label>
-        <label class="opt"><input type="radio" name="t1" value="1"><label>I don't trust it at all</label></label>
-        <label class="opt"><input type="radio" name="t1" value="0"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="t1" value="5"><label>Confio completamente</label></label>
+        <label class="opt"><input type="radio" name="t1" value="4"><label>Confio parcialmente</label></label>
+        <label class="opt"><input type="radio" name="t1" value="3"><label>Nem confio nem desconfio</label></label>
+        <label class="opt"><input type="radio" name="t1" value="2"><label>Não confio muito</label></label>
+        <label class="opt"><input type="radio" name="t1" value="1"><label>Não confio de jeito nenhum</label></label>
+        <label class="opt"><input type="radio" name="t1" value="0"><label>Não sei</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">And specifically when the news is about politics, how much do you trust it?</div>
+      <div class="question-text">E especificamente quando a notícia é sobre política, o quanto você confia nela?</div>
       <div class="options" id="q-t2">
-        <label class="opt"><input type="radio" name="t2" value="5"><label>I trust it completely</label></label>
-        <label class="opt"><input type="radio" name="t2" value="4"><label>I somewhat trust it</label></label>
-        <label class="opt"><input type="radio" name="t2" value="3"><label>I neither trust nor distrust it</label></label>
-        <label class="opt"><input type="radio" name="t2" value="2"><label>I don't trust it much</label></label>
-        <label class="opt"><input type="radio" name="t2" value="1"><label>I don't trust it at all</label></label>
-        <label class="opt"><input type="radio" name="t2" value="0"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="t2" value="5"><label>Confio completamente</label></label>
+        <label class="opt"><input type="radio" name="t2" value="4"><label>Confio parcialmente</label></label>
+        <label class="opt"><input type="radio" name="t2" value="3"><label>Nem confio nem desconfio</label></label>
+        <label class="opt"><input type="radio" name="t2" value="2"><label>Não confio muito</label></label>
+        <label class="opt"><input type="radio" name="t2" value="1"><label>Não confio de jeito nenhum</label></label>
+        <label class="opt"><input type="radio" name="t2" value="0"><label>Não sei</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">How interested are you in politics?</div>
+      <div class="question-text">O quanto você se interessa por política?</div>
       <div class="options" id="q-p1">
-        <label class="opt"><input type="radio" name="p1" value="5"><label>Extremely interested</label></label>
-        <label class="opt"><input type="radio" name="p1" value="4"><label>Very interested</label></label>
-        <label class="opt"><input type="radio" name="p1" value="3"><label>Moderately interested</label></label>
-        <label class="opt"><input type="radio" name="p1" value="2"><label>Slightly interested</label></label>
-        <label class="opt"><input type="radio" name="p1" value="1"><label>Not at all interested</label></label>
-        <label class="opt"><input type="radio" name="p1" value="0"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="p1" value="5"><label>Extremamente interessado(a)</label></label>
+        <label class="opt"><input type="radio" name="p1" value="4"><label>Muito interessado(a)</label></label>
+        <label class="opt"><input type="radio" name="p1" value="3"><label>Moderadamente interessado(a)</label></label>
+        <label class="opt"><input type="radio" name="p1" value="2"><label>Levemente interessado(a)</label></label>
+        <label class="opt"><input type="radio" name="p1" value="1"><label>Sem nenhum interesse</label></label>
+        <label class="opt"><input type="radio" name="p1" value="0"><label>Não sei</label></label>
       </div>
     </div>
 
-    <div class="alert" id="alert-b2">Please answer all questions in this section.</div>
+    <div class="alert" id="alert-b2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
-      <button class="btn btn-primary" onclick="validateSection(['t1','t2','p1'], 'alert-b2', 6)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['t1','t2','p1'], 'alert-b2', 6)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -729,58 +733,58 @@
   <div class="card">
 
     <div class="question-block">
-      <div class="question-text">What is the main difference between <em>misinformation</em> and <em>disinformation</em>?</div>
+      <div class="question-text">Qual é a principal diferença entre <em>desinformação (misinformation)</em> e <em>informação falsa intencional (disinformation)</em>?</div>
       <div class="options" id="q-b1">
-        <label class="opt"><input type="radio" name="b1" value="a"><label>The sender's intent</label></label>
-        <label class="opt"><input type="radio" name="b1" value="b"><label>The sender's political ideology</label></label>
-        <label class="opt"><input type="radio" name="b1" value="c"><label>One is true and the other is false</label></label>
-        <label class="opt"><input type="radio" name="b1" value="d"><label>They are the same thing</label></label>
-        <label class="opt"><input type="radio" name="b1" value="e"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="b1" value="a"><label>A intenção do emissor</label></label>
+        <label class="opt"><input type="radio" name="b1" value="b"><label>A ideologia política do emissor</label></label>
+        <label class="opt"><input type="radio" name="b1" value="c"><label>Uma é verdadeira e a outra é falsa</label></label>
+        <label class="opt"><input type="radio" name="b1" value="d"><label>São a mesma coisa</label></label>
+        <label class="opt"><input type="radio" name="b1" value="e"><label>Não sei</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">At what main levels can misinformation cause harmful effects?</div>
+      <div class="question-text">Em quais principais níveis a desinformação pode causar efeitos prejudiciais?</div>
       <div class="options" id="q-b2">
-        <label class="opt"><input type="radio" name="b2" value="a"><label>Individual, community and democratic</label></label>
-        <label class="opt"><input type="radio" name="b2" value="b"><label>Daily, weekly and monthly</label></label>
-        <label class="opt"><input type="radio" name="b2" value="c"><label>Brazil, India and the United States</label></label>
-        <label class="opt"><input type="radio" name="b2" value="d"><label>Candidates, voters and judges</label></label>
-        <label class="opt"><input type="radio" name="b2" value="e"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="b2" value="a"><label>Individual, comunitário e democrático</label></label>
+        <label class="opt"><input type="radio" name="b2" value="b"><label>Diário, semanal e mensal</label></label>
+        <label class="opt"><input type="radio" name="b2" value="c"><label>Brasil, Índia e Estados Unidos</label></label>
+        <label class="opt"><input type="radio" name="b2" value="d"><label>Candidatos, eleitores e juízes</label></label>
+        <label class="opt"><input type="radio" name="b2" value="e"><label>Não sei</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">What is the most common source of misinformation in Brazil?</div>
+      <div class="question-text">Qual é a fonte mais comum de desinformação no Brasil?</div>
       <div class="options" id="q-b3">
-        <label class="opt"><input type="radio" name="b3" value="a"><label>Family and friends sharing content online</label></label>
-        <label class="opt"><input type="radio" name="b3" value="b"><label>Politicians</label></label>
-        <label class="opt"><input type="radio" name="b3" value="c"><label>Professional companies</label></label>
-        <label class="opt"><input type="radio" name="b3" value="d"><label>International accounts</label></label>
-        <label class="opt"><input type="radio" name="b3" value="e"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="b3" value="a"><label>Familiares e amigos compartilhando conteúdo online</label></label>
+        <label class="opt"><input type="radio" name="b3" value="b"><label>Políticos</label></label>
+        <label class="opt"><input type="radio" name="b3" value="c"><label>Empresas profissionais</label></label>
+        <label class="opt"><input type="radio" name="b3" value="d"><label>Contas internacionais</label></label>
+        <label class="opt"><input type="radio" name="b3" value="e"><label>Não sei</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">In your opinion, what is the biggest problem facing young people in Brazil today?</div>
+      <div class="question-text">Na sua opinião, qual é o maior problema que os jovens do Brasil enfrentam hoje?</div>
       <div class="options" id="q-b4">
-        <label class="opt"><input type="radio" name="b4" value="a"><label>Misinformation and fake news</label></label>
-        <label class="opt"><input type="radio" name="b4" value="b"><label>Violence and crime</label></label>
-        <label class="opt"><input type="radio" name="b4" value="c"><label>Quality of education</label></label>
-        <label class="opt"><input type="radio" name="b4" value="d"><label>Lack of job and career opportunities</label></label>
-        <label class="opt"><input type="radio" name="b4" value="e"><label>Mental health problems (stress, anxiety, depression)</label></label>
-        <label class="opt"><input type="radio" name="b4" value="f"><label>Poverty and financial hardship</label></label>
-        <label class="opt"><input type="radio" name="b4" value="g"><label>Discrimination and prejudice</label></label>
-        <label class="opt"><input type="radio" name="b4" value="h"><label>Social media and online harms</label></label>
-        <label class="opt"><input type="radio" name="b4" value="i"><label>Political polarization and social division</label></label>
-        <label class="opt"><input type="radio" name="b4" value="j"><label>Other</label></label>
+        <label class="opt"><input type="radio" name="b4" value="a"><label>Desinformação e notícias falsas</label></label>
+        <label class="opt"><input type="radio" name="b4" value="b"><label>Violência e criminalidade</label></label>
+        <label class="opt"><input type="radio" name="b4" value="c"><label>Qualidade da educação</label></label>
+        <label class="opt"><input type="radio" name="b4" value="d"><label>Falta de oportunidades de emprego e carreira</label></label>
+        <label class="opt"><input type="radio" name="b4" value="e"><label>Problemas de saúde mental (estresse, ansiedade, depressão)</label></label>
+        <label class="opt"><input type="radio" name="b4" value="f"><label>Pobreza e dificuldades financeiras</label></label>
+        <label class="opt"><input type="radio" name="b4" value="g"><label>Discriminação e preconceito</label></label>
+        <label class="opt"><input type="radio" name="b4" value="h"><label>Redes sociais e danos online</label></label>
+        <label class="opt"><input type="radio" name="b4" value="i"><label>Polarização política e divisão social</label></label>
+        <label class="opt"><input type="radio" name="b4" value="j"><label>Outro</label></label>
       </div>
     </div>
 
-    <div class="alert" id="alert-c1">Please answer all questions in this section.</div>
+    <div class="alert" id="alert-c1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(5)">← Back</button>
-      <button class="btn btn-primary" onclick="validateSection(['b1','b2','b3','b4'], 'alert-c1', 7)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['b1','b2','b3','b4'], 'alert-c1', 7)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -790,13 +794,13 @@
 ══════════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-7">
   <div class="card">
-    <div class="question-subtext" style="margin-bottom:20px;">For each statement below, indicate how much you agree or disagree.</div>
+    <div class="question-subtext" style="margin-bottom:20px;">Para cada afirmação abaixo, indique o quanto você concorda ou discorda.</div>
 
     <div class="question-block">
-      <div class="question-text">News organizations choose stories based on what will attract the largest audience.</div>
+      <div class="question-text">As organizações noticiosas escolhem as histórias com base no que atrairá o maior público.</div>
       <div class="scale-wrap">
         <div class="scale-labels">
-          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
         </div>
         <div class="scale-buttons" id="scale-b5">
           <button class="scale-btn" onclick="setScale('b5',1,this)">1</button>
@@ -808,10 +812,10 @@
     </div>
 
     <div class="question-block">
-      <div class="question-text">Stories involving conflict and strong emotions are more likely to receive prominent news coverage.</div>
+      <div class="question-text">Histórias que envolvem conflito e emoções fortes têm mais chances de receber cobertura de destaque nas notícias.</div>
       <div class="scale-wrap">
         <div class="scale-labels">
-          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
         </div>
         <div class="scale-buttons" id="scale-b6">
           <button class="scale-btn" onclick="setScale('b6',1,this)">1</button>
@@ -823,24 +827,24 @@
     </div>
 
     <div class="question-block">
-      <div class="question-text">According to the class, which of the following psychological processes can make people more likely to believe misinformation?</div>
-      <div class="question-subtext">Select all that apply.</div>
+      <div class="question-text">De acordo com a aula, quais dos seguintes processos psicológicos podem tornar as pessoas mais propensas a acreditar em desinformação?</div>
+      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
       <div class="options" id="q-b7">
-        <label class="opt"><input type="checkbox" name="b7" value="a"><label>Confirmation bias</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="b"><label>Disconfirmation bias</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="c"><label>Motivated reasoning</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="d"><label>Critical thinking</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="e"><label>Fact-checking</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="f"><label>Media literacy</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="g"><label>I don't know</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="a"><label>Viés de confirmação</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="b"><label>Viés de desconfirmação</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="c"><label>Raciocínio motivado</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="d"><label>Pensamento crítico</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="e"><label>Verificação de fatos</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="f"><label>Letramento midiático</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="g"><label>Não sei</label></label>
       </div>
     </div>
 
     <div class="question-block">
-      <div class="question-text">People pay more attention to information that fits their existing beliefs than to information that challenges them.</div>
+      <div class="question-text">As pessoas prestam mais atenção a informações que se encaixam em suas crenças existentes do que a informações que as desafiam.</div>
       <div class="scale-wrap">
         <div class="scale-labels">
-          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
         </div>
         <div class="scale-buttons" id="scale-b8">
           <button class="scale-btn" onclick="setScale('b8',1,this)">1</button>
@@ -852,10 +856,10 @@
     </div>
 
     <div class="question-block">
-      <div class="question-text">Confirmation bias is one of the main reasons why people believe misinformation.</div>
+      <div class="question-text">O viés de confirmação é um dos principais motivos pelos quais as pessoas acreditam em desinformação.</div>
       <div class="scale-wrap">
         <div class="scale-labels">
-          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
         </div>
         <div class="scale-buttons" id="scale-b9">
           <button class="scale-btn" onclick="setScale('b9',1,this)">1</button>
@@ -867,20 +871,20 @@
     </div>
 
     <div class="question-block">
-      <div class="question-text">Which of the following best describes the P.I.E.R. protocol for evaluating online information?</div>
+      <div class="question-text">Qual das alternativas a seguir melhor descreve o protocolo P.I.E.R. para avaliar informações online?</div>
       <div class="options" id="q-b10">
-        <label class="opt"><input type="radio" name="b10" value="a"><label>Pause, Investigate the source, Find better coverage, Retrace claims to the original source</label></label>
-        <label class="opt"><input type="radio" name="b10" value="b"><label>Pause, Identify the author, Evaluate the evidence, Report misinformation</label></label>
-        <label class="opt"><input type="radio" name="b10" value="c"><label>Protect, Inform the author, Evaluate, Revise the source</label></label>
-        <label class="opt"><input type="radio" name="b10" value="d"><label>Pause, Investigate the source, Evaluate, Respond to the author</label></label>
-        <label class="opt"><input type="radio" name="b10" value="e"><label>I don't know</label></label>
+        <label class="opt"><input type="radio" name="b10" value="a"><label>Pausar, Investigar a fonte, Encontrar cobertura melhor, Rastrear alegações até a fonte original</label></label>
+        <label class="opt"><input type="radio" name="b10" value="b"><label>Pausar, Identificar o autor, Avaliar as evidências, Reportar desinformação</label></label>
+        <label class="opt"><input type="radio" name="b10" value="c"><label>Proteger, Informar o autor, Avaliar, Revisar a fonte</label></label>
+        <label class="opt"><input type="radio" name="b10" value="d"><label>Pausar, Investigar a fonte, Avaliar, Responder ao autor</label></label>
+        <label class="opt"><input type="radio" name="b10" value="e"><label>Não sei</label></label>
       </div>
     </div>
 
-    <div class="alert" id="alert-c2">Please answer all questions in this section.</div>
+    <div class="alert" id="alert-c2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(6)">← Back</button>
-      <button class="btn btn-primary" onclick="validateSectionD(7, 8)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSectionD(7, 8)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -891,19 +895,19 @@
 <div class="screen" id="screen-8">
   <div class="card">
     <div class="question-block">
-      <div class="question-text">People enjoy different types of online content. In this question, we ask you to select <strong>"News and current events"</strong>, regardless of your actual preference, to confirm that you are reading the instructions.</div>
+      <div class="question-text">As pessoas gostam de diferentes tipos de conteúdo online. Nesta pergunta, pedimos que você selecione <strong>"Notícias e acontecimentos atuais"</strong>, independentemente da sua preferência real, para confirmar que está lendo as instruções.</div>
       <div class="options" id="q-att1">
-        <label class="opt"><input type="radio" name="att1" value="a"><label>Music and entertainment</label></label>
-        <label class="opt"><input type="radio" name="att1" value="b"><label>Sports</label></label>
-        <label class="opt"><input type="radio" name="att1" value="c"><label>News and current events</label></label>
-        <label class="opt"><input type="radio" name="att1" value="d"><label>Games</label></label>
-        <label class="opt"><input type="radio" name="att1" value="e"><label>Humor and memes</label></label>
+        <label class="opt"><input type="radio" name="att1" value="a"><label>Música e entretenimento</label></label>
+        <label class="opt"><input type="radio" name="att1" value="b"><label>Esportes</label></label>
+        <label class="opt"><input type="radio" name="att1" value="c"><label>Notícias e acontecimentos atuais</label></label>
+        <label class="opt"><input type="radio" name="att1" value="d"><label>Jogos</label></label>
+        <label class="opt"><input type="radio" name="att1" value="e"><label>Humor e memes</label></label>
       </div>
     </div>
-    <div class="alert" id="alert-att1">Please select an option to continue.</div>
+    <div class="alert" id="alert-att1">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(7)">← Back</button>
-      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 9)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 9)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -914,16 +918,16 @@
 <div class="screen" id="screen-9">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">🔍</div>
-    <div class="intro-title">Section D — Discernment</div>
+    <div class="intro-title">Seção D — Discernimento</div>
     <div class="intro-sub">
-      We are now going to show you <strong>12 pieces of information</strong> that have recently circulated online.<br><br>
-      Some of these claims are <strong>true</strong>, while others are <strong>false</strong>.<br><br>
-      For each claim, indicate <strong>how accurate you think it is</strong>, based on your best judgment.<br><br>
-      There are no penalties for incorrect answers, and some claims may be difficult to evaluate.
+      Agora vamos mostrar a você <strong>12 informações</strong> que circularam recentemente online.<br><br>
+      Algumas dessas afirmações são <strong>verdadeiras</strong>, enquanto outras são <strong>falsas</strong>.<br><br>
+      Para cada afirmação, indique <strong>o quanto você acha que ela é precisa</strong>, com base em seu melhor julgamento.<br><br>
+      Não há penalidades por respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(8)">← Back</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(10)">Start →</button>
+      <button class="btn btn-secondary" onclick="goTo(8)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(10)">Começar →</button>
     </div>
   </div>
 </div>
@@ -938,17 +942,17 @@
 <div class="screen" id="screen-22">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">💬</div>
-    <div class="intro-title">Task — WhatsApp Messages</div>
+    <div class="intro-title">Tarefa — Mensagens do WhatsApp</div>
     <div class="intro-sub">
-      In the next section, you will see a series of <strong>WhatsApp conversations</strong>.<br><br>
-      In each task, two messages will be displayed side by side. The messages may differ in their content, source, number of reactions and other characteristics.<br><br>
-      <strong>Imagine that these messages appeared in a WhatsApp group you are part of.</strong><br><br>
-      After reading both messages, indicate which one you would be more likely to share with other people.<br><br>
-      We are interested in your honest reactions to the messages you see.
+      Na próxima seção, você verá uma série de <strong>conversas do WhatsApp</strong>.<br><br>
+      Em cada tarefa, duas mensagens serão exibidas lado a lado. As mensagens podem diferir em seu conteúdo, fonte, número de reações e outras características.<br><br>
+      <strong>Imagine que essas mensagens apareceram em um grupo de WhatsApp do qual você participa.</strong><br><br>
+      Após ler as duas mensagens, indique qual delas você teria mais probabilidade de compartilhar com outras pessoas.<br><br>
+      Estamos interessados em suas reações honestas às mensagens que você vê.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(21)">← Back</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(23)">Start →</button>
+      <button class="btn btn-secondary" onclick="goTo(21)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(23)">Começar →</button>
     </div>
   </div>
 </div>
@@ -963,14 +967,14 @@
 <div class="screen" id="screen-28">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📰</div>
-    <div class="intro-title">Informative vs. Opinion Journalism</div>
+    <div class="intro-title">Jornalismo Informativo vs. de Opinião</div>
     <div class="intro-sub">
-      In the next four screens, we will show you <strong>pairs of news articles</strong> that appeared on political issues or other recent topics.<br><br>
-      In each case, identify the one more likely to provide <strong>objective and detailed information</strong> about the facts of the matter.
+      Nas próximas quatro telas, mostraremos a você <strong>pares de artigos noticiosos</strong> que apareceram sobre questões políticas ou outros assuntos recentes.<br><br>
+      Em cada caso, identifique aquele com maior probabilidade de fornecer <strong>informação objetiva e detalhada</strong> sobre os fatos do assunto.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(27)">← Back</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(29)">Start →</button>
+      <button class="btn btn-secondary" onclick="goTo(27)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(29)">Começar →</button>
     </div>
   </div>
 </div>
@@ -985,18 +989,18 @@
 <div class="screen" id="screen-33">
   <div class="card">
     <div class="question-block">
-      <div class="question-text">We want to make sure you are reading carefully. For this item only, please select the option <strong>"Strongly disagree"</strong>.</div>
+      <div class="question-text">Queremos ter certeza de que você está lendo com atenção. Apenas neste item, por favor selecione a opção <strong>"Discordo totalmente"</strong>.</div>
       <div class="options" id="q-att2">
-        <label class="opt"><input type="radio" name="att2" value="4"><label>Strongly agree</label></label>
-        <label class="opt"><input type="radio" name="att2" value="3"><label>Somewhat agree</label></label>
-        <label class="opt"><input type="radio" name="att2" value="2"><label>Somewhat disagree</label></label>
-        <label class="opt"><input type="radio" name="att2" value="1"><label>Strongly disagree</label></label>
+        <label class="opt"><input type="radio" name="att2" value="4"><label>Concordo totalmente</label></label>
+        <label class="opt"><input type="radio" name="att2" value="3"><label>Concordo parcialmente</label></label>
+        <label class="opt"><input type="radio" name="att2" value="2"><label>Discordo parcialmente</label></label>
+        <label class="opt"><input type="radio" name="att2" value="1"><label>Discordo totalmente</label></label>
       </div>
     </div>
-    <div class="alert" id="alert-att2">Please select an option to continue.</div>
+    <div class="alert" id="alert-att2">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(32)">← Back</button>
-      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 34)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(32)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 34)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1008,27 +1012,28 @@
   <div class="card">
 
     <div class="question-block">
-      <div class="question-text">Please write three questions that readers should ask themselves to determine whether the claim made in a headline is correct or not.</div>
-      <div class="question-subtext">For example: "Who is the source of this information?"</div>
+      <div class="question-text">Por favor, escreva três perguntas que os leitores devem se fazer para determinar se a afirmação feita em uma manchete é correta ou não.</div>
+      <div class="question-subtext">Por exemplo: "Quem é a fonte desta informação?"</div>
       <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
         <div>
-          <label class="input-label">1st question:</label>
-          <textarea id="ctfc1-q1" placeholder="Write your first question..."></textarea>
+          <label class="input-label">1ª pergunta:</label>
+          <textarea id="ctfc1-q1" placeholder="Escreva sua primeira pergunta..."></textarea>
         </div>
         <div>
-          <label class="input-label">2nd question:</label>
-          <textarea id="ctfc1-q2" placeholder="Write your second question..."></textarea>
+          <label class="input-label">2ª pergunta:</label>
+          <textarea id="ctfc1-q2" placeholder="Escreva sua segunda pergunta..."></textarea>
         </div>
         <div>
-          <label class="input-label">3rd question:</label>
-          <textarea id="ctfc1-q3" placeholder="Write your third question..."></textarea>
+          <label class="input-label">3ª pergunta:</label>
+          <textarea id="ctfc1-q3" placeholder="Escreva sua terceira pergunta..."></textarea>
         </div>
       </div>
     </div>
 
+    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(33)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(35)">Next →</button>
+      <button class="btn btn-secondary" onclick="goTo(33)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(35)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1039,14 +1044,14 @@
 <div class="screen" id="screen-35">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
-    <div class="thanks-title">Thank you very much!</div>
+    <div class="thanks-title">Muito obrigado!</div>
     <div class="intro-sub">
-      You have completed the survey. Your responses have been successfully recorded.<br><br>
-      Your participation is very important for our research on media and information in Brazil.<br><br>
-      <strong>You may close this page.</strong>
+      Você concluiu a pesquisa. Suas respostas foram registradas com sucesso.<br><br>
+      Sua participação é muito importante para a nossa pesquisa sobre mídia e informação no Brasil.<br><br>
+      <strong>Você pode fechar esta página.</strong>
     </div>
     <div style="margin-top:24px; padding:20px; background:#f0fdf4; border-radius:10px; border:1px solid #bbf7d0;">
-      <div style="font-size:0.82rem; color:#166534; font-weight:600; margin-bottom:8px;">Summary of your responses:</div>
+      <div style="font-size:0.82rem; color:#166534; font-weight:600; margin-bottom:8px;">Resumo das suas respostas:</div>
       <div id="response-summary" style="font-size:0.78rem; color:#374151; text-align:left; max-height:300px; overflow-y:auto;"></div>
     </div>
   </div>
@@ -1063,8 +1068,14 @@ const TEACHERS_DATA = [
 {
 "nte": "NTE 01 - Irecê",
 "name": "ANA KARINE LOULA TORRES ROCHA",
-"school": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE",
-"students": [
+"schools": [
+{"name": "ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA", "students": [
+"FFSFWSF"
+]},
+{"name": "CENTRO TERRI.DE EDUC.PROFI.STA RITA DE CASSIA-CETEP STA RITA DE CASSIA", "students": [
+"ALISSON MATHEUS NUNES DA SILVA"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE", "students": [
 "A",
 "ADRIAN SANTANA SUNDARIO",
 "ALEXANDRE DOURADO DIAS",
@@ -1106,13 +1117,22 @@ const TEACHERS_DATA = [
 "SELLES WILLIAN ALVES ARAGAO RIBEIRO",
 "SUZY MIRANDA DOS SANTOS",
 "TYCIANE MACHADO DA SILVA"
+]},
+{"name": " CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE", "students": [
+"ANNY BEATRICE SLVES ARAUJO DOS SANTOS",
+"ARIANE ALVES DE SOUZA FREITAS",
+"SOFIA ATANASIO ALVES"
+]}
 ]
 },
 {
 "nte": "NTE 01 - Irecê",
 "name": "MARLON DE ARAUJO NASCIMENTO",
-"school": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE",
-"students": [
+"schools": [
+{"name": "CENTRO TERRI.DE EDUC.PROFI.STA RITA DE CASSIA-CETEP STA RITA DE CASSIA", "students": [
+"ANGELA ARAUJO DUARTE"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE", "students": [
 "CAROLAINE ALVES LEITE",
 "GABRIEL PAULINO DOS SANTOS OLIVEIRA",
 "ISA BEATRIZ SANTOS DE LIMA",
@@ -1125,13 +1145,17 @@ const TEACHERS_DATA = [
 "LUNA PEREIRA DIAS",
 "RAISSA DA CONCEICAO SILVA",
 "STEFANY ROCHA DA SILVA"
+]},
+{"name": "COLEGIO DA POLICIA MILITAR - CPM DONA LEONOR CALMON", "students": [
+"PIETRO EVANGELISTA FIAIS"
+]}
 ]
 },
 {
 "nte": "NTE 01 - Irecê",
 "name": "TERCIO DA RITA FEITOSA",
-"school": "CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO",
-"students": [
+"schools": [
+{"name": "CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO", "students": [
 "ANA LIVIA CARVALHO ROCHA",
 "ANNY KARINE BESSA LACERDA",
 "BRUNO DE CARVALHO ALMEIDA",
@@ -1155,13 +1179,14 @@ const TEACHERS_DATA = [
 "VANESSA FERREIRA DE JESUS",
 "WELTON DE SOUZA SANTANA",
 "YASMIN ROCHA FERREIRA"
+]}
 ]
 },
 {
 "nte": "NTE 02 - Bom Jesus da Lapa",
 "name": "ELIEL DE ARAUJO ANDRADE",
-"school": "COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA",
-"students": [
+"schools": [
+{"name": "COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA", "students": [
 "ANTHONY GABRIEL MORAIS",
 "ARTHUR LEITE PORTELA",
 "BRUNO DA SILVA SANTOS",
@@ -1193,13 +1218,20 @@ const TEACHERS_DATA = [
 "THIAGO CRUZ",
 "VINICIUS DA SILVA ALVES",
 "YASMIN OLIVEIRA FERREIRA"
+]},
+{"name": " COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA", "students": [
+"CALINY RODRIGUES DA CONCEICAO"
+]}
 ]
 },
 {
 "nte": "NTE 02 - Bom Jesus da Lapa",
 "name": "FABIO NOVAIS BARBOSA",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS",
-"students": [
+"schools": [
+{"name": "ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA", "students": [
+"FER"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
 "CAROLINE LOPES BATISTA",
 "CIBELE DE OLIVEIRA COSTA",
 "ELIELMA DA SILVA SANTOS",
@@ -1215,13 +1247,14 @@ const TEACHERS_DATA = [
 "PEDRO VITOR FERNANDES DA CONCEICAO",
 "VITORIA ANDRADE SANTOS",
 "VITORIA MIRELLE DA CONCEICAO ARQUINO"
+]}
 ]
 },
 {
 "nte": "NTE 02 - Bom Jesus da Lapa",
 "name": "MARIA HELENA DE ASSIS LARANJEIRA GOMES",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
 "ALANA GABRIELA DOS SANTOS DE SANTANA",
 "AMANDA BORGES DA SILVA",
 "ANA ROSA TEOBALDO PAES",
@@ -1242,13 +1275,30 @@ const TEACHERS_DATA = [
 "VITOR MANUEL COSTA SANTOS LIMA",
 "WADLEY DOURADOS DOS SANTOS",
 "YASMIN VICTORIA CORDEIRO DOS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLERISTON ANDRADE", "students": [
+"MARIA FERNANDA FERREIRA RODRIGUES"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE VILAS DE ABRANTES", "students": [
+"NATIELE PEREIRA DOS SANTOS"
+]},
+{"name": " COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
+"DIOGO SALES DE SOUZA",
+"LEVI ARAUJO DOS SANTOS",
+"LUIZ HENRIQUE SILVA NASCIMENTO",
+"MARIA EDUARDA MOREIRA SILVA",
+"MINIELY SANTOS TEIXEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 02 - Bom Jesus da Lapa",
 "name": "PRICILA FERNANDES BARBOSA DOS SANTOS",
-"school": "COLEGIO ESTADUAL MONSENHOR TURIBIO VILANOVA",
-"students": [
+"schools": [
+{"name": "ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA", "students": [
+"GEOVANA PEREIRA DE OLIVEIRA"
+]},
+{"name": "COLEGIO ESTADUAL MONSENHOR TURIBIO VILANOVA", "students": [
 "ADEILSO GONCALVES RIBEIRO",
 "ADILSON DOS SANTOS LIMA",
 "AIRTON GOMES DE BARROS",
@@ -1334,13 +1384,27 @@ const TEACHERS_DATA = [
 "UANDERSON DA SILVA OLIVEIRA",
 "VITOR HUGO DE JESUS COSTA",
 "VITORIA RODRIGUES DOURADO"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
+"MAURICIO DANIEL SANTOS LOPES"
+]},
+{"name": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO", "students": [
+"JAMILE RODRIGUES"
+]},
+{"name": " COLEGIO ESTADUAL MONSENHOR TURIBIO VILANOVA", "students": [
+"BRUNO SILVA DA ROCHA",
+"CARINE PEREIRA DOS SANTOS",
+"JOAO RODRIGUES",
+"JOAO VITOR LIMA DOS SANTOS",
+"NIVALDA MOREIRA DE JESUS"
+]}
 ]
 },
 {
 "nte": "NTE 02 - Bom Jesus da Lapa",
 "name": "THAIS SOUZA SILVA",
-"school": "COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA",
-"students": [
+"schools": [
+{"name": "COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA", "students": [
 "ANNE LYSS CARDOSO MAGALHAES",
 "ARIELE DOS ANJOS SANTOS",
 "BEATRIZ CANGIRANA DOS SANTOS",
@@ -1358,13 +1422,17 @@ const TEACHERS_DATA = [
 "STEFANY CAROLINE DE SOUZA FERNANDES",
 "VITOR SANTIAGO DO NASCIMENTO",
 "YASMIM PEREIRA BARBOSA"
+]},
+{"name": "COLEGIO MODELO LUIS EDUARDO MAGALHAES", "students": [
+"KAILA SALES REIS"
+]}
 ]
 },
 {
 "nte": "NTE 03 - Seabra",
 "name": "ANGELO RICCELL ARAUJO CARNEIRO PIOVISCHINI",
-"school": "CETISS - Colégio Estadual de Tempo Integral de Souto Soares",
-"students": [
+"schools": [
+{"name": "CETISS - Colégio Estadual de Tempo Integral de Souto Soares", "students": [
 "ALISSON CAUE FELIX",
 "GABRIEL RIBEIRO DE SOUZA",
 "IASMIM DOS ANJOS PAIVA",
@@ -1374,13 +1442,8 @@ const TEACHERS_DATA = [
 "MICAELE SANTOS ALVES",
 "MIZAEL ALVES DE SOUZA",
 "SOFIA KETHELEM"
-]
-},
-{
-"nte": "NTE 03 - Seabra",
-"name": "ANGELO RICCELL ARAUJO CARNEIRO PIOVISCHINI",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES",
-"students": [
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES", "students": [
 "ALANA KELLY GASPAR DE SOUZA",
 "ALINE NOVAIS FERNANDES",
 "ANA BELA FERREIRA GASPAR",
@@ -1423,13 +1486,17 @@ const TEACHERS_DATA = [
 "VITORIA ANDRADE FERREIRA",
 "VIVIAN MARCELE TELES ALMEIDA",
 "YASMIN RIBEIRO DOS SANTOS"
+]},
+{"name": " COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES", "students": [
+"GABRIELE SOUZA EVANGELISTA"
+]}
 ]
 },
 {
 "nte": "NTE 03 - Seabra",
 "name": "APARECIDA CONCEICAO NOVAIS ROCHA",
-"school": "COLEGIO ESTADUAL HORACIO DE MATOS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL HORACIO DE MATOS", "students": [
 "ADRIELE JESUS DAMACENA",
 "ALLEXANDRY CARVALHO SILVA",
 "ANA RAISSA LELIS MARQUES",
@@ -1487,26 +1554,28 @@ const TEACHERS_DATA = [
 "VINICIUS LIMA DA SILVA",
 "VITORIA EDUARDA SANTOS SILVA",
 "YAGO SOUZA DOS SANTOS"
+]},
+{"name": " COLEGIO ESTADUAL HORACIO DE MATOS", "students": [
+"IASMIM AGUIAR SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 03 - Seabra",
 "name": "EDSON SILVA",
-"school": "CETISS - Col�gio Estadual de Tempo Integral de Souto Soares",
-"students": [
+"schools": [
+{"name": "CETISS - Col�gio Estadual de Tempo Integral de Souto Soares", "students": [
 "ANA BEATRIZ REGIS AMORIM",
 "ELOISA SOUZA OLIVEIRA",
 "JENIFER ALVES LOPES",
 "JOAO PEDRO SOUZA ALEXANDRE",
 "LIVIA CRISTINA ANJOS DE SOUZA",
 "TAINA FERNANDES DE SOUZA"
-]
-},
-{
-"nte": "NTE 03 - Seabra",
-"name": "EDSON SILVA",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES",
-"students": [
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE BONITO", "students": [
+"EMILIA RODRIGUES DA SILVA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES", "students": [
 "ANA CLARA DE SOUZA LOPES RODRIGUES",
 "ANA JULIA NOVAIS DOS SANTOS",
 "BIANCA DOS SANTOS OLIVEIRA",
@@ -1529,13 +1598,82 @@ const TEACHERS_DATA = [
 "TALIA NOVAIS DE SOUZA",
 "VERONICA SANTOS DE SOUZA",
 "VITORIA EDUARDA INACIO DE SOUZA"
+]},
+{"name": "COLEGIO ESTADUAL INACIO TOSTA FILHO", "students": [
+"KAUA HENRIQUE QUEIROZ DE OLIVEIRA"
+]}
+]
+},
+{
+"nte": "NTE 03 - Seabra",
+"name": "KLEITON JAIRO FIGUEIREDO SOUZA",
+"schools": [
+{"name": "CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA", "students": [
+"RAINA RIBEIRO DOS SANTOS Q"
+]},
+{"name": "COLEGIO ESTADUAL DO CAMPO DE INUBIA", "students": [
+"ANTONIO IGOR MARQUES OLIVEIRA",
+"DEMILLY ROSA DOS SANTOS",
+"DIOGO LIMA OLIVEIRA",
+"ELIANA ROSA DA SILVA",
+"ELOAH MARQUES DOS SANTOS",
+"FELIPE MARCOS SANTOS VIANA",
+"FELIX COIMBRA DA SILVA",
+"GEOVANA DE JESUS MARQUES",
+"GISELE DE LIMA SANTOS",
+"GLEIDSON ISAC AZEVEDO SANTOS",
+"GUSTAVO ALMEIDA SILVA",
+"IARLEY SANTOS",
+"INGRID HIPOLITO DE SOUZA",
+"ISAAC APARECIDO DOS SANTOS",
+"ISABELA SOFIA MESQUITA BEZERRA",
+"JAMILLY JESUS DE OLIVEIRA",
+"JIVANILSON",
+"KATIELLE DE JESUS SILVA",
+"KAUA SOUZA DE OLIVEIRA",
+"KAUANY SILVA SANTOS",
+"KETILLY DE JESUS NUNES",
+"LARIANE OLIVEIRA SILVA",
+"LUAN LIMA DA SILVA",
+"LUANA MESQUITA ROSA",
+"LUANA SANTOS DA SILVA",
+"LUCAS SILVA OLIVEIRA",
+"MIKAELLY LIMA BARBOSA",
+"NAIARA OLIVEIRA SANTOS",
+"PEDRO ANTONIO OLIVEIRA SILVA",
+"PRISCILA ROSA DE OLIVEIRA",
+"REGIANE ROSA DE SOUZA",
+"SALETE PEREIRA COSTA",
+"THAUANNY DA SILVA BINO OLIVEIRA",
+"VANESSA COIMBRA DE OLIVEIRA",
+"VITORIA DE OLIVEIRA SOUZA"
+]},
+{"name": " COLEGIO ESTADUAL DO CAMPO DE INUBIA", "students": [
+"ANA CLARA MENDES DOS SANTOS",
+"FABIOLA RANGEL DOS SANTOS",
+"MARIA CLARA SANTOS OLIVEIRA",
+"VANEIDE RAMOS DOS SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 04 - Serrinha",
 "name": "ANA CLAUDIA DO CARMO CEDRAZ",
-"school": "COLÉGIO ESTADUAL DO CAMPO LUCIBERTO OLIVEIRA DOS SANTOS",
-"students": [
+"schools": [
+{"name": "ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA", "students": [
+"FER",
+"FERA"
+]},
+{"name": "COLEGIO ESTADUAL DE BARROCAS", "students": [
+"NOME DO ALULE"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
+"MARIA EDUARDA MOREIRA SILVA"
+]},
+{"name": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO", "students": [
+"BRENDA ELOISA DIAS DA SILVA"
+]},
+{"name": "COLÉGIO ESTADUAL DO CAMPO LUCIBERTO OLIVEIRA DOS SANTOS", "students": [
 "ALICIA DE JESUS OLIVEIRA",
 "ANA BEATRIZ LIMA DOS SANTOS",
 "ANA CAROLINE MORAES SILVA",
@@ -1568,26 +1706,28 @@ const TEACHERS_DATA = [
 "THIAGO PEREIRA MARTINS",
 "TIAGO BRITO OLIVEIRA",
 "VALDEMAR MOREIRA DA SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 04 - Serrinha",
 "name": "JEAN LUCAS VINHAS MEDEIROS DE CARVALHO",
-"school": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC",
-"students": [
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
 "CAROLINA SANTOS BRASIL",
 "ELOAR JESUS DE SOUSA",
 "JAQUELINE MOURA DOS SANTOS",
 "LAUANE CARVALHO DA SILVA",
 "MARIA EDUARDA MOTA DOS SANTOS",
 "UEMERSON JESUS DOS SANTOS"
-]
-},
-{
-"nte": "NTE 04 - Serrinha",
-"name": "JEAN LUCAS VINHAS MEDEIROS DE CARVALHO",
-"school": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE ARACI",
-"students": [
+]},
+{"name": "CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO", "students": [
+"LARIANNE LIMA OLIVEIRA"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DA REGIAO METROPOLITANA", "students": [
+"ERIC SILVA DA SILVEIRA"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE ARACI", "students": [
 "A",
 "ABIB VALERIO CAMPOS",
 "ADRIANO OLIVEIRA DE MATOS",
@@ -1944,13 +2084,23 @@ const TEACHERS_DATA = [
 "YASMIN CARVALHO PEIXOTO",
 "YNGRID SANTOS DA SILVA",
 "YSABELA GOES DE SOUSA"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCAÇÃO PROFISSIONAL DA BACIA DO RIO GRANDE", "students": [
+"MARIA EDUARDA SILVA DE JESUS"
+]},
+{"name": "COLEGIO ESTADUAL BADEN POWELL", "students": [
+"GEOVANA DO AMOR DIVINO BARRETO"
+]},
+{"name": "COLEGIO ESTADUAL SENHOR DO BONFIM", "students": [
+"JOSE HENRIQUE SANTOS DE ANDRADE"
+]}
 ]
 },
 {
 "nte": "NTE 04 - Serrinha",
 "name": "MARCELI CEDRAZ DA SILVA",
-"school": "COLEGIO POLIVALENTE DE CONCEICAO DO COITE",
-"students": [
+"schools": [
+{"name": "COLEGIO POLIVALENTE DE CONCEICAO DO COITE", "students": [
 "ADALBERTO ALVES OLIVEIRA",
 "ALICE DA SILVA PINHO",
 "ALICE GORDIANO DE ARAUJO ALMEIDA",
@@ -2143,13 +2293,24 @@ const TEACHERS_DATA = [
 "YASMIN DE OLIVEIRA SANTOS",
 "YTALLO LIMA PINTO ARAUJO",
 "YURE DOS SANTOS OLIVEIRA"
+]},
+{"name": " COLEGIO POLIVALENTE DE CONCEICAO DO COITE", "students": [
+"ELANE OLIVEIRA DE SOUZA",
+"KAILA REBECA ALMEIDA PINTO"
+]}
 ]
 },
 {
 "nte": "NTE 04 - Serrinha",
 "name": "MARCIA MARIA DE SOUZA MOTA",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE TUCANO",
-"students": [
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"EVELYN SANTOS DE JESUS",
+"MANUELA JESUS DOS SANTOS",
+"MARIA VITORIA MARCAL PIMENTEL",
+"YASMIN MOURA SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE TUCANO", "students": [
 "ADRIANA DOMINGOS DOS REIS",
 "ADRIELE ALVES DOS SANTOS",
 "ANATIELE JESUS GONCALVES",
@@ -2201,13 +2362,36 @@ const TEACHERS_DATA = [
 "VITORIA BONFIM ROCHA",
 "VITORIA MELO SANTANA",
 "WESLEY MIRANDA MOREIRA"
+]},
+{"name": "COLEGIO POLIVALENTE DE CONCEICAO DO COITE", "students": [
+"MARIANA CARVALHO DE OLIVEIRA"
+]}
+]
+},
+{
+"nte": "NTE 05 - Itabuna",
+"name": "ANDREA FABIANE SILVA OLIVEIRA",
+"schools": [
+{"name": "ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA", "students": [
+"FERNANDO MELLO"
+]},
+{"name": "CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO", "students": [
+"ASAAA"
+]},
+{"name": "COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA - ANEXO", "students": [
+"ANDRE SANTOS SIMAS",
+"DARCI CASTRO BARBOSA",
+"KAIC CARDOSO DE OLIVEIRA",
+"PABULO NASCIMENTO SOARES",
+"RAFAEL DOS SANTOS LIMA"
+]}
 ]
 },
 {
 "nte": "NTE 05 - Itabuna",
 "name": "ANDREA MARIA BRANDAO MEIRELES",
-"school": "COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA - ANEXO",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA - ANEXO", "students": [
 "CARLOS VINICIO LEMOS RODAM",
 "FABRICIO JESUS DE SOUZA",
 "GEOVANIO PLACIDO DO NASCIMENTO JUNIOR",
@@ -2219,13 +2403,17 @@ const TEACHERS_DATA = [
 "PABULO NASCIMENTO SOARES",
 "RAFAEL SILVA DOS SANTOS",
 "WEMERSON DOS SANTOS DA PAIXAO"
+]},
+{"name": "COLÉGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA - ANEXO", "students": [
+"XXXXX"
+]}
 ]
 },
 {
 "nte": "NTE 05 - Itabuna",
 "name": "EUDES DIAS BARBOSA",
-"school": "COLEGIO ESTADUAL INACIO TOSTA FILHO",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL INACIO TOSTA FILHO", "students": [
 "ANA LAIS ALCANTARA SANTOS",
 "ARTHUR TAQUETTI PEREIRA SETUBAL",
 "DANIELA SILVA DOS SANTOS",
@@ -2262,13 +2450,17 @@ const TEACHERS_DATA = [
 "WILLANE SANTOS DA PAIXAO",
 "YASMIN LORENZA SILVA LIMA",
 "YASMIN ROSA SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 05 - Itabuna",
 "name": "JOSE CARLOS DOS SANTOS",
-"school": "COLEGIO DA POLICIA MILITAR - CPM ANTONIO CARLOS MAGALHAES",
-"students": [
+"schools": [
+{"name": "ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA", "students": [
+"DANIEL SANTOS SOUZA"
+]},
+{"name": "COLEGIO DA POLICIA MILITAR - CPM ANTONIO CARLOS MAGALHAES", "students": [
 "ANA BEATRIZ QUIRINO BATISTA SOUZA",
 "ANA JULIA OLIVEIRA CRUZ DE ALMEIDA",
 "ANDRESSA OLIVEIRA SANTOS SOUZA",
@@ -2312,13 +2504,26 @@ const TEACHERS_DATA = [
 "THAINA DE OLIVEIRA SANTOS",
 "VICTOR GABRIEL ROCHA DE MAGALHAES LIMA",
 "YURI DE JESUS SOUSA"
+]},
+{"name": "NTE 05 - ITABUNA", "students": [
+"HUGO GABRIEL NEVES OLEVEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 05 - Itabuna",
 "name": "THIAGO CARVALHO SILVA",
-"school": "COLEGIO MODELO LUIS EDUARDO MAGALHAES",
-"students": [
+"schools": [
+{"name": "ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA", "students": [
+"THOMAS POLVORA MEREDYK"
+]},
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"SAMILLY FERREIRA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL ANTONIO BATISTA", "students": [
+"PABLO SOUZA AMORIM"
+]},
+{"name": "COLEGIO MODELO LUIS EDUARDO MAGALHAES", "students": [
 "ACKSSA JEMIMA BARBOSA DA SILVA GALDINO",
 "ALEJANDRO DOS SANTOS SANTANA",
 "ALEX NATHAN LOPES DE ABREU",
@@ -2472,26 +2677,43 @@ const TEACHERS_DATA = [
 "YASMIM SANTOS DE OLIVEIRA",
 "YASMIN DOS SANTOS SOUZA",
 "YASMIN JESUS DOS SANTOS"
+]},
+{"name": "NTE 05 - ITABUNA", "students": [
+"RUAN LUCAS"
+]},
+{"name": " COLEGIO MODELO LUIS EDUARDO MAGALHAES", "students": [
+"EMANOELE SANTOS ALMEIDA DE JESUS"
+]}
 ]
 },
 {
 "nte": "NTE 06 - Valença",
 "name": "CLAUDIA SANDRA DE JESUS SANTOS NASCIMENTO",
-"school": "CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA",
-"students": [
+"schools": [
+{"name": "CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA", "students": [
 "BEATRIZ SANTOS SOUSA",
 "JOAO PEDRO REIS LEITE",
 "RAFAEL ALISSON DE LIMA REIS",
 "RAKELLY DOS SANTOS SILVA",
 "YASMIM BELEM AMPARO DO ROSARIO",
 "YASMIN TORRES DE JESUS"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DO RECONCAVO", "students": [
+"JULIANE SANTANA DOS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL JESUS MOURA", "students": [
+"KAIRON FERREIRA SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 06 - Valença",
 "name": "FRANK VIEIRA DOS SANTOS",
-"school": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO", "students": [
+"LETICIA CONCEICAO DOS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS", "students": [
 "ANA VITORIA GRIMALDI CONCEICAO",
 "ANADILA MACHADO DA SILVA",
 "ARIEL",
@@ -2521,13 +2743,24 @@ const TEACHERS_DATA = [
 "VANIELEM DA SILVA BRITO",
 "WALLACE DA SILVA DOS SANTOS",
 "WALLAS DA SILVA DOS SANTOS"
+]},
+{"name": "COLÉGIO ESTADUAL QUILOMBOLA DE SAO TOME - BREJAO DA CAATINGA - ANEXO", "students": [
+"PAULO HENRIQUE MATEUS DE PINHO"
+]},
+{"name": " COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS", "students": [
+"RAPHAEL DOS SANTOS DE JESUS",
+"RAPHAELLY DOS SANTOS DE JESUS"
+]}
 ]
 },
 {
 "nte": "NTE 06 - Valença",
 "name": "ITALA CRISTINA MACHADO FRANCA BARRETO",
-"school": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
+"EDENILSON"
+]},
+{"name": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS", "students": [
 "ADRIELLE DA CONCEICAO SERENO",
 "ALINE SANTOS DE SOUZA",
 "CHRYSMA FERREIRA PEREIRA",
@@ -2543,13 +2776,14 @@ const TEACHERS_DATA = [
 "RAQUELE DOS SANTOS BONFIM",
 "TALITA DOS SANTOS CONCEICAO",
 "VAGNER LUZ SILVA FILHO"
+]}
 ]
 },
 {
 "nte": "NTE 07 - Teixeira de Freitas",
 "name": "ENOK CRUZ DE SOUZA",
-"school": "COLEGIO ESTADUAL DO CAMPO ALCIDES AFONSO DE SOUZA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DO CAMPO ALCIDES AFONSO DE SOUZA", "students": [
 "CYNTIA SOARES FONSECA",
 "DAILANE SOARES BATISTA",
 "JHENIFER KELLY DOS SANTOS RODRIGUES",
@@ -2560,13 +2794,17 @@ const TEACHERS_DATA = [
 "MATEUS ALVES DOS SANTOS",
 "NAYARA PAIXAO SALES",
 "THIELLY VITORIA DA SILVA SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 07 - Teixeira de Freitas",
 "name": "MIRIAN DE OLIVEIRA DIAS",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO",
-"students": [
+"schools": [
+{"name": "CENTRO ESTAD DE EDUC", "students": [
+"DAVI FREITAS XAVIER"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO", "students": [
 "ALAN EIKY MUNIZ COSTA",
 "BRENO SANTOS DA SILVA",
 "CAUA SANTOS",
@@ -2579,13 +2817,11 @@ const TEACHERS_DATA = [
 "PEDRO CRISTIAN SILVA DE OLIVEIRA",
 "SARAH LAYZA ALCANTARA DOS SANTOS",
 "VICTORIA SARAH BRAGA DA SILVA"
-]
-},
-{
-"nte": "NTE 07 - Teixeira de Freitas",
-"name": "MIRIAN DE OLIVEIRA DIAS",
-"school": "COLEGIO ESTADUAL ERALDO TINOCO",
-"students": [
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFª ODONTINA LARANJEIRA DE SOUZA", "students": [
+"MATHEUS ALCANTARA GONCALVES"
+]},
+{"name": "COLEGIO ESTADUAL ERALDO TINOCO", "students": [
 "ADRYAN MATEUS LEONEL MENDES",
 "AKILLES ARAUJO SANTANNA",
 "ALISON FERREIRA MODESTO",
@@ -2654,13 +2890,22 @@ const TEACHERS_DATA = [
 "THAIRONE SILVA CAMPOS",
 "URIEL SOARES GONCALVES",
 "WANDERLEY OTONIEL SOUZA DE ALMEIDA"
+]}
 ]
 },
 {
 "nte": "NTE 08 - Itapetinga",
 "name": "CARINE BARRETO DA SILVA",
-"school": "COLEGIO POLIVALENTE DE ITAPETINGA",
-"students": [
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"ISAQUE ALVES DE JESUS SANTANA"
+]},
+{"name": "COLEGIO POLIVALENTE DE CONCEICAO DO COITE", "students": [
+"BEATRYZE RIBEIRO SOLEDADE",
+"DIOGO PEREIRA ROCHA",
+"VIVIAN SANTOS VIANA"
+]},
+{"name": "COLEGIO POLIVALENTE DE ITAPETINGA", "students": [
 "ADILLA SILVA OLIVEIRA",
 "ALICE SANTOS LACERDA",
 "ALLYSSON VITOR SILVA MARTINS",
@@ -2874,13 +3119,14 @@ const TEACHERS_DATA = [
 "YASMIN ROCHA DE JESUS",
 "YHASMIM MANGUEIRA SANTOS",
 "YHUMMY RODRIGUES MATOS SIL A"
+]}
 ]
 },
 {
 "nte": "NTE 08 - Itapetinga",
 "name": "LILIA MARCIA MELO PINHEIRO",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL FLORESTAL",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL FLORESTAL", "students": [
 "ALEX VICTOR JESUS SOUZA",
 "ALICE VITORIA JARDIM SOUZA",
 "ANA PAULA TEIXEIRA DOS SANTOS",
@@ -2911,13 +3157,21 @@ const TEACHERS_DATA = [
 "TAILAINE NASCIMENTO DE SOUSA",
 "YASMIM CAMPOS MARQUES",
 "YASMIM DOS SANTOS TAVARES"
+]}
 ]
 },
 {
 "nte": "NTE 09 - Amargosa",
 "name": "DIOGENES MORAES SANTOS",
-"school": "COLEGIO ESTADUAL JOAO PESSOA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL JOAO FRANCISCO DA SILVA", "students": [
+"REBEKA ARAUJO BARBOSA",
+"THAIS SANTOS DE ALMEIDA RIBEIRO"
+]},
+{"name": "COLEGIO ESTADUAL JOAO DAS BOTAS", "students": [
+"EVERSON SOUZA CRUZ"
+]},
+{"name": "COLEGIO ESTADUAL JOAO PESSOA", "students": [
 "ADRIANA PASSOS MARQUES",
 "ALICE ANDRADE TRINDADE SANTOS",
 "ANA MARIA ALVES NATIVIDADE",
@@ -2963,13 +3217,20 @@ const TEACHERS_DATA = [
 "VITORIA DA RESSURREICAO UNGRIA ALMEIDA",
 "YASMIM SOUZA SANTOS",
 "YURI MENEZES SOUZA GONDIM"
+]},
+{"name": "COLEGIO ESTADUAL REITOR MIGUEL CALMON", "students": [
+"YARA SANTOS MENEZES"
+]}
 ]
 },
 {
 "nte": "NTE 09 - Amargosa",
 "name": "RENILDO DE JESUS DA SILVA",
-"school": "COLEGIO ESTADUAL JOAO PESSOA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL JOAO FRANCISCO DA SILVA", "students": [
+"DANILO DA CONCEICAO SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL JOAO PESSOA", "students": [
 "ALANA DE JESUS SANTANA",
 "AMORA DE JESUS",
 "ANA ALINE DE JESUS SOUZA",
@@ -2994,13 +3255,14 @@ const TEACHERS_DATA = [
 "RENILDA FELIPE DOS SANTOS ASSUNCAO",
 "ROSEANE SANTOS FONTES",
 "SARAH SANTANA DOS SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 10 - Juazeiro",
 "name": "HENRIQUE JURUNA SILVA SANTOS",
-"school": "COLEGIO ESTADUAL DR. JUCA SENTO SE - DIST. DE PIRI - ANEXO",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DR. JUCA SENTO SE - DIST. DE PIRI - ANEXO", "students": [
 "ABIDIEL DA MATA OLIVEIRA",
 "ADRIANY REIS SANTOS VIEIRA",
 "ALEXANDRE ALVES MOITINHO",
@@ -3081,13 +3343,30 @@ const TEACHERS_DATA = [
 "VICTOR EMANOEL REIS ROCHA",
 "VICTOR MANOEL DA SILVA MORAES",
 "WELITON CRUZ DE ARAUJO"
+]}
 ]
 },
 {
 "nte": "NTE 10 - Juazeiro",
 "name": "JHONE JOAO GOMES DA SILVA",
-"school": "COLÉGIO ESTADUAL DO CAMPO PROFESSORA MARIA TEREZA BRAGA CABRAL",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE CASA NOVA", "students": [
+"MARIA BERTULINA PAJEU BRITO",
+"STEPHANIE RODRIGUES DE LIMA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL FLORESTAL", "students": [
+"DIEGO SOUZA DE JESUS"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO", "students": [
+"JENNIFER LAUANA BARROS GOMES"
+]},
+{"name": "COLEGIO ESTADUAL ERALDO TINOCO", "students": [
+"ARTHUR CODEIRO ARAUJO"
+]},
+{"name": "COLEGIO ESTADUAL HELENA ASSIS SUZART", "students": [
+"ZAQUEU DA SILVA BRAGA MARTINS"
+]},
+{"name": "COLÉGIO ESTADUAL DO CAMPO PROFESSORA MARIA TEREZA BRAGA CABRAL", "students": [
 "ACKILES SOUZA BRAGA",
 "ADRIEL FERREIRA SOUZA",
 "ALANA FERREIRA DE BARROS",
@@ -3159,13 +3438,21 @@ const TEACHERS_DATA = [
 "REBERT DA COSTA ALVES CRUZ",
 "THAILANE DOS SANTOS TUPINA",
 "WALACE LIMA BRAGA"
+]},
+{"name": " COLÉGIO ESTADUAL DO CAMPO PROFESSORA MARIA TEREZA BRAGA CABRAL", "students": [
+"CAUAN OLIVEIRA DA ROCHA",
+"LUIS FELIPE DE SOUZA E CRUZ"
+]}
 ]
 },
 {
 "nte": "NTE 10 - Juazeiro",
 "name": "JURACI FELIX DA CUNHA FILHO",
-"school": "COL. EST. TEMPO INTEGRAL SOFIA MASCARENHAS- LAGOA DO PADRE - ANEXO",
-"students": [
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"LAILTON RAMOS PEREIRA"
+]},
+{"name": "COL. EST. TEMPO INTEGRAL SOFIA MASCARENHAS- LAGOA DO PADRE - ANEXO", "students": [
 "ALEX RIBEIRO FERRAZ",
 "ALINE GOMES RIBEIRO",
 "ANA VITORIA RIBEIRO DE SOUZA",
@@ -3216,13 +3503,64 @@ const TEACHERS_DATA = [
 "VITOR LUIZ RIBEIRO DE CARVALHO",
 "VITOR RIBEIRO OLIVEIRA",
 "VITORIA GOMES RIBEIRO DE SANTANA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL SOFIA MASCARENHAS", "students": [
+"CAIQUE DO REGO RAMOS",
+"ENIELSON FRANCISCO RAMOS",
+"FERNANDA RIBEIRO DE SOUZA",
+"KEILANE RAMOS RODRIGUES",
+"LEANDRO SOARES"
+]}
 ]
 },
 {
 "nte": "NTE 13 - Caetité",
 "name": "ADILSON DE SOUZA SANTOS",
-"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
-"students": [
+"schools": [
+{"name": "ANEXO-COLEGIO EST. PROFº IVARDO PEREIRA BASTOS - DIST. DE ENTROCAMENTO", "students": [
+"ALICE BONFIM NOBRE RODRIGUES"
+]},
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"AMAURI NASCIMENTO",
+"SILVIA GARCIA"
+]},
+{"name": "CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA", "students": [
+"JOEDSON ARAUJO RIBEIRO"
+]},
+{"name": "CENTRO EST DE EDUCACAO PROFIS EM TECNOLOGIA INFORMACAO E COMUNICACAO", "students": [
+"ANDERSON PEREIRA DE JESUS"
+]},
+{"name": "CENTRO EST DE EDUCACAO PROFISSIONAL EM SAUDE DO LESTE BAIANO", "students": [
+"MARCOS BARRETO DE SOUZA"
+]},
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE ARACI", "students": [
+"DANILA SAO PEDRO DA CRUZ"
+]},
+{"name": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO", "students": [
+"IVANILDE SANTOS DE OLIVEIRA"
+]},
+{"name": "COLEGIO DA POLICIA MILITAR - CPM DONA LEONOR CALMON", "students": [
+"DAVI EMANUEL SANTOS SOUSA"
+]},
+{"name": "COLEGIO ESTADUAL CLERISTON ANDRADE TEMPO INTEGRAL", "students": [
+"CLAUDIO SILVA DE JESUS",
+"LUCAS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
+"MURIEL DA CONCEICAO PEREIRA BISPO",
+"SAMUEL DA CONCEICAO PEREIRA BISPO"
+]},
+{"name": "COLEGIO ESTADUAL POLIVALENTE DE CANDEIAS", "students": [
+"RAKELY FELIX DA CONCEICAO DO NASCIMENTO"
+]},
+{"name": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS", "students": [
+"MARCOS VINICIUS REIS DE SANTANA"
+]},
+{"name": "COLEGIO MODELO LUIS EDUARDO MAGALHAES", "students": [
+"ALANNA ISABELY MELLO SANTOS",
+"LUCAS GABRIEL OLIVEIRA REIS"
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC", "students": [
 "ALICIA VITORIA MIRANDA CALDEIRAS",
 "ALINE TEIXEIRA SANTOS",
 "ALLAN KELVIN DA CUNHA COSTA",
@@ -3332,13 +3670,28 @@ const TEACHERS_DATA = [
 "VITORIA MARIA XAVIER",
 "WEDSON DE JESUS CARVALHO",
 "WILLIAM RYAN AMORIM OLIVEIRA"
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUCAÇÃO BASICA", "students": [
+"BRUNA VITORIA FERNANDES OLIVEIRA TEIXEIRA",
+"KEYLA ARRUDA SOUZA"
+]},
+{"name": " COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC", "students": [
+"VITORIA CRISTINA SILVA OLIVEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 13 - Caetité",
 "name": "EUDITE FERNANDES CARNEIRO",
-"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
-"students": [
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"TIAGO LOPES CASTRO",
+"VANESSA DE SOUZA LOPES"
+]},
+{"name": "CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE IV", "students": [
+"ALINE CASTROLOPES"
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC", "students": [
 "BRUNNA ANDRIELLY DE LIMA FERREIRA",
 "CARLA BEATRIZ SANTANA DA SILVA",
 "DHANDARA ALVES DOS SANTOS",
@@ -3356,13 +3709,24 @@ const TEACHERS_DATA = [
 "TAYSON LIAN SOUZA OLIVEIRA",
 "THAUANY ABRANTES AGUIAR",
 "VICTOR JULIAN DE OLIVEIRA PEREIRA"
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUCAÇÃO BASICA, PROFISSIONAL E TECNOLÓGICA,", "students": [
+"ERICA SANTANA TEIXEIRA",
+"JENNIFER TEIXEIRA LIMA",
+"JOSEANE FERNANDES ALMEIDA BATISTA",
+"RAYANY FARIA SILVEIRA SOUSA",
+"STHEFANY KELLY SILVA DE ANDRADE JESUS"
+]}
 ]
 },
 {
 "nte": "NTE 13 - Caetité",
 "name": "MARIA NILZA BASTOS SOUSA FRAGA",
-"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE APLICACAO ANISIO TEIXEIRA", "students": [
+"FRANSIELLY FERNANDES COUTINHO"
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC", "students": [
 "ANA FLAVIA FERREIRA ALVES",
 "ANA LIVIA FERREIRA DE CARVALHO",
 "ANGELICA SOUZA CARDOSO",
@@ -3387,13 +3751,8 @@ const TEACHERS_DATA = [
 "THIAGO DE JESUS SANTOS",
 "YAGO DE JESUS SANTOS",
 "YAGO SOUZA DOS SANTOS"
-]
-},
-{
-"nte": "NTE 13 - Caetité",
-"name": "MARIA NILZA BASTOS SOUSA FRAGA",
-"school": "COMPLEXO INTEGRADO DE EDUCAÇÃO BASICA, PROFISSIONAL E TECNOLÓGICA,",
-"students": [
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUCAÇÃO BASICA, PROFISSIONAL E TECNOLÓGICA,", "students": [
 "ANA LIVIA GUIMARAES BOMFIM",
 "ANNA LIVIA BRITO AMARAL",
 "IAN PETRUS CARVALHO PEREIRA LIMA",
@@ -3403,13 +3762,14 @@ const TEACHERS_DATA = [
 "MARIA LUIZA DANTAS DE MORAIS",
 "MATEUS TEIXEIRA COTRIM",
 "TAINA VITORIA A R CARVALHO"
+]}
 ]
 },
 {
 "nte": "NTE 16 - Jacobina",
 "name": "ELZENIR FREIRE DA SILVA",
-"school": "COLEGIO ESTADUAL DO CAMPO PROFESSORA MARIA IZABEL DE OLIVEIRA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DO CAMPO PROFESSORA MARIA IZABEL DE OLIVEIRA", "students": [
 "ANA PAULA SILVA SANTOS",
 "ATHYLA SAMPAIO GOMES",
 "BARBARA ADRIELE ALVES SANTOS",
@@ -3449,13 +3809,17 @@ const TEACHERS_DATA = [
 "THAYLA LAIS NASCIMENTO DOS SANTOS",
 "THIAGO SANTOS OLIVEIRA",
 "TIAGO DE JESUS SANTOS"
+]},
+{"name": " COLEGIO ESTADUAL DO CAMPO PROFESSORA MARIA IZABEL DE OLIVEIRA", "students": [
+"KASSANDRA AGATHA OLIVEIRA SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 17 - Ribeira do Pombal",
 "name": "SEVERINO DA SILVA QUEIROZ NETO",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL AGUAS TERMAIS DE CIPO",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL AGUAS TERMAIS DE CIPO", "students": [
 "ARTUR MACEDO GONZAGA REIS",
 "CLARIESILE JESUS DOS SANTOS SANTANA",
 "DIOGO OLIVEIRA DA GAMA",
@@ -3489,13 +3853,18 @@ const TEACHERS_DATA = [
 "THAYANE SANTOS OLIVEIRA",
 "WILLIAM DE SANTANA GAMA",
 "YSLANA GABRIELLI NUNES DE SANTANA"
+]},
+{"name": " COLEGIO ESTADUAL DE TEMPO INTEGRAL AGUAS TERMAIS DE CIPO", "students": [
+"ARTHUR GONZAGA COSTA",
+"JOANA CLARA ARAUJO SANTOS BITTENCOURT"
+]}
 ]
 },
 {
 "nte": "NTE 18 - Alagoinhas",
 "name": "CINTIA PORTO DOS SANTOS FRANCA",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE ITAMIRA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE ITAMIRA", "students": [
 "ADRIELE DOS SANTOS ROCHA",
 "ELYUD SOUZA MOREIRA MENDES",
 "EMANUELY SANTOS DE OLIVEIRA",
@@ -3518,13 +3887,11 @@ const TEACHERS_DATA = [
 "RAISSA NASCIMENTO DOS SANTOS",
 "SAMYLE DA ENCARNACAO SOUZA DOS SANTOS",
 "VINICIUS NUNES DOS SANTOS"
-]
-},
-{
-"nte": "NTE 18 - Alagoinhas",
-"name": "CINTIA PORTO DOS SANTOS FRANCA",
-"school": "Colégio Estadual de Tempo Integral de Itamira",
-"students": [
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE JACOBINA", "students": [
+"JOAO VICTOR CARDOSO DOS SANTOS"
+]},
+{"name": "Colégio Estadual de Tempo Integral de Itamira", "students": [
 "ADRIELE PACHECO DE SOUZA",
 "ADRIELLE ROCHA SANTOS",
 "ALAN BATISTA DE JESUS",
@@ -3546,13 +3913,17 @@ const TEACHERS_DATA = [
 "SAMARA CONCEICAO",
 "VALDIR NASCIMENTO SANTOS",
 "VITORIA CARLA SANTOS SOUZA"
+]},
+{"name": " COLEGIO ESTADUAL DE TEMPO INTEGRAL DE ITAMIRA", "students": [
+"THYAGO THAYONE FERREIRA DOS SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 18 - Alagoinhas",
 "name": "DEIVISON TRINDADE DOS SANTOS",
-"school": "CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA",
-"students": [
+"schools": [
+{"name": "CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA", "students": [
 "ALESSANDRA DOS ANJOS FREITAS",
 "ALICE CONCEICAO DE SOUZA",
 "ANA BEATRIZ NUNES SANTOS",
@@ -3625,13 +3996,17 @@ const TEACHERS_DATA = [
 "VITORIA HELLEN DE JESUS SOUZA",
 "WILLIAM COSTA LOPES",
 "YASMIN GOMES SANTOS"
-]
-},
-{
-"nte": "NTE 18 - Alagoinhas",
-"name": "DEIVISON TRINDADE DOS SANTOS",
-"school": "COLEGIO ESTADUAL DESEMBARGADOR PEDRO RIBEIRO",
-"students": [
+]},
+{"name": "CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO", "students": [
+"ELOISE GOMES RATIS"
+]},
+{"name": "CENTRO TERRI.DE EDUC.PROFI.STA RITA DE CASSIA-CETEP STA RITA DE CASSIA", "students": [
+"DEIVID SANTOS GOMES"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE VILAS DE ABRANTES", "students": [
+"BRUNO COSTA DO SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DESEMBARGADOR PEDRO RIBEIRO", "students": [
 "ARIELE LIMA",
 "CAMILLA EVELIN SENA DA CRUZ",
 "DAVYD WILLIAM CONCEICAO DAS VIRGENS",
@@ -3640,13 +4015,8 @@ const TEACHERS_DATA = [
 "MICAELLE SANTOS DA SILVA",
 "PEDRO DANIEL DE JESUS ALMEIDA",
 "VALNEI DOS SANTOS BARRETO"
-]
-},
-{
-"nte": "NTE 18 - Alagoinhas",
-"name": "DEIVISON TRINDADE DOS SANTOS",
-"school": "Centro Estadual de Educação Profissional em Controle e Gestão do Nordeste Baiano Pedro Ribeiro Pessoa",
-"students": [
+]},
+{"name": "Centro Estadual de Educação Profissional em Controle e Gestão do Nordeste Baiano Pedro Ribeiro Pessoa", "students": [
 "ALANE OLIVEIRA DO NASCIMENTO",
 "ANA CLARA DE JESUS",
 "BRUNNA AYARLA GOMES SANTOS",
@@ -3662,13 +4032,296 @@ const TEACHERS_DATA = [
 "RAILLAN GONCALVES DOS SANTOS",
 "RICHARLISSON SOUZA SANTOS",
 "THAMYRES VITORIA DO CARMO LIMA"
+]}
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "FATIMA REGINA GOMES CHAVES",
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"BEATRIZ",
+"RENATA YASMIM SANTOS SOUZA"
+]},
+{"name": "CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA", "students": [
+"MARIA HELOISE SANTOS DOS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL RUY BARBOSA", "students": [
+"IVINY DANDARA SANTOS DE JESUS DE SOUZA"
+]},
+{"name": "COLEGIO MODELO LUIS EDUARDO MAGALHAES", "students": [
+"AMANDA VITORIA DE ASSIS RABELLO",
+"BRUNNA JESUS DE OLIVEIRA",
+"ERIK DA SILVA CONCEICAO",
+"GUILHERME COELHO SANTANA",
+"GUILHERME SANTOS FERREIRA",
+"MARIA CLARA CERQUEIRA SANTOS",
+"TAINA SILVA PEREIRA"
+]},
+{"name": "ESCOLA ESTADUAL DOM AVELAR BRANDAO VILELA", "students": [
+"THAYNA VICTORIA SANTOS ALMEIDA"
+]},
+{"name": "ESCOLA PROFESSOR JULIO LEAL ARAUJO", "students": [
+"ADRIELY GONCALVES DA SILVA",
+"ADRYELLE SOUZA ALBUQUERQUE",
+"AILA GUIMARAES DOS SANTOS",
+"ALANA KELY PINTO SANTOS",
+"ANA ELIZA DE JESUS VENTURA",
+"ANDREIA SANTOS ALMEIDA",
+"ARTHUR GABRIEL CONCEICAO SILVA",
+"CARLOS HENRIQUE DOS SANTOS SOUZA",
+"CLEBER SANTANA SANTOS JUNIOR",
+"DAVI GUILHERME FREITAS MATOS",
+"DAVID FELIX CERQUEIRA",
+"DIEGO GABRIEL GUIMARAES SOUZA",
+"DIOGO SANTANA",
+"ELIEL MOREIRA SANTOS BARBOSA",
+"EMILLY EMANUELE DA PAIXAO SANTOS",
+"ERYK SANTOS MARTINS",
+"EVELYN CAUANE SANTANA SANTOS",
+"EVELYN SUYAN SILVA DAMASCENO",
+"EVELYN VITORIA DOS SANTOS DE SANTANA",
+"FLAVIA ARAUJO",
+"GABRIEL DA SILVA RODRIGUES",
+"GABRIEL FREITAS NASCIMENTO",
+"GABRIELLE LOPES",
+"GUSTAVO GUILHERME GOMES DA SILVA LUZ",
+"HANA VITORIA DA SILVA GASPAR",
+"HAYLANE SILVA BARBOSA",
+"HEBERT TELES BORGES",
+"HELDER CERQUEIRA DO NASCIMENTO",
+"HELOYSA VITORIA MELO DOS SANTOS",
+"INGRIDY CAMILLE PEREIRA FERREIRA",
+"ITALA VITORIA REGIS REIS",
+"JEFFERSON DAMASCENO DA CONCEICAO",
+"JOANA NOELI REIS SILVA",
+"JOAO PAULO SANTANA LIMA",
+"JOAO VICTOR SILVA CONCEICAO",
+"JOEDSON DOS SANTOS ALVES JUNIOR",
+"JULIA SOUZA SANTOS",
+"JULIANA SOUZA SILVA",
+"KALIANE SANTOS DE JESUS",
+"KEVYN NASCIMENTO DE CARVALHO",
+"LAIZA BATISTA SOUZA",
+"LARISSA EMILY PAIVA DANTAS",
+"LAVINY SOUZA SANTOS",
+"LINDIANE TAINA SOUZA SANTANA",
+"LORENA SILVEIRA",
+"LUIS GABRIEL SANTOS SILVA",
+"LUIZA NASCIMENTO DA PAZ SANTOS",
+"MARCIO LEONALDO DOS SANTOS",
+"MARCIO SANTANA SOUSA",
+"MARIANE CERQUEIRA DE SANTANA SANTOS",
+"MARIANE LIMA SANTANA DE OLIVEIRA",
+"MARIANE SANTANA GUIMARAES",
+"MATHEUS HENRIQUE",
+"MAYLANE MARTINS BARBOSA",
+"NATIANA DOS SANTOS",
+"NICOLAS ARTHUR DA SILVA GOMES",
+"NOME DO ALUNO",
+"RAED DOS SANTOS GONCALVES ALMEIDA",
+"RAIANE VITORIA LIMA RIBEIRO",
+"RAQUEL SANTOS DA PURIFICACAO ALUNO ENOVA EDUCACAO BA GOV BR",
+"RAQUELY PEREIRA",
+"REBECA DE FREITAS MENEZES",
+"RIKELME DE ARAUJO SANTOS",
+"RILDO VITOR SANTOS GALDINO",
+"ROSA ESTHER LIMA DOS SANTOS",
+"SAMUEL ADOLFO BRANDAO",
+"SAMUEL OLIVEIRA MACEDO",
+"SILVANA SANTANA DOS SANTOS",
+"TAILANE DE SANTANA CAVALCANTE",
+"TAINA BARBOSA DA SILVA",
+"TAINA DOS SANTOS REIS",
+"TAYSON GABRIEL ARAUJO DOS SANTOS",
+"THAIANE BARBOSA DA SILVA",
+"THAISSA VITORIA SOUZA SANTOS",
+"THIAGO SANTANA SANTOS",
+"TYCIANE SILVA BARBOSA",
+"WILLIAM DOS SANTOS OLIVEIRA",
+"YASMIN SOUZA DOS SANTOS"
+]}
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "JULIANA SOUZA BACELAR ESTRELA",
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"THAFNY SILVA DOS SANTOS"
+]},
+{"name": "CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA", "students": [
+"ADNA VITORIA SOUZA DOS SANTOS",
+"ANA CLARA RAMOS",
+"ARTHUR SANTOS MELO DE JESUS",
+"CAMILLE EMANUELE DOS SANTOS DE JESUS",
+"CAMILLE LEAL DO NASCIMENTO",
+"DOMINIQUE GREGORIA SANTOS",
+"EVELIN VITORIA SILVA DOS SANTOS",
+"GABRIELE SILVA",
+"ISABELA VASCONCELOS DIAS",
+"JENDEL KAILLAN BISPO DA SILVA",
+"JOAO PAULO DOS SANTOS SILVA",
+"JONATHAN DE JESUS SANTOS",
+"KAUAN SILVA DE MELO",
+"KEIVSON SANTOS DO LAGO",
+"LAISA LIMA DE JESUS",
+"LAURA FABIAN DOS SANTOS XAVIER",
+"MARIA EDUARDA GONCALVES TELES",
+"MARIA EDUARDA SANTANA DOS SANTOS",
+"MARLEY DE JESUS FRANCA",
+"NAIRA GISELLE MATOS DA SILVA",
+"NATHALIA SILVA DO NASCIMENTO",
+"NATHALIA SILVA PALMA",
+"NICOLE VITORIA TOLENTINO DE JESUS",
+"RAFAEL LUZ IASSIM",
+"RAMON SILVA SANTOS",
+"RICARDO MACHADO DANTAS DA SILVA",
+"ROBERTA DOS SANTOS ALVES",
+"RUAN RABELO DE ALMEIDA",
+"SAMIRA SANTOS BISPO",
+"THAUANE DE JESUS DOS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DESEMBARGADOR PEDRO RIBEIRO", "students": [
+"AMANDA PEREIRA SANTANA"
+]},
+{"name": "Centro Estadual de Educação Profissional em Controle e Gestão do Nordeste Baiano Pedro Ribeiro Pessoa", "students": [
+"ANA CLARA",
+"ANA CLARA DE JESUS CONCEICAO",
+"ANNA JULIA DAMASCENO VELOSO",
+"ARTHUR SANTOS SOARES",
+"BIANCA LORRAYNE MARTINS DAMASCENO",
+"ELISSANDRA JESUS ALMEIDA",
+"GABRIEL DE FREITAS NERY",
+"GABRIEL FERREIRA DA SILVA",
+"IASMIN BISPO DE SOUZA",
+"IASMIN SILVA ASEVEDO",
+"JOAO PEDRO BISPO SOUZA",
+"KARIN VITORIA DANTAS MOTA DOS SANTOS",
+"KAUA FELIPE DE FREITAS BORGES",
+"LARISSA DE JESUS RAMOS",
+"MAICON SUELL RODRIGUES DANTAS",
+"MARCONI",
+"MARIA EDUARDA SILVA DO ROSARIO",
+"MATHEUS PEREIRA DA SILVA",
+"MATHEUS SANTOS SILVA",
+"MIRELA MISSIAS DA CONCEICAO DOS SANTOS",
+"MURILO ALVES DOS SANTOS",
+"NAIELE SANTOS DE JESUS",
+"NATHIELE BORGES SANTOS",
+"RAIANE RODRIGUES ROCHA",
+"RENE BORGES SANTOS",
+"TAILANE SANTOS PEREIRA",
+"UESLEI TELES DOS SANTOS RIBEIRO"
+]},
+{"name": " CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA", "students": [
+"ASHLEY RIBEIRO ROCHA",
+"KAIO VICTOR DA PAZ SILVA",
+"OTAVIO DA CONCEICAO ALVES",
+"SAMILE SANTOS DE JESUS"
+]}
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "MARIA CRISTINA DOS SANTOS JORGE",
+"schools": [
+{"name": "COLEGIO ESTADUAL DOUTOR ANTONIO CARLOS MAGALHAES", "students": [
+"ABEL FILIPE ANUNCIACAO DE JESUS",
+"ADRIEL DOS SANTOS DE JESUS",
+"ALAN VITOR DOS SANTOS MOITINHO",
+"ALEFE RIQUELME SENA DAS VIRGENS",
+"ALICE KELLEN SANTOS DA CONCEICAO",
+"ANA BEATRIZ DE JESUS CARDOSO",
+"ANA FLAVIA DA CONCEICAO SANTOS",
+"BRYAN MATIA PEREIRA DA COSTA",
+"CARLOS DANIEL SANTOS BISPO",
+"CIBELE SILVA SANTOS",
+"DANIEL GOMES DA CRUZ",
+"EMANUELA SANTOS ALMEIDA",
+"EMANUELLE DE FRANCA DIAS",
+"EVELIN DE ALMEIDA PITA",
+"EVERTON",
+"GABRIEL OLIVEIRA DE JESUS",
+"HALLIFF KAUE SOUZA DOS SANTOS",
+"IGOR DOS SANTOS SILVA",
+"INGRID ALVES SOUZA",
+"ISABELA BISPO DA PAIXAO",
+"ISAIAS GRIMALDO NASCIMENTO DOS SANTOS",
+"JEISIELLE SANTOS DE JESUS",
+"JENIFER ANTONIA SILVA SANTOS",
+"JHONATAS SANTOS BISPO",
+"JOAO VICTOR SILVA NASCIMENTO",
+"KAUA VICTOR SILVA DOS SANTOS",
+"KAYLAN PETKOVIC SANTOS NASCIMENTO",
+"LAIZA DS JEUES SANTOS",
+"LETICIA DA SILVA GOMES",
+"LUAN SANTOS DA PAIXAO",
+"LUCIELE SANTANA SANTOS",
+"LUIZ EDUARDO FERREIRA DOS SANTOS",
+"MAISA DE JESUS SANTOS",
+"MARIA FERNANDA RABELO MOTA",
+"MARIO GABRIEL DOS SANTOS LAGO",
+"MOISES MATOS DOS SANTOS",
+"PRISCILA PRIMO DOS SANTOS",
+"QAIANE SILVA DA CONCEICAO",
+"RAIANE DA SILVA SANTOS",
+"RAILANE RAMOS ALMEIDA DOS SANTOS",
+"RAISSA ALMEIDA BRITO",
+"RAWANNA DE JESUS SANTOS",
+"RODRIGO DA SILVA SANTOS",
+"ROSIANE PEREIRA DA CONCEICAO",
+"TALITA GAMA LOURENCO",
+"TAMILY DIAS FERREIRA",
+"THAYLANE CONCEICAO SANTANA",
+"THIAGO SILVA DE JESUS",
+"WELISON FERREIRA DA CRUZ"
+]},
+{"name": "COLEGIO ESTADUAL ELIEL MARTINS", "students": [
+"MICHEL SANTOS DE CARVALHO"
+]},
+{"name": " COLEGIO ESTADUAL DOUTOR ANTONIO CARLOS MAGALHAES", "students": [
+"MARIA EDUARDA SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 19 - Feira de Santana",
 "name": "AGEU REIS DOS SANTOS CARDOSO",
-"school": "COLEGIO ESTADUAL PROFESSORA CARMINDA MASCARENHAS VIEIRA",
-"students": [
+"schools": [
+{"name": "ANEXO DO COLEGIO ESTADUAL DO CAMPO LUCIA ROCHA MACEDO", "students": [
+"ISRAEL GOMES DA SILVA",
+"YASMIN DAS VIRGENS DE SOUZA"
+]},
+{"name": "CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE III", "students": [
+"AMANDA LIMA DA CRUZ ALVES"
+]},
+{"name": "CENTRO ESTADUAL DE EDUCACAO PROFISSIONAL DO OCEANO", "students": [
+"JOAO ARTHUR FEITOZA"
+]},
+{"name": "COLEGIO ESTADUAL CASTRO ALVES", "students": [
+"LUDMILLA SOUZA VITORIO",
+"LUIS FELIPE PEREIRA SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL RIO CORRENTE", "students": [
+"DANTE DOS REIS VITORIO"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL SANTO ANTONIO", "students": [
+"ALANNA OLIVEIRA DE JESUS BARBOSA"
+]},
+{"name": "COLEGIO ESTADUAL GOVERNADOR LUIZ VIANA FILHO", "students": [
+"JAYNE DAS VIRGENS ROSA",
+"PAULO HENRIQUE OLIVEIRA SANTOS",
+"RENATA MIRANDA DA SILVA",
+"RENATA PEREIRA DA CRUZ"
+]},
+{"name": "COLEGIO ESTADUAL HELENA ASSIS SUZART", "students": [
+"CLARISSA BISPO SANTOS",
+"EVELLY GIOVANNA SILVA DE JESUS",
+"MONICA DA SILVA CRUZ",
+"RAFAELLE DOS SANTOS OLIVEIRA"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSORA CARMINDA MASCARENHAS VIEIRA", "students": [
 "AMANDA JESSICA FERREIRA BRITO",
 "ANA CLARA CONCEICAO AMORIM",
 "ANA HELLOISY SOBRINHO RAMOS",
@@ -3695,13 +4348,21 @@ const TEACHERS_DATA = [
 "SOFIA FABRINE FERNANDES CORREIA",
 "SOPHIA DOS SANTOS SANTIAGO",
 "THAILANY FONSECA DE ALMEIDA"
+]},
+{"name": "COLEGIO MODELO LUIS EDUARDO MAGALHAES", "students": [
+"CLARA DOS SANTOS PEREIRA",
+"MAYSA AZEVEDO MIRANDA"
+]},
+{"name": "COLÉGIO ESTADUAL DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO", "students": [
+"YASMIN MENEZES DA FONSECA"
+]}
 ]
 },
 {
 "nte": "NTE 19 - Feira de Santana",
 "name": "LEILA THAISE SANTANA DE OLIVEIRA SANTOS",
-"school": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO",
-"students": [
+"schools": [
+{"name": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO", "students": [
 "ADILSON PRADO LIMA JUNIOR",
 "ALDAIR JOSE AZEVEDO SANTANA",
 "ANTONIETA DIAS DAS VIRGENS",
@@ -3718,13 +4379,21 @@ const TEACHERS_DATA = [
 "PRISCILLA LIMA AMORIM",
 "REGINA SANTOS DE LIMA",
 "SIMONE BARBOSA SILVA"
+]},
+{"name": " ANEXO-COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA", "students": [
+"ISABELA BARROS CARVALHO",
+"NAYARE"
+]}
 ]
 },
 {
 "nte": "NTE 19 - Feira de Santana",
 "name": "MURIEL PATRICIA SILVA DE ASSIS",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL SANTO ANTONIO", "students": [
+"THARIS CEZAR SANTOS OLIVEIRA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE", "students": [
 "ADRIELE DE CARVALHO LIMA",
 "AGNALDO RIBEIRO DE JESUS JUNIOR",
 "AMANDA ALMEIDA LIMA",
@@ -3786,13 +4455,18 @@ const TEACHERS_DATA = [
 "TIAGO SOUZA FERREIRA FILHO",
 "VITORIA LIMA BRITO",
 "WANDERSON CARVALHO SANTANA"
+]},
+{"name": " COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE", "students": [
+"KAYLANE MENEZES DE FREITAS",
+"VITOR GABRIEL DOS SANTOS FERREIRA"
+]}
 ]
 },
 {
 "nte": "NTE 19 - Feira de Santana",
 "name": "NARIA REIS DOS SANTOS BREUSS",
-"school": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO",
-"students": [
+"schools": [
+{"name": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO", "students": [
 "ALINE DOS SANTOS SILVA",
 "AMANDA SANTOS SANTIAGO",
 "ANA BEATRIZ SILVA DOS SANTOS",
@@ -3858,13 +4532,17 @@ const TEACHERS_DATA = [
 "WILIANE OLIVEIRA DE JESUS",
 "YASMIN MAGALHAES DE SOUSA LIMA",
 "YASMIN SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 20 - Vitória da Conquista",
 "name": "JORGE CLEITON SILVA SOUZA",
-"school": "COLEGIO ESTADUAL SISINIO RIBEIRO SILVA",
-"students": [
+"schools": [
+{"name": "CENTRO ESTAD DE EDUC, INOVACAO E FORMACAO DA BAHIA-CEEIFOR- MAE STELLA", "students": [
+"RIQUELME SOUSA SILVA NETO"
+]},
+{"name": "COLEGIO ESTADUAL SISINIO RIBEIRO SILVA", "students": [
 "ADRIELLE SILVA GOMES",
 "ALEXANDRE CHAVES SILVA",
 "ANA LUIZA SANTOS PEREIRA",
@@ -3905,13 +4583,14 @@ const TEACHERS_DATA = [
 "VINICIUS PINHEIRO SANTOS",
 "VIVIANE PEREIRA SANTOS",
 "YURI RICARDO"
+]}
 ]
 },
 {
 "nte": "NTE 20 - Vitória da Conquista",
 "name": "LILIAN MOREIRA PEREIRA DOS SANTOS",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA", "students": [
 "ALEX ENZZO SANTOS DE MAGALHAES",
 "ALINE DOS SANTOS DE MENDONCA",
 "ANA BEATRIZ RIBEIRO VIANA",
@@ -3970,13 +4649,14 @@ const TEACHERS_DATA = [
 "WILLIAM PIETRO DA COSTA VIANA",
 "YAMIM BATISTA MENDONCA",
 "YSADORA FERRAZ SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 20 - Vitória da Conquista",
 "name": "LILIANE ALVES DE LIMA FERREIRA",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA", "students": [
 "ANA BEATRIZ LOPES DIAS",
 "ANA CAROLINA NOVAIS SANTANA",
 "ARTHUR ROCHA PEREIRA",
@@ -4014,13 +4694,14 @@ const TEACHERS_DATA = [
 "TAUANE SANTOS RIBEIRO",
 "THAINA DOS SANTOS PEREIRA",
 "WANNGY DA ROCHA CASTRO"
+]}
 ]
 },
 {
 "nte": "NTE 20 - Vitória da Conquista",
 "name": "TAMARA SIBELE DOS SANTOS",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA", "students": [
 "ADRIELLY ALVES ROCHA",
 "ALAN ROCHA CASTRO",
 "ALINE CRUZ DOS SANTOS",
@@ -4077,13 +4758,20 @@ const TEACHERS_DATA = [
 "VICTOR ALVES RIBEIRO",
 "VITORIA RODRIGUES PACHECO",
 "YARA DUTRA DE SOUSA"
+]}
 ]
 },
 {
 "nte": "NTE 21 - Santo Antônio de Jesus",
 "name": "ANA CARLA BARBUDA DOS SANTOS",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SALINAS DA MARGARIDA",
-"students": [
+"schools": [
+{"name": "CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA", "students": [
+"SFGURHJ"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
+"MINIELY SANTOS TEIXEIRA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SALINAS DA MARGARIDA", "students": [
 "ADRIANO DO VALE SOUSA",
 "ALLEHANDRO FARIAS CONCEICAO",
 "ANA BEATRIZ SOUZA DOS SANTOS",
@@ -4151,13 +4839,17 @@ const TEACHERS_DATA = [
 "WEVERTE SILVA SANTOS",
 "WILTON SILVA DE JESUS",
 "YANNE BEATRIZ COELHO SOUZA"
+]},
+{"name": "COLÉGIO ESTADUAL DO CAMPO LUCIBERTO OLIVEIRA DOS SANTOS", "students": [
+"LORENA BENVENUTO MARTINS"
+]}
 ]
 },
 {
 "nte": "NTE 22 - Jequié",
 "name": "EDUARDO FERNANDES LINO",
-"school": "COLEGIO ESTADUAL GILDA RAMOS DOS SANTOS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL GILDA RAMOS DOS SANTOS", "students": [
 "ADAILTON RAMOS SOARES",
 "ALANA GABRIELLA CRUZ DOS SANTOS",
 "ALICE DE JESUS SANTIAGO",
@@ -4221,13 +4913,14 @@ const TEACHERS_DATA = [
 "VITORIA PEREIRA BORGES ARAUJO",
 "YASMIN SANTOS DA SILVA",
 "YVILI OLIVEIRA FELIX"
+]}
 ]
 },
 {
 "nte": "NTE 22 - Jequié",
 "name": "PAULO HENRIQUE SOUZA SANTOS",
-"school": "COLEGIO DA POLICIA MILITAR - CPM PROFESSOR POETA LUIS NEVES COTRIM",
-"students": [
+"schools": [
+{"name": "COLEGIO DA POLICIA MILITAR - CPM PROFESSOR POETA LUIS NEVES COTRIM", "students": [
 "ARTHUR DE JESUS TRINDADE",
 "BRYAN DE PAULA DUARTE",
 "DAVI AUGUSTO DE OLIVEIRA GOTADO",
@@ -4252,13 +4945,17 @@ const TEACHERS_DATA = [
 "STEPHANY VITORIA CARDOSO TEIXEIRA",
 "VITORIA GONCALVES PEREIRA SILVA",
 "YAGO MENDES ARGOLO"
+]},
+{"name": " COLEGIO DA POLICIA MILITAR - CPM PROFESSOR POETA LUIS NEVES COTRIM", "students": [
+"KIARA DE SOUZA SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 22 - Jequié",
 "name": "SAVIO LEAL OLIVEIRA",
-"school": "CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA",
-"students": [
+"schools": [
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA", "students": [
 "ANALU RAIANE DA SILVA MARTINS",
 "JANICE DA SILVA MONTEIRO",
 "KAUA DA SILVA PIRES",
@@ -4270,13 +4967,14 @@ const TEACHERS_DATA = [
 "SUENIA DOMINIQUE DE ALMEIDA LIMA",
 "WENDEL DOS SANTOS FRANCA",
 "YASMIN SOUZA"
+]}
 ]
 },
 {
 "nte": "NTE 23 - Santa Maria da Vitória",
 "name": "HIGOR PEREIRA DOS ANJOS",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL RUY BARBOSA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL RUY BARBOSA", "students": [
 "ANDRESSA DE SOUZA SILVA",
 "EDNA VITORIA SOUZA DA CONCEICAO",
 "ELLEN SIVA SOUZA",
@@ -4306,13 +5004,20 @@ const TEACHERS_DATA = [
 "SAMARA MONTALVAO DOS SANTOS",
 "VITOR GABRIEL SANTOS SALES",
 "WANDERSON URSINO OLIVEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 24 - Paulo Afonso",
 "name": "ANTONIA PEREIRA DA SILVA",
-"school": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO",
-"students": [
+"schools": [
+{"name": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC", "students": [
+"ALEXANDRY SILVA"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSORA MARIA ODETTE PITHON RAYNAL", "students": [
+"SARAH MARIA SIMOES ASSUNCAO"
+]},
+{"name": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO", "students": [
 "ALBERTH HENRIQUE FERNANDES DE SOUZA",
 "ALINY KAUANY ALEXANDRE PIRES",
 "ANA BEATRIZ RIBEIRO",
@@ -4374,13 +5079,14 @@ const TEACHERS_DATA = [
 "WANDERSON GABRIEL BARBOSA SILVA",
 "YASMIM ALVES DE SOUZA",
 "YASMIM CONCEICAO DE SA"
+]}
 ]
 },
 {
 "nte": "NTE 24 - Paulo Afonso",
 "name": "ANTONIO SALVE BATISTA",
-"school": "CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA",
-"students": [
+"schools": [
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA", "students": [
 "ALICIA DA SILVA GONCALVES",
 "ANA VITORIA",
 "ANATALIA PIETRA DOS SANTOS",
@@ -4446,13 +5152,17 @@ const TEACHERS_DATA = [
 "YAN GUSTAVO DO AMARAL DORIA",
 "YASMIN SILVA DE SA",
 "YURI ALEXANDRE SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 24 - Paulo Afonso",
 "name": "CLAUDIA BEZERRA DOS SANTOS MONTEIRO",
-"school": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO",
-"students": [
+"schools": [
+{"name": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE ARACI", "students": [
+"EVANICLECIO DA PAIXAO COSTA"
+]},
+{"name": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO", "students": [
 "ALICIA SANTOS POSSIDONIO",
 "ANA BEATRIZ LIMA CERQUEIRA",
 "ANA CLARA DA SILVA GOMES",
@@ -4532,13 +5242,17 @@ const TEACHERS_DATA = [
 "WANNE NATHIELE DA SILVA LIMA",
 "YASMIM ARAUJO ZEFERINO",
 "YASMIM CARVALHO SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 24 - Paulo Afonso",
 "name": "ELISVANE NEIDE DOS SANTOS",
-"school": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO",
-"students": [
+"schools": [
+{"name": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA JAIDÊ ROCHA", "students": [
+"CICERO MEDSON NUNES ALVES"
+]},
+{"name": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO", "students": [
 "ANA CLARA CONCEICAO DE SA",
 "ANA CLARA NASCIMENTO SILVA",
 "ANA LUIZA DA SILVA GOMES",
@@ -4579,13 +5293,20 @@ const TEACHERS_DATA = [
 "THAINA DA SILVA OLIVEIRA",
 "VICTOR EMANUEL ALVES MAIA",
 "VITOR EMANUEL RODRIGUES DOS SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 24 - Paulo Afonso",
 "name": "MAISA COSTA DA ENCARNACAO",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL QUITERIA MARIA DE JESUS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PAULO AFONSO", "students": [
+"GABRIEL FERREIRA DA SILVA",
+"LEVY LIMA SANTOS",
+"MARIANA TEIXEIRA DE OLIVEIRA",
+"THALES KAUA ARAUJO NOGUEIRA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL QUITERIA MARIA DE JESUS", "students": [
 "ADRIAN ALVES DA SILVA VIEIRA",
 "ADRIELY GOMES DE OLIVEIRA LISBOA",
 "ADRYAN NOIA GOMES",
@@ -4668,13 +5389,14 @@ const TEACHERS_DATA = [
 "WELIDA SARAH GOMES RODRIGUES",
 "WESLEY RAI RODRIGUES DOS SANTOS",
 "YZES KAROLINE PEREIRA DA SILVA"
+]}
 ]
 },
 {
 "nte": "NTE 25 - Senhor do Bonfim",
 "name": "SUZANA SANTOS JATOBA",
-"school": "COL. EST. QUILOMBOLA DE SAO TOME - BREJAO DA CAATINGA - ANEXO",
-"students": [
+"schools": [
+{"name": "COL. EST. QUILOMBOLA DE SAO TOME - BREJAO DA CAATINGA - ANEXO", "students": [
 "ANA CARLA DOS SANTOS DA SILVA",
 "ANA CAROLINY OLIVEIRA SANTOS SILVA",
 "ANTONIO SILVA NETO",
@@ -4690,13 +5412,14 @@ const TEACHERS_DATA = [
 "KETTLY KAUANNY SANTOS",
 "MARCELA JATOBA DOS SANTOS",
 "RAIANE GOMES DO NASCIMENTO"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "CLAUDIA DE FARIA BARBOSA",
-"school": "COLEGIO ESTADUAL DINAH GONCALVES",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DINAH GONCALVES", "students": [
 "ALICE VITORIA COUTINHO DE JESUS",
 "BEATRIZ OLIVEIRA DE SOUZA",
 "CIBELLE DA SILVA CRUZ",
@@ -4725,13 +5448,19 @@ const TEACHERS_DATA = [
 "SAMUEL OLIVEIRA DA SILVA",
 "STEFANE SANTOS SOUZA",
 "YASMIN PINHEIRO NOVAES"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "DAILA ATAIDE DOS SANTOS",
-"school": "COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
+"HENRIQUE REGIS SANTOS DE JESUS",
+"LAISA DA SILVA RODRIGUES",
+"YASMIN LOPES SOARES"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA", "students": [
 "AIANE JAULA SANTOS BRITO",
 "ALESSANDRO LEITE DOS SANTOS",
 "ANA LUIZA LARANJEIRA CARVALHO",
@@ -4761,13 +5490,14 @@ const TEACHERS_DATA = [
 "PAOLA FERNANDES DE MATOS SILVA",
 "RAFAEL DE SOUZA GALIZA",
 "YURI GUILHERME SANTOS DE OLIVEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "DENILSON MIGUEL SILVA",
-"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL ERNESTO CARNEIRO RIBEIRO",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL ERNESTO CARNEIRO RIBEIRO", "students": [
 "ALESSANDRA CRUZ DOS SANTOS",
 "ANANDA VITORIA DE OLIVEREIRA SOARES COSTA",
 "CAIO JOHNSON MONTEIRO DE JESUS",
@@ -4792,13 +5522,21 @@ const TEACHERS_DATA = [
 "PEDRO VITOR SANTANA SANTOS",
 "POLIANA SOUZA AMORIM",
 "THAILA VITORIA SANTOS OLIVEIRA"
+]},
+{"name": "COLEGIO ESTADUAL ERNESTO CARNEIRO RIBEIRO", "students": [
+"LEVY DOS SANTOS"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA", "students": [
+"ANA RAQUELE DOS SANTOS SILVA",
+"PIETRO HENRY DOS SANTOS HORA MELO"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "EDEMIR BRASIL FERREIRA",
-"school": "COLEGIO ESTADUAL CLERISTON ANDRADE TEMPO INTEGRAL",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL CLERISTON ANDRADE TEMPO INTEGRAL", "students": [
 "ADRIANA BRAGA SANTOS",
 "ALANA MONIQUE OLIVEIRA DOS SANTOS",
 "ALANA OLIVEIRA DA SILVA",
@@ -4861,13 +5599,14 @@ const TEACHERS_DATA = [
 "VANIA BATISTA CARDOSO",
 "VITORIA DAS VIRGENS PINHO",
 "YASMIN NASCIMENTO SANTOS DE ALMEIDA"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "ERIKA ARAUJO SANTANA DIMAS",
-"school": "CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA",
-"students": [
+"schools": [
+{"name": "CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA", "students": [
 "ADMA MAIANA SOUZA DA CONCEICAO",
 "AMANDA TAISSA SANTOS DOS SANTOS",
 "ANA KEZIA RODRIGUES DE MELO",
@@ -4913,13 +5652,20 @@ const TEACHERS_DATA = [
 "TIFANI SANTOS COSTA",
 "VITORIA CAUANE OLIVEIRA CAVALCANTI",
 "YASMIN SANTOS CARVALHO"
+]}
 ]
 },
 {
 "nte": "NTE 27 - Eunápolis",
 "name": "CONSEPION DIAS DA COSTA",
-"school": "COLEGIO ESTADUAL JESUS MOURA",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL RIO CORRENTE", "students": [
+"KENDALLY SANTOS PRATES"
+]},
+{"name": "COLEGIO ESTADUAL JACI FERREIRA DOS SANTOS", "students": [
+"HELOISA MAI DE FREITAS"
+]},
+{"name": "COLEGIO ESTADUAL JESUS MOURA", "students": [
 "ABEL LOPES",
 "ADONIAS JESUS SOUZA",
 "ALANA MENEZES",
@@ -5069,13 +5815,21 @@ const TEACHERS_DATA = [
 "WARLEY TAVARES SANTOS",
 "WILKY FERRAZ SOUZA",
 "YSAELLE MEIRA RODRIGUES"
+]},
+{"name": "COLEGIO ESTADUAL JOAO DAS BOTAS", "students": [
+"CECILIA RODRIGUES DOS SANTOS"
+]},
+{"name": " COLEGIO ESTADUAL JESUS MOURA", "students": [
+"ANA MARTA SANTOS PEREIRA",
+"JOSIANE DIAS DOS SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 27 - Eunápolis",
 "name": "GLAUBER CASSIMIRO SANTOS GUIRRA",
-"school": "COLEGIO ESTADUAL ELOYNA BARRADAS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL ELOYNA BARRADAS", "students": [
 "ALERRANDRO RODRIGUES DA SILVA",
 "ANA BEATRIZ DE JESUS PESSOA",
 "ANA CARLA VIANA DOS SANTOS",
@@ -5117,13 +5871,14 @@ const TEACHERS_DATA = [
 "THAUAN HENRIQUE MARTINS SANTOS",
 "VITOR GUSTAVO MEDINA DINIZ",
 "YASMIN DA ROCHA SANTOS"
+]}
 ]
 },
 {
 "nte": "NTE 27 - Eunápolis",
 "name": "STEPHANNY GRAFF SOUZA SANTOS DIAS",
-"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
-"students": [
+"schools": [
+{"name": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC", "students": [
 "ALEXANDRE DOS SANTOS LIMA",
 "ANA CLARA MARTINS DE ARAUJO",
 "ANA CLARA NEVES SILVA",
@@ -5163,6 +5918,14 @@ const TEACHERS_DATA = [
 "VALENTINA",
 "VICTOR GOMES PACHECO",
 "YASMIN LIMA SANTOS"
+]},
+{"name": "COMPLEXO INTEGRADO DE EDUCAÇÃO BASICA", "students": [
+"ALEX SANTANA DOS SANTOS",
+"GABRIELA ROCHA RIBEIRO",
+"GUILHERME OLIVEIRA ANDRADE",
+"LUAN",
+"TIAGO JUNIOR BOMFIM SANTOS"
+]}
 ]
 }
 ];
@@ -5173,18 +5936,18 @@ const NEWS_OUTLETS = [
 ];
 
 const DISCERNMENT_ITEMS = [
-  { id:"E1", img:"assets/e1.png", label:"E1. positive_lula_true", headline:'Lula diz que o fim da escala 6x1 é uma "conquista civilizatória" e promete trabalhar pela aprovação no Senado.' },
-  { id:"E2", img:"assets/e2.png", label:"E2. positive_lula_false", headline:"Lula aparece na capa da revista Time, a mais importante do mundo." },
-  { id:"E3", img:"assets/e3.png", label:"E3. negative_lula_true", headline:"O filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
-  { id:"E4", img:"assets/e4.png", label:"E4. negative_lula_false", headline:"O filho de Lula comprou a Azul Linhas Aéreas." },
-  { id:"E5", img:"assets/e5.png", label:"E5. positive_bolsonaro_true", headline:'Trump posta foto com Flávio Bolsonaro: "Um jovem inteligente que ama muito seu país."' },
-  { id:"E6", img:"assets/e6.png", label:"E6. positive_bolsonaro_false", headline:"O Intercept admite erro e diz não ter evidências de que dinheiro do Master Bank financiou filme sobre Bolsonaro." },
-  { id:"E7", img:"assets/e7.png", label:"E7. negative_bolsonaro_true", headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas." },
-  { id:"E8", img:"assets/e8.png", label:"E8. negative_bolsonaro_false", headline:"Vídeo mostra Bolsonaro guardando no bolso um objeto dourado entregue por um militar." },
-  { id:"E9", img:"assets/e9.png", label:"E9. non_political_true", headline:"Guerra no Irã e El Niño levam economistas a projetar inflação mais alta este ano." },
-  { id:"E10", img:"assets/e10.png", label:"E10. non_political_false", headline:"Hantavírus é listado como evento adverso da vacina contra o coronavírus." },
-  { id:"E11", img:"assets/e11.png", label:"E11. old_true", headline:"Água em cidade canadense fica rosa e assusta moradores." },
-  { id:"E12", img:"assets/e12.png", label:"E12. old_false", headline:"WhatsApp passará a notificar motoristas quando o semáforo estiver prestes a abrir." }
+  { id:"E1", img:"assets/e1.jpg", label:"E1. positive_lula_true", headline:'Lula diz que o fim da escala 6x1 é uma "conquista civilizatória" e promete trabalhar pela aprovação no Senado.' },
+  { id:"E2", img:"assets/e2.jpg", label:"E2. positive_lula_false", headline:"Lula aparece na capa da revista Time, a mais importante do mundo." },
+  { id:"E3", img:"assets/e3.jpg", label:"E3. negative_lula_true", headline:"O filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
+  { id:"E4", img:"assets/e4.jpg", label:"E4. negative_lula_false", headline:"O filho de Lula comprou a Azul Linhas Aéreas." },
+  { id:"E5", img:"assets/e5.jpg", label:"E5. positive_bolsonaro_true", headline:'Trump posta foto com Flávio Bolsonaro: "Um jovem inteligente que ama muito seu país."' },
+  { id:"E6", img:"assets/e6.jpg", label:"E6. positive_bolsonaro_false", headline:"O Intercept admite erro e diz não ter evidências de que dinheiro do Master Bank financiou filme sobre Bolsonaro." },
+  { id:"E7", img:"assets/e7.jpg", label:"E7. negative_bolsonaro_true", headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas." },
+  { id:"E8", img:"assets/e8.jpg", label:"E8. negative_bolsonaro_false", headline:"Vídeo mostra Bolsonaro guardando no bolso um objeto dourado entregue por um militar." },
+  { id:"E9", img:"assets/e9.jpg", label:"E9. non_political_true", headline:"Guerra no Irã e El Niño levam economistas a projetar inflação mais alta este ano." },
+  { id:"E10", img:"assets/e10.jpg", label:"E10. non_political_false", headline:"Hantavírus é listado como evento adverso da vacina contra o coronavírus." },
+  { id:"E11", img:"assets/e11.jpg", label:"E11. old_true", headline:"Água em cidade canadense fica rosa e assusta moradores." },
+  { id:"E12", img:"assets/e12.jpg", label:"E12. old_false", headline:"WhatsApp passará a notificar motoristas quando o semáforo estiver prestes a abrir." }
 ];
 
 // Conjoint: 12 stories, 4 source variants, 2 virality variants
@@ -5199,10 +5962,10 @@ const SOURCES = ["g1","no_source","post","post_source"];
 const VIRALITY = ["high","low"];
 
 const OPINION_PAIRS = [
-  { news:"assets/1_news_folha.png", opinion:"assets/1_opinion_folha.png", outlet:"Folha de S. Paulo" },
-  { news:"assets/2_news_oglobo.png", opinion:"assets/2_opinion_globo.png", outlet:"O Globo" },
-  { news:"assets/3_news_estadao.png", opinion:"assets/3_opinion_estadao.png", outlet:"Estadão" },
-  { news:"assets/4_news_uol.png", opinion:"assets/4_opinion_uol.png", outlet:"UOL" }
+  { news:"assets/1_news_folha.jpg", opinion:"assets/1_opinion_folha.jpg", outlet:"Folha de S. Paulo" },
+  { news:"assets/2_news_oglobo.jpg", opinion:"assets/2_opinion_globo.jpg", outlet:"O Globo" },
+  { news:"assets/3_news_estadao.jpg", opinion:"assets/3_opinion_estadao.jpg", outlet:"Estadão" },
+  { news:"assets/4_news_uol.jpg", opinion:"assets/4_opinion_uol.jpg", outlet:"UOL" }
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -5213,6 +5976,15 @@ function seededRand() {
   seed = (seed * 1664525 + 1013904223) & 0xffffffff;
   return (seed >>> 0) / 0xffffffff;
 }
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function seededShuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -5224,15 +5996,15 @@ function seededShuffle(arr) {
 
 // Pick 5 conjoint pairs
 function pickConjointTasks() {
-  const falseStories = seededShuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
-  const trueStories  = seededShuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
+  const falseStories = shuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
+  const trueStories  = shuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
   return falseStories.map((f, i) => {
     const t = trueStories[i];
-    const src1 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
-    const vir1 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
-    const src2 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
-    const vir2 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
-    const flipSides = seededRand() > 0.5;
+    const src1 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
+    const vir1 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
+    const src2 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
+    const vir2 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
+    const flipSides = Math.random() > 0.5;
     const imgA = `assets/${f.prefix}_${src1}_${vir1}.jpg`;
     const imgB = `assets/${t.prefix}_${src2}_${vir2}.jpg`;
     return flipSides
@@ -5241,7 +6013,7 @@ function pickConjointTasks() {
   });
 }
 
-const CONJOINT_TASKS = pickConjointTasks();
+let CONJOINT_TASKS;  // assigned on name confirmation, not at page load
 
 // ═══════════════════════════════════════════════════════
 // STATE
@@ -5256,11 +6028,11 @@ const responses = {};
 document.addEventListener('DOMContentLoaded', () => {
   populateStudents();
   populateM7();
-  generateDiscernmentScreens();
-  generateConjointScreens();
-  generateOpinionScreens();
   updateProgress();
   setupOptionListeners();
+  // generateDiscernmentScreens / generateConjointScreens / generateOpinionScreens
+  // / randomizeOptions are called inside validateAndGoTo() so randomization
+  // is seeded from the moment the student confirms their identity, not page load.
 });
 
 function populateStudents() {
@@ -5283,9 +6055,12 @@ function onNTEChange() {
   const blockStudent = document.getElementById('block-student');
 
   // Reset downstream
-  teacherSelect.innerHTML = '<option value="">— Select teacher —</option>';
-  document.getElementById('student-select').innerHTML = '<option value="">— Select your name —</option>';
+  teacherSelect.innerHTML = '<option value="">— Selecione o professor —</option>';
+  document.getElementById('student-select').innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('school-display').textContent = '';
+  document.getElementById('school-display').style.display = 'none';
+  document.getElementById('school-select-dropdown').style.display = 'none';
+  document.getElementById('school-select-dropdown').innerHTML = '<option value="">— Selecione sua escola —</option>';
   document.getElementById('school-select').value = '';
   blockSchool.style.display = 'none';
   blockStudent.style.display = 'none';
@@ -5303,38 +6078,76 @@ function onNTEChange() {
 }
 
 function onTeacherChange() {
-  const teacherName = document.getElementById('teacher-select').value;
-  const blockSchool = document.getElementById('block-school');
-  const blockStudent = document.getElementById('block-student');
-  const studentSelect = document.getElementById('student-select');
+  const teacherName    = document.getElementById('teacher-select').value;
+  const blockSchool    = document.getElementById('block-school');
+  const blockStudent   = document.getElementById('block-student');
+  const studentSelect  = document.getElementById('student-select');
+  const schoolDisplay  = document.getElementById('school-display');
+  const schoolDropdown = document.getElementById('school-select-dropdown');
 
-  studentSelect.innerHTML = '<option value="">— Select your name —</option>';
+  // Reset downstream
+  studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('new-name-wrap').style.display = 'none';
+  schoolDisplay.style.display = 'none';
+  schoolDisplay.textContent = '';
+  schoolDropdown.style.display = 'none';
+  schoolDropdown.innerHTML = '<option value="">— Selecione sua escola —</option>';
+  document.getElementById('school-select').value = '';
+  blockStudent.style.display = 'none';
 
-  if (!teacherName) { blockSchool.style.display = 'none'; blockStudent.style.display = 'none'; return; }
+  if (!teacherName) { blockSchool.style.display = 'none'; return; }
 
   const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
   if (!teacher) return;
 
-  // Show school
-  document.getElementById('school-display').textContent = teacher.school;
-  document.getElementById('school-select').value = teacher.school;
   blockSchool.style.display = 'block';
+
+  // Always show ALL students for this teacher across every school,
+  // sorted alphabetically and deduplicated.
+  const allStudents = [...new Set(
+    teacher.schools.flatMap(s => s.students)
+  )].sort();
+  fillStudentSelect(allStudents, studentSelect);
   blockStudent.style.display = 'block';
 
-  // Populate students
-  teacher.students.forEach(name => {
+  if (teacher.schools.length === 1) {
+    // Single school: auto-fill, no choice needed
+    schoolDisplay.textContent = teacher.schools[0].name;
+    schoolDisplay.style.display = 'block';
+    document.getElementById('school-select').value = teacher.schools[0].name;
+  } else {
+    // Multiple schools: show dropdown so student can identify their school
+    teacher.schools.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.name;
+      opt.textContent = s.name;
+      schoolDropdown.appendChild(opt);
+    });
+    schoolDropdown.style.display = 'block';
+  }
+
+  checkIdentifiers();
+}
+
+function onSchoolChange() {
+  // School change only updates the hidden school-select value; student list
+  // is already fully populated and does not change.
+  const schoolName = document.getElementById('school-select-dropdown').value;
+  document.getElementById('school-select').value = schoolName;
+  checkIdentifiers();
+}
+
+function fillStudentSelect(students, selectEl) {
+  students.forEach(name => {
     const opt = document.createElement('option');
     opt.value = name;
     opt.textContent = name;
-    studentSelect.appendChild(opt);
+    selectEl.appendChild(opt);
   });
   const other = document.createElement('option');
   other.value = '__other__';
-  other.textContent = 'My name is not in the list';
-  studentSelect.appendChild(other);
-
-  checkIdentifiers();
+  other.textContent = 'Meu nome não está na lista';
+  selectEl.appendChild(other);
 }
 
 function populateM7() {
@@ -5343,9 +6156,9 @@ function populateM7() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${outlet}</td>
-      <td><select name="m7_${i}_a"><option value="">—</option><option value="1">Yes</option><option value="0">No</option></select></td>
-      <td><select name="m7_${i}_b"><option value="">—</option><option value="1">Yes</option><option value="0">No</option></select></td>
-      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Yes</option><option value="2">Somewhat</option><option value="0">No</option><option value="">I don't know</option></select></td>
+      <td><select name="m7_${i}_a"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
+      <td><select name="m7_${i}_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
+      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Parcialmente</option><option value="0">Não</option><option value="9">Não sei</option></select></td>
     `;
     tbody.appendChild(tr);
   });
@@ -5354,7 +6167,8 @@ function populateM7() {
 function generateDiscernmentScreens() {
   const container = document.querySelector('.container');
   const refScreen = document.getElementById('screen-22');
-  DISCERNMENT_ITEMS.forEach((item, idx) => {
+  const discItems = shuffle(DISCERNMENT_ITEMS);   // new random order per student
+  discItems.forEach((item, idx) => {
     const screenNum = 10 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
@@ -5362,14 +6176,14 @@ function generateDiscernmentScreens() {
     div.innerHTML = `
       <div class="card">
         <div class="task-counter" id="disc-counter-${idx}"></div>
-        <div class="headline-label">Evaluate the accuracy of the headline below:</div>
+        <div class="headline-label">Avalie a precisão da manchete abaixo:</div>
         <div class="headline-img-wrap">
           <img src="${item.img}" alt="${item.label}" loading="lazy">
         </div>
-        <div class="question-text" style="margin-bottom:16px;">How accurate do you think this headline is?</div>
+        <div class="question-text" style="margin-bottom:16px;">O quanto você acha que esta manchete é precisa?</div>
         <div class="scale-wrap">
           <div class="scale-labels">
-            <span>Definitely false</span><span>Probably false</span><span>Not sure</span><span>Probably true</span><span>Definitely true</span>
+            <span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span>
           </div>
           <div class="scale-buttons" id="scale-${item.id.toLowerCase()}">
             <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',1,this)">1</button>
@@ -5379,17 +6193,17 @@ function generateDiscernmentScreens() {
             <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',5,this)">5</button>
           </div>
         </div>
-        <div class="alert" id="alert-${item.id.toLowerCase()}">Please select an option.</div>
+        <div class="alert" id="alert-${item.id.toLowerCase()}">Por favor, selecione uma opção.</div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Back</button>
-          <button class="btn btn-primary" onclick="requireScale('${item.id.toLowerCase()}', ${screenNum + 1})">Next →</button>
+          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireScale('${item.id.toLowerCase()}', ${screenNum + 1})">Próximo →</button>
         </div>
       </div>`;
     container.insertBefore(div, refScreen);
   });
   // Build task counter dots for discernment
   setTimeout(() => {
-    DISCERNMENT_ITEMS.forEach((_, idx) => {
+    discItems.forEach((_, idx) => {
       const counter = document.getElementById(`disc-counter-${idx}`);
       if (!counter) return;
       for (let i = 0; i < 12; i++) {
@@ -5413,23 +6227,23 @@ function generateConjointScreens() {
     div.innerHTML = `
       <div class="card">
         <div class="instruction-box">
-          <strong>📲 Imagine you received these messages in a WhatsApp group.</strong>
-          After reading both messages, click the one you would be more likely to share with other people.
+          <strong>📲 Imagine que você recebeu estas mensagens em um grupo do WhatsApp.</strong>
+          Após ler as duas mensagens, clique naquela que você teria mais probabilidade de compartilhar com outras pessoas.
         </div>
         <div class="conjoint-pair">
           <div class="conjoint-card" id="conj-${idx}-A" onclick="selectConjoint(${idx},'A')">
-            <img src="${task.left}" alt="Message A" loading="lazy">
-            <div class="choice-label">📤 I would share this one</div>
+            <img src="${task.left}" alt="Mensagem A" loading="lazy">
+            <div class="choice-label">📤 Compartilharia esta</div>
           </div>
           <div class="conjoint-card" id="conj-${idx}-B" onclick="selectConjoint(${idx},'B')">
-            <img src="${task.right}" alt="Message B" loading="lazy">
-            <div class="choice-label">📤 I would share this one</div>
+            <img src="${task.right}" alt="Mensagem B" loading="lazy">
+            <div class="choice-label">📤 Compartilharia esta</div>
           </div>
         </div>
-        <div class="alert" id="alert-conj-${idx}">Please select one of the messages.</div>
+        <div class="alert" id="alert-conj-${idx}">Por favor, selecione uma das mensagens.</div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Back</button>
-          <button class="btn btn-primary" onclick="requireConjoint(${idx}, ${screenNum + 1})">Next →</button>
+          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireConjoint(${idx}, ${screenNum + 1})">Próximo →</button>
         </div>
       </div>`;
     container.insertBefore(div, refScreen);
@@ -5447,23 +6261,23 @@ function generateOpinionScreens() {
     div.innerHTML = `
       <div class="card">
         <div class="instruction-box">
-          <strong>📰 Which of the two images is more likely to provide objective and detailed information?</strong>
-          Click on the image that best represents informative journalism about the facts.
+          <strong>📰 Qual das duas imagens tem mais chance de passar informação objetiva e detalhada?</strong>
+          Clique na imagem que melhor representa jornalismo informativo sobre os fatos.
         </div>
         <div class="opinion-pair">
           <div class="opinion-card" id="op-${idx}-A" onclick="selectOpinion(${idx},'A')">
-            <img src="${pair.news}" alt="Article A" loading="lazy">
-            <div class="choice-label">Select this one</div>
+            <img src="${pair.news}" alt="Artigo A" loading="lazy">
+            <div class="choice-label">Selecionar esta</div>
           </div>
           <div class="opinion-card" id="op-${idx}-B" onclick="selectOpinion(${idx},'B')">
-            <img src="${pair.opinion}" alt="Article B" loading="lazy">
-            <div class="choice-label">Select this one</div>
+            <img src="${pair.opinion}" alt="Artigo B" loading="lazy">
+            <div class="choice-label">Selecionar esta</div>
           </div>
         </div>
-        <div class="alert" id="alert-op-${idx}">Please select one of the images.</div>
+        <div class="alert" id="alert-op-${idx}">Por favor, selecione uma das imagens.</div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Back</button>
-          <button class="btn btn-primary" onclick="requireOpinion(${idx}, ${screenNum + 1})">Next →</button>
+          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireOpinion(${idx}, ${screenNum + 1})">Próximo →</button>
         </div>
       </div>`;
     container.insertBefore(div, refScreen);
@@ -5471,22 +6285,44 @@ function generateOpinionScreens() {
 }
 
 // ═══════════════════════════════════════════════════════
+// OPTION RANDOMIZATION
+// ═══════════════════════════════════════════════════════
+// Shuffle answer options on load; pin "Não sei / Outro / Nenhuma" to bottom.
+function randomizeOptions() {
+  const groups = ['q-a4','q-dl5','q-dl8','q-m1','q-b1','q-b2','q-b3','q-b4','q-b7','q-b10'];
+  const lastPattern = /não sei|não quero|nenhuma|outro/i;
+  groups.forEach(id => {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const opts = Array.from(container.querySelectorAll(':scope > label.opt'));
+    if (opts.length < 2) return;
+    const keep = opts.filter(o => lastPattern.test(o.textContent));
+    const rest = opts.filter(o => !lastPattern.test(o.textContent));
+    for (let i = rest.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [rest[i], rest[j]] = [rest[j], rest[i]];
+    }
+    [...rest, ...keep].forEach(o => container.appendChild(o));
+  });
+}
+
+// ═══════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════
 // Map each screen to a major section number (1–6)
-// 1: Introduction & Identification (0–1)
-// 2: Participation (2)
-// 3: Media Consumption (3–5)
-// 4: Knowledge (6–7)
-// 5: Discernment & Tasks (8–31)
-// 6: Critical Thinking & Closing (32–33)
+// 1: Introdução & Identificação (0–1)
+// 2: Participação (2)
+// 3: Consumo de Mídia (3–5)
+// 4: Conhecimento (6–7)
+// 5: Discernimento & Tarefas (8–31)
+// 6: Pensamento Crítico & Encerramento (32–33)
 function getSectionLabel(n) {
-  if (n <= 1)  return 'Section 1 of 6';
-  if (n === 2) return 'Section 2 of 6';
-  if (n <= 5)  return 'Section 3 of 6';
-  if (n <= 7)  return 'Section 4 of 6';
-  if (n <= 33) return 'Section 5 of 6';
-  return 'Section 6 of 6';
+  if (n <= 1)  return 'Seção 1 de 6';
+  if (n === 2) return 'Seção 2 de 6';
+  if (n <= 5)  return 'Seção 3 de 6';
+  if (n <= 7)  return 'Seção 4 de 6';
+  if (n <= 33) return 'Seção 5 de 6';
+  return 'Seção 6 de 6';
 }
 
 function goTo(n) {
@@ -5552,7 +6388,7 @@ function setScale(key, val, btn) {
 function requireScale(key, next) {
   const alert = document.getElementById(`alert-${key}`);
   if (!responses[key]) {
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   if (alert) alert.classList.remove('show');
@@ -5573,7 +6409,7 @@ function selectConjoint(idx, side) {
 function requireConjoint(idx, next) {
   if (!responses[`conjoint_${idx}`]) {
     const alert = document.getElementById(`alert-conj-${idx}`);
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   goTo(next);
@@ -5588,7 +6424,7 @@ function selectOpinion(idx, side) {
 function requireOpinion(idx, next) {
   if (!responses[`opinion_${idx}`]) {
     const alert = document.getElementById(`alert-op-${idx}`);
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   goTo(next);
@@ -5624,18 +6460,62 @@ function checkIdentifiers() {
   return !!(nte && t && s && st && (st !== '__other__' || newName));
 }
 
-function validateSection(radioNames, alertId, next) {
-  const missing = radioNames.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
-  if (missing.length > 0) {
-    const alert = document.getElementById(alertId);
-    alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
+function validateM1M7(next) {
+  const alertEl = document.getElementById('alert-m');
+  if (!document.querySelector('input[name="m1"]:checked')) {
+    alertEl.classList.add('show');
+    document.getElementById('q-m1')?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  // Save radio responses
-  radioNames.forEach(name => {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    if (checked) responses[name] = checked.value;
+  for (let i = 0; i < NEWS_OUTLETS.length; i++) {
+    for (const col of ['a','b','c']) {
+      const sel = document.querySelector(`select[name="m7_${i}_${col}"]`);
+      if (sel && !sel.value) {
+        alertEl.classList.add('show');
+        sel.closest('tr')?.scrollIntoView({ behavior:'smooth', block:'center' });
+        return;
+      }
+    }
+  }
+  alertEl.classList.remove('show');
+  goTo(next);
+}
+
+function validateCTFC1(next) {
+  const q1 = document.getElementById('ctfc1-q1')?.value.trim();
+  const q2 = document.getElementById('ctfc1-q2')?.value.trim();
+  const q3 = document.getElementById('ctfc1-q3')?.value.trim();
+  const alertEl = document.getElementById('alert-ctfc');
+  if (!q1 || !q2 || !q3) {
+    alertEl.classList.add('show');
+    if (!q1) document.getElementById('ctfc1-q1')?.focus();
+    else if (!q2) document.getElementById('ctfc1-q2')?.focus();
+    else document.getElementById('ctfc1-q3')?.focus();
+    return;
+  }
+  alertEl.classList.remove('show');
+  goTo(next);
+}
+
+function validateSection(names, alertId, next) {
+  const missing = names.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
+  if (missing.length > 0) {
+    const alertEl = document.getElementById(alertId);
+    alertEl.classList.add('show');
+    const firstEl = document.getElementById(`q-${missing[0]}`) || document.getElementById(`scale-${missing[0]}`);
+    if (firstEl) firstEl.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  document.getElementById(alertId)?.classList.remove('show');
+  // Save responses (handles both radio and checkbox)
+  names.forEach(name => {
+    const boxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    if (!boxes.length) return;
+    if (boxes[0].type === 'checkbox') {
+      responses[name] = Array.from(boxes).map(b => b.value);
+    } else {
+      responses[name] = boxes[0].value;
+    }
   });
   goTo(next);
 }
@@ -5644,7 +6524,6 @@ function validateAndGoTo(next, alertId, checkFn) {
   if (!checkFn()) {
     const alert = document.getElementById(alertId);
     alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
     return;
   }
   // Save identifier responses
@@ -5655,23 +6534,28 @@ function validateAndGoTo(next, alertId, checkFn) {
   responses.student = sel === '__other__'
     ? document.getElementById('new-name-input').value.trim()
     : sel;
+  // ── Randomize NOW, tied to this specific student's confirmation ──
+  randomizeOptions();
+  CONJOINT_TASKS = pickConjointTasks();
+  generateDiscernmentScreens();
+  generateConjointScreens();
+  generateOpinionScreens();
   goTo(next);
 }
 
 function validateSectionD(from, next) {
-  // Check b10 radio at minimum
-  const b10 = document.querySelector('input[name="b10"]:checked');
-  if (!b10) {
-    const alert = document.getElementById('alert-c2');
-    alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
+  const alertEl = document.getElementById('alert-c2');
+  const missingScale = ['b5','b6','b8','b9'].some(k => !responses[k]);
+  const b7ok  = document.querySelector('input[name="b7"]:checked');
+  const b10ok = document.querySelector('input[name="b10"]:checked');
+  if (missingScale || !b7ok || !b10ok) {
+    alertEl.classList.add('show');
+    const firstMissing = ['b5','b6','b8','b9'].find(k => !responses[k]);
+    if (firstMissing) document.getElementById(`scale-${firstMissing}`)?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  // Save all b5-b10
-  ['b10'].forEach(name => {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    if (checked) responses[name] = checked.value;
-  });
+  alertEl.classList.remove('show');
+  responses.b10 = b10ok.value;
   goTo(next);
 }
 
@@ -5680,7 +6564,6 @@ const origGoTo = goTo;
 window.goTo = function(n) {
   if (n === 35) {
     collectAllResponses();
-    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);
@@ -5691,30 +6574,10 @@ function validateAtt(num, name, alertId, next) {
   if (!sel) {
     const a = document.getElementById(alertId);
     a.classList.add('show');
-    setTimeout(() => a.classList.remove('show'), 3000);
     return;
   }
   responses[name] = sel.value;
   goTo(next);
-}
-
-const GOOGLE_SHEET_URL = 'https://script.google.com/a/macros/clio.uc3m.es/s/AKfycbxJFe0sZFS7YIlLKkf0iUtvk60hdrjkSYjpQ8GVGCouc1UKV3u5vE8nmwSBh_tJ3VvMtQ/exec';
-
-function submitToGoogleSheets() {
-  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
-    console.warn('Google Sheet URL not configured — skipping submission.');
-    return;
-  }
-  try {
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(responses)
-    });
-  } catch(err) {
-    console.warn('Submission error:', err);
-  }
 }
 
 function collectAllResponses() {

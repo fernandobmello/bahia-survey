@@ -479,7 +479,10 @@
     <div class="question-block" id="block-school" style="display:none;">
       <div class="question-number">Sua escola</div>
       <div class="question-text">Escola:</div>
-      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500;"></div>
+      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500; display:none;"></div>
+      <select id="school-select-dropdown" onchange="onSchoolChange()" style="display:none; width:100%; padding:12px 16px; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); background:#fff; cursor:pointer;">
+        <option value="">— Selecione sua escola —</option>
+      </select>
       <input type="hidden" id="school-select">
     </div>
     <div class="question-block" id="block-student" style="display:none;">
@@ -619,7 +622,7 @@
     <div class="alert" id="alert-b1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['dl6','dl7'], 'alert-b1', 4)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateSection(['dl5','dl6','dl7','dl8'], 'alert-b1', 4)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -665,9 +668,10 @@
       </div>
     </div>
 
+    <div class="alert" id="alert-m">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goTo(5)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateM1M7(5)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1026,9 +1030,10 @@
       </div>
     </div>
 
+    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(33)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goTo(35)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(35)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1062,32 +1067,16 @@
 const TEACHERS_DATA = [
 {
 "nte": "NTE 26 - Salvador",
-"name": "MARTHA LUCIENE NOGUEIRA BARROS DANTAS",
-"school": "COLEGIO ESTADUAL CLARICE SANTIAGO DOS SANTOS",
-"students": [
-"ANA CARLA",
-"CAILANE NUNES DA LUZ LIMA",
-"EMILY VITORIA CASTRO CORREIA",
-"FILIPE DOS SANTOS SILVA",
-"GABRIEL ALMEIDA PEREIRA",
-"GABRIEL CARVALHO SOUZA DE ANDRADE",
-"GABRIEL DE FREITAS SANTOS",
-"GABRIELLE BATISTA ARAUJO",
-"GRAZIELLE DA SILVA ANDRADE",
-"KELLY DANTAS DE OLIVEIRA NASCIMENTO",
-"MARCELA FERREIRA MUNIZ DE JESUS",
-"MICAELLA VITORIA SANTOS",
-"MILEIDE ARAUJO DOS SANTOS",
-"PAMELA VITORIA DOS SANTOS",
-"SAMARA MACHADO DAMASCENO DE OLIVEIRA",
-"WANESSA GOMES SANTOS"
-]
-},
-{
-"nte": "NTE 26 - Salvador",
 "name": "MICHEL SAMPAIO FERREIRA",
-"school": "COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO COPQUE",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL BOANOVENSE", "students": [
+"FRANCISCO MARINHO GOMES"
+]},
+{"name": "COLEGIO ESTADUAL CAMAÇARI", "students": [
+"NATHALIA DE JESUS CUNHA",
+"TAMARA VITORIA DE JESUS LIMA CARVALHO"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO COPQUE", "students": [
 "ABRAAO GONCALVES DE SOUZA",
 "ALANE SANTOS RIBEIRO",
 "ALEX VICTOR LIMA DE SOUZA",
@@ -1135,13 +1124,17 @@ const TEACHERS_DATA = [
 "VITORIA DESIDERIO DA SILVA",
 "WESLEI",
 "WESLEY RICHARD SILVA OLIVEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "MOISES BATISTA SANTOS DE OLIVEIRA",
-"school": "CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE IV",
-"students": [
+"schools": [
+{"name": "CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE III", "students": [
+"ALANA SOARES DA SILVA"
+]},
+{"name": "CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE IV", "students": [
 "ALESSANDRO HENRY PASSOS DE SOUSA",
 "ANA BEATRIZ PEREIRA FERNANDEZ",
 "ANA CAROLINA DO NASCIMENTO GOMES",
@@ -1170,13 +1163,14 @@ const TEACHERS_DATA = [
 "STEPHANY VICTORIA LOPES LEAO",
 "TAINA DOS SANTOS REIS",
 "TALYTA VITORIA SOUZA DE OLIVEIRA"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "PRISCILA DE SOUZA SANTOS MENEZES",
-"school": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
 "CAMILE SILVA PEREIRA DOS SANTOS",
 "KEZIA FERREIRA SILVA",
 "LARISSA DOS SANTOS REIS",
@@ -1188,13 +1182,17 @@ const TEACHERS_DATA = [
 "SUZANE SANTOS OLIVEIRA",
 "VERONICA BISPO SOUZA",
 "VIVIANE MARIA DA SILVA"
+]},
+{"name": " COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
+"NICOLLE DE SOUZA PURIFICACAO SAMPAIO MIRANDA"
+]}
 ]
 },
 {
 "nte": "NTE 26 - Salvador",
 "name": "RAMIRES FONSECA SILVA",
-"school": "COLEGIO ESTADUAL CLARICE SANTIAGO DOS SANTOS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL CLARICE SANTIAGO DOS SANTOS", "students": [
 "ARIANE GONZAGA DOS SANTOS",
 "BRUNA YOHANNA LIMA DE JESUS",
 "CECILIA VIEIRA DE SOUZA",
@@ -1222,6 +1220,63 @@ const TEACHERS_DATA = [
 "TAINA DE JESUS RIBEIRO DOS SANTOS",
 "TAINA SANTOS BORGES",
 "THAILANE DE JESUS SOUSA"
+]},
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS", "students": [
+"REBECA SENA SANTOS E SANTOS"
+]},
+{"name": " COLEGIO ESTADUAL CLARICE SANTIAGO DOS SANTOS", "students": [
+"ARTUR JESUS VIEIRA DE ABREU",
+"TAMARA VITORIA"
+]}
+]
+},
+{
+"nte": "NTE 26 - Salvador",
+"name": "ROSANNA PEREIRA DE BARROS SANTOS",
+"schools": [
+{"name": "COLEGIO ESTADUAL POLIVALENTE DE ARATU", "students": [
+"ALICE OLIVEIRA SILVA",
+"ANDRESSA CONCEICAO MARQUES DE ALMEIDA",
+"CAIO CONCEICAO DE OLIVEIRA",
+"CAIO DA GAMA SANTOS",
+"CELIO HENRIQUE CLIMACO DA SILVA",
+"CLARA DA SILVA DA CONCEICAO",
+"CRISTHIAN OLIVEIRA SANTOS FARIAS",
+"DAVI DA SILVA CONCEICAO",
+"DEBORA ROBERTA DOS SANTOS",
+"EMILY KETELI DA SILVA PAIXAO",
+"EMILY NERY SOUSA",
+"EVELIN MARYANE DO NASCIMENTO SILVA",
+"EVELIN OLIVEIRA MATOS",
+"FERNANDA DOS SANTOS RAMOS",
+"GABRIEL PEREIRA SANTOS",
+"ISABELA AUREA SANTOS DE MATOS",
+"JADE CERQUEIRA DA CRUZ",
+"JENNIFER VITORIA DO CARMO RODRIGUES",
+"JOABE SANTOS SILVA",
+"LARA CAROLINA SANTIAGO JESUS",
+"LEOMAR DOS SANTOS FREIRE",
+"LETICIA MOREIRA DA SILVA",
+"MATHEUS MIRANDA DE MACEDO",
+"MAYANA LOPES BAHIA",
+"MICHEL HELIODORIO DE SENA",
+"MISLANE JHENIFER ANUNCIACAO DOS SANTOS",
+"PAULO VITOR NASCIMENTO RIBEIRO DA SILVA",
+"RAFAEL DA SILVA SANTOS",
+"RAIAN DE MACEDO COSTA",
+"SAMARA APARECIDA CAETANO DOS SANTOS",
+"SARAH PEREIRA DA CRUZ",
+"TAINA SOUZA RESENDE",
+"THALIA DOS SANTOS NEVES",
+"UERIC DA CONCEICAO DOS SANTOS",
+"VITORIA DO NASCIMENTO MAIA SOUZA",
+"WANDERSON SANTOS DE SANTANA",
+"YAN BENEDITO FERREIRA",
+"YAN MAIKEL DA SILVA DOS ANJOS"
+]},
+{"name": "COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA", "students": [
+"DAVI FERREIRA DA SILVA CUNHA"
+]}
 ]
 }
 ];
@@ -1232,18 +1287,18 @@ const NEWS_OUTLETS = [
 ];
 
 const DISCERNMENT_ITEMS = [
-  { id:"E1", img:"assets/e1.png", label:"E1. positive_lula_true", headline:'Lula diz que o fim da escala 6x1 é uma "conquista civilizatória" e promete trabalhar pela aprovação no Senado.' },
-  { id:"E2", img:"assets/e2.png", label:"E2. positive_lula_false", headline:"Lula aparece na capa da revista Time, a mais importante do mundo." },
-  { id:"E3", img:"assets/e3.png", label:"E3. negative_lula_true", headline:"O filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
-  { id:"E4", img:"assets/e4.png", label:"E4. negative_lula_false", headline:"O filho de Lula comprou a Azul Linhas Aéreas." },
-  { id:"E5", img:"assets/e5.png", label:"E5. positive_bolsonaro_true", headline:'Trump posta foto com Flávio Bolsonaro: "Um jovem inteligente que ama muito seu país."' },
-  { id:"E6", img:"assets/e6.png", label:"E6. positive_bolsonaro_false", headline:"O Intercept admite erro e diz não ter evidências de que dinheiro do Master Bank financiou filme sobre Bolsonaro." },
-  { id:"E7", img:"assets/e7.png", label:"E7. negative_bolsonaro_true", headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas." },
-  { id:"E8", img:"assets/e8.png", label:"E8. negative_bolsonaro_false", headline:"Vídeo mostra Bolsonaro guardando no bolso um objeto dourado entregue por um militar." },
-  { id:"E9", img:"assets/e9.png", label:"E9. non_political_true", headline:"Guerra no Irã e El Niño levam economistas a projetar inflação mais alta este ano." },
-  { id:"E10", img:"assets/e10.png", label:"E10. non_political_false", headline:"Hantavírus é listado como evento adverso da vacina contra o coronavírus." },
-  { id:"E11", img:"assets/e11.png", label:"E11. old_true", headline:"Água em cidade canadense fica rosa e assusta moradores." },
-  { id:"E12", img:"assets/e12.png", label:"E12. old_false", headline:"WhatsApp passará a notificar motoristas quando o semáforo estiver prestes a abrir." }
+  { id:"E1", img:"assets/e1.jpg", label:"E1. positive_lula_true", headline:'Lula diz que o fim da escala 6x1 é uma "conquista civilizatória" e promete trabalhar pela aprovação no Senado.' },
+  { id:"E2", img:"assets/e2.jpg", label:"E2. positive_lula_false", headline:"Lula aparece na capa da revista Time, a mais importante do mundo." },
+  { id:"E3", img:"assets/e3.jpg", label:"E3. negative_lula_true", headline:"O filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
+  { id:"E4", img:"assets/e4.jpg", label:"E4. negative_lula_false", headline:"O filho de Lula comprou a Azul Linhas Aéreas." },
+  { id:"E5", img:"assets/e5.jpg", label:"E5. positive_bolsonaro_true", headline:'Trump posta foto com Flávio Bolsonaro: "Um jovem inteligente que ama muito seu país."' },
+  { id:"E6", img:"assets/e6.jpg", label:"E6. positive_bolsonaro_false", headline:"O Intercept admite erro e diz não ter evidências de que dinheiro do Master Bank financiou filme sobre Bolsonaro." },
+  { id:"E7", img:"assets/e7.jpg", label:"E7. negative_bolsonaro_true", headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas." },
+  { id:"E8", img:"assets/e8.jpg", label:"E8. negative_bolsonaro_false", headline:"Vídeo mostra Bolsonaro guardando no bolso um objeto dourado entregue por um militar." },
+  { id:"E9", img:"assets/e9.jpg", label:"E9. non_political_true", headline:"Guerra no Irã e El Niño levam economistas a projetar inflação mais alta este ano." },
+  { id:"E10", img:"assets/e10.jpg", label:"E10. non_political_false", headline:"Hantavírus é listado como evento adverso da vacina contra o coronavírus." },
+  { id:"E11", img:"assets/e11.jpg", label:"E11. old_true", headline:"Água em cidade canadense fica rosa e assusta moradores." },
+  { id:"E12", img:"assets/e12.jpg", label:"E12. old_false", headline:"WhatsApp passará a notificar motoristas quando o semáforo estiver prestes a abrir." }
 ];
 
 // Conjoint: 12 stories, 4 source variants, 2 virality variants
@@ -1258,10 +1313,10 @@ const SOURCES = ["g1","no_source","post","post_source"];
 const VIRALITY = ["high","low"];
 
 const OPINION_PAIRS = [
-  { news:"assets/1_news_folha.png", opinion:"assets/1_opinion_folha.png", outlet:"Folha de S. Paulo" },
-  { news:"assets/2_news_oglobo.png", opinion:"assets/2_opinion_globo.png", outlet:"O Globo" },
-  { news:"assets/3_news_estadao.png", opinion:"assets/3_opinion_estadao.png", outlet:"Estadão" },
-  { news:"assets/4_news_uol.png", opinion:"assets/4_opinion_uol.png", outlet:"UOL" }
+  { news:"assets/1_news_folha.jpg", opinion:"assets/1_opinion_folha.jpg", outlet:"Folha de S. Paulo" },
+  { news:"assets/2_news_oglobo.jpg", opinion:"assets/2_opinion_globo.jpg", outlet:"O Globo" },
+  { news:"assets/3_news_estadao.jpg", opinion:"assets/3_opinion_estadao.jpg", outlet:"Estadão" },
+  { news:"assets/4_news_uol.jpg", opinion:"assets/4_opinion_uol.jpg", outlet:"UOL" }
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -1272,6 +1327,15 @@ function seededRand() {
   seed = (seed * 1664525 + 1013904223) & 0xffffffff;
   return (seed >>> 0) / 0xffffffff;
 }
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function seededShuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -1283,15 +1347,15 @@ function seededShuffle(arr) {
 
 // Pick 5 conjoint pairs
 function pickConjointTasks() {
-  const falseStories = seededShuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
-  const trueStories  = seededShuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
+  const falseStories = shuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
+  const trueStories  = shuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
   return falseStories.map((f, i) => {
     const t = trueStories[i];
-    const src1 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
-    const vir1 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
-    const src2 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
-    const vir2 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
-    const flipSides = seededRand() > 0.5;
+    const src1 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
+    const vir1 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
+    const src2 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
+    const vir2 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
+    const flipSides = Math.random() > 0.5;
     const imgA = `assets/${f.prefix}_${src1}_${vir1}.jpg`;
     const imgB = `assets/${t.prefix}_${src2}_${vir2}.jpg`;
     return flipSides
@@ -1300,7 +1364,7 @@ function pickConjointTasks() {
   });
 }
 
-const CONJOINT_TASKS = pickConjointTasks();
+let CONJOINT_TASKS;  // assigned on name confirmation, not at page load
 
 // ═══════════════════════════════════════════════════════
 // STATE
@@ -1315,11 +1379,11 @@ const responses = {};
 document.addEventListener('DOMContentLoaded', () => {
   populateStudents();
   populateM7();
-  generateDiscernmentScreens();
-  generateConjointScreens();
-  generateOpinionScreens();
   updateProgress();
   setupOptionListeners();
+  // generateDiscernmentScreens / generateConjointScreens / generateOpinionScreens
+  // / randomizeOptions are called inside validateAndGoTo() so randomization
+  // is seeded from the moment the student confirms their identity, not page load.
 });
 
 function populateStudents() {
@@ -1345,6 +1409,9 @@ function onNTEChange() {
   teacherSelect.innerHTML = '<option value="">— Selecione o professor —</option>';
   document.getElementById('student-select').innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('school-display').textContent = '';
+  document.getElementById('school-display').style.display = 'none';
+  document.getElementById('school-select-dropdown').style.display = 'none';
+  document.getElementById('school-select-dropdown').innerHTML = '<option value="">— Selecione sua escola —</option>';
   document.getElementById('school-select').value = '';
   blockSchool.style.display = 'none';
   blockStudent.style.display = 'none';
@@ -1362,38 +1429,76 @@ function onNTEChange() {
 }
 
 function onTeacherChange() {
-  const teacherName = document.getElementById('teacher-select').value;
-  const blockSchool = document.getElementById('block-school');
-  const blockStudent = document.getElementById('block-student');
-  const studentSelect = document.getElementById('student-select');
+  const teacherName    = document.getElementById('teacher-select').value;
+  const blockSchool    = document.getElementById('block-school');
+  const blockStudent   = document.getElementById('block-student');
+  const studentSelect  = document.getElementById('student-select');
+  const schoolDisplay  = document.getElementById('school-display');
+  const schoolDropdown = document.getElementById('school-select-dropdown');
 
+  // Reset downstream
   studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('new-name-wrap').style.display = 'none';
+  schoolDisplay.style.display = 'none';
+  schoolDisplay.textContent = '';
+  schoolDropdown.style.display = 'none';
+  schoolDropdown.innerHTML = '<option value="">— Selecione sua escola —</option>';
+  document.getElementById('school-select').value = '';
+  blockStudent.style.display = 'none';
 
-  if (!teacherName) { blockSchool.style.display = 'none'; blockStudent.style.display = 'none'; return; }
+  if (!teacherName) { blockSchool.style.display = 'none'; return; }
 
   const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
   if (!teacher) return;
 
-  // Show school
-  document.getElementById('school-display').textContent = teacher.school;
-  document.getElementById('school-select').value = teacher.school;
   blockSchool.style.display = 'block';
+
+  // Always show ALL students for this teacher across every school,
+  // sorted alphabetically and deduplicated.
+  const allStudents = [...new Set(
+    teacher.schools.flatMap(s => s.students)
+  )].sort();
+  fillStudentSelect(allStudents, studentSelect);
   blockStudent.style.display = 'block';
 
-  // Populate students
-  teacher.students.forEach(name => {
+  if (teacher.schools.length === 1) {
+    // Single school: auto-fill, no choice needed
+    schoolDisplay.textContent = teacher.schools[0].name;
+    schoolDisplay.style.display = 'block';
+    document.getElementById('school-select').value = teacher.schools[0].name;
+  } else {
+    // Multiple schools: show dropdown so student can identify their school
+    teacher.schools.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.name;
+      opt.textContent = s.name;
+      schoolDropdown.appendChild(opt);
+    });
+    schoolDropdown.style.display = 'block';
+  }
+
+  checkIdentifiers();
+}
+
+function onSchoolChange() {
+  // School change only updates the hidden school-select value; student list
+  // is already fully populated and does not change.
+  const schoolName = document.getElementById('school-select-dropdown').value;
+  document.getElementById('school-select').value = schoolName;
+  checkIdentifiers();
+}
+
+function fillStudentSelect(students, selectEl) {
+  students.forEach(name => {
     const opt = document.createElement('option');
     opt.value = name;
     opt.textContent = name;
-    studentSelect.appendChild(opt);
+    selectEl.appendChild(opt);
   });
   const other = document.createElement('option');
   other.value = '__other__';
   other.textContent = 'Meu nome não está na lista';
-  studentSelect.appendChild(other);
-
-  checkIdentifiers();
+  selectEl.appendChild(other);
 }
 
 function populateM7() {
@@ -1404,7 +1509,7 @@ function populateM7() {
       <td>${outlet}</td>
       <td><select name="m7_${i}_a"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
       <td><select name="m7_${i}_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
-      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Parcialmente</option><option value="0">Não</option><option value="">Não sei</option></select></td>
+      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Parcialmente</option><option value="0">Não</option><option value="9">Não sei</option></select></td>
     `;
     tbody.appendChild(tr);
   });
@@ -1413,7 +1518,8 @@ function populateM7() {
 function generateDiscernmentScreens() {
   const container = document.querySelector('.container');
   const refScreen = document.getElementById('screen-22');
-  DISCERNMENT_ITEMS.forEach((item, idx) => {
+  const discItems = shuffle(DISCERNMENT_ITEMS);   // new random order per student
+  discItems.forEach((item, idx) => {
     const screenNum = 10 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
@@ -1448,7 +1554,7 @@ function generateDiscernmentScreens() {
   });
   // Build task counter dots for discernment
   setTimeout(() => {
-    DISCERNMENT_ITEMS.forEach((_, idx) => {
+    discItems.forEach((_, idx) => {
       const counter = document.getElementById(`disc-counter-${idx}`);
       if (!counter) return;
       for (let i = 0; i < 12; i++) {
@@ -1526,6 +1632,28 @@ function generateOpinionScreens() {
         </div>
       </div>`;
     container.insertBefore(div, refScreen);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// OPTION RANDOMIZATION
+// ═══════════════════════════════════════════════════════
+// Shuffle answer options on load; pin "Não sei / Outro / Nenhuma" to bottom.
+function randomizeOptions() {
+  const groups = ['q-a4','q-dl5','q-dl8','q-m1','q-b1','q-b2','q-b3','q-b4','q-b7','q-b10'];
+  const lastPattern = /não sei|não quero|nenhuma|outro/i;
+  groups.forEach(id => {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const opts = Array.from(container.querySelectorAll(':scope > label.opt'));
+    if (opts.length < 2) return;
+    const keep = opts.filter(o => lastPattern.test(o.textContent));
+    const rest = opts.filter(o => !lastPattern.test(o.textContent));
+    for (let i = rest.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [rest[i], rest[j]] = [rest[j], rest[i]];
+    }
+    [...rest, ...keep].forEach(o => container.appendChild(o));
   });
 }
 
@@ -1611,7 +1739,7 @@ function setScale(key, val, btn) {
 function requireScale(key, next) {
   const alert = document.getElementById(`alert-${key}`);
   if (!responses[key]) {
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   if (alert) alert.classList.remove('show');
@@ -1632,7 +1760,7 @@ function selectConjoint(idx, side) {
 function requireConjoint(idx, next) {
   if (!responses[`conjoint_${idx}`]) {
     const alert = document.getElementById(`alert-conj-${idx}`);
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   goTo(next);
@@ -1647,7 +1775,7 @@ function selectOpinion(idx, side) {
 function requireOpinion(idx, next) {
   if (!responses[`opinion_${idx}`]) {
     const alert = document.getElementById(`alert-op-${idx}`);
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   goTo(next);
@@ -1683,18 +1811,62 @@ function checkIdentifiers() {
   return !!(nte && t && s && st && (st !== '__other__' || newName));
 }
 
-function validateSection(radioNames, alertId, next) {
-  const missing = radioNames.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
-  if (missing.length > 0) {
-    const alert = document.getElementById(alertId);
-    alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
+function validateM1M7(next) {
+  const alertEl = document.getElementById('alert-m');
+  if (!document.querySelector('input[name="m1"]:checked')) {
+    alertEl.classList.add('show');
+    document.getElementById('q-m1')?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  // Save radio responses
-  radioNames.forEach(name => {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    if (checked) responses[name] = checked.value;
+  for (let i = 0; i < NEWS_OUTLETS.length; i++) {
+    for (const col of ['a','b','c']) {
+      const sel = document.querySelector(`select[name="m7_${i}_${col}"]`);
+      if (sel && !sel.value) {
+        alertEl.classList.add('show');
+        sel.closest('tr')?.scrollIntoView({ behavior:'smooth', block:'center' });
+        return;
+      }
+    }
+  }
+  alertEl.classList.remove('show');
+  goTo(next);
+}
+
+function validateCTFC1(next) {
+  const q1 = document.getElementById('ctfc1-q1')?.value.trim();
+  const q2 = document.getElementById('ctfc1-q2')?.value.trim();
+  const q3 = document.getElementById('ctfc1-q3')?.value.trim();
+  const alertEl = document.getElementById('alert-ctfc');
+  if (!q1 || !q2 || !q3) {
+    alertEl.classList.add('show');
+    if (!q1) document.getElementById('ctfc1-q1')?.focus();
+    else if (!q2) document.getElementById('ctfc1-q2')?.focus();
+    else document.getElementById('ctfc1-q3')?.focus();
+    return;
+  }
+  alertEl.classList.remove('show');
+  goTo(next);
+}
+
+function validateSection(names, alertId, next) {
+  const missing = names.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
+  if (missing.length > 0) {
+    const alertEl = document.getElementById(alertId);
+    alertEl.classList.add('show');
+    const firstEl = document.getElementById(`q-${missing[0]}`) || document.getElementById(`scale-${missing[0]}`);
+    if (firstEl) firstEl.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  document.getElementById(alertId)?.classList.remove('show');
+  // Save responses (handles both radio and checkbox)
+  names.forEach(name => {
+    const boxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    if (!boxes.length) return;
+    if (boxes[0].type === 'checkbox') {
+      responses[name] = Array.from(boxes).map(b => b.value);
+    } else {
+      responses[name] = boxes[0].value;
+    }
   });
   goTo(next);
 }
@@ -1703,7 +1875,6 @@ function validateAndGoTo(next, alertId, checkFn) {
   if (!checkFn()) {
     const alert = document.getElementById(alertId);
     alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
     return;
   }
   // Save identifier responses
@@ -1714,23 +1885,28 @@ function validateAndGoTo(next, alertId, checkFn) {
   responses.student = sel === '__other__'
     ? document.getElementById('new-name-input').value.trim()
     : sel;
+  // ── Randomize NOW, tied to this specific student's confirmation ──
+  randomizeOptions();
+  CONJOINT_TASKS = pickConjointTasks();
+  generateDiscernmentScreens();
+  generateConjointScreens();
+  generateOpinionScreens();
   goTo(next);
 }
 
 function validateSectionD(from, next) {
-  // Check b10 radio at minimum
-  const b10 = document.querySelector('input[name="b10"]:checked');
-  if (!b10) {
-    const alert = document.getElementById('alert-c2');
-    alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
+  const alertEl = document.getElementById('alert-c2');
+  const missingScale = ['b5','b6','b8','b9'].some(k => !responses[k]);
+  const b7ok  = document.querySelector('input[name="b7"]:checked');
+  const b10ok = document.querySelector('input[name="b10"]:checked');
+  if (missingScale || !b7ok || !b10ok) {
+    alertEl.classList.add('show');
+    const firstMissing = ['b5','b6','b8','b9'].find(k => !responses[k]);
+    if (firstMissing) document.getElementById(`scale-${firstMissing}`)?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  // Save all b5-b10
-  ['b10'].forEach(name => {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    if (checked) responses[name] = checked.value;
-  });
+  alertEl.classList.remove('show');
+  responses.b10 = b10ok.value;
   goTo(next);
 }
 
@@ -1739,7 +1915,6 @@ const origGoTo = goTo;
 window.goTo = function(n) {
   if (n === 35) {
     collectAllResponses();
-    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);
@@ -1750,30 +1925,10 @@ function validateAtt(num, name, alertId, next) {
   if (!sel) {
     const a = document.getElementById(alertId);
     a.classList.add('show');
-    setTimeout(() => a.classList.remove('show'), 3000);
     return;
   }
   responses[name] = sel.value;
   goTo(next);
-}
-
-const GOOGLE_SHEET_URL = 'https://script.google.com/a/macros/clio.uc3m.es/s/AKfycbxJFe0sZFS7YIlLKkf0iUtvk60hdrjkSYjpQ8GVGCouc1UKV3u5vE8nmwSBh_tJ3VvMtQ/exec';
-
-function submitToGoogleSheets() {
-  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
-    console.warn('Google Sheet URL not configured — skipping submission.');
-    return;
-  }
-  try {
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(responses)
-    });
-  } catch(err) {
-    console.warn('Submission error:', err);
-  }
 }
 
 function collectAllResponses() {

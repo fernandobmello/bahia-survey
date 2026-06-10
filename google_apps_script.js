@@ -3,25 +3,20 @@
 // ------------------------------------------------------------
 // Setup steps:
 //
-//   1. Go to script.google.com → New project (or use an
-//      existing one — either standalone or sheet-bound works)
-//
+//   1. Go to script.google.com → New project
 //   2. Delete any existing code, paste this entire file
-//
-//   3. Make sure SHEET_NAME below matches your sheet name exactly
-//
-//   4. Click Deploy → New deployment → Web app
+//   3. Click Deploy → New deployment → Web app
 //      - Execute as: Me
 //      - Who has access: Anyone
 //      Click Deploy → authorise when prompted → copy the URL
-//
-//   5. In each survey HTML file, replace:
+//   4. In each survey HTML file, replace:
 //        PASTE_YOUR_APPS_SCRIPT_URL_HERE
 //      with the URL you just copied
 // ============================================================
 
-// ← Change this if the sheet is ever renamed
-const SHEET_NAME = 'Bahia Survey Responses Treatment';
+// ← Spreadsheet ID taken directly from the URL:
+// https://docs.google.com/spreadsheets/d/11iyfnnv1Zy9rQtMJi01eJ_CW3ql8QYqroav_-aRkH5E/
+const SPREADSHEET_ID = '11iyfnnv1Zy9rQtMJi01eJ_CW3ql8QYqroav_-aRkH5E';
 
 const COLUMN_ORDER = [
   'timestamp','nte','teacher','school','student','consent',
@@ -45,14 +40,8 @@ const COLUMN_ORDER = [
   'conjoint_tasks'
 ];
 
-// Finds the sheet by name in Google Drive — works whether this
-// script is standalone or bound to a spreadsheet
 function getSheet() {
-  const files = DriveApp.getFilesByName(SHEET_NAME);
-  if (!files.hasNext()) {
-    throw new Error('Sheet not found: "' + SHEET_NAME + '". Check the name matches exactly.');
-  }
-  return SpreadsheetApp.openById(files.next().getId()).getActiveSheet();
+  return SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
 }
 
 function doPost(e) {
@@ -89,9 +78,10 @@ function doPost(e) {
 }
 
 // Run this manually in the Apps Script editor to confirm
-// the script can find and write to the sheet
+// the script can find and write to the correct sheet
 function testWrite() {
   const sheet = getSheet();
   sheet.appendRow(['TEST_ROW', new Date().toISOString()]);
   Logger.log('Success — wrote to: ' + sheet.getParent().getName());
+  Logger.log('Sheet tab: ' + sheet.getName());
 }

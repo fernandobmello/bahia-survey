@@ -1,0 +1,5748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey – Treatment Group</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1e40af;
+    --accent: #0ea5e9;
+    --success: #10b981;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* ── HEADER ── */
+  .survey-header {
+    background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+    color: #fff;
+    padding: 20px 24px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,86,219,0.3);
+  }
+  .survey-header h1 { font-size: 1rem; font-weight: 600; opacity: 0.9; }
+  .survey-header .section-label { font-size: 0.75rem; opacity: 0.7; margin-top: 2px; }
+  .progress-bar-wrap { margin-top: 12px; }
+  .progress-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #7dd3fc;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+
+  /* ── SCREEN ── */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card-intro {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 4px solid var(--primary);
+  }
+
+  /* ── SECTION BADGE ── */
+  .section-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* ── QUESTION ── */
+  .question-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .question-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .question-subtext {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .question-block { margin-bottom: 28px; }
+  .question-block:last-child { margin-bottom: 0; }
+
+  /* ── RADIO / CHECKBOX OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    position: relative;
+  }
+  .opt:hover { border-color: var(--accent); background: #f0f9ff; }
+  .opt input[type="radio"], .opt input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .opt.selected { border-color: var(--primary); background: #eff6ff; }
+  .opt label { cursor: pointer; font-size: 0.93rem; line-height: 1.4; flex: 1; }
+  input[type="radio"]:checked + label, input[type="checkbox"]:checked + label { font-weight: 600; color: var(--primary-dark); }
+
+  /* ── SCALE (5-point) ── */
+  .scale-wrap { margin-top: 8px; }
+  .scale-labels { display: flex; justify-content: space-between; margin-bottom: 6px; gap: 2px; }
+  .scale-labels span { font-size: 0.65rem; color: var(--muted); max-width: 60px; text-align: center; line-height: 1.2; word-break: break-word; flex: 1; }
+  .scale-buttons { display: flex; gap: 8px; }
+  .scale-btn {
+    flex: 1;
+    aspect-ratio: 1;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scale-btn:hover { border-color: var(--accent); color: var(--primary); }
+  .scale-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; }
+
+  /* ── SELECT / DROPDOWN ── */
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text);
+    background: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  select:focus { outline: none; border-color: var(--primary); }
+
+  /* ── TEXT INPUT ── */
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--primary); }
+
+  /* ── GRID (M7) ── */
+  .grid-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .grid-table th {
+    background: var(--primary);
+    color: #fff;
+    padding: 8px 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .grid-table th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+  .grid-table th:last-child { border-radius: 0 8px 0 0; }
+  .grid-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .grid-table tr:nth-child(even) td { background: #f8fafc; }
+  .grid-table td:first-child { font-weight: 500; }
+  .grid-table td:not(:first-child) { text-align: center; }
+  .grid-table select { padding: 6px 24px 6px 8px; font-size: 0.8rem; }
+
+  /* ── HEADLINE IMAGE ── */
+  .headline-img-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    margin-bottom: 20px;
+    text-align: center;
+    background: #f8fafc;
+  }
+  .headline-img-wrap img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .headline-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  /* ── CONJOINT PAIR ── */
+  .conjoint-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 500px) { .conjoint-pair { grid-template-columns: 1fr; } }
+  .conjoint-card {
+    border: 3px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .conjoint-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .conjoint-card.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,86,219,0.15); }
+  .conjoint-card img { width: 100%; height: auto; display: block; }
+  .conjoint-card .choice-label {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: #f8fafc;
+    border-top: 1px solid var(--border);
+  }
+  .conjoint-card.selected .choice-label { color: var(--primary); background: #eff6ff; }
+
+  /* ── OPINION PAIR ── */
+  .opinion-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 500px) { .opinion-pair { grid-template-columns: 1fr; } }
+  .opinion-card {
+    border: 3px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .opinion-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .opinion-card.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,86,219,0.15); }
+  .opinion-card img { width: 100%; height: auto; display: block; }
+  .opinion-card .choice-label {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: #f8fafc;
+    border-top: 1px solid var(--border);
+  }
+  .opinion-card.selected .choice-label { color: var(--primary); background: #eff6ff; }
+
+  /* ── NAVIGATION BUTTONS ── */
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    justify-content: flex-end;
+  }
+  .btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.93rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 2px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+  .btn-lg { padding: 16px 36px; font-size: 1.05rem; }
+
+  /* ── INTRO SCREEN ── */
+  .intro-icon { font-size: 3rem; margin-bottom: 16px; }
+  .intro-title { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; }
+  .intro-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    color: var(--primary-dark);
+    margin: 4px;
+  }
+
+  /* ── TASK COUNTER ── */
+  .task-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .task-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+  .task-dot.active { background: var(--primary); }
+  .task-dot.done { background: var(--success); }
+
+  /* ── THANK YOU ── */
+  .thanks-icon { font-size: 4rem; margin-bottom: 16px; }
+  .thanks-title { font-size: 1.8rem; font-weight: 700; color: var(--success); margin-bottom: 12px; }
+
+  /* ── TEXTAREA ── */
+  textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text);
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  textarea:focus { outline: none; border-color: var(--primary); }
+  .input-label { font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; display: block; }
+
+  /* ── ALERT ── */
+  .alert {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+  .alert.show { display: block; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* ── INSTRUCTION BOX ── */
+  .instruction-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+    color: #166534;
+    line-height: 1.5;
+  }
+  .instruction-box strong { display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="survey-header">
+  <h1>📋 Media and Information Survey</h1>
+  <div class="section-label" id="section-label">Section 1 of 6</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-label" id="progress-label">0 of 30</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 0 — CONSENT
+══════════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-0">
+  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
+    <div class="intro-icon">📖</div>
+    <div class="intro-title">Hello! Welcome to the survey</div>
+    <div class="intro-sub">
+      We are researchers conducting a study on how young people use media and process information on various topics.<br><br>
+      The survey takes approximately <strong>35–40 minutes</strong>. There are no right or wrong answers — we only want your honest opinion.<br><br>
+      Your responses are <strong>completely confidential</strong> and will be used for research purposes only.
+    </div>
+    <div style="margin-bottom:20px;">
+      <span class="info-pill">⏱ 35–40 minutes</span>
+      <span class="info-pill">🔒 Confidential</span>
+      <span class="info-pill">📱 Please answer honestly</span>
+    </div>
+    <div class="question-text" style="margin-bottom:16px;">Do you agree to participate?</div>
+    <div class="options" style="max-width:360px; margin:0 auto 20px;">
+      <label class="opt" id="consent-yes">
+        <input type="radio" name="consent" value="yes" onchange="enableNext('btn-consent')">
+        <label>✅ Yes, I agree to participate.</label>
+      </label>
+      <label class="opt" id="consent-no" onclick="showNoConsent()">
+        <input type="radio" name="consent" value="no">
+        <label>❌ No, I do not agree.</label>
+      </label>
+    </div>
+    <div id="no-consent-msg" style="display:none; background:#fef2f2; border-radius:10px; padding:16px; color:#b91c1c; margin-bottom:16px;">
+      That's fine. Thank you for your time. You may close this page.
+    </div>
+    <button class="btn btn-primary btn-lg" id="btn-consent" onclick="goTo(1)" disabled>
+      Begin the survey →
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 1 — IDENTIFIERS
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-1">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-number">Your regional office (NTE)</div>
+      <div class="question-text">Select the NTE (Territorial Education Hub) of your school:</div>
+      <select id="nte-select" onchange="onNTEChange()">
+        <option value="">— Select your NTE —</option>
+      </select>
+    </div>
+    <div class="question-block" id="block-teacher" style="display:none;">
+      <div class="question-number">Teacher confirmation</div>
+      <div class="question-text">Select your teacher's name:</div>
+      <select id="teacher-select" onchange="onTeacherChange()">
+        <option value="">— Select teacher —</option>
+      </select>
+    </div>
+    <div class="question-block" id="block-school" style="display:none;">
+      <div class="question-number">Your school</div>
+      <div class="question-text">School:</div>
+      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500;"></div>
+      <input type="hidden" id="school-select">
+    </div>
+    <div class="question-block" id="block-student" style="display:none;">
+      <div class="question-number">Your name</div>
+      <div class="question-text">Select your name from the list:</div>
+      <div class="question-subtext">If your name is not in the list, select "My name is not in the list".</div>
+      <select id="student-select" onchange="onStudentChange()">
+        <option value="">— Select your name —</option>
+      </select>
+      <div id="new-name-wrap" style="display:none; margin-top:12px;">
+        <label class="input-label">Enter your full name:</label>
+        <input type="text" id="new-name-input" placeholder="Full name" oninput="checkIdentifiers()">
+      </div>
+    </div>
+    <div class="alert" id="alert-id">Please fill in all fields above.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
+      <button class="btn btn-primary" onclick="validateAndGoTo(2, 'alert-id', checkIdentifiers)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 2 — SECTION A
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-2">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">How many program sessions at your school did you attend?</div>
+      <div class="options" id="q-a1">
+        <label class="opt"><input type="radio" name="a1" value="6"><label>All six</label></label>
+        <label class="opt"><input type="radio" name="a1" value="5"><label>Five</label></label>
+        <label class="opt"><input type="radio" name="a1" value="4"><label>Four</label></label>
+        <label class="opt"><input type="radio" name="a1" value="3"><label>Three</label></label>
+        <label class="opt"><input type="radio" name="a1" value="2"><label>Two</label></label>
+        <label class="opt"><input type="radio" name="a1" value="1"><label>One</label></label>
+        <label class="opt"><input type="radio" name="a1" value="0"><label>None</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-a2" style="display:none;">
+      <div class="question-text">Why were you unable to attend all of the sessions?</div>
+      <div class="question-subtext">Select all that apply.</div>
+      <div class="options" id="q-a2">
+        <label class="opt"><input type="checkbox" name="a2" value="1"><label>The school location or schedule was inconvenient</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="2"><label>I had other school obligations (e.g., tutoring classes)</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="3"><label>I had other obligations at home (e.g., work, household chores)</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="4"><label>I was not interested in the content</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="5"><label>I was not informed about the sessions</label></label>
+        <label class="opt"><input type="checkbox" name="a2" value="6"><label>Other</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Did you receive any printed materials from the classes? If so, how?</div>
+      <div class="options" id="q-a3">
+        <label class="opt"><input type="radio" name="a3" value="1"><label>Yes, the teacher handed them out in class</label></label>
+        <label class="opt"><input type="radio" name="a3" value="2"><label>Yes, another student gave them to me</label></label>
+        <label class="opt"><input type="radio" name="a3" value="3"><label>I did not receive any printed materials</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Thinking about the sessions you attended, what was the main topic taught?</div>
+      <div class="options" id="q-a4">
+        <label class="opt"><input type="radio" name="a4" value="1"><label>How to consume information responsibly</label></label>
+        <label class="opt"><input type="radio" name="a4" value="2"><label>Conversational English</label></label>
+        <label class="opt"><input type="radio" name="a4" value="3"><label>Basic Physics</label></label>
+        <label class="opt"><input type="radio" name="a4" value="4"><label>Elections</label></label>
+        <label class="opt"><input type="radio" name="a4" value="5"><label>How to interact with other people</label></label>
+        <label class="opt"><input type="radio" name="a4" value="6"><label>I don't know</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-a">Please answer all questions in this section.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
+      <button class="btn btn-primary" onclick="validateSection(['a1','a3','a4'], 'alert-a', 3)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 3 — SECTION B (DL5–DL8)
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-3">
+  <div class="card">
+
+    <div class="question-block">
+      <div class="question-text">Thinking about the apps and platforms you use, what are the three main reasons you use them?</div>
+      <div class="question-subtext">Select up to 3 options.</div>
+      <div class="options" id="q-dl5">
+        <label class="opt"><input type="checkbox" name="dl5" value="a"><label>Communicate with friends and family</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="b"><label>Entertainment (music, videos, memes, etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="c"><label>Schoolwork or studying</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="d"><label>Get news and information about current events</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="e"><label>Follow politics or political content</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="f"><label>Buy or sell products</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="g"><label>Play games</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="h"><label>Create content (post photos, videos, etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="dl5" value="i"><label>Other</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">On average, how many hours a day do you spend on social media or messaging apps?</div>
+      <div class="options" id="q-dl6">
+        <label class="opt"><input type="radio" name="dl6" value="1"><label>Less than 1 hour</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="2"><label>1–2 hours</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="3"><label>3–4 hours</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="4"><label>5–6 hours</label></label>
+        <label class="opt"><input type="radio" name="dl6" value="5"><label>More than 6 hours</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">How often do you use the internet specifically to look for news or information about politics and current events?</div>
+      <div class="options" id="q-dl7">
+        <label class="opt"><input type="radio" name="dl7" value="5"><label>Many times a day</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="4"><label>Once or twice a day</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="3"><label>A few times a week</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="2"><label>Once a week or less</label></label>
+        <label class="opt"><input type="radio" name="dl7" value="1"><label>Never</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">Have you ever performed any of the following online activities?</div>
+      <div class="question-subtext">Select all that apply.</div>
+      <div class="options" id="q-dl8">
+        <label class="opt"><input type="checkbox" name="dl8" value="a"><label>I searched for information to check whether a piece of news is true</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="b"><label>I accessed a fact-checking website (e.g., Aos Fatos, Agência Lupa, AFP Fact Check)</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="c"><label>I reported false or misleading content on a platform</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="d"><label>I used reverse image search to verify authenticity</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="e"><label>I researched the ownership or funding of a news outlet</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="f"><label>I shared a news item or political content with friends or family</label></label>
+        <label class="opt"><input type="checkbox" name="dl8" value="g"><label>None of the above</label></label>
+      </div>
+    </div>
+
+    <div class="alert" id="alert-b1">Please answer all questions in this section.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
+      <button class="btn btn-primary" onclick="validateSection(['dl6','dl7'], 'alert-b1', 4)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 4 — M1 + M7
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-4">
+  <div class="card">
+
+    <div class="question-block">
+      <div class="question-text">How do you usually get information about what is happening in the world?</div>
+      <div class="question-subtext">Select all that apply.</div>
+      <div class="options" id="q-m1">
+        <label class="opt"><input type="checkbox" name="m1" value="a"><label>I read a print newspaper or magazine</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="b"><label>I watch TV news</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="c"><label>I listen to news on the radio</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="d"><label>I get news online through news websites or portals</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="e"><label>I get news through social media or messaging apps (WhatsApp, Instagram, TikTok, etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="f"><label>By talking with family members</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="g"><label>By talking with friends or acquaintances</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="h"><label>I don't usually follow the news</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">For each of the following news outlets, indicate:</div>
+      <div class="question-subtext">(a) Have you heard of it? &nbsp; (b) Got news from it in the past month? &nbsp; (c) Consider it reliable?</div>
+      <div style="overflow-x:auto;">
+        <table class="grid-table" id="m7-table">
+          <thead>
+            <tr>
+              <th>Outlet</th>
+              <th>(a) Heard of it?</th>
+              <th>(b) Used in the past month?</th>
+              <th>(c) Reliable?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 5 — T1, T2, P1
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-5">
+  <div class="card">
+
+    <div class="question-block">
+      <div class="question-text">In general, how much do you trust the information provided by news media in Brazil?</div>
+      <div class="options" id="q-t1">
+        <label class="opt"><input type="radio" name="t1" value="5"><label>I trust it completely</label></label>
+        <label class="opt"><input type="radio" name="t1" value="4"><label>I somewhat trust it</label></label>
+        <label class="opt"><input type="radio" name="t1" value="3"><label>I neither trust nor distrust it</label></label>
+        <label class="opt"><input type="radio" name="t1" value="2"><label>I don't trust it much</label></label>
+        <label class="opt"><input type="radio" name="t1" value="1"><label>I don't trust it at all</label></label>
+        <label class="opt"><input type="radio" name="t1" value="0"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">And specifically when the news is about politics, how much do you trust it?</div>
+      <div class="options" id="q-t2">
+        <label class="opt"><input type="radio" name="t2" value="5"><label>I trust it completely</label></label>
+        <label class="opt"><input type="radio" name="t2" value="4"><label>I somewhat trust it</label></label>
+        <label class="opt"><input type="radio" name="t2" value="3"><label>I neither trust nor distrust it</label></label>
+        <label class="opt"><input type="radio" name="t2" value="2"><label>I don't trust it much</label></label>
+        <label class="opt"><input type="radio" name="t2" value="1"><label>I don't trust it at all</label></label>
+        <label class="opt"><input type="radio" name="t2" value="0"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">How interested are you in politics?</div>
+      <div class="options" id="q-p1">
+        <label class="opt"><input type="radio" name="p1" value="5"><label>Extremely interested</label></label>
+        <label class="opt"><input type="radio" name="p1" value="4"><label>Very interested</label></label>
+        <label class="opt"><input type="radio" name="p1" value="3"><label>Moderately interested</label></label>
+        <label class="opt"><input type="radio" name="p1" value="2"><label>Slightly interested</label></label>
+        <label class="opt"><input type="radio" name="p1" value="1"><label>Not at all interested</label></label>
+        <label class="opt"><input type="radio" name="p1" value="0"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="alert" id="alert-b2">Please answer all questions in this section.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
+      <button class="btn btn-primary" onclick="validateSection(['t1','t2','p1'], 'alert-b2', 6)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 6 — SECTION C (B1–B4)
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-6">
+  <div class="card">
+
+    <div class="question-block">
+      <div class="question-text">What is the main difference between <em>misinformation</em> and <em>disinformation</em>?</div>
+      <div class="options" id="q-b1">
+        <label class="opt"><input type="radio" name="b1" value="a"><label>The sender's intent</label></label>
+        <label class="opt"><input type="radio" name="b1" value="b"><label>The sender's political ideology</label></label>
+        <label class="opt"><input type="radio" name="b1" value="c"><label>One is true and the other is false</label></label>
+        <label class="opt"><input type="radio" name="b1" value="d"><label>They are the same thing</label></label>
+        <label class="opt"><input type="radio" name="b1" value="e"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">At what main levels can misinformation cause harmful effects?</div>
+      <div class="options" id="q-b2">
+        <label class="opt"><input type="radio" name="b2" value="a"><label>Individual, community and democratic</label></label>
+        <label class="opt"><input type="radio" name="b2" value="b"><label>Daily, weekly and monthly</label></label>
+        <label class="opt"><input type="radio" name="b2" value="c"><label>Brazil, India and the United States</label></label>
+        <label class="opt"><input type="radio" name="b2" value="d"><label>Candidates, voters and judges</label></label>
+        <label class="opt"><input type="radio" name="b2" value="e"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">What is the most common source of misinformation in Brazil?</div>
+      <div class="options" id="q-b3">
+        <label class="opt"><input type="radio" name="b3" value="a"><label>Family and friends sharing content online</label></label>
+        <label class="opt"><input type="radio" name="b3" value="b"><label>Politicians</label></label>
+        <label class="opt"><input type="radio" name="b3" value="c"><label>Professional companies</label></label>
+        <label class="opt"><input type="radio" name="b3" value="d"><label>International accounts</label></label>
+        <label class="opt"><input type="radio" name="b3" value="e"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">In your opinion, what is the biggest problem facing young people in Brazil today?</div>
+      <div class="options" id="q-b4">
+        <label class="opt"><input type="radio" name="b4" value="a"><label>Misinformation and fake news</label></label>
+        <label class="opt"><input type="radio" name="b4" value="b"><label>Violence and crime</label></label>
+        <label class="opt"><input type="radio" name="b4" value="c"><label>Quality of education</label></label>
+        <label class="opt"><input type="radio" name="b4" value="d"><label>Lack of job and career opportunities</label></label>
+        <label class="opt"><input type="radio" name="b4" value="e"><label>Mental health problems (stress, anxiety, depression)</label></label>
+        <label class="opt"><input type="radio" name="b4" value="f"><label>Poverty and financial hardship</label></label>
+        <label class="opt"><input type="radio" name="b4" value="g"><label>Discrimination and prejudice</label></label>
+        <label class="opt"><input type="radio" name="b4" value="h"><label>Social media and online harms</label></label>
+        <label class="opt"><input type="radio" name="b4" value="i"><label>Political polarization and social division</label></label>
+        <label class="opt"><input type="radio" name="b4" value="j"><label>Other</label></label>
+      </div>
+    </div>
+
+    <div class="alert" id="alert-c1">Please answer all questions in this section.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(5)">← Back</button>
+      <button class="btn btn-primary" onclick="validateSection(['b1','b2','b3','b4'], 'alert-c1', 7)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 7 — B5–B10
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-7">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:20px;">For each statement below, indicate how much you agree or disagree.</div>
+
+    <div class="question-block">
+      <div class="question-text">News organizations choose stories based on what will attract the largest audience.</div>
+      <div class="scale-wrap">
+        <div class="scale-labels">
+          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+        </div>
+        <div class="scale-buttons" id="scale-b5">
+          <button class="scale-btn" onclick="setScale('b5',1,this)">1</button>
+          <button class="scale-btn" onclick="setScale('b5',2,this)">2</button>
+          <button class="scale-btn" onclick="setScale('b5',3,this)">3</button>
+          <button class="scale-btn" onclick="setScale('b5',4,this)">4</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">Stories involving conflict and strong emotions are more likely to receive prominent news coverage.</div>
+      <div class="scale-wrap">
+        <div class="scale-labels">
+          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+        </div>
+        <div class="scale-buttons" id="scale-b6">
+          <button class="scale-btn" onclick="setScale('b6',1,this)">1</button>
+          <button class="scale-btn" onclick="setScale('b6',2,this)">2</button>
+          <button class="scale-btn" onclick="setScale('b6',3,this)">3</button>
+          <button class="scale-btn" onclick="setScale('b6',4,this)">4</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">According to the class, which of the following psychological processes can make people more likely to believe misinformation?</div>
+      <div class="question-subtext">Select all that apply.</div>
+      <div class="options" id="q-b7">
+        <label class="opt"><input type="checkbox" name="b7" value="a"><label>Confirmation bias</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="b"><label>Disconfirmation bias</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="c"><label>Motivated reasoning</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="d"><label>Critical thinking</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="e"><label>Fact-checking</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="f"><label>Media literacy</label></label>
+        <label class="opt"><input type="checkbox" name="b7" value="g"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">People pay more attention to information that fits their existing beliefs than to information that challenges them.</div>
+      <div class="scale-wrap">
+        <div class="scale-labels">
+          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+        </div>
+        <div class="scale-buttons" id="scale-b8">
+          <button class="scale-btn" onclick="setScale('b8',1,this)">1</button>
+          <button class="scale-btn" onclick="setScale('b8',2,this)">2</button>
+          <button class="scale-btn" onclick="setScale('b8',3,this)">3</button>
+          <button class="scale-btn" onclick="setScale('b8',4,this)">4</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">Confirmation bias is one of the main reasons why people believe misinformation.</div>
+      <div class="scale-wrap">
+        <div class="scale-labels">
+          <span>Strongly disagree</span><span></span><span></span><span></span><span>Strongly agree</span>
+        </div>
+        <div class="scale-buttons" id="scale-b9">
+          <button class="scale-btn" onclick="setScale('b9',1,this)">1</button>
+          <button class="scale-btn" onclick="setScale('b9',2,this)">2</button>
+          <button class="scale-btn" onclick="setScale('b9',3,this)">3</button>
+          <button class="scale-btn" onclick="setScale('b9',4,this)">4</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-text">Which of the following best describes the P.I.E.R. protocol for evaluating online information?</div>
+      <div class="options" id="q-b10">
+        <label class="opt"><input type="radio" name="b10" value="a"><label>Pause, Investigate the source, Find better coverage, Retrace claims to the original source</label></label>
+        <label class="opt"><input type="radio" name="b10" value="b"><label>Pause, Identify the author, Evaluate the evidence, Report misinformation</label></label>
+        <label class="opt"><input type="radio" name="b10" value="c"><label>Protect, Inform the author, Evaluate, Revise the source</label></label>
+        <label class="opt"><input type="radio" name="b10" value="d"><label>Pause, Investigate the source, Evaluate, Respond to the author</label></label>
+        <label class="opt"><input type="radio" name="b10" value="e"><label>I don't know</label></label>
+      </div>
+    </div>
+
+    <div class="alert" id="alert-c2">Please answer all questions in this section.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(6)">← Back</button>
+      <button class="btn btn-primary" onclick="validateSectionD(7, 8)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 8 — ATTENTION CHECK 1
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-8">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">People enjoy different types of online content. In this question, we ask you to select <strong>"News and current events"</strong>, regardless of your actual preference, to confirm that you are reading the instructions.</div>
+      <div class="options" id="q-att1">
+        <label class="opt"><input type="radio" name="att1" value="a"><label>Music and entertainment</label></label>
+        <label class="opt"><input type="radio" name="att1" value="b"><label>Sports</label></label>
+        <label class="opt"><input type="radio" name="att1" value="c"><label>News and current events</label></label>
+        <label class="opt"><input type="radio" name="att1" value="d"><label>Games</label></label>
+        <label class="opt"><input type="radio" name="att1" value="e"><label>Humor and memes</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-att1">Please select an option to continue.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(7)">← Back</button>
+      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 9)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 9 — SECTION D INTRO
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-9">
+  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
+    <div class="intro-icon">🔍</div>
+    <div class="intro-title">Section D — Discernment</div>
+    <div class="intro-sub">
+      We are now going to show you <strong>12 pieces of information</strong> that have recently circulated online.<br><br>
+      Some of these claims are <strong>true</strong>, while others are <strong>false</strong>.<br><br>
+      For each claim, indicate <strong>how accurate you think it is</strong>, based on your best judgment.<br><br>
+      There are no penalties for incorrect answers, and some claims may be difficult to evaluate.
+    </div>
+    <div class="nav-buttons" style="justify-content:center;">
+      <button class="btn btn-secondary" onclick="goTo(8)">← Back</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(10)">Start →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREENS 9–20 — E1–E12 (generated by JS)
+══════════════════════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 22 — CONJOINT INTRO
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-22">
+  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
+    <div class="intro-icon">💬</div>
+    <div class="intro-title">Task — WhatsApp Messages</div>
+    <div class="intro-sub">
+      In the next section, you will see a series of <strong>WhatsApp conversations</strong>.<br><br>
+      In each task, two messages will be displayed side by side. The messages may differ in their content, source, number of reactions and other characteristics.<br><br>
+      <strong>Imagine that these messages appeared in a WhatsApp group you are part of.</strong><br><br>
+      After reading both messages, indicate which one you would be more likely to share with other people.<br><br>
+      We are interested in your honest reactions to the messages you see.
+    </div>
+    <div class="nav-buttons" style="justify-content:center;">
+      <button class="btn btn-secondary" onclick="goTo(21)">← Back</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(23)">Start →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREENS 22–26 — CONJOINT TASKS (generated by JS)
+══════════════════════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 28 — OPINION INTRO
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-28">
+  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
+    <div class="intro-icon">📰</div>
+    <div class="intro-title">Informative vs. Opinion Journalism</div>
+    <div class="intro-sub">
+      In the next four screens, we will show you <strong>pairs of news articles</strong> that appeared on political issues or other recent topics.<br><br>
+      In each case, identify the one more likely to provide <strong>objective and detailed information</strong> about the facts of the matter.
+    </div>
+    <div class="nav-buttons" style="justify-content:center;">
+      <button class="btn btn-secondary" onclick="goTo(27)">← Back</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(29)">Start →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREENS 28–31 — OPINION TASKS (generated by JS)
+══════════════════════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 33 — ATTENTION CHECK 2
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-33">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">We want to make sure you are reading carefully. For this item only, please select the option <strong>"Strongly disagree"</strong>.</div>
+      <div class="options" id="q-att2">
+        <label class="opt"><input type="radio" name="att2" value="4"><label>Strongly agree</label></label>
+        <label class="opt"><input type="radio" name="att2" value="3"><label>Somewhat agree</label></label>
+        <label class="opt"><input type="radio" name="att2" value="2"><label>Somewhat disagree</label></label>
+        <label class="opt"><input type="radio" name="att2" value="1"><label>Strongly disagree</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-att2">Please select an option to continue.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(32)">← Back</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 34)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 34 — CTFC1
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-34">
+  <div class="card">
+
+    <div class="question-block">
+      <div class="question-text">Please write three questions that readers should ask themselves to determine whether the claim made in a headline is correct or not.</div>
+      <div class="question-subtext">For example: "Who is the source of this information?"</div>
+      <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+        <div>
+          <label class="input-label">1st question:</label>
+          <textarea id="ctfc1-q1" placeholder="Write your first question..."></textarea>
+        </div>
+        <div>
+          <label class="input-label">2nd question:</label>
+          <textarea id="ctfc1-q2" placeholder="Write your second question..."></textarea>
+        </div>
+        <div>
+          <label class="input-label">3rd question:</label>
+          <textarea id="ctfc1-q3" placeholder="Write your third question..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(33)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(35)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 35 — THANK YOU
+══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-35">
+  <div class="card" style="text-align:center; padding:48px 28px;">
+    <div class="thanks-icon">🎉</div>
+    <div class="thanks-title">Thank you very much!</div>
+    <div class="intro-sub">
+      You have completed the survey. Your responses have been successfully recorded.<br><br>
+      Your participation is very important for our research on media and information in Brazil.<br><br>
+      <strong>You may close this page.</strong>
+    </div>
+    <div style="margin-top:24px; padding:20px; background:#f0fdf4; border-radius:10px; border:1px solid #bbf7d0;">
+      <div style="font-size:0.82rem; color:#166534; font-weight:600; margin-bottom:8px;">Summary of your responses:</div>
+      <div id="response-summary" style="font-size:0.78rem; color:#374151; text-align:left; max-height:300px; overflow-y:auto;"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+
+const TEACHERS_DATA = [
+{
+"nte": "NTE 01 - Irecê",
+"name": "ANA KARINE LOULA TORRES ROCHA",
+"school": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE",
+"students": [
+"A",
+"ADRIAN SANTANA SUNDARIO",
+"ALEXANDRE DOURADO DIAS",
+"ALEXANDRE EMILIO OLIVEIRA DO NASCIMENTO",
+"ANA BEATRIZ PAIVA CUNHA",
+"ANA CLARA SENA DE ARAUJO REIS",
+"ANA CONCEICAO SILVA DA CONCEICAO SILVA",
+"ANA LUISA FRANCISCA DA SILVA",
+"ANNA LUIZA SILVA SOUZA",
+"AYLA MACHADO ROCHA",
+"CRYSTHIAN SILVA PEREIRA",
+"DANIEL SANTOS RODRIGUES",
+"ENDRIO MARTINS DE SOUZA",
+"FAGNER AMARAL FERREIRA",
+"GABRIEL DOS SANTOS SOUSA",
+"HELLIADY FELIX DA SILVA",
+"ISABELA ALVES ARAUJO",
+"ISLA RAFAELA DA SILVA",
+"KEILA LORRANY SILVA SANTOS",
+"LARA OLIVEIRA ROCHA",
+"LARISSA ISABEL DE PAULA SILVA",
+"LUISA HELENA LEONEL DE CARVALHO",
+"LUNA ADRIELLY VAZ DA SILVA",
+"LUNA DA SILVA GAMA",
+"LUNA PEREIRA DIAS",
+"MARIA CLARA FERREIRA SILVA",
+"MARIA EDUARDA BARBOSA DA SILVA",
+"MARIA EDUARDA RIBEIRO DE ANDRADE",
+"MARIA LUISA DA CRUZ LEITE",
+"MARIANE NEVES RIBEIRO",
+"MIGUEL DE SOUZA OLIVEIRA",
+"NICHOLAS DE SOUZA RIOS",
+"PALOMA DE SOUSA BARRETO",
+"PEDRO VICTOR MARQUES DOMINGUES",
+"RYHANNA JESUS DOS SANTOS",
+"SAMUEL DA SILVA PORTO",
+"SAMUEL DE OLIVEIRA LOBO",
+"SAULO GEZIEL BASTOS PEREIRA",
+"SELLES WILLIAN ALVES ARAGAO RIBEIRO",
+"SUZY MIRANDA DOS SANTOS",
+"TYCIANE MACHADO DA SILVA"
+]
+},
+{
+"nte": "NTE 01 - Irecê",
+"name": "MARLON DE ARAUJO NASCIMENTO",
+"school": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE",
+"students": [
+"CAROLAINE ALVES LEITE",
+"GABRIEL PAULINO DOS SANTOS OLIVEIRA",
+"ISA BEATRIZ SANTOS DE LIMA",
+"ISABELLE CARNEIRO BRITO",
+"ISLA VITORIA CAVALCANTI DOS SANTOS",
+"JOAO PEDRO OLIVEIRA BRANDAO",
+"KAYLA KETILEN",
+"LAYLA KARINY CHAGAS DE JESUS",
+"LUNA DA SILVA GAMA",
+"LUNA PEREIRA DIAS",
+"RAISSA DA CONCEICAO SILVA",
+"STEFANY ROCHA DA SILVA"
+]
+},
+{
+"nte": "NTE 01 - Irecê",
+"name": "TERCIO DA RITA FEITOSA",
+"school": "CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO",
+"students": [
+"ANA LIVIA CARVALHO ROCHA",
+"ANNY KARINE BESSA LACERDA",
+"BRUNO DE CARVALHO ALMEIDA",
+"CARLIENE SULSA RODRIGUES",
+"CARLOS ROGERIO DE CARVALHO SANTOS",
+"CASSYANO NOVAIS DE AZEVEDO",
+"EDUARDO RODRIGUES FERREIRA",
+"ERISTON FRANCISCO MINUZ DA CRUZ",
+"GILVANIA DA CONCECAO PEREIRA",
+"GUILHERME BATISTA DE ARAUJO",
+"HIARLLYSON MOURA DE SOUZA",
+"IGOR MOURA DA SILVA",
+"ITALO SANTOS NASCIMENTO",
+"JEIEL PEREIRA DE SOUZA BASTOS",
+"JOAO VITOR DOS SANTOS MARIANO",
+"JOSELITA FERREIRA DE SOUZA",
+"KLEBERSON DE JESUS LIMA",
+"NATHIELE COSTA SANTOS",
+"PAULO HENRIQUE FERREIRA CARVALHO",
+"PEDRO RIQUELME DA SILVA ARAUJO",
+"VANESSA FERREIRA DE JESUS",
+"WELTON DE SOUZA SANTANA",
+"YASMIN ROCHA FERREIRA"
+]
+},
+{
+"nte": "NTE 02 - Bom Jesus da Lapa",
+"name": "ELIEL DE ARAUJO ANDRADE",
+"school": "COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA",
+"students": [
+"ANTHONY GABRIEL MORAIS",
+"ARTHUR LEITE PORTELA",
+"BRUNO DA SILVA SANTOS",
+"CAMILA NASCIMENTO DE SOUZA SANTOS",
+"ELIZEU DA SILVA ARAUJO",
+"ELLEN CRISTINA SALES RODRIGUES NUNES",
+"FERNANDO LEAL DA SOLEDADE",
+"GABRIEL FELIPE MARQUES E SANTOS ABREU",
+"GABRIEL RODRIGUES",
+"GABRIELA SOUZA CARVALHO",
+"HELOISA OLIVER PRIMO",
+"HELOISA SILVA ANDRADE",
+"ISAAC SALDANHA DE ANDRADE TELES",
+"ISABELA DA SILVA ALVES",
+"ISADORA DA SILVA ALVES",
+"JOAQUIM NUNES PORTELA DE SOUZA",
+"KANANDA GOMES FILGUEIRAS BARBOSA",
+"KEVIN GABRIEL ALVES SANTANA",
+"KLAISA DE SA TELES PEDROSO",
+"LAVINIA DE JESUS OLIVEIRA",
+"MATHEUS DOS SANTOS DE ANDRADE",
+"MONIQUE MIRELLY DA CUNHA PASTOR",
+"NATALY",
+"NATIELE DO NASCIMENTO SANTOS",
+"NICOLE MEISAN LESSA DE MENEZES",
+"PAULO HENRIQUE ALVES DA SILVA OLIVEIRA",
+"RAIFRAN DE CARVALHO DA PAIXAO BATISTA",
+"SOFIA MARTINS DE ARAUJO ALMEIDA",
+"THIAGO CRUZ",
+"VINICIUS DA SILVA ALVES",
+"YASMIN OLIVEIRA FERREIRA"
+]
+},
+{
+"nte": "NTE 02 - Bom Jesus da Lapa",
+"name": "FABIO NOVAIS BARBOSA",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS",
+"students": [
+"CAROLINE LOPES BATISTA",
+"CIBELE DE OLIVEIRA COSTA",
+"ELIELMA DA SILVA SANTOS",
+"ELIELMA DOS SANTOS",
+"FRANCILENE SOUZA SILVA",
+"GABRIEL ACACIO XAVIER DA SILVA",
+"GEISA SANTOS DE ALMEIDA",
+"JULIA GRACIELE LUZIA DE JESUS",
+"LELIA ROCHA DOS SANTOS MOREIRA",
+"LOHANI ALVES DA SILVA",
+"MARIA DA PENHA DA SILVA RAMOS",
+"MARIELE ALVES DE OLIVEIRA",
+"PEDRO VITOR FERNANDES DA CONCEICAO",
+"VITORIA ANDRADE SANTOS",
+"VITORIA MIRELLE DA CONCEICAO ARQUINO"
+]
+},
+{
+"nte": "NTE 02 - Bom Jesus da Lapa",
+"name": "MARIA HELENA DE ASSIS LARANJEIRA GOMES",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS",
+"students": [
+"ALANA GABRIELA DOS SANTOS DE SANTANA",
+"AMANDA BORGES DA SILVA",
+"ANA ROSA TEOBALDO PAES",
+"CAUANE SOUZA ALVES",
+"DAVI EVANGELIS SANTOS",
+"ELORRANE PABRINE SILVA SANTOS",
+"ERIC SOARES DA CONCEICAO",
+"GUSTAVO GONCALVES TARSITANO",
+"IZABELLA DUARTE SANTOS",
+"JAMILE PEREIRA DOS SANTOS",
+"LUCAS DA SILVA OLIVEIRA",
+"MONICA FOGACA FERREIRA",
+"NOEMI NEVES DOS REIS",
+"RAISSA DA SILVA ALMEIDA",
+"RENATO DOS SANTOS SILVA",
+"ROGER PEREIRA DOS SANTOS",
+"TAUANE PEREIRA SANTOS",
+"VITOR MANUEL COSTA SANTOS LIMA",
+"WADLEY DOURADOS DOS SANTOS",
+"YASMIN VICTORIA CORDEIRO DOS SANTOS"
+]
+},
+{
+"nte": "NTE 02 - Bom Jesus da Lapa",
+"name": "PRICILA FERNANDES BARBOSA DOS SANTOS",
+"school": "COLEGIO ESTADUAL MONSENHOR TURIBIO VILANOVA",
+"students": [
+"ADEILSO GONCALVES RIBEIRO",
+"ADILSON DOS SANTOS LIMA",
+"AIRTON GOMES DE BARROS",
+"ALEXANDRE RODRIGUES DE SOUZA",
+"ALICE DOS SANTOS SILVA",
+"AMANDA MIRELA PEREIRA DA PEDRA LIMA",
+"AMANDA SANTOS DA ROCHA",
+"ANA BEATRIZ DA COSTA GOMES",
+"ANA BEATRIZ NASCIMENTO DOS SANTOS",
+"ANA CLARA MOREIRA SILVA",
+"ANA LUIZA NOLASCO SILVA",
+"ANA VITORIA OLIVEIRA DOS SANTOS",
+"BARBARA SILVA FRANCA",
+"BEATRIZ DE JESUS",
+"BIANCA DOS SANTOS REIS",
+"BIANCA FAVELA DE SOUZA",
+"CAMILA MENEZES SANTOS",
+"CARLOS EDUARDO DA SILVA DUARTE",
+"CARLOS SAMUEL DA SILVA LOBATO",
+"CAUE FERREIRA GOMES",
+"DANDARA DOS SANTOS CHAGAS",
+"DOMINIK DOMINGAS DA ROCHA",
+"EMANUELLE DOS SANTOS OLIVEIRA",
+"ERICK FERREIRA AMORIM",
+"ERYK EDUARDO SANTOS MODESTO",
+"EZEQUIEL DE SOUZA OLIVEIRA LIMA",
+"FELIPE BARBOSA DE OLIVEIRA",
+"FERNANDA OLIVEIRA DOS SANTOS",
+"GABRIELA BEATRIZ PEREIRA DOS SANTOS",
+"GEIZILANE DE SOUZA NEVES",
+"GEIZILANE SOUZA NEVES",
+"GISLANE BENEVIDES DOS SANTOS",
+"GRAZIELE DOS SANTOS ARAUJO",
+"HEBERT SANTOS DA SILVA",
+"HEITOR CERQUEIRA VIRGINO",
+"HENRIQUE GOMES RODRIGUES",
+"HIAGO DE JESUS ARAUJO",
+"IAGO DA MATA FRANCA",
+"IASMIM DA SILVA BARROS",
+"IASMIM SILVA GONZAGA DE OLIVEIRA",
+"IASMIN MARIANE MARQUES MOREIRA DE CASTRO",
+"IRIS DE SOUZA NOGUEIRA",
+"IRLANE JESUS COSTA",
+"ISABELLA NUNES DE SA",
+"JAMILE DOS SANTOS NUNES",
+"JAMILE RODRIGUES DOS ANJOS",
+"JHENIFER LORRANE DA CRUZ SOUZA",
+"JOAO VITOR CARVALHO DE SOUZA",
+"JOAO VITOR DE ABREU GONCALVES",
+"JOAO VITOR DOS SANTOS PEREIRA",
+"JOAO VITOR PEREIRA DA SILVA",
+"JONATAS PEREIRA DA SILVA",
+"JONH HEBERTH DE OLIVEIRA PEREIRA",
+"KAUAN PEREIRA ROCHA",
+"KETILLIN VITORIA DE JESUS COSTA",
+"LARISSA RODRIGUES",
+"LUCAS MONTEIRO",
+"MARCOS VINICIUS CONCEICAO DOS SANTOS",
+"MARIA CLARA CAETANA DE JESUS",
+"MARIA EDUARDA DE LIMA COSTA",
+"MARIA EDUARDA FERREIRA AMORIM",
+"MARIA EDUARDA SANTOS DE JESUS",
+"MARIA EDUARDA SILVA DE JESUS",
+"MARIANY DOS SANTOS GONCALVES OLIVEIRA",
+"MATEUS CONCEICAO DE SOUZA",
+"MATEUS NASCIMENTO LOPES",
+"MIGUEL MIRANDA DE OLIVEIRA BATISTA",
+"NATALIA SOUZA",
+"NATALIA SOUZA NASCIMENTO",
+"NATIELY ALMEIDA FELIX",
+"PAULO GUILHERME BARBOSA OLIVEIRA",
+"RAFAELA SANTOS BARBOSA",
+"RAILANE FERREIRA DE ALMEIDA",
+"RAINA VIVIAN SANTOS DA COSTA",
+"RAINARA CAUANE DE JESUS SANTOS",
+"RICARDO BISPO DO NASCIMENTO",
+"SABRINA DA SILVA GOMES",
+"SAMARA LEITE ASSIS",
+"SAMUEL",
+"SANDRA DA CONCEICAO VALENTIM",
+"THALES DAVID MOREIRA NUNES",
+"THIAGO MEIRA BECKER",
+"UANDERSON DA SILVA OLIVEIRA",
+"VITOR HUGO DE JESUS COSTA",
+"VITORIA RODRIGUES DOURADO"
+]
+},
+{
+"nte": "NTE 02 - Bom Jesus da Lapa",
+"name": "THAIS SOUZA SILVA",
+"school": "COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA",
+"students": [
+"ANNE LYSS CARDOSO MAGALHAES",
+"ARIELE DOS ANJOS SANTOS",
+"BEATRIZ CANGIRANA DOS SANTOS",
+"DANIELLE DOS SANTOS LEITE",
+"HILLARY VASCONCELOS BRANDAO",
+"JENNIFER CAMILY MONTALVAO LOPES",
+"KAREN VITORIA FERREIRA DA SILVA",
+"KARLINE SANTOS PEREIRA",
+"LAIS BELEM MELO",
+"LETICIA STEFANY LOPES DA SILVA",
+"LORENA PEREIRA DUARTE SOUZA",
+"LORENA VALERIA OLIVEIRA DE LIMA",
+"MANUELLA ROMEIRO MODESTO",
+"SARAH SOUSA MARQUES SILVA",
+"STEFANY CAROLINE DE SOUZA FERNANDES",
+"VITOR SANTIAGO DO NASCIMENTO",
+"YASMIM PEREIRA BARBOSA"
+]
+},
+{
+"nte": "NTE 03 - Seabra",
+"name": "ANGELO RICCELL ARAUJO CARNEIRO PIOVISCHINI",
+"school": "CETISS - Colégio Estadual de Tempo Integral de Souto Soares",
+"students": [
+"ALISSON CAUE FELIX",
+"GABRIEL RIBEIRO DE SOUZA",
+"IASMIM DOS ANJOS PAIVA",
+"ISABELA PIRES AMORIM",
+"JONATHAN GASPAR VIERA RODRIGUES",
+"MARINE EVELEN ROSA DOS ANJOS",
+"MICAELE SANTOS ALVES",
+"MIZAEL ALVES DE SOUZA",
+"SOFIA KETHELEM"
+]
+},
+{
+"nte": "NTE 03 - Seabra",
+"name": "ANGELO RICCELL ARAUJO CARNEIRO PIOVISCHINI",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES",
+"students": [
+"ALANA KELLY GASPAR DE SOUZA",
+"ALINE NOVAIS FERNANDES",
+"ANA BELA FERREIRA GASPAR",
+"ANDREI LOPES NOVAIS",
+"AVENAILTON BISPO DE SOUZA",
+"BARBARA SOFIA PORTO ALVES",
+"BIANCA ROSA DE SOUZA",
+"BRUNA NOVAIS",
+"CAUANE SANTOS ROCHA",
+"DANIELE CONCEICAO NOVAIS",
+"DANIELE CONCEIO NOVAIS",
+"EMILLY PIRES LIMA",
+"EMILY VITORIA DOS ANJOS NOVAES",
+"ERIC LIMA SOUZA",
+"GUSTAVO JESUS ARAUJO",
+"GUSTAVO MEDEIROS GOMES",
+"ILENE SOUZA MARTINS",
+"IZABELE NEVES MARQUES",
+"JAIANE SILVA DE SOUZA",
+"JOAO VICTOR EUSEBIO DE SOUZA",
+"JOSE EDUARDO DE SOUZA ANDRADE",
+"KAROLAINE SANTOS FONSECA",
+"KEILIANE CONCEICAO DOS SANTOS",
+"LETICIA DOURADO DA SILVA",
+"MARIA CLARA CONCEICAO DE SOUZA",
+"MARJORY ELOA LOPES ARAUJO",
+"MATHEUS ARAUJO BEZERRA",
+"MICAEL CONCEICAO ALVES",
+"MILENA SOUZA VILACA",
+"MILTON CEDRO DE OLIVEIRA NETO",
+"MIRELLE BRAGA DE SOUZA",
+"RAISSA DOS ANJOS SILVA",
+"RUAN DOS ANJOS SANTOS",
+"SARHA EMILLY ALVES RIBEIRO",
+"TALISON LOPES SANTOS",
+"THAYLANE ROSA DE SOUZA",
+"UERIQUE SILVA SANTOS",
+"VINICIUS DE JESUS COELHO",
+"VITOR DE JESUS NOVAIS",
+"VITORIA ANDRADE FERREIRA",
+"VIVIAN MARCELE TELES ALMEIDA",
+"YASMIN RIBEIRO DOS SANTOS"
+]
+},
+{
+"nte": "NTE 03 - Seabra",
+"name": "APARECIDA CONCEICAO NOVAIS ROCHA",
+"school": "COLEGIO ESTADUAL HORACIO DE MATOS",
+"students": [
+"ADRIELE JESUS DAMACENA",
+"ALLEXANDRY CARVALHO SILVA",
+"ANA RAISSA LELIS MARQUES",
+"ANNA PAULA BARBOSA ROCHA",
+"ANNY KATIELLY CARVALHO SANTOS",
+"CARLOS DA SILVA NOVAIS",
+"DAVI CARVALHO PEREIRA",
+"DERMIVONE SOUZA DAMACENA",
+"EDUARDO DANTAS",
+"EDUARDO SILVA MEDRADO",
+"ENDRIO LISANDRO",
+"FERNANDA DANTAS BARROS",
+"GABRIELLY NOVAES CARVALHO",
+"GEOVANA HELLY SILVA LIMA",
+"GESSICA SANTOS ALVES",
+"GLEIDSON CAIRES DANTAS",
+"HAILLA SOUZA JARDIM",
+"ISABELA BARROS CARVALHO",
+"JAMILLY VITORIA NOVAIS CARVALHO",
+"JEANDERSON SANTOS CARVALHO",
+"JOAO PAULO CAIRES AGUIAR",
+"JOAO VITOR CARVALHO AGUIAR",
+"JORGE WAGNER NOVAIS LUZ",
+"JOSIANE DIAS DOS SANTOS",
+"KAROLAINE RAMOS NEVES",
+"KAUA DOS SANTOS CARVALHO",
+"KAUAN DANTAS AMARAL",
+"LETICIA SANTOS SILVA",
+"LUANA CARVALHO LEITE",
+"MARCELO SOUZA CARVALHO",
+"MARCOS ABNER LELIS SILVA SANTOS",
+"MARCOS VINICIUS SOUZA DA SILVA",
+"MARIA LUIZA DE NOVAIS FREITAS",
+"MARIA ZILDA FREITAS SILVA",
+"MARLLON OLIVEIRA DE SOUZA",
+"MIRELA CARVALHO LEITE",
+"NAYARA BORBOSA DOS SANTOS",
+"NAYARE",
+"NYCOLLI CAIRES MOURA",
+"PABLO SANTANA ALVES",
+"PAULO HENRIQUE CARVALHO DOS SANTOS",
+"PAULO JUNIOR LUZ GOMES",
+"RANIELLY DA ROCHA BASTOS",
+"RANIELY SANTOS CHELE",
+"RANIELY SANTOS CHELES",
+"RICKELMEN LUZ FERRAZ",
+"SARAH SANTOS ANDRADE",
+"SOLANGE SANTOS LEITE",
+"SOPHIA LUZ DE SOUZA",
+"SUZETE DOS SANTOS FERREIRA",
+"TAINA PIRES LEITE",
+"TESTE",
+"THIAGO EDU AGUIAR NOVAIS FREITAS",
+"VINICIUS BENTO NOVAIS",
+"VINICIUS LIMA DA SILVA",
+"VITORIA EDUARDA SANTOS SILVA",
+"YAGO SOUZA DOS SANTOS"
+]
+},
+{
+"nte": "NTE 03 - Seabra",
+"name": "EDSON SILVA",
+"school": "CETISS - Col�gio Estadual de Tempo Integral de Souto Soares",
+"students": [
+"ANA BEATRIZ REGIS AMORIM",
+"ELOISA SOUZA OLIVEIRA",
+"JENIFER ALVES LOPES",
+"JOAO PEDRO SOUZA ALEXANDRE",
+"LIVIA CRISTINA ANJOS DE SOUZA",
+"TAINA FERNANDES DE SOUZA"
+]
+},
+{
+"nte": "NTE 03 - Seabra",
+"name": "EDSON SILVA",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SOUTO SOARES",
+"students": [
+"ANA CLARA DE SOUZA LOPES RODRIGUES",
+"ANA JULIA NOVAIS DOS SANTOS",
+"BIANCA DOS SANTOS OLIVEIRA",
+"BRUNA BRANDAO DA SILVA",
+"BRUNO BRANDAO DA SILVA",
+"CHEILA EVANGELISTA BRAG",
+"ELOISA ROSA DOS SANTOS",
+"EMILY VITORIA MENDES DE SOUZA",
+"JAQUELINE SOUZA SILVA",
+"LARA DA SILVA OLIVEIRA",
+"LAVINIA ASSUNCAO PINA",
+"LIS KATIELLE SOUZA SANTOS",
+"LUANA LOPES SILVA",
+"MANUELA DE SOUZA EVAGELISTA",
+"MARIA CLARA DOS ANJOS BARAUNA",
+"MARINA TAUANE NOVAES DE SOUZA",
+"RAFAELA DOS ANJOS SOUZA",
+"RAI JESUS DE SOUZA",
+"RAISSADEOLIVEIRAASSUNCAO",
+"TALIA NOVAIS DE SOUZA",
+"VERONICA SANTOS DE SOUZA",
+"VITORIA EDUARDA INACIO DE SOUZA"
+]
+},
+{
+"nte": "NTE 04 - Serrinha",
+"name": "ANA CLAUDIA DO CARMO CEDRAZ",
+"school": "COLÉGIO ESTADUAL DO CAMPO LUCIBERTO OLIVEIRA DOS SANTOS",
+"students": [
+"ALICIA DE JESUS OLIVEIRA",
+"ANA BEATRIZ LIMA DOS SANTOS",
+"ANA CAROLINE MORAES SILVA",
+"ANA CLARA DOS SANTOS",
+"CHRISTIAN",
+"ERIVELTON DE JESUS SANTOS",
+"FABIO HENRIQUE MASCARENHAS DE JESUS",
+"FRANCIELE BRITO DA SILVA",
+"GABRIEL DE OLIVEIRA COUTINHO",
+"GABRIEL NERI ALMEIDA",
+"IZABELLA MOREIRA DA SILVA",
+"JANIELE OLIVEIRA DA SILVA",
+"JOAO PEDRO OLIVEIRA CARDOSO",
+"KAUE EDUARDO NERY PEREIRA",
+"KEVILLY MARTINS",
+"LARA PAULINA SILVA MOURA",
+"LARA SILVA MORAIS",
+"LAURA OLIVEIRA SANTOS",
+"MARIA EDUARDA DOS SANTOS PEREIRA",
+"MARIA REGINA BRITTO DA SILVA",
+"MIGUEL DOS SANTOS SILVA",
+"PYETRO RAVY OLIVEIRA DE JESUS SILVA",
+"RANNA FREITAS DA SILVA",
+"RAQUELY MARIA OLIVEIRA SANTIAGO",
+"ROBSON SILVA DOS SANTOS",
+"SAVIO RODRIGUES DOS SANTOS",
+"SIDNEY SILVA OLIVEIRA",
+"STEFHANE",
+"THIAGO DE JESUS OLIVEIRA",
+"THIAGO PEREIRA MARTINS",
+"TIAGO BRITO OLIVEIRA",
+"VALDEMAR MOREIRA DA SILVA"
+]
+},
+{
+"nte": "NTE 04 - Serrinha",
+"name": "JEAN LUCAS VINHAS MEDEIROS DE CARVALHO",
+"school": "CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC",
+"students": [
+"CAROLINA SANTOS BRASIL",
+"ELOAR JESUS DE SOUSA",
+"JAQUELINE MOURA DOS SANTOS",
+"LAUANE CARVALHO DA SILVA",
+"MARIA EDUARDA MOTA DOS SANTOS",
+"UEMERSON JESUS DOS SANTOS"
+]
+},
+{
+"nte": "NTE 04 - Serrinha",
+"name": "JEAN LUCAS VINHAS MEDEIROS DE CARVALHO",
+"school": "CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE ARACI",
+"students": [
+"A",
+"ABIB VALERIO CAMPOS",
+"ADRIANO OLIVEIRA DE MATOS",
+"ADRIELE OLIVEIRA DOS SANTOS",
+"ADRIELE SANTOS DA SILVA",
+"AGNA CASTRO OLIVEIRA",
+"AIANA TALICIA SANTOS DE OLIVEIRA",
+"ALANA SANTOS MOURA",
+"ALANNA SANTANA DA CONCEICAO",
+"ALESSANDRO LIMA BARRETO",
+"ALEXANDRA SANTOS SOUSA",
+"ALICE DOS SANTOS PINHEIRO",
+"ALICE PEREIRA DANTAS",
+"ALICE REIS GMAIL COM",
+"ALICEALICEREIS GMAIL COM",
+"ALINE DANTAS DOS SANTOS CARVALHO",
+"ALINE PEREIRA DE SOUZA",
+"ALINE VITORIA SANTOS MOURA",
+"ALINNE MOURA SILVA",
+"ALISSON SILVA DE SOUSA",
+"ANA BEATRIZ GOES DA SILVA",
+"ANA BEATRIZ SANTOS DE SOUSA",
+"ANA CAROLINA CARVALHO DE SOUZA",
+"ANA CLARA SANTOS DA SILVA",
+"ANA CLAUDIA CAPISTRANO DE SANTANA",
+"ANA GABRIELY BARBOSA SILVA",
+"ANA JULIA FERREIRA DOS SANTOS",
+"ANA JULIA SANTOS OLIVEIRA",
+"ANA PAULA ANDRADE DE OLIVEIRA",
+"ANA PAULA SANTOS DE JESUS",
+"ANA SOFIA CARVALHO GODINHO",
+"ANA VITORIA CRUZ SANTOS",
+"ANA VITORIA NASCIMENTO DE MATOS",
+"ANA VITORIA OLIVEIRA DA CUNHA",
+"ANA VITORIA SANTOS DA SILVA",
+"ANDRE LUIS FERREIRA DE CARVALHO",
+"ANDRESSA AQUINO",
+"ANDREZA SANTOS FERREIRA",
+"ANNA SAMARA OLIVEIRA DOS SANTOS",
+"ANTONIO MOISES DOS SANTOS FILHO",
+"ARIELE GUIMARAES BARRETO",
+"ARLAN BARBOSA DE OLIVEIRA",
+"ARTUR PIMENTEL ANDRADE",
+"ARYADNI DE ALMEIDA SILVA",
+"BIANCA SOUSA DOS SANTOS",
+"BIANCA VITORIA SANTOS DE OLIVEIRA",
+"BRUNA JESUS DE SOUSA",
+"BRUNO CERQUEIRA NASCIMENTO",
+"BRUNO DE SOUSA",
+"CAIO VITOR",
+"CAMILA VITORIA SILVA BRITO",
+"CAMILE VITORIA JESUS DA SILVA",
+"CARLA VICTORIA MEIRELES DOS SANTOS",
+"CAROLINE MATOS DE SENA",
+"CASSIANE CRUZ TITO DOS SANTOS",
+"CAUANE VITORIA SANTOS DA SILVA",
+"CECILIA JESUS DE ANDRADE",
+"CECILIA MIRELLE LIMA MONTEIRO DE ALMEIDA",
+"CIBELLE FERREIRA DOS SANTOS",
+"CLARA SILVA MUNIZ DOS SANTOS",
+"CLECIO OLIVEIRA DE SANTANA",
+"CLEILTON OLIVEIRA DA SILVA",
+"CLEISON SANTOS DE MATOS",
+"CONCEICAO GOES DE JESUS",
+"CRISTOVAO CARNEIRO DE OLIVEIRA",
+"DANIELREHEMPEREIRASANTOS",
+"DANILO DOS SANTOS",
+"DANILO SOUSA MEIRELES",
+"DAVI ANDERSON CARVALHO CARDOSO",
+"DAVI CARVALHO GUIMARAES",
+"DAVI GABRIEL MATOS PRATES",
+"DAVID PEREIRA LIMA",
+"DAVID SOUSA DE JESUS",
+"DAYMILA FERREIRA DOS SANTOS",
+"DEBORA DIAS DOS SANTOS",
+"DEBORA EVELYN",
+"DEMILLE CERQUEIRA DOS SANTOS",
+"DENIS SOUZA DE JESUS",
+"DIEGO ANDRADE GOES",
+"EDCARLOS MATOS BATISTA",
+"EDIELTON MATOS BARRETO",
+"EDNA CARVALHO DE SOUSA",
+"EDSON ENZO DE MACEDO PARANHOS",
+"EDUARDO LIMA GOES",
+"ELEN JESUS DA SILVA",
+"ELOA JESUS DE SOUSA",
+"ELOA SANTOS OLIVEIRA",
+"ELOA VIEIRA DE ANDRADE",
+"ELOISA ROSANA TITO DOS SANTOS",
+"EMILI LUSTOSA DA SILVA",
+"EMILI MIRELA DA CRUZ OLIVEIRA",
+"EMILIA SOUSA DE SAO PEDRO",
+"EMILLY SILVA DE CARVALHO",
+"EMILLY VITORIA BARRETO OLIVEIRA",
+"ENZO GABRIEL DANTAS PINHEIRO",
+"ENZO OLIVEIRA SANTOS",
+"ERICK GARCIA DOS SANTOS BATISTA",
+"ERICK LIMA DOS SANTOS",
+"ERICK OLIVEIRA SANTOS",
+"ERISLAINE MOTA DOS REIS",
+"ESTER OLIVEIRA DOS SANTOS",
+"ESTER SANTOS PEREIRA",
+"ETEVALDO JESUS DA SILVA",
+"EVANIR REIS DA SILVA",
+"EVELLIN JESUS DOS ANJOS",
+"EVELLIN MOURA DE CARVALHO",
+"EVERTON SANTOS LOPES",
+"FERNANDA DOS SANTOS SOUSA",
+"FRANCIELE CARVALHO",
+"FRANCIELE GUIMARAES SILVA",
+"GABRIEL ARAUJO SOUZA",
+"GABRIEL DE OLIVEIRA DOS SANTOS",
+"GABRIEL SANTOS DO NASCIMENTO",
+"GABRIEL SANTOS MOTA",
+"GEANNE VITORIA SOUSA PEREIRA",
+"GEISA SILVA MATOS",
+"GENDSON ANDRADE DE AQUINO",
+"GEOVANA GOES DOS SANTOS",
+"GIOVAN SANTOS DA SILVA",
+"GLENDA LEAL SERRA",
+"GLENDA MAISA MOURA DOS SANTOS",
+"GREICE KELLI DANTAS DOS REIS",
+"GUILHERME LIMA GOES",
+"GUILHERME MOREIRA CONCEICAO",
+"GUILHERME SANTOS SILVA",
+"GUSTAVO FELIPE SANTIAGO FIGUEIREDO",
+"GUSTAVO SANTOS MOREIRA",
+"HELDER MATOS DA SILVA",
+"HENRRI KAUA ALMEIDA LIMA",
+"HENZO REIS OLIVEIRA",
+"HIDELMAR CARVALHO DOS SANTOS",
+"HUDSON SILVA DE MOURA",
+"IAN RICARDO MIRANDA SILVA",
+"IAN SANTOS DA HORA",
+"IASMIM DOS SANTOS",
+"IASMIM RIBEIRO MENEZES",
+"IASMIN OLIVEIRA SILVA",
+"INEZ SOUSA GOES",
+"INGRID FARIAS DE CARVALHO",
+"IRIS",
+"ISABEL DE MOURA GOES",
+"ISABELY SOUZA ARAUJO",
+"ITALO SILVA DOS SANTOS",
+"JABEZ ARAUJO OLIVEIRA DE JESUS",
+"JACKSON KRISLAN SILVA DOS SANTOS",
+"JAIANE SANTOS CORREIA",
+"JAILZA CRUZ DE OLIVEIRA",
+"JAINE CARNEIRO DE MOURA",
+"JAINE SILVA DOS SANTOS",
+"JANDEILSON SANTOS LEAL",
+"JANIELE SANTOS LEONARDO",
+"JANIELE SANTOS OLIVEIRA",
+"JAQUELINE SANTOS BISPO",
+"JHONATAN SANTOS CERQUEIRA",
+"JOANA SALES MATOS",
+"JOAO DAVI MATOS PIMENTEL",
+"JOAO ENZO DOS REIS BARRETO",
+"JOAO MAGNO MOURA SANTOS",
+"JOAO MARCOS FERREIRA ROCHA",
+"JOAO PAULO DANIEL SOUSA RAMOS",
+"JOAO PEDRO JESUS MATA",
+"JOAO VICTOR CARNEIRO SILVA",
+"JOAO VICTOR CARVALHO DOS SANTOS",
+"JOAO VITOR BRITO DOS SANTOS",
+"JOAO VITOR MESSIAS SILVA",
+"JOAO VITOR SILVA DO CARMO",
+"JONAS JESUS DE MORAIS",
+"JONAS NASCIMENTO DOS SANTOS",
+"JONATAN SILVA SANTOS GOMES",
+"JONI",
+"JOSE MAGNO GOES DE MATOS JUNIOR",
+"JOSINEIA LIMA SANTOS",
+"JUAN CARLOS DANTAS BARRETO",
+"JUCIELE SILVA DOS SANTOS",
+"JULIA MARINS DO CARMO",
+"JULIANA LIMA DA SILVA",
+"JULIANA PEREIRA DOS SANTOS",
+"JUSCILENE SANTOS DE SOUSA",
+"KAIC MATOS",
+"KAILANE CRUZ",
+"KAIO MOTA DA SILVA",
+"KAIQUE OLIVEIRA DA CRUZ",
+"KARINE CARVALHO MOURA",
+"KARINE MOREIRA DOS SANTOS",
+"KAUA CRUZ DA SILVA",
+"KAUAN BARRETO DE OLIVEIRA",
+"KAUAN SOUSA DE SANTANA",
+"KEILA GABRIELI SANTOS DA SILVA",
+"KELI MOURA PIMENTEL",
+"KERLEN SILVA DE CARVALHO",
+"KEVINY FARIAS BISPO",
+"LAIANE SILVA OLIVEIRA",
+"LAILA GABRIELA SOUSA DOS SANTOS",
+"LAIS SANTOS DE MATOS",
+"LARA MARIANNE PEREIRA SANTOS",
+"LARA VITORIA PINHO NUNES",
+"LARA WELYKA SILVA NASCIMENTO",
+"LARIANNE LIMA",
+"LARISSA QUEIROZ DA SILVA",
+"LARISSA SANTOS SOUSA",
+"LARISSA SOUSA DA SILVA",
+"LAVINIA ALMEIDA SIMOES",
+"LEIZIANE JESUS DOS ANJOS",
+"LEONARDO CARVALHO LIMA",
+"LETICIA NASCIMENTO DE SOUSA",
+"LEVY CARVALHO DO CARMO",
+"LIAGO MIGUEL SANTOS DE CARVALHO",
+"LORRANE NASCIMENTO DOS SANTOS",
+"LORRANE SANTOS NASCIMENTO",
+"LORRANE SOUZA OLIVEIRA",
+"LUCAS ALVES DOS SANTOS",
+"LUCAS ARAUJO SOUZA",
+"LUCAS SANTOS",
+"LUCAS WILLIAM SOUZA FERREIRA",
+"LUCAS YAGO RAMOS PAIXAO",
+"LUCIANA OLIVEIRA MOREIRA",
+"LUCIENE",
+"LUCIENE JESUS DE OLIVEIRA",
+"LUIS FELIPHE CARVALHO DE SENA",
+"LUIS FERNANDO DO CARMO OLIVEIRA",
+"LUIS GUILHERME BARBOSA SANTOS",
+"LUIZ FELIPE DO CARMO GOES",
+"LUIZ HENRIQUE SANTANA ANDRADE CARVALHO",
+"MAILSON SOUSA DE CARVALHO",
+"MAIRA ANDRADE DE OLIVEIRA",
+"MAIRA ARAUJO DOS SANTOS",
+"MAISA SANTOS FREIRE",
+"MAIZA ALVES LIMA",
+"MAIZA DE SOUSA SILVA",
+"MAIZA SILVA HERMOGENS",
+"MANOELEN VIEIRA DA COSTA",
+"MARAISA MATOS DA SILVA",
+"MARCOS VINICIOS JESUS DE MATOS",
+"MARCOS VINICIUS SILVA MATOS",
+"MARIA CECILIA MOREIRA LIMA",
+"MARIA CLARA DOS SANTOS PEREIRA",
+"MARIA CLARA SALES OLIVEIRA",
+"MARIA DE FATIMA GOES DOS SANTOS",
+"MARIA DE LOURDES MOTA DE SANTANA",
+"MARIA EDUARDA MUNIZ ARAUJO",
+"MARIA EDUARDA NASCIMENTO DOS SANTOS",
+"MARIA EDUARDA SOUZA MOREIRA",
+"MARIA ELOISA MATOS DE OLIVEIRA",
+"MARIA EMILY NUNES DA SILVA",
+"MARIA EVELY NUNES DA SILVA",
+"MARIA GEOVANA MATA DE ANDRADE",
+"MARIA ISABEL SANTOS SANTANA",
+"MARIA VITORIA COELHO DA NOBREGA OLIVEIRA",
+"MARIA VITORIA RODRIGUES LIMA",
+"MARIANA SANTOS CONCEICAO",
+"MARIANE SANTOS SILVA",
+"MARIANE SOUSA SILVA",
+"MATEUS BARRETO DA SILVA",
+"MATEUS CARVALHO SANTOS",
+"MATHEUS SANTANA DIAS",
+"MAYRA SALES BORGES",
+"MICAEL BARRETO LIMA",
+"MICAEL CARVALHO DOS SANTOS",
+"MICAEL VITOR OLIVEIRA SILVA",
+"MICAELE SANTOS BARRETO",
+"MICHELE DA SILVA DOS SANTOS",
+"MISAEL CRUZ DOS SANTOS",
+"MONICA RIBEIRO DOS SANTOS",
+"NAIARA SANTOS DE JESUS",
+"NAIVILE VITORIA MOURA DE SANTANA",
+"NATALIA MATOS PEREIRA",
+"NATIELE JESUS DOS SANTOS",
+"NATIELLE SANTOS MOREIRA",
+"NAYLLA GABRIELA RODRIGUES DOS SANTOS",
+"NICOLE SANTOS DE SENA",
+"NICOLE SOUSA DE CARVALHO",
+"NICOLLAS MESSIAS SILVA",
+"NIVANILSON CRUZ DA CUNHA MOURA",
+"NUBIA SILVA DOS SANTOS",
+"OTAVIO CARVALHO DOS SANTOS",
+"OTAVIO MOURA SANTOS",
+"PABLO HENRIQUE SANTOS",
+"PATRICIONEIA SANTANA PEREIRA",
+"PAULO ANDRE CARVALHO DOS SANTOS",
+"PEDRO HENRIQUE DANTAS SILVA",
+"PEDRO HENRIQUE LIMA DOS SANTOS",
+"PEDRO HENRIQUE OLIVEIRA CARVALHO",
+"PEDRO HENRIQUE SANTANA DOS SANTOS",
+"PEDRO LEVY CARVALHO DE MATOS",
+"PRISCILA MOURA MATA",
+"PRISCILA RAMOS SANTOS",
+"RAFAEL BARBOSA DOS SANTOS",
+"RAFAEL SILVA FRISOLI",
+"RAFAEL SILVA MARQUES",
+"RAFAELE SANTOS DE CASTRO",
+"RAILANE JESUS SANTOS",
+"RAILON TITO DOS SANTOS",
+"RAQUEL DE ASSIS SANTOS",
+"RAQUELE SILVA DA CRUZ",
+"RAYSSA NATYELLE SILVA PRADO",
+"REINAN JESUS DE MATOS",
+"RENAN SILVA DE MOURA",
+"RENIQUELE NASCIMENTO SANTOS",
+"ROBSONEI CRUZ LIMA",
+"RONIEDSON FERREIRA DOS ANJOS",
+"RUAN SILVA LIMA",
+"SAIMON MENEZES ALECRIM SANTOS",
+"SAMARA COSTA DE OLIVEIRA",
+"SAMILE KAIALY LEAL SANTOS",
+"SAMUEL NASCIMENTO PAIXAO",
+"SAMUEL SANTOS CARMO",
+"SAMYLA",
+"SAMYLA DE JESUS DOS SANTOS",
+"SANTHYAGO SANTOS NERI",
+"SARA PEREIRA SANTOS",
+"SARA SOUSA DOS SANTOS",
+"SARAH VICENTE MOURA",
+"SIBELE CORREIA DE AQUINO",
+"SILVANEIDE BARRETO DA SILVA",
+"SIRANA DOS SANTOS",
+"SOFIA ANDRADE GIDI",
+"SOFIA NEVES MIRANDA",
+"SOFIA SANTOS DE PINHO",
+"SOPHIA CAMILA JESUS DA SILVA",
+"STEFANE MOURA BARRETO",
+"STEFANI SILVA DE OLIVEIRA",
+"SUELLAINY GRECY DA SILVA LIMA",
+"TAINA SENA DE ARAUJO",
+"TAINARA JESUS SANTOS",
+"TAISMARA SANTOS DE SOUSA",
+"TAUANE MATOS DA SILVA",
+"TAUANE SILVA GOES",
+"TELMA JESUS DE OLIVEIRA",
+"TEREZA RAILINE SANTOS DA SILVA",
+"THAIS SILVA CONCEICAO",
+"THAISSA FERREIRA DOS SANTOS",
+"THAUAN LIMA LOPES",
+"TIAGO SANTOS NASCIMENTO",
+"UESLEI DANTAS DOS SANTOS",
+"UEVERTON COSTA MOURA",
+"VALDINEI SANTOS DE LIMA",
+"VALDINEIA SILVA BARRETO",
+"VANESSA OLIVEIRA FERREIRA",
+"VICTOR BISPO DA SILVA",
+"VITOR COSTA DOS SANTOS",
+"VITORIA BATISTA DE MOURA",
+"WELLINGTON CARVALHO DOS SANTOS",
+"WESLEI LIMA DOS SANTOS",
+"WESLEY",
+"WESLEY SILVA DE OLIVEIRA",
+"WESLEY SOUSA BASTOS",
+"WEVERTON OLIVEIRA DA CRUZ",
+"WILLKSON SOUSA GUIMARAES",
+"YASMIM BATISTA DE SANTANA",
+"YASMIM JESUS DE OLIVEIRA",
+"YASMIM OLIVEIRA DOS SANTOS",
+"YASMIM SANTOS DA SILVA",
+"YASMIN BISPO MOURA",
+"YASMIN CARVALHO PEIXOTO",
+"YNGRID SANTOS DA SILVA",
+"YSABELA GOES DE SOUSA"
+]
+},
+{
+"nte": "NTE 04 - Serrinha",
+"name": "MARCELI CEDRAZ DA SILVA",
+"school": "COLEGIO POLIVALENTE DE CONCEICAO DO COITE",
+"students": [
+"ADALBERTO ALVES OLIVEIRA",
+"ALICE DA SILVA PINHO",
+"ALICE GORDIANO DE ARAUJO ALMEIDA",
+"ALICIA ALMEIDA CARNEIRO DA SILVA",
+"ALICIA VICTORIA MENEZES MORAES",
+"ALLANA LIMA OLIVEIRA",
+"ALYCIA LORENNA DE OLIVEIRA SILVA",
+"AMANDA VITORIA SANTOS SIMOES",
+"ANA BEATRIZ OLIVEIRA DE SANTANA",
+"ANA CAROLINE ALMEIDA SANTOS",
+"ANA CLARA ALMEIDA SANTANA",
+"ANA CLARA DA CUNHA PIMENTEL",
+"ANA CLARA LIMA DA SILVA",
+"ANA CLARA MOTA DOS SANTOS",
+"ANA CLARA OLIVEIRA SILVA",
+"ANA CLARA RODRIGUES DE SENA",
+"ANA JULIA MASCARENHAS MOTA",
+"ANA VITORIA LIMA SILVA",
+"ANA VITORIA SANTOS DA SILVA",
+"ANAIARA PASTOR SILVA",
+"ANDREY BISPO PINTO",
+"ANNA HELOIZY DE LIMA SILVA",
+"ANNA KAROLINY SENA DE ALMEIDA",
+"ARIANE MOTA SILVA",
+"ARISLANY SANTOS DE JESUS",
+"ARTHUR PELIZZARI",
+"BEATRIZ ALMEIDA SOUZA",
+"BEATRIZ DO CARMO LOPES CARNEIRO",
+"BEATRIZ SOUZA DA SILVA",
+"BRENDA MENDES DO NASCIMENTO",
+"BRUNA SILVA DE SOUZA",
+"CAMILE DA SILVA SANTOS",
+"CARLOS FERREIRA NETO",
+"CARLOS GABRIEL DE LIMA JESUS",
+"CAUAN SANTOS DOS REIS",
+"CECILIA SILVA SANTOS",
+"CLEBSON DAS MERCES MORAES",
+"DANIELA ANNELIS LEYVA GUERRA",
+"DAVI DE OLIVEIRA PEREIRA",
+"DAVI OLIVEIRA DA SILVA",
+"DAVID DA SILVA ARAUJO",
+"DIOGO MORAES NOBRE",
+"EDUARDO SILVA MOTA",
+"EDUEBERT DE JESUS CARNEIRO SANTOS",
+"ELOAH KATLEN MENDES DA SILVA",
+"EMILIA VITORIA OLIVEIRA PEREIRA",
+"ERICK SOUZA CUNHA",
+"ESTAPHANE ARAUJO OLIVEIRA",
+"ESTER TRABUCO SOUZA",
+"EVA PEREIRA DE OLIVEIRA",
+"EVELYN OLIVEIRA RAMOS",
+"EVILLY LAVINI DOS SANTOS COSTA",
+"EVILY DAIANE BRITO DE OLIVEIRA",
+"EVYLLI BRITO DA SILVA",
+"FABIANA FERREIRA DOS SANTOS",
+"FELIPE ALMEIDA DE JESUS",
+"FRANCISCO SAMPAIO FARIAS",
+"GABRIELLE CARNEIRO SANTOS",
+"GABRIELLY DE LIMA MOTA DOS SANTOS",
+"GABRYEL SALES ARAUJO",
+"GEOVANA PINTO OLIVEIRA",
+"GEOVANA SANTANA DOS SANTOS",
+"GIOVANNA APARECIDA BERENGUER SILVA",
+"GISLAINE OLIVEIRA DA SILVA",
+"GRAZIELE MOURA DOS REIS",
+"GRAZIELLA CRISTINA DA SILVA PINTO",
+"GREICEANE SILVA PAIXAO",
+"GUILHERME DA SILVA ALMEIDA",
+"GUILHERME DA SILVA LOPES",
+"GUSTAVO DA SILVA ALMEIDA",
+"GUSTAVO DE OLIVEIRA MOTA",
+"GUSTAVO JULIO CARNEIRO DE ALMEIDA",
+"GUSTAVO LISBOA CERQUEIRA",
+"GUSTAVO MASCARENHAS DA SILVEIRA",
+"GUSTAVO OLIVEIRA DE ALMEIDA",
+"GUSTAVO OLIVEIRA MASCARENHAS",
+"GUSTAVO SANTOS DA SILVA",
+"HANNA LIMA SILVA",
+"HEITOR EZEQUIEL RIOS OLIVEIRA",
+"HEITOR MOTA DE ASSIS",
+"HELOYSE OLIVEIRA DOS SANTOS",
+"HENRY DAVI SILVA SILVEIRA",
+"INA MEL ANDRADE DE OLIVEIRA",
+"ISTELA DAS MERCES SILVA",
+"ITAMARA GORDIANO DE JESUS",
+"IZABELA MOTA DOS SANTOS",
+"JAIANE OLIVEIRA ROCHA",
+"JAILSON FIAIS DE OLIVEIRA JUNIOR",
+"JAMILE CARNEIRO DE SANTANA",
+"JHENIFE DE ALMEIDA OLIVEIRA",
+"JHENIFFER SANTANA E OLIVEIRA",
+"JOAO GABRIEL SOUZA DOS SANTOS",
+"JOAO PEDRO AMANCIO DE JESUS",
+"JOAO SOUZA MOREIRA NETO",
+"JOSE HAROLDO SOUZA DA SILVA JUNIOR",
+"JOYCE VITORIA DE SOUZA SILVA",
+"KAMILLA SOUZA DE JESUS",
+"KAREN MUNIZ DE OLIVEIRA",
+"KARINNE CARNEIRO PASTOR",
+"KARINY ALMEIDA DA SILVA",
+"KAROLINE GOES DOS SANTOS OLIVEIRA",
+"KAUAN AURELIO LIMA MASCARENHAS",
+"KAUAN DE OLIVEIRA SILVA",
+"KAUAN DOS REIS LIMA",
+"KAUAN HENRIQUE CARNEIRO OLIVEIRA BRITO",
+"KAUAN PINTO DE OLIVEIRA",
+"KAUANE DA SILVA SANTOS",
+"KEIRRISON OLIVEIRA DE SOUZA",
+"LAIS LIMA DE JESUS",
+"LAISE SENA DOS REIS",
+"LARA FERNANDA DE OLIVEIRA BRANDAO",
+"LARA GABRIELE OLIVEIRA DA SILVA",
+"LARA GUIOMAR",
+"LARA MIRELE DE MENEZES OLIVERIA",
+"LARA OLIVEIRA MORAES",
+"LAUANE ARAUJO DE OLIVEIRA",
+"LAUDELINA VITORIA SILVA DE LIMA",
+"LAVINE ALMEIDA SANTANA",
+"LAVINNHA FERREIRA SILVA",
+"LAYZA ALMEIDA BARRETO",
+"LORENA PEREIRA OLIVEIRA",
+"LUANA ALMEIDA CARNEIRO",
+"LUCAS NUNES ARAUJO",
+"LUCAS SILVA MOTA",
+"LUIS HENRIQUE ARAUJO DE MORAIS",
+"LUIZ GUILHERME BARBOSA MOTA",
+"LUIZ HENRIQUE OLIVEIRA CARNEIRO",
+"LUIZ IARLEY SILVA DOS SANTOS",
+"LUMA DE ASSIS OLIVEIRA",
+"LUNNA KEVILA ALMEIDA DE OLIVEIRA",
+"MAIELE OLIVEIRA PINHEIRO",
+"MAILON FELIPE SANTOS DO CARMO",
+"MARCELO DJAVAN BARBOSA BENTO ARAUJO",
+"MARCOS BRENO GUIMARAES LIMA",
+"MARIA CLARA SANTOS DE QUEIROZ",
+"MARIA EDUARDA DOS ANJOS RAMOS",
+"MARIA EDUARDA GUIMARAES SANTOS",
+"MARIA EDUARDA LIMA DE OLIVEIRA",
+"MARIA GABRIELLE SOUZA DA SILVA",
+"MARIA HELENA DE OLIVEIRA SILVA",
+"MARIA JULIA BRITO SANTOS",
+"MARIA LUIZA OLIVEIRA DA SILVA",
+"MARIA VITORIA ARAUJO DOMINIENSE",
+"MARIA VITORIA DOS SANTOS LIMA",
+"MARIANY KELLY FERREIRA DA SILVA",
+"MARIANY LETICIA RICARDA DA SILVA",
+"MARIZE DE JESUS LOPES",
+"MARJORIE ROCHA MARTINS",
+"MATEUS OLIVEIRA BRITO",
+"MATHEUS PEREIRA LIMA",
+"MATHEUS ROCHA DE CARVALHO",
+"MATHEUS SILVA OLIVEIRA",
+"MAYEVILE LOPES DOS SANTOS",
+"MERCIO FERREIRA CARNEIRO NETO",
+"MILLA TAIANY DOS SANTOS REIS",
+"MOISES DOS SANTOS OLIVEIRA",
+"NAILLA DA ANUNCIACAO OLIVEIRA",
+"NALBERT MATHEUS BISPO DA SILVA",
+"NICOLLY DOS SANTOS SILVA",
+"OTHAVIO DA SILVA FORTUNATO",
+"PALOMA DA SILVA DE OLIVEIRA",
+"QUEILA VITORIA DE JESUS SILVA",
+"RACKELL PINTO RAMOS",
+"RAI GERALDO DA SILVA SANTOS",
+"RAKELY SANTOS ALMEIDA",
+"RAMON MOTA MOREIRA",
+"RAUL PINTO SILVA",
+"REINAN OLIVEIRA GOES",
+"REYLLA MOTA MERCES",
+"RHIANNA KEVINY ALMEIDA DE CERQUEIRA",
+"RIAN BARBOSA DE OLIVEIRA",
+"RODRIGO MIRANDA SANTOS",
+"RUAN OLIVEIRA GOES",
+"SABRINA RODRIGUES DA SILVA",
+"SARAH CARNEIRO ROCHA",
+"SOFIA OLIVEIRA DOS SANTOS",
+"TAEMILY LEITE SANTOS",
+"TAINA DE JESUS BRITO",
+"TAINA SILVA LIMA",
+"TAMIRES CARNEIRO MOTA",
+"THAILLA MIQUELLE LIMA DE OLIVEIRA",
+"THAUANE MARTINS DE SANTANA PINHEIRO",
+"THAUANNY OLIVEIRA ALVES",
+"THYERRE CERQUEIRA CARNEIRO",
+"VANESSA SANTOS OLIVEIRA",
+"VINICIUS OLIVEIRA DE LIMA",
+"VITORIA OLIVEIRA MOTA",
+"WELLINGTON AMARAL DOS SANTOS JUNIOR",
+"YASMIM DA SILVA",
+"YASMIN DE OLIVEIRA SANTOS",
+"YTALLO LIMA PINTO ARAUJO",
+"YURE DOS SANTOS OLIVEIRA"
+]
+},
+{
+"nte": "NTE 04 - Serrinha",
+"name": "MARCIA MARIA DE SOUZA MOTA",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE TUCANO",
+"students": [
+"ADRIANA DOMINGOS DOS REIS",
+"ADRIELE ALVES DOS SANTOS",
+"ANATIELE JESUS GONCALVES",
+"ARIELLE CABRAL DE JESUS",
+"ARIZIANE COELHO DE JESUS",
+"ARTHUR ROSA ARAUJO DOS SANTOS",
+"CASSIO REINAN SANTANA DE JESUS",
+"CLARICE SOUZA PEREIRA",
+"CLARISSE SANTOS DE JESUS",
+"DHAFNE GONSALVES DOS SANTOS",
+"DOMINIQUE DE JESUS MOREIRA",
+"EMYLLE CABRAL DE MIRANDA",
+"EVYNE DA CRUZ SANTOS",
+"GABRIELLA ANDRADE",
+"GABRIELLE RIBEIRO DOS SANTOS",
+"GILMARA RODRIGUES MIRANDA",
+"GISELE DOS SANTOS SOUSA",
+"GISELE SANTOS DE SENA",
+"GUILHERME SANTOS FONSECA",
+"ISAAC ANDRADE DOS SANTOS",
+"ISLLA SOUZA PINTO",
+"JANAINA NASCIMENTO DOS SANTOS",
+"JEANE SANTOS",
+"JOAQUIM S RODRIGUES",
+"JOSE VITOR OLIVEIRA CAVALCANTE",
+"KEYLA JESUS DE MATOS",
+"KIARA LAVINY SANTOS ALVES",
+"LEONAN SILVA MATOS",
+"LETICIA ANDRADE JESUS",
+"LETICIA DE JESUS",
+"LUANA JESUS DO NASCIMENTO",
+"LUCAS MATOS MELO",
+"MAIRA CONCEICAO DOS SANTOS",
+"MARIANE MIRANDA DA CRUZ",
+"MICAEL SANTOS SILVA",
+"NATHALLY CABRAL DE SOUSA",
+"NATHALY MEIRELES DOS REIS",
+"NATIELE DA CRUZ MOREIRA",
+"NATYELLE JESUS DE ANDRADE",
+"PAULO HENRIQUE SANTOS DE SENA",
+"PEDRO FELLIPE SOUZA DOS SANTOS",
+"RAIANE SANTOS DE JESUS",
+"RAILAN SANTOS DA CRUZ",
+"RIQUELME ANDRADE CABRAL",
+"SAMIRA SOUSA DOS REIS",
+"SUELLEN NASCIMENTO BASTOS",
+"VILMARA SOUZA SANTOS DA SILVA",
+"VITOR MATEUS AQUINO DE SANTANA",
+"VITORIA BONFIM ROCHA",
+"VITORIA MELO SANTANA",
+"WESLEY MIRANDA MOREIRA"
+]
+},
+{
+"nte": "NTE 05 - Itabuna",
+"name": "ANDREA MARIA BRANDAO MEIRELES",
+"school": "COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA - ANEXO",
+"students": [
+"CARLOS VINICIO LEMOS RODAM",
+"FABRICIO JESUS DE SOUZA",
+"GEOVANIO PLACIDO DO NASCIMENTO JUNIOR",
+"JACSON SANTOS DOS SANTOS",
+"JOSE CARLOS DOS REIS",
+"LUAN DE JESUS",
+"LUCAS MARQUES DOS SANTOS",
+"MICHAEL FELIPE OLIVEIRA BRITO",
+"PABULO NASCIMENTO SOARES",
+"RAFAEL SILVA DOS SANTOS",
+"WEMERSON DOS SANTOS DA PAIXAO"
+]
+},
+{
+"nte": "NTE 05 - Itabuna",
+"name": "EUDES DIAS BARBOSA",
+"school": "COLEGIO ESTADUAL INACIO TOSTA FILHO",
+"students": [
+"ANA LAIS ALCANTARA SANTOS",
+"ARTHUR TAQUETTI PEREIRA SETUBAL",
+"DANIELA SILVA DOS SANTOS",
+"EDILAINY SOPHIA DE JESUS SANTOS",
+"ELIARA CONCEICAO VITORIO DOS SANTOS",
+"EMANUEL SOUSA DE JESUS",
+"EMILY SANTOS SILVA",
+"FELIPE SOUZA LIMA",
+"FELLIPE DEMETRIO SANTOS",
+"GABRIELI VALENTINI TEIXEIRA SANTANA",
+"GEOVANA SANTOS SILVA",
+"GUSTAVO BANDEIRA DOS SANTOS OLIVEIRA",
+"ISABELLY DE ALMEIDA SANTOS",
+"JOSE SANTOS NETO",
+"JOSUE ISAQUE GUEDES DA SILVA",
+"JULYA ARAGAO SILVA",
+"KARINE SOUSA LIMA",
+"KAUA HENRIQUE QUEIROZ DE OLIVEIRA",
+"LAIS EMANUELLE DA GLORIA SILVA",
+"LETICIA CRUZ SANTOS",
+"LEWIS RHEMILTON BRITO SILVA",
+"LUARA ANDRADE BARROS",
+"MARIA CLARA SANTOS DE JESUS SOUZA",
+"MARIA EDUARDA OLIVEIRA SANTOS",
+"MARIA HELOISA ALMEIDA DE SOUZA",
+"MARIA LAIS SAMPAIO BERNARDO",
+"MARYANE MOTA DIAS SANTOS",
+"MAYELLI BRANDAO CARDOSO",
+"NATALIA CASTRO BRUNO",
+"RANNA DE JESUS SANTOS",
+"RENATA MOREIRA DA SILVA",
+"RONALD RODRIGUES SILVA",
+"SAMARA KELY SILVA LIMA",
+"WILLANE SANTOS DA PAIXAO",
+"YASMIN LORENZA SILVA LIMA",
+"YASMIN ROSA SILVA"
+]
+},
+{
+"nte": "NTE 05 - Itabuna",
+"name": "JOSE CARLOS DOS SANTOS",
+"school": "COLEGIO DA POLICIA MILITAR - CPM ANTONIO CARLOS MAGALHAES",
+"students": [
+"ANA BEATRIZ QUIRINO BATISTA SOUZA",
+"ANA JULIA OLIVEIRA CRUZ DE ALMEIDA",
+"ANDRESSA OLIVEIRA SANTOS SOUZA",
+"ANDRESSA SANTIAGO",
+"ARTHUR NASCIMENTO SILVA",
+"ARTHUR VENANCIO DOS SANTOS GUIMARAES",
+"BRENO BRITO",
+"CARLA MARIANNA SANTOS ANDRADE",
+"DANIEL SIMOES ALMEIDA FONSECA",
+"DHERIK SANTOS OLIVEIRA",
+"ENZO SAMUEL ALMEIDA FERRAZ",
+"ESTEFANE SOUZA LIMA",
+"EVELLYN RIBEIRO PEREIRA",
+"EVELYN NOVAIS SANTOS",
+"FELIPE BARBOSA DA SILVA FAGUNDES",
+"GABRIEL RIBEIRO DE JESUS SANTOS",
+"GEOVANNA LEITE NEVES SANTOS",
+"GUSTAVO LIMA NASCIMENTO",
+"JOAO VICTOR SANTOS DA SILVA VIEIRA",
+"KAUAN SANTOS REAL",
+"LARAH SANTANA BARBOZA",
+"LIS",
+"LIS MELO SOUSA",
+"LUANA BARRETO SILVA",
+"LUCAS ANDRADE DE SOUZA",
+"MARCELY REIS MORAES",
+"MARIA CLARA AZEVEDO DA SILVA OLIVEIRA",
+"MARIA ELYSA DE JESUS SILVA SOUZA",
+"MARIA FERNANDA LOPES MACEDO",
+"MARIANA LINO ALEXANDRINO",
+"MARIANA ROMAO DA SILVA",
+"MARIANNA OLIVEIRA SOUZA",
+"MARIELLY SANTANA SILVA",
+"MATHEUS LIMA DOS SANTOS",
+"NICOLY MARINS DA SILVA",
+"OTAVIO RODRIGUES CARDOSO",
+"PEDRO GABRIEL SANTOS LIMA",
+"RAFAELLA GIORGETTI SHIMANUKI FRANCO",
+"SARA MOURA DOS SANTOS SILVA",
+"SOPHIA OLIVEIRA VIEIRA",
+"THAINA DE OLIVEIRA SANTOS",
+"VICTOR GABRIEL ROCHA DE MAGALHAES LIMA",
+"YURI DE JESUS SOUSA"
+]
+},
+{
+"nte": "NTE 05 - Itabuna",
+"name": "THIAGO CARVALHO SILVA",
+"school": "COLEGIO MODELO LUIS EDUARDO MAGALHAES",
+"students": [
+"ACKSSA JEMIMA BARBOSA DA SILVA GALDINO",
+"ALEJANDRO DOS SANTOS SANTANA",
+"ALEX NATHAN LOPES DE ABREU",
+"ALICE DOS SANTOS OLIVEIRA",
+"ALICIA DOS SANTOS REIS",
+"ANA CAROLINA BARBOSA MACEDO",
+"ANA CAROLINA OLIVEIRA SILVA",
+"ANA CLARA ALVES FERREIRA",
+"ANA CLARA MESSIAS LIMA",
+"ANA CLARA SANTOS COSTA",
+"ANA FLAVIA SANTOS DIAS",
+"ANA JULIA ARAUJO MACHADO",
+"ANA JULIA SANTOS OLIVEIRA",
+"ANA KEROLLEN DA SILVA NUNES",
+"ANA LETICIA BRITO DE JESUS",
+"ANA LUIZA CRUZ FIGUEIREDO",
+"ANA VITORIA RAMOS CUNHA",
+"ANNA MOREIRA",
+"ARNALDO DE SOUZA ALMEIDA",
+"BEATRIZ DA SILVA BARROSO",
+"BEATRIZ SANTOS SOUSA",
+"BIANCA DOS SANTOS CERQUEIRA",
+"CARLOS HENRIQUE DOS SANTOS SILVA",
+"CAROLINA BORGES MACEDO",
+"CLARISSA OLIVEIRA SANTOS",
+"CLEYTON SANTOS DE BRITO",
+"CRISTIANA SOUZA COSTA",
+"DANIEL FREITAS PINHEIRO",
+"DANIELLE SOARES SANTOS",
+"DAVI",
+"DAVI SOUZA GUSMAO",
+"DIEGO JESUS MAGALHAES",
+"EDCLEITON ARRUDA REIS",
+"EDUARDA SILVA FERREIRA",
+"EMILLE FERREIRA BRANDAO",
+"EMILLY RAQUELI",
+"EMILLY SILVA DO NASCIMENTO",
+"EMILLY VITORIA NASCIMENTO OLIVEIRA",
+"ENE DE BRITO FERNANDES",
+"ESTER SANTOS DA CONCEICAO",
+"ESTHER BARBOSA SOUSA DOS SANTOS",
+"ESTHER SANTOS BARBOSA",
+"ETHAN SANTOS MORENO",
+"EVELLYN AIANNE MOREIRA SANTOS",
+"FABRICIO ROCHA DOS SANTOS",
+"FELIPE SANTOS OLIVEIRA",
+"FERNANDA QUEREN SOUZA PEREIRA SANTOS",
+"FLAVIA ALESSANDRA SILVA SANTOS AGUIAR",
+"GABRIEL SANTOS BONFIM",
+"GABRIEL SANTOS SOBRINHO",
+"GEOVANA ROCHA DA SILVA",
+"GISELE DE OLIVEIRA SILVA",
+"GLENDA BISPO ARANHA SANTANA",
+"GUILHERME CHRYSTYAN SILVA DOS SANTOS",
+"GUILHERME DE OLIVEIRA NEVES",
+"GUILHERME GOMES BRITO",
+"GUILHERME SANTOS SOUZA",
+"GUILHERME SILVA SANTOS",
+"HENRIQUE SOUZA SANTOS",
+"IANA ELOA SANTOS VIEIRA",
+"ISIS DE SOUZA FONSECA",
+"ITALO NATANAEL FERNANDES ROCHA DOS SANTOS",
+"JADIELE SANTOS FERREIRA",
+"JENNIFER DE SOUZA MACHADO",
+"JERONIMO",
+"JEYEL DE JESUS MIRANDA",
+"JHENIFFER DA SILVA SANTOS",
+"JOAO ARTHUR RIBEIRO SANTOS",
+"JOAO LUCAS ARAUJO SANTOS",
+"JOAO VITOR ARAUJO DE MELO",
+"JOAO VITOR PEREIRA DOS SANTOS",
+"JOSE HENRIQUE COSTA DOS SANTOSS",
+"JOSE NETO ROCHA JUNIOR",
+"JULIA FERREIRA DOS SANTOS",
+"KAIC DE JESUS PASSINHO",
+"KAUANNY DOS SANTOS ROCHA",
+"KAYLAN ANDRADE SILVA",
+"KELLY KETELLEN JESUS DE OLIVEIRA",
+"KENDELLY SANTOS",
+"KETELLY MENDES OLIVEIRA",
+"KEVILY DE JESUS OLIVEIRA",
+"KEVIN SANTOS SOUZA",
+"LARA LAMARCA",
+"LARISSA ALVES SANTOS",
+"LAYLLA NICOLLY SANTOS SILVA",
+"LORRANY MAYARA TORRES SANTOS",
+"LUARA SILVA DE OLIVEIRA",
+"LUCAS SILVA SANTOS",
+"LUIS",
+"LUNA MARIA MATOS BARBOSA",
+"LUNA NERI DE OLIVEIRA",
+"MAIKELLY SAFIRA",
+"MANUELA COSTA CIRQUEIRA",
+"MARCO AURELIO CONCEICAO DOS SANTOS",
+"MARCOS WELBY VIVEIROS JUNIOR",
+"MARIA EDUARDA",
+"MARIA EDUARDA SANTOS DE JESUS",
+"MARIA PAULA BISPO",
+"MARIA SAMIRA FERREIRA BISPO DOS SANTOS",
+"MAXIMUS MAROTO DOS SANTOS ANDRADE",
+"MELISSA SOUZA COSTA",
+"MELISSA VITORIA RODRIGUES NEVES",
+"MELRISLANE DA SILVA SANTOS",
+"MIGUEL AUDRY BATISTA MORAIS CARDOSO",
+"MIGUEL SANTOS RIBEIRO",
+"MILENA JESUS DOS SANTOS",
+"MONYQUE OLIVEIRA SANTOS",
+"PEDRO",
+"PEDRO CARLOS MOREIRA NASCIMENTO",
+"PEDRO HENRIQUE DIAS ALVES",
+"PEDRO HENRIQUE MENDES DOS SANTOS BARROS",
+"PEDRO LINO BACELAR",
+"PEDRO OTAVIO ALMEIDA SOUSA",
+"PEDRO SILVA NASCIMENTO",
+"RAINNY",
+"RAQUELE NASCIMENTO MENDES",
+"RAQUELLI SANTOS TORRES",
+"RAYSSA ARIELE ALVES DA SILVA",
+"REBECA DOS SANTOS ARAUJO",
+"RENATA BRITO",
+"RHAVI LUIS SANTANA DIAS",
+"RIQUELME PIMENTEL SANTOS",
+"ROBERTA DE JESUS ARAUJO",
+"RUAN PEREIRA DE OLIVEIRA",
+"SAMILLA MARIA",
+"SAMILLY FERREIRA DA SILVA",
+"SAMUEL MOTA CASCAIS",
+"SAMUEL OLIVEIRA GOMES",
+"SARAH SOUZA LIMMA",
+"SARAH TAINY MACIEL DE SOUZA",
+"SOPHIA NASCIMENTO SANTOS",
+"SOPHIA SANTOS GONCALVES",
+"STIVANNY SILVA SANTOS",
+"TALITA VITORIA CARVALHO DOS SANTOS FERREIRA",
+"TARCIO MIGUEL MOREIRA SANTOS",
+"THAMARA COSTA",
+"THAYNA GOIS SANTOS",
+"THIFANY ELEN FERNANDES DANTAS",
+"TIFANY VITORIA SANTOS SILVA",
+"VERONICA FERREIRA DE JESUS",
+"VICTORIA GABRIELLY DE ALMEIDA PEREIRA",
+"VINICIUS ANDRADE",
+"VIVIANE SANTOS BORGES LEITE",
+"WANDERSON DA SILVA BARBOSA VENTURA",
+"WELISSON SILVA SOUSA",
+"WELLINGTON LINO TORRES",
+"WESLEY VITAL",
+"WESLEY VITOR SILVA SANTOS",
+"WESLLEY BARBOSA DE JESUS",
+"YALLI ARIEL SILVA DE SOUSA",
+"YASMIM SANTOS DE OLIVEIRA",
+"YASMIN DOS SANTOS SOUZA",
+"YASMIN JESUS DOS SANTOS"
+]
+},
+{
+"nte": "NTE 06 - Valença",
+"name": "CLAUDIA SANDRA DE JESUS SANTOS NASCIMENTO",
+"school": "CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA",
+"students": [
+"BEATRIZ SANTOS SOUSA",
+"JOAO PEDRO REIS LEITE",
+"RAFAEL ALISSON DE LIMA REIS",
+"RAKELLY DOS SANTOS SILVA",
+"YASMIM BELEM AMPARO DO ROSARIO",
+"YASMIN TORRES DE JESUS"
+]
+},
+{
+"nte": "NTE 06 - Valença",
+"name": "FRANK VIEIRA DOS SANTOS",
+"school": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS",
+"students": [
+"ANA VITORIA GRIMALDI CONCEICAO",
+"ANADILA MACHADO DA SILVA",
+"ARIEL",
+"CAROLINE DE JESUS DOS SANTOS",
+"DAVI LUCAS MUNIZ DOS SANTOS",
+"DHONATAS DOS SANTOS GRIMALDI",
+"EDINARA DOS SANTOS DUARTE",
+"EDUARDA OLIVEIRA PAIXAO",
+"EVELYN VITORIA SANTOS DE SOUZA",
+"EVERTON MUNIZ DUARTE",
+"FELIPE PEREIRA DOS SANTOS NETO",
+"FLAVIA MANUELA SILVA DOS SANTOS",
+"GEISLA DOS SANTOS SOUSA",
+"JACIELE DOS SANTOS CONCEICAO",
+"LAUANNE MUNIZ BARBOSA",
+"LUANE KETELLY REIS DOS SANTOS",
+"LUIS CARLOS BISPO MONTEIRO",
+"LUIZ GUSTAVO SILVA DOS SANTOS",
+"MAISA FONSECA DE JESUS",
+"MARIA CLARA DA SILVA DE JESUS",
+"MARIA EDUARDA MUNIZ DA SILVA",
+"NAELLY SILVA DE JESUS",
+"PEDRO HENRIQUE SANTOS ARAUJO",
+"RAILANE DOS SANTOS SERENO",
+"STEFANIE RAMOS DOS SANTOS",
+"THAYLA GABRIELA SANTOS DE JESUS",
+"VANIELEM DA SILVA BRITO",
+"WALLACE DA SILVA DOS SANTOS",
+"WALLAS DA SILVA DOS SANTOS"
+]
+},
+{
+"nte": "NTE 06 - Valença",
+"name": "ITALA CRISTINA MACHADO FRANCA BARRETO",
+"school": "COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SANTOS",
+"students": [
+"ADRIELLE DA CONCEICAO SERENO",
+"ALINE SANTOS DE SOUZA",
+"CHRYSMA FERREIRA PEREIRA",
+"CLEITON DE JESUS DOS SANTOS",
+"FERNANDA OLIVEIRA DE SOUSA",
+"JOANDERSON CURRALINHO DA CONCEICAO",
+"JOSIENE DOS SANTOS CONCEICAO",
+"KAIQUE DE JESUS DE AQUINO",
+"MARIA EDNA NASCIMENTO DOS SANTOS",
+"NATALICE MUNIZ DOS SANTOS",
+"OLIVAL ALVES BARBOSA",
+"PAULO HENRIQUE DE JESUS DOS SANTOS",
+"RAQUELE DOS SANTOS BONFIM",
+"TALITA DOS SANTOS CONCEICAO",
+"VAGNER LUZ SILVA FILHO"
+]
+},
+{
+"nte": "NTE 07 - Teixeira de Freitas",
+"name": "ENOK CRUZ DE SOUZA",
+"school": "COLEGIO ESTADUAL DO CAMPO ALCIDES AFONSO DE SOUZA",
+"students": [
+"CYNTIA SOARES FONSECA",
+"DAILANE SOARES BATISTA",
+"JHENIFER KELLY DOS SANTOS RODRIGUES",
+"JOAO VICTOR SOUZA DOS SANTOS",
+"JORDANIA MEIRA VICENTE",
+"JULIO CESAR SILVA MATIAS",
+"MARIANE DANTAS DIAS",
+"MATEUS ALVES DOS SANTOS",
+"NAYARA PAIXAO SALES",
+"THIELLY VITORIA DA SILVA SANTOS"
+]
+},
+{
+"nte": "NTE 07 - Teixeira de Freitas",
+"name": "MIRIAN DE OLIVEIRA DIAS",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO",
+"students": [
+"ALAN EIKY MUNIZ COSTA",
+"BRENO SANTOS DA SILVA",
+"CAUA SANTOS",
+"DAVI DE CASTRO ALVES",
+"GABRIELLY DA CONCEICAO SILVA",
+"LUCAS OLIVEIRA MARTINS",
+"LUNNA GONCALVES DO ROSARIO",
+"MARCO TRABULO DINIZ DOS SANTOS",
+"MARYANA CAYLLA BOAMORTE SANTOS",
+"PEDRO CRISTIAN SILVA DE OLIVEIRA",
+"SARAH LAYZA ALCANTARA DOS SANTOS",
+"VICTORIA SARAH BRAGA DA SILVA"
+]
+},
+{
+"nte": "NTE 07 - Teixeira de Freitas",
+"name": "MIRIAN DE OLIVEIRA DIAS",
+"school": "COLEGIO ESTADUAL ERALDO TINOCO",
+"students": [
+"ADRYAN MATEUS LEONEL MENDES",
+"AKILLES ARAUJO SANTANNA",
+"ALISON FERREIRA MODESTO",
+"ALVARO MOREIRA SILVA",
+"ALYSON RUAN OLIVEIRA DE SOUZA",
+"ANA SOPHIA MUNIZ DE OLIVEIRA",
+"ANALI CARDOSO ECA",
+"ANDRE LUIZ SANTOS OLIVEIRA",
+"BEATRIZ SOUZA DO ROSARIO",
+"BIANCA VIEIRA COSTA",
+"BRENNO BATISTA DOS SANTOS",
+"BRUNA KETENLLYN OLIVEIRA ALVES",
+"BRUNO SANTOS CONCEICAO",
+"CAILANNE FORTES NASCIMENTO",
+"DAVILUCASDASILVAMIRANDA",
+"DIONAT FELIPE SOUZA SOARES",
+"EDERSON CALIXTO CAJAZEIRO",
+"ELIABE DE PAULO ROCHA",
+"ELIZANGELA SANTOS FERNANDES",
+"ELLYS INEZ DAS NEVES MUNIZ FLORES",
+"ENZO ALVES NUNES",
+"ERMERSON CONCEICAO PEREIRA",
+"EROS BORGES REZENDE",
+"GABRIEL SILVA DOS SANTOS",
+"GIOVANNA EDUARDA LEMOS LOURES",
+"GUILHERME OLIVEIRA DE AQUINO",
+"GUILHERME SANTOS BESSA COSTA",
+"GUSTAVO CARDOSO DA SILVA",
+"GUSTAVO ROSARIO SANTOS",
+"GUSTAVO SANTOS CRISTIANE",
+"IARLEY PORTELA SANTOS",
+"IRAN SILVA DE OLIVEIRA",
+"IVAN VICTOR ANDRADE PIEDADE",
+"JOAO MARCUS OLIVEIRA ROSARIO",
+"JOYCE SILVA BATISTA",
+"KAMILLY JESUS DO ROSARIO",
+"KARINY GARCIA MOREIRA",
+"KAUA PIEDADE GOMES",
+"KAYLON CONCEICAO ARRUDA",
+"KETELLEN SOUZA SANTOS",
+"KYARA DOS SANTOS SILVA",
+"LARISSA TALHER MIRANDA",
+"LIVIA DOS SANTOS MENDES",
+"LUANA COSTA OLIVEIRA RAMOS",
+"LUCAS RIBEIRO DOS SANTOS",
+"LUIZ FERNANDO ALVES RODRIGUES",
+"MANUELA COSTA MATOS",
+"MARIA EDUARDA NEVES FREITAS",
+"MARIA LUISA DOS SANTOS SILVA",
+"MICAEL GONCALVES DE SOUZA SILVA",
+"MURILO DOS SANTOS FALCAO",
+"NATHALY SILVA SANTOS",
+"NIKOLLY SOUZA FELIPE DE OLIVEIRA",
+"PAULO HENRIQUE NASCIMENTO LUCAS",
+"PEDRO HENRIQUE BARBOSA SILVA",
+"PEDRO HENRIQUE VALADARES RIBEIRO",
+"PRISCILA ALMEIDA DOS SANTOS",
+"RAILA DE SOUZA NERIS",
+"RAISA MUNIZ RAMOS",
+"RENAN SILVA SANTOS",
+"RIHANNA MIRANDA DE PAULA",
+"RYAN RIBEIRO SANTOS",
+"SAMIRA DOS SANTOS SOUZA",
+"SHAYLANY BARBOSA SANTOS",
+"TALIK AZEVEDO DOS SANTOS",
+"THAIRONE SILVA CAMPOS",
+"URIEL SOARES GONCALVES",
+"WANDERLEY OTONIEL SOUZA DE ALMEIDA"
+]
+},
+{
+"nte": "NTE 08 - Itapetinga",
+"name": "CARINE BARRETO DA SILVA",
+"school": "COLEGIO POLIVALENTE DE ITAPETINGA",
+"students": [
+"ADILLA SILVA OLIVEIRA",
+"ALICE SANTOS LACERDA",
+"ALLYSSON VITOR SILVA MARTINS",
+"ALYSON JOSE SANTOS CARVALHO",
+"AMANDA DUTRA BESERRA",
+"ANA CAROLINE SANTOS ABOUD",
+"ANA CLARA SANTANA SILVA",
+"ANA GABRIELLE SANTOS DA HORA",
+"ANA KELLY DOS SANTOS DUTRA",
+"ANA LIS PRADO COSTA",
+"ANA LUIZA BARRETO BONFIM",
+"ANA LUIZA SANTOS ALMEIDA",
+"ANA MARIA SANTOS PEREIRA",
+"ANA RAQUEL DE ALMEIDA ROCHA",
+"ANA REBECA SANTOS MENESES",
+"ANA RUTE OLIVEIRA MARTINS",
+"ANA VITORIA PRADO MARQUES",
+"ANDERSON MARX VIANA MELO",
+"ANDRE HAAVIR LIMA DOS SANTOS",
+"ANDRESSA HEVILY CARDOSO SILVA",
+"ANNA CLARA FERREIRA CUNHA",
+"ANNA ISABELA PRADO ALVES",
+"ANNE KELLY SANTOS CARDOSO",
+"ARTHUR DE JESUS SOUZA",
+"ARTHUR OLIVEIRA PORTO",
+"ASAFE DUTRA DE ALMEIDA",
+"BEATRIZ VIEIRA SANTOS",
+"BEATRYZ MOURA GOMES",
+"BIANCA BONFIM MACEDO",
+"BRENDA SANTOS SOUZA",
+"BRENO ADRIEL SANTOS MEIRA",
+"BRUNA NUNES GOMES",
+"CAMILA MARQUES MILA",
+"CAMILE PEREIRA DOS SANTOS",
+"CAMILLE OLIVEIRA RODRIGUES",
+"CAUA FERREIRA SANTOS",
+"CECILIA DE SOUZA MOREIRA",
+"DAIANE DUTRA MONTEIRO",
+"DANIEL REIS ALMEIDA",
+"DANIELA BISPO COELHO",
+"DHIENNIFER PEREIRA DE ARAUJO",
+"DHONATA SANTOS BATISTA",
+"DOUGLAS DE JESUS SANTOS",
+"EDER VINICIUS SANTOS SILVA",
+"EDINILSON DE JESUS ARRUDA",
+"EDNILSON DE JESUS ARRUDA",
+"ELIVELTON PAIVA RIBEIRO",
+"EMILY SANTOS MOREIRA",
+"EMYLLE SOUSA CAMPOS",
+"ENZO FREIRE DE ALCANTARA",
+"ENZO LEITE FERNANDO",
+"FELIPE SOARES DOS SANTOS",
+"FELIPE VAL SILVA SANTOS ANGEL XAVIER",
+"FERNANDA DAGA",
+"FERNANDA EVELLYN DE JESUS SOUZA",
+"FERNANDA SANTOS ALVES",
+"GABRIEL SANTOS BRITO",
+"GABRIEL SOUSA SILVA",
+"GABRIELA OLIVEIRA DE SOUSA",
+"GABRIELLA MOREIRA COSTA",
+"GEOVANA FERNANDES DE SOUZA",
+"GRAZIELLY LIMA SILVA",
+"GUILHERME MANOEL MARTINS ALVES",
+"GUILHERME VIEIRA ARAUJO",
+"GUSTAVO DA SILVA CHAVES",
+"GUSTAVO PEREIRA NEVES",
+"GUSTAVO SILVA SANTOS",
+"GUSTAVO SOUZA BORGES",
+"GUSTAVO SOUZA BORGES DE OLIVEIRA",
+"HEITOR CARDOSO DOS ANJOS MIGUEZ",
+"HELLEN DE NOVAES PROFIRIO",
+"HELOA LIMA OLIVEIRA",
+"HERCULES OLIVEIRA BISPO",
+"HESTELA LIMA DOS SANTOS",
+"IARA DOS ANJOS MACHADO",
+"IONE LIMA FERREIRA",
+"IRIS MARRY MENDES SANTOS",
+"ISAAC COSTA MAGALHAES",
+"ISAAC SANTANA DOS SANTOS",
+"ISABELLA AMORIM BRAGA",
+"ISABELLE NOVAIS SANTOS",
+"ISABELLE SOARES LIMA",
+"JACIEDE MARIA SANTOS",
+"JACQUELINE COSTA LOPES",
+"JANIELE SANTOS DE QUEIROZ",
+"JARDIELLE MOREIRA",
+"JEFERSON CAMPOS BRITO",
+"JHENNIFER SOUSA SANTOS",
+"JOAO GABRIEL AGUIAR AMARAL",
+"JOAO GABRIEL VIEIRA SANTOS",
+"JOAO PEDRO DIAS FAGUNDES",
+"JOSAFA JUNIOR MARQUES MOREIRA",
+"JOSE ANTONIO MARQUES VIANA",
+"JOSIANE FERREIRA DE JESUS",
+"JOYCE YARA GARCIA ANDRADE",
+"JUCILEIDE TELES LIMA",
+"JULIA BRENDA LIMA DOS SANTOS",
+"JULIA VIEIRA QUEIROZ",
+"KAIK SANTOS DE OLIVEIRA",
+"KAIO OLIVEIRA SANTOS",
+"KAIO SILVA BARRETO",
+"KAIQUE SILVA ALVES",
+"KALYANE BATISTA ALVES",
+"KAREN LORRANY LACERDA NUNES",
+"KARINE SANTOS VIEIRA",
+"KAYLANE SANTOS",
+"KELVIN REIS DOS SANTOS",
+"KEVEN SALES ROCHA",
+"KLEYTON MAGALHAES MENESES",
+"LARA GRULHA",
+"LARA KELLY MORAIS SANTOS",
+"LARA KETELIN DOS SANTOS ALVES",
+"LARISSA PEREIRA",
+"LAVINNIA COSTA OLIVEIRA",
+"LAYNE FERNANDES NOGUEIRA",
+"LAYSLA VICTORIA GOMES DIAS ALMEIDA",
+"LETICIA DA SILVA SANTOS",
+"LETICIA OLIVEIRA MARTINS",
+"LETYCIA SANTOS SILVA",
+"LEVY SILVA DIAS",
+"LUCAS DO NASCIMENTO AMORIN",
+"LUCAS JEFFERSON DA SILVA ALMEIDA",
+"LUDIMILA SANTOS ALVES",
+"LUIS RODRIGUES DA SILVA",
+"LUIZA QUEIROZ ALVES MOREIRA",
+"LUIZA RIBEIRO SANTOS",
+"MARCUS VINICIUS AMORIM ALVES",
+"MARIA DE FATIMA DA SILVA NOVAIS AZEVEDO",
+"MARIA EDUARDA COUTO SANTOS",
+"MARIA EDUARDA DE OLIVEIRA RAMOS",
+"MARIA EDUARDA FERREIRA SANTOS",
+"MARIA EDUARDA FREIRE FERNANDES",
+"MARIA EDUARDA MAXIMO CORDEIRO",
+"MARIA EDUARDA RODRIGUES DOS SANTOS",
+"MARIA EDUARDA SILVA FERREIRA",
+"MARIA LUISA",
+"MARIA RITA PEREIRA TELES",
+"MARIA SONIA PIRES RIBEIRO",
+"MARINA VIANA COSTA",
+"MARLEY SAMUEL SANTOS CORDEIRO",
+"MARYANE MENDES NUNES",
+"MARYANNA ALMEIDA MOREIRA",
+"MARYANNE ESTEVAO OLIVEIRA",
+"MATHEUS AZEVEDO CARVALHO",
+"MATHEUS LOBO DE MOURA CAJARES",
+"MICHELE MIRANDA SILVA",
+"MIGUEL DA SILVA SANTOS",
+"MYLLENA ARAUJO OLIVEIRA",
+"NATANAEL ARAUJO BIDU",
+"NATHALIA DIAS GOMES SOUZA",
+"NICOLAS GOMES SANTANA",
+"NICOLE DIAS COSTA DA SILVA",
+"NYCOLE ROCHA ALVES",
+"PABLINE DE OLIVEIRA SOUZA",
+"PABLO SOUZA BONFIM",
+"PALOMA OLIVEIRA SANTOS",
+"PEDRO HENRIQUE SANTANA SILVA",
+"PEDRO LUCAS PALMA SOUZA",
+"PEDRO VIANA RIBEIRO",
+"PIETRA RIBAS SA SILVA",
+"PIETRO OLIVEIRA RAMOS",
+"RAFAELLA SARAFYNE NUNES DE OLIVEIRA",
+"RAISSA CARVALHO DE ALMEIDA",
+"RAISSA LACERDA DAMACENO",
+"RAMON OLIVEIRA FAGUNDES SILVA",
+"RAQUEL EVANGELISTA RIBEIRO ALVES",
+"RAQUEL STOLZE CARVALHO DE AVILA",
+"RAQUELLE FIGUEIREDO SANTOS",
+"RAYANA OLIVEIRA PEDROSO",
+"RAYANE SANTANA LIMA",
+"REUEL SILVA DAMASCENO",
+"ROBERIO EDUARDO SANTOS PEREIRA",
+"ROBERT HENRIQUE OLIVEIRA SILVA PEREIRA",
+"RONALDO JUNIOR LOPES DE ASSUNCAO",
+"ROSIANE PEREIRA DIAS",
+"ROZANA DE JESUS MELO",
+"RUTE EVANGELISTA RIBEIRO ALVES",
+"RUTIELLEN SANTOS TORRES LEAL",
+"RYAN MILLER SILVA RIBEIRO",
+"SAMANTHA DOS SANTOS SILVA",
+"SAMILE SANTOS SOUSA",
+"SARA DA SILVA SOUZA",
+"SARA VITORIA DE JESUS NOVAIS",
+"SARAH BARBOSA SILVA",
+"SATYLA GEOVANNA ALMEIDA BARRETO",
+"SAYMON DE JESUS NOVAIS",
+"SIRLENE SOUZA DE JESUS",
+"SOPHIA MIRANDA SILVA",
+"STEFANY MEDRADO ARAUJO DE OLIVEIRA",
+"STEFANY SANTOS CARVALHO",
+"TAMMY OLIVEIRA PORTO",
+"TARCISIO OLIVEIRA BORGES",
+"TAUANE RODRIGUES",
+"THABITA SANCHES OLIVEIRA",
+"THAIS MOREIRA DE ANDRADE",
+"THAMILES ARAUJO TRINDADE",
+"THAMIRES LIMA SALOES",
+"THAYLA REBECA ESTRELA CHAGAS SANTOS",
+"THEO MONTEIRO",
+"THYALLE ROCHA GONSALVES",
+"VALDEIR SILVA DOS SANTOS",
+"WANDERSON PEREIRA LIMA",
+"WANNE DA SILVA SOUZA",
+"WELLINTON SOARES DOS SANTOS",
+"WENDREL HASSEGAWA NASCIMENTO",
+"WESLEY OLIVEIRA DIAS",
+"YAN VICTOR DE JESUS SANTOS",
+"YASMIM FIGUEIREDO RIBEIRO",
+"YASMIM PEREIRA SILVA",
+"YASMIN DEBORA GONCALVES ROCHA",
+"YASMIN ROCHA DE JESUS",
+"YHASMIM MANGUEIRA SANTOS",
+"YHUMMY RODRIGUES MATOS SIL A"
+]
+},
+{
+"nte": "NTE 08 - Itapetinga",
+"name": "LILIA MARCIA MELO PINHEIRO",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL FLORESTAL",
+"students": [
+"ALEX VICTOR JESUS SOUZA",
+"ALICE VITORIA JARDIM SOUZA",
+"ANA PAULA TEIXEIRA DOS SANTOS",
+"ANALI DE CARVALHO SOUZA",
+"ANNA SOPHIA NOGUEIRA SILVA",
+"CAIO DONATTO GUSMAO CHAVES",
+"CARLOS DANIEL SANTOS BASTOS",
+"EBSON ALMEIDA DA SILVA",
+"EVANILTONCONSEICAOSILVA",
+"FRANCIELLEN CARVALHO SANTANA",
+"GABRIEL SILVA CARVALHO",
+"GUILHERME SANTOS SILVA DE CARVALHO",
+"ISABELLY OLIVEIRA DOS ANJOS",
+"JULIA BEZERRA DA SILVA",
+"KAUAN SANTOS SILVA",
+"LARA SOUSA SANTOS",
+"LORENA SANTO DO CARMO",
+"MATHEUS ARAUJO DOS SANTOS",
+"NAELI CALADO SANTOS",
+"NAIARA",
+"NATALIA SANTOS RIBEIRO",
+"RAFAEL DE JESUS VIEIRA",
+"SABRINA ARAUJO SANTOS",
+"SALATIEL DE OLIVEIRA DOS SANTOS",
+"SAMILLY MENDES ROCHA",
+"SAMUEL ALVES SERTAO",
+"SARAH DA CRUZ SANTANA SANTOS",
+"TAILAINE NASCIMENTO DE SOUSA",
+"YASMIM CAMPOS MARQUES",
+"YASMIM DOS SANTOS TAVARES"
+]
+},
+{
+"nte": "NTE 09 - Amargosa",
+"name": "DIOGENES MORAES SANTOS",
+"school": "COLEGIO ESTADUAL JOAO PESSOA",
+"students": [
+"ADRIANA PASSOS MARQUES",
+"ALICE ANDRADE TRINDADE SANTOS",
+"ANA MARIA ALVES NATIVIDADE",
+"ANDRE CARLOS DE OLIVEIRA SOUZA",
+"ANDRESSA FERREIRA",
+"CACIELE VENANCIO LOPES",
+"CAMILA MONTEIRO NASCIMENTO",
+"CARLOS GUILHERME VILA NOVA ALMEIDA",
+"CLEITON GABRIEL SANTOS OLIVEIRA",
+"CRISTINE EMANUELLE DUARTE DA CRUZ ALMEIDA",
+"DEBORA CANDIDO DE JESUS",
+"DIOGENES",
+"EMILI COELHO OLIVEIRA",
+"FABIANO DOS SANTOS JUNIOR",
+"FLAVIA ALESSANDRA SILVA SANTOS",
+"GEOVANE BRITO SILVA",
+"IARA PEREIRA DOS SANTOS",
+"ISLANA SANTANA QUADROS",
+"IURE RAMOS OLIVEIRA",
+"JERIVANA DE AQUINO SANTOS",
+"KACIELLE OLIVEIRA MORAES",
+"KAELLY COSTA MENEZES",
+"KALINE SANTOS DE MORAES",
+"KAYELLEN MATOS DOS SANTOS",
+"KLAUS SOUSA RODRIGUES",
+"LANA NAIURY FERREIRA SILVA",
+"LAURA DE SOUZA SANTOS COSTA",
+"LAUREN SILVA MACHADO",
+"LIVIA MARIA MORAES DAS SILVA",
+"LUCIANA DE SOUZA SANTOS",
+"MANASSES SANTANA DOS SANTOS",
+"MARIA LUIZA DE AZEVEDO SILVA",
+"MARIA LUIZA SANTANA DA SILVA",
+"MARIA VITORIA DE JESUS BRITO",
+"MICAELI SANTOS DE MORAES",
+"NAIANA CAMPOS",
+"RAQUELLI SANTOS SOUZA",
+"RENATA SOUZA NASCIMENTO",
+"RIQUELME JESUS DOS SANTOS",
+"STHER CANDIDA DE JESUS LACERDA",
+"THAYSLANE SANTOS RODRIGUES",
+"VITORIA DA RESSUREICAO UNGRIA ALMEIDA",
+"VITORIA DA RESSURREICAO UNGRIA ALMEIDA",
+"YASMIM SOUZA SANTOS",
+"YURI MENEZES SOUZA GONDIM"
+]
+},
+{
+"nte": "NTE 09 - Amargosa",
+"name": "RENILDO DE JESUS DA SILVA",
+"school": "COLEGIO ESTADUAL JOAO PESSOA",
+"students": [
+"ALANA DE JESUS SANTANA",
+"AMORA DE JESUS",
+"ANA ALINE DE JESUS SOUZA",
+"ANA BASTOS QUEIROZ OLIVEIRA",
+"ANDREIA DA PURIFICACAO SOUSA",
+"ANTONIO SILVA DOS SANTOS",
+"BIANCA SANTOS LIMA",
+"EDLAINE REIS",
+"ELISANGELA GONCALVES DOS SANTOS",
+"FAGNER LIMA DA SILVA",
+"GEOVANA DUTRA SANTOS",
+"GILSON BARBOSA SOUZA",
+"JADIEL BENJAMIN FERREIRA SOGLIA",
+"LACCIANE COELHO SILVA",
+"LILIA REIS SANTOS MORAES",
+"LILIANE BARBOSA CARDOZO",
+"LILIANE SANTANA COUTO",
+"LUISE SILVA FERREIRA",
+"MARICELMA SACRAMENTO DE JESUS",
+"MARLUCIA ROSA RAMOS DIAS",
+"MIRELE DIAS DA SILVA",
+"RENILDA FELIPE DOS SANTOS ASSUNCAO",
+"ROSEANE SANTOS FONTES",
+"SARAH SANTANA DOS SANTOS"
+]
+},
+{
+"nte": "NTE 10 - Juazeiro",
+"name": "HENRIQUE JURUNA SILVA SANTOS",
+"school": "COLEGIO ESTADUAL DR. JUCA SENTO SE - DIST. DE PIRI - ANEXO",
+"students": [
+"ABIDIEL DA MATA OLIVEIRA",
+"ADRIANY REIS SANTOS VIEIRA",
+"ALEXANDRE ALVES MOITINHO",
+"ALINE DA SILVA SILVEIRA",
+"ALINE VIEIRA DE SOUZA",
+"ANA CAROLINA DA CONCEICAO OLIVEIRA",
+"ANA CAROLINA MARQUES DA MATA",
+"ANALICE MESSIAS CUSTODIO",
+"ANDERSON DA SILVA SANTOS",
+"ANDRE MUNIZ DE SOUZA",
+"ANDRESSA DA SILVA SANTOS",
+"BARBARA ARAUJO DA SILVA SOUZA",
+"BERNARDO DOS SANTOS OLIVEIRA",
+"CASSIANO LIMA MACHADO",
+"CLECINEIDE SOUZA",
+"CLEMERSON NASCIMENTO ALMEIDA",
+"CLICIA RANIELLE MUNIZ DE SOUZA SILVA",
+"DEYSE ALESSANDRA BELEM REIS",
+"DIONATAN OLIVEIRA MIRANDA",
+"ELOANE DE OLIVEIRA MORAES",
+"EMANUELY MORAES FRANCA",
+"EMYLE KAUANE MORAES FRANCA",
+"ERICK LUIZ LIMA SOUZA",
+"EVA RODRIGUES DA SILVA",
+"GABRIEL NASCIMENTO SILVA",
+"GABRIELA DE SA CAVALCANTE",
+"GABRIELA NASCIMENTO DA SILVA",
+"GABRIELA PEREIRA DA SILVA LOPES",
+"GEOVANE DA SILVA OLIVEIRA",
+"GISELE NASCIMENTO DOS SANTOS",
+"GLENDA DE OLIVEIRA MACHADO",
+"GUILHERME SILVA NASCIMENTO",
+"HELLENI MATOS DOS SANTOS REZENDE",
+"HUGO DOS SANTOS",
+"INGRID OLIVEIRA MIRANDA",
+"ISABEL CRISTINA BARBOSA DOS SANTOS",
+"ITALLO RANIEL LIMA MESSIAS",
+"ITALO JOSE CASTRO REIS",
+"JASMIM REZENDE DE SOUZA",
+"JENIFER DANIELLY NASCIMENTO DA MATA",
+"JORGE HENRIQUE OLIVEIRA DA MATA",
+"JULIA MUNIZ DE CASTRO DOS REIS PEREIRA",
+"JULIANA ARAUJO DA CRUZ",
+"KAIK ALMEIDA DOS SANTOS",
+"KEIRRISON DA MATA RIBEIRO SILVA",
+"LAURA BEATRIZ OLIVEIRA DO NASCIMENTO",
+"LEO VITOR MATIAS ARAUJO",
+"LORENA DE SOUZA RIBEIRO",
+"LUARA MARIANA DA CONCEICAO LIRA",
+"LUDMILLA VITORIA DOS SANTOS VIEIRA",
+"LUIS FELIPE REIS ALVES",
+"LUIZ HENRIQUE DOS SANTOS REIS",
+"MARCIO OLIVEIRA REZENDE",
+"MARIA AGUIDA SOUZA SILVA",
+"MARIA BEATRIZ NASCIMENTO VIEIRA",
+"MARIA CLARA CORDEIRO OLIVEIRA",
+"MARIA CLARA REIS RESENDE",
+"MARIA ELOARDA MUNIZ DA SILVA",
+"MARIA ISABELLA DA CONCEICAO JATOBA",
+"MARIA IZABEL RODRIGUES PALHA DE ALMEIDA",
+"MARIO SERGIO NASCIMENTO COSTA",
+"MARYANNY DOS SANTOS REZENDE",
+"MIKAEL REZENDE GIL",
+"NAUANNY GOMES DA SILVA SANTOS",
+"OTAVIO HENRIQUE CASTRO DE ANDRADE",
+"PALOMA ARAUJO RESENDE",
+"PEDRO VINICIUS REIS ROCHA",
+"PIETRA ISABELLA SOARES BARBOSA",
+"PYETRA MURYELLY RIBEIRO DA SILVA CARDOSO",
+"RAIANE COSTA REIS",
+"RAUAN MITHELISSON SILVA ALVES",
+"RIANKY LEVINE PEREIRA DA CRUZ",
+"RIKELVE DE JESUS PEREIRA MATIAS",
+"RIQUELME MARQUES DE ALMEIDA",
+"SAMUEL GAMA PEREIRA",
+"SAMUEL PEREIRA DOS SANTOS",
+"STEFANNE SOUZA ELIAS",
+"VICTOR EMANOEL REIS ROCHA",
+"VICTOR MANOEL DA SILVA MORAES",
+"WELITON CRUZ DE ARAUJO"
+]
+},
+{
+"nte": "NTE 10 - Juazeiro",
+"name": "JHONE JOAO GOMES DA SILVA",
+"school": "COLÉGIO ESTADUAL DO CAMPO PROFESSORA MARIA TEREZA BRAGA CABRAL",
+"students": [
+"ACKILES SOUZA BRAGA",
+"ADRIEL FERREIRA SOUZA",
+"ALANA FERREIRA DE BARROS",
+"ALBERTO MARQUES FERREIRA NETO",
+"ALEXSANDRO PAJEU DOS SANTOS",
+"ANA ALICE SILVA RIBEIRO",
+"ANA VITORIA DA SILVA BARAUNA",
+"ANDRESSA DOS SANTO BRITO",
+"ATILA ROCHA DA SILVA",
+"BARBARA PEREIRA BRITO",
+"BARBARA VITORIA DOS SANTOS BRAGA",
+"BEATRIZ OLIVEIRA BRITO",
+"BRAION BORGES OLIVEIRA SILVA",
+"CAIO AMORIM DA CRUZ SILVA",
+"CALEBE PEREIRA SANTOS",
+"CAUANE DA SILVA BRITO DE SOUZA",
+"CLARA PEREIRA BRITO",
+"CYNTHIA SILVA FERREIRA DOS REIS",
+"DAVID DA SILVA MARQUES",
+"DIOGO PEREIRA FERREIRA",
+"EDMUNDO JOSE DOS SANTOS PAJEU SOUZA",
+"ELIEZER DE BRITO DOS SANTOS",
+"EMILIE IASMIN ALVES DA CRUZ DO NASCIMENTO",
+"EMILY VITORIA NASCIMENTO VIEIRA",
+"ERIC FELIPE MARQUES DE BRITO",
+"ESTER FERREIRA BARROS",
+"ESTER TERESA DA SILVA BARAUNA",
+"GUSTAVO MESSIAS FERREIRA GOMES",
+"IANKE DE OLIVEIRA BRAGA",
+"ISADORA DE SOUZA PEREIRA ALVES",
+"ISLAINE SANTOS SILVA",
+"JADNACAUANEALMEIDADEARAUJO",
+"JAMILE VIEIRA DA SILVA",
+"JENNIFER DOS SANTOS LIMA",
+"JOAO GUSTAVO GOMES DE SOUZA",
+"JOAO VICTOR ARAUJO REIS",
+"JONATHAN DE SOUZA FERREIRA BARRETO",
+"JOSE DOS REIS NETO",
+"JOSUE CRISTOFF BARROS MENDES",
+"JULIA VITORIA GOMES DIAS VIEIRA",
+"KAIK MARQUES PRAXEDES RODRIGUES",
+"KAUAN DA SILVA DIAS",
+"KEMILE SILVA ROCHA",
+"KENYA BARAUNA FERREIRA",
+"LAIS LIMA ANTUNES",
+"LEANEA PEREIRA BRAGA DA SILVA",
+"LETICIA RODRIGUES DE BRITO",
+"LIDIA MARIA DA SILVA REIS",
+"LUCAS GABRIEL DE ARAUJO REIS",
+"LUCAS GUEDES DA SILVA",
+"LUDIMILA TUPINA DOS SANTOS",
+"LUIS HENRIQUE VIEIRA DA CRUZ",
+"MACEIAS TUPINA DOS SANTOS",
+"MAISA AMORIM NUNES MUNIZ",
+"MARIA AMANDA ALVES BARRETO",
+"MARIA ANTONIA",
+"MARIA APARECIDA RODRIGUES LIMA",
+"MARIA CECILIA DOS SANTOS PAJEU BRITO",
+"MARIA JULIA DA SILVA EVANGELISTA FULGENCIO",
+"MARIA LARA DOS REIS BARROS",
+"MARIANE BARRETO DE SOUZA",
+"MARIANE MUNIZ DA SILVA",
+"MARIELE DA COSTA FERREIRA BRAGA",
+"MARILIA DA SILVA ALVES",
+"MURILO REGIS DA COSTA RODRIGUES",
+"PALOMA BORGES CRUZ",
+"RAQUEL MUNIZ LIMA",
+"REBECA MARQUES ROCHA",
+"REBERT DA COSTA ALVES CRUZ",
+"THAILANE DOS SANTOS TUPINA",
+"WALACE LIMA BRAGA"
+]
+},
+{
+"nte": "NTE 10 - Juazeiro",
+"name": "JURACI FELIX DA CUNHA FILHO",
+"school": "COL. EST. TEMPO INTEGRAL SOFIA MASCARENHAS- LAGOA DO PADRE - ANEXO",
+"students": [
+"ALEX RIBEIRO FERRAZ",
+"ALINE GOMES RIBEIRO",
+"ANA VITORIA RIBEIRO DE SOUZA",
+"ANDRE GONCALVES DE SOUSA",
+"ANEILDA ALVES DE SOUSA",
+"ANNA DOMINGAS SOUZA SILVA",
+"BRUNO MARCIANO FERRAZ",
+"CAROL DE JESUS SANTANA",
+"DAIANE FELIX DA CUNHA",
+"DIANA SOARES PEREIRA",
+"EDILENE GOMES MARCIANO",
+"ELIZABETE VANIQUE SANTANA",
+"EULINA RIBEIRO DE MIRANDA",
+"FABIANA VANIQUE DE CARVALHO",
+"FLAVIA FERREIRA DOS SANTOS",
+"GABRIEL DE SOUSA FERRAGEM",
+"GUSTAVO DIAS GOMES",
+"IARA GOMES RIBEIRO",
+"IVANESSA DE CARVALHO SOUZA",
+"IVETE RAMOS FERRAZ",
+"IZEQUIEL GOMES DO REGO",
+"JASMIM FERREIRA DE SOUZA",
+"JOSIEL DE SOUZA FALCAO",
+"JOSIVALDO RIBEIRO DE SOUZA",
+"LAILSON GOMES DO REGO",
+"LEVI FALCAO",
+"LUAN DE SOUSA ROCHA",
+"LUANA RIBEIRO DE SANTANA",
+"LUCAS RODRIGUES SANTOS DE SOUZA",
+"LUCAS VONIQUE DE SOUZA",
+"LUDINETO RIBEIRO LACERDA",
+"MARIANA BEZERRA DA SILVA",
+"NATALIA SIMOES DE FREITAS",
+"NATALINO GOMES DO REGO",
+"PAULO HENRIQUE DA COSTA SILVA",
+"PIETRO TIAGO DE OLIVEIRA",
+"PRICILA GOMES DE SANTANA RIBEIRO",
+"RAFAEL RAMOS",
+"RANUEL FERRAZ DE SOUSA",
+"ROMARIO RIBEIRO CARVALHO",
+"SABRINA RAMOS DE SOUZA",
+"STEFANE XAVIER DE SANTANA",
+"UESLEI RODRIGUES",
+"UILLIAM DE CARVALHO CUNHA",
+"VALQUIRIA DOS REIS FALCAO",
+"VICTOR DANIEL DE SOUZA",
+"VICTOR GABRIEL VIEIRA ROCHA",
+"VITOR LUIZ RIBEIRO DE CARVALHO",
+"VITOR RIBEIRO OLIVEIRA",
+"VITORIA GOMES RIBEIRO DE SANTANA"
+]
+},
+{
+"nte": "NTE 13 - Caetité",
+"name": "ADILSON DE SOUZA SANTOS",
+"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
+"students": [
+"ALICIA VITORIA MIRANDA CALDEIRAS",
+"ALINE TEIXEIRA SANTOS",
+"ALLAN KELVIN DA CUNHA COSTA",
+"AMANDA NADHELLY PARAISO RAMOS",
+"ANA CLARA SOARES CASTRO",
+"ANA LUIZA BENEVIDES TEIXEIRA",
+"ANDRE LUIS ARRUDA ARAUJO",
+"ANDRESSA SILVA SANTANA",
+"ANGELO SALVADOR RODRIGUES DA SILVA JUNIOR",
+"ANNE STELLA FARIAS BATISTA",
+"ARIANE DOS SANTOS ALVES",
+"ARIELL SILVA DE ANDRADE",
+"BEATRIZ DOS SANTOS SILVA",
+"BRENNO DE SOUZA CARVALHO",
+"CAUA GUSTAVO OLIVEIRA SANTOS",
+"CLARA EMANUELY MARTINS SANTOS MARTINS SANTO",
+"DANIEL CARDOSO BONFIM",
+"DANIELLY NOBRE OLIVEIRA",
+"DAVI EMANUEL CHAGAS SILVA",
+"DELIANE HIPOLITO ALVES",
+"EDICARLA DISS FERNANDES",
+"EDISLAINE DA SILVA SANTOS",
+"EILANE FERNANDES DE SOUZA",
+"EMANUELLEN COUTO SOUZA",
+"EMILLY GOMES XAVIER",
+"EMYLLY ADRIELLY DA CRUZ SANTOS",
+"ENZO NEVES MALHEIRO",
+"ERNANDA DA SILVA CRUZ",
+"ESTER DE JESUS PEREIRA",
+"EVELLY LORRANY DONATO BORGES",
+"FATIMA SILVA COSTA",
+"FELIPE BENEVIDES COTRIM",
+"GABRIEL ALVES DE SOUZA",
+"GABRIEL CALDAS PINTO",
+"GABRIELLE PEREIRA OLIVEIRA",
+"GUILHERME DOS SANTOS ROCHA",
+"GUILHERME FERNANDES BATISTA",
+"GUILHERME TEIXEIRA COTRIM",
+"GUSTAVO CALDAS PINTO",
+"HALYSON CORTE LAUTON",
+"HELAYNE SILVA NEVES",
+"IASMIN CAIRES LIMA",
+"IASMIN DA SILVA BRITO",
+"IGOR ALVES DE OLIVEIRA",
+"IGOR LIMA CARDOSO",
+"IRIS FRANCIELE DOS SANTOS BATISTA SILVA",
+"IRIS LORRANY NASCIMENTO BOMFIM",
+"ISABELLA MINELLI SOUZA BOMFIM",
+"ISABELLE OLYMPIO DANTAS",
+"ISABELLY VICTORIA SANTOS DA SILVA LEITE",
+"JACIANY TAYNARA DE JESUS SILVA",
+"JANDERSON ALMEIDA BATISTA JUNIOR",
+"JAQUELINE VIEIRA CARDOSO",
+"JEANDERSON OLIVEIRA GARCIA",
+"JESSYCA COTRIM BENEVIDES",
+"JOAO PEDRO ALMEIDA PEREIRA",
+"JOAO VICTOR BRITO COUTINHO",
+"JOICEKELLYCASTROGUEDES",
+"JOSEVAN DE JESUS OLIVEIRA",
+"JUNIO FERNANDES MARTINS",
+"JUNIOR AZEVEDO CORTE",
+"KAUE ICARO SILVA FREIRE",
+"KAYKE RIAN MOREIRA",
+"KELLE FERNANDES PEREIRA",
+"KETELY CARVALHO BARRETO",
+"LAELSON ALVES DOS SANTOS",
+"LARISSA TEIXEIRA COTRIM",
+"LAURA DA SILVA PRATES",
+"LAVINIA KELLY DA SILVA SOARES",
+"LIS ROSA AVES DE JESUS",
+"LORRANY ARAUJO SOUSA",
+"LORRANY SAMPAIO COSTA OLIVEIRA",
+"LUANA XAVIER BORGES CARVALHO",
+"LUDMYLA COSTA DE JESUS",
+"LUIS ANTONIO SANTOS CARVALHO",
+"LUIS EDUARDO NOGUEIRA DE BRITO",
+"MAIKON MIRANDA DE JESUS",
+"MARIA IZABELLA SANTOS SILVA",
+"MARIANA DE JESUS BARBOZA",
+"MARIZA DOS SANTOS AGUIAR",
+"MATEUS RODRIGUES ALVES",
+"MIGUEL FELIPE FERNANDES JUNQUEIRA",
+"MIRELLA PINA DE ARAUJO",
+"MISLANE SOUZA RAMOS",
+"NATYELE DOS SANTOS TEIXEIRA",
+"PAULO EDUARDO SANTANA ROCHA",
+"PEDRO HENRIQUE PEREIRA",
+"PIERRE DAVI ALVES SANTOS",
+"RAMON SILVA DA CONCEICAO",
+"RIKELME TRINDADE DE SOUZA",
+"RUAN ALMEIDA ALMEIDA",
+"RUAN PABLO RIBEIRO CARDOSO",
+"SABRINA ARAUJO SOUZA",
+"SARA FERREIRA CASTRO",
+"STEFANY ARAUJO PEREIRA",
+"STELLA CARVALHO SANTOS",
+"TAINARA ALMEIDA OLIVEIRA",
+"TALISSON GUTIERRE DE SOUZA TEIXEIRA",
+"TARCISIO GOMES SOUZA",
+"TAYRONE BATISTA DOS SANTOS",
+"THAIS GABRIELLE DA CONCEICAO COTRIM",
+"VALDIRAN DA SILVA SANTOS",
+"VERONYCA JUNQUEIRA NOVAIS",
+"VINICIUS SOUZA NEVES",
+"VITOR AFONSO DA SILVA",
+"VITORIA AYLA TEIXEIRA SANTOS",
+"VITORIA MARIA XAVIER",
+"WEDSON DE JESUS CARVALHO",
+"WILLIAM RYAN AMORIM OLIVEIRA"
+]
+},
+{
+"nte": "NTE 13 - Caetité",
+"name": "EUDITE FERNANDES CARNEIRO",
+"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
+"students": [
+"BRUNNA ANDRIELLY DE LIMA FERREIRA",
+"CARLA BEATRIZ SANTANA DA SILVA",
+"DHANDARA ALVES DOS SANTOS",
+"EUDITE FERNANDES CARNEIRO",
+"FABIOLA DA SILVA TRINDADE",
+"FRANCIELE COUTO",
+"HANAEL GUEDES VASCONCELOS",
+"KAMILLY VITORIA AZEVEDO DE ANDRADE",
+"KELLY RAVANNE SOUZA SILVA",
+"LIVIA DE SOUSA RAMOS",
+"LORRANA COUTO BORGES",
+"MIRELE NUNES TEIXEIRA",
+"NATANE GOMES SOMPAIO",
+"ROBERTO DIAS SANTOS",
+"TAYSON LIAN SOUZA OLIVEIRA",
+"THAUANY ABRANTES AGUIAR",
+"VICTOR JULIAN DE OLIVEIRA PEREIRA"
+]
+},
+{
+"nte": "NTE 13 - Caetité",
+"name": "MARIA NILZA BASTOS SOUSA FRAGA",
+"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
+"students": [
+"ANA FLAVIA FERREIRA ALVES",
+"ANA LIVIA FERREIRA DE CARVALHO",
+"ANGELICA SOUZA CARDOSO",
+"BRUNNA REBOUCAS DE CARVALHO",
+"CARINE OLIVEIRA DOS SANTOS",
+"GLEYCIMARA ANDRIELLI SANTOS",
+"JOAO FELIPE ALVES COSTA ALMEIDA",
+"LUAN ALVINO DE OLIVEIRA",
+"LUCAS GABRIEL RODRIGUES SCHUFFNER",
+"LUIZ FELIPE FERNANDES CARDOSO",
+"MARCO ANTONIO LIMA GOMES BRITO",
+"MARCOS RAFAEL SILVA TEIXEIRA",
+"MARIA CLARA DE AGUIAR SILVA",
+"MARIANI SOARES DA SILVA",
+"MATEUS CARDOSO DA COSTA",
+"RAISSA VITORIA SOUZA ALVES",
+"RAYANE SILVA PINTO",
+"RODRIGO RHENZU GUANAIS GONDIM FERNANDES",
+"SAULO SANTOS CALDAS",
+"STEFANE SANTOS RIBEIRO",
+"SUZANY DE SOUZA BATISTA",
+"THIAGO DE JESUS SANTOS",
+"YAGO DE JESUS SANTOS",
+"YAGO SOUZA DOS SANTOS"
+]
+},
+{
+"nte": "NTE 13 - Caetité",
+"name": "MARIA NILZA BASTOS SOUSA FRAGA",
+"school": "COMPLEXO INTEGRADO DE EDUCAÇÃO BASICA, PROFISSIONAL E TECNOLÓGICA,",
+"students": [
+"ANA LIVIA GUIMARAES BOMFIM",
+"ANNA LIVIA BRITO AMARAL",
+"IAN PETRUS CARVALHO PEREIRA LIMA",
+"JADE VITORIA",
+"KAROLYNE SILVA AMARAL",
+"MARIA EUGENIA NEVES PIMENTEL",
+"MARIA LUIZA DANTAS DE MORAIS",
+"MATEUS TEIXEIRA COTRIM",
+"TAINA VITORIA A R CARVALHO"
+]
+},
+{
+"nte": "NTE 16 - Jacobina",
+"name": "ELZENIR FREIRE DA SILVA",
+"school": "COLEGIO ESTADUAL DO CAMPO PROFESSORA MARIA IZABEL DE OLIVEIRA",
+"students": [
+"ANA PAULA SILVA SANTOS",
+"ATHYLA SAMPAIO GOMES",
+"BARBARA ADRIELE ALVES SANTOS",
+"BIANCA ALEIXO SANTOS",
+"BIANCA OLIVEIRA PEREIRA",
+"CAUAN FERNANDES ESPIRITO SANTO",
+"CHRISTIAN MATOS DOS SANTOS",
+"CLARA ELOYZE SANTOS DE OLIVEIRA",
+"CLARA SOFIA SAMPAIO",
+"DYOGOJESUS DA ANUNCIACAO",
+"ELAINE SOUSA DE JESUS",
+"ELISA EDUARDA CONCEICAO LOPES",
+"ELOAH ARAUJO SANTOS",
+"ELZENIR F DA SILVA",
+"EMANOEL VITOR DANTAS SANTOS",
+"EMILLY LIMA PEREIRA",
+"ERICK AVELINO DOS SANTOS",
+"FILIPI ALVES DA SILVA",
+"FLAVIA ALESSANDRA ALMEIDA SANTOS",
+"FRANCIELY MATOS",
+"JANEIDE ALMEIDA DOS SANTOS",
+"JOAO VITOR JESUS DOS SANTOS",
+"JOCELY MIRANDA NASCIMENTO",
+"KAUAN SILVA MOREIRA",
+"KLECIANE OLIVEIRA DOS SANTOS",
+"LUANA MATOS SANTOS",
+"LUCAS SANTOS DE SOUZA",
+"MAIARA VITORIA DE JESUS SANTOS",
+"MARIA EDUARDA SANTOS DA SILVA",
+"MARIA VICTORIA SILVA SANTOS",
+"MARIANE VITORIA SANTOS SOUZA",
+"RAISSA SILVA",
+"RAYLANDERSON SILVA SANTOS",
+"SAMUEL JESUS LOPES",
+"SUELEN SILVA SANTOS",
+"TAMIRIS ARAUJO SANTOS",
+"THAYLA LAIS NASCIMENTO DOS SANTOS",
+"THIAGO SANTOS OLIVEIRA",
+"TIAGO DE JESUS SANTOS"
+]
+},
+{
+"nte": "NTE 17 - Ribeira do Pombal",
+"name": "SEVERINO DA SILVA QUEIROZ NETO",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL AGUAS TERMAIS DE CIPO",
+"students": [
+"ARTUR MACEDO GONZAGA REIS",
+"CLARIESILE JESUS DOS SANTOS SANTANA",
+"DIOGO OLIVEIRA DA GAMA",
+"ELIEL VINICIUS DOS SANTOS REIS",
+"ELOISA CARDOSO DE MATOS NUNES",
+"ERYCK MACEDO DOS SANTOS",
+"FELIPE DOS SANTOS SANTANA",
+"FILIPE FERREIRA REIS",
+"GABRIELA CONCEICAO SANTANA",
+"GABRIELA DA CONCEICAO SANTANA",
+"GUILHERME SILVA DOS REIS",
+"GUSTAVO TAVARES BRAZ",
+"HEENZO GUSTAVO MATOS SOARES",
+"ISABEL DOS SANTOS SANTANA",
+"ISAK DOS SANTOS MACEDO MORENO",
+"JAQUELINE OLIVEIRA DOS SANTOS",
+"JHONATAS KRISTEM SILVA SANTOS",
+"KAROLAINE DE JESUS SANTOS",
+"LARISSA NATALY FERREIRA DOS SANTOS",
+"MARIA EDUARDA ANDRADE DE JESUS SANTOS",
+"NATTAN KELVIN ALMEIDA DE SANTANA",
+"PAULO CESAR DE SANTANA MIRANDA",
+"PHABLO RHUAN OLIVEIRA SANTOS",
+"RAFAELA FERREIRA DE MIRANDA",
+"RAISSA DOS SANTOS PEREIRA",
+"RANIELSON DOS SANTOS REIS",
+"SAMARA DOS REIS SOUZA",
+"STEFANY DE JESUS SANTOS",
+"TAPHINY CONCEICAO DE SANTANA",
+"THAFYNE SILVA SANTOS",
+"THAYANE SANTOS OLIVEIRA",
+"WILLIAM DE SANTANA GAMA",
+"YSLANA GABRIELLI NUNES DE SANTANA"
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "CINTIA PORTO DOS SANTOS FRANCA",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE ITAMIRA",
+"students": [
+"ADRIELE DOS SANTOS ROCHA",
+"ELYUD SOUZA MOREIRA MENDES",
+"EMANUELY SANTOS DE OLIVEIRA",
+"EMELY MENDES DOS SANTOS",
+"GABRIEL PEREIRA LIMA OLIVEIRA",
+"GEOVANA DOS SANTOS NASCIMENTO",
+"GEOVANNA DA CONCEICAO DAMACENO",
+"ISABELLA DE SOUZA BISPO",
+"ISLAN SANTOS DE CARVALHO",
+"IZAMARY SOUZA",
+"JONATAS NASCIMENTO DA CRUZ",
+"KEITE NAIALA DA SILVA SANTOS",
+"KEVIN FERREIRA",
+"LOHANNY SILVA DE ALMEIDA",
+"LUCAS DE SOUZA SILVA",
+"MARCOS PEDRO MELO LIMA",
+"MARIA NICOLE SANTANA DO NASCIMENTO",
+"MARIELY CARDOSO DE JESUS",
+"NOEMI MENDES SANTOS",
+"RAISSA NASCIMENTO DOS SANTOS",
+"SAMYLE DA ENCARNACAO SOUZA DOS SANTOS",
+"VINICIUS NUNES DOS SANTOS"
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "CINTIA PORTO DOS SANTOS FRANCA",
+"school": "Colégio Estadual de Tempo Integral de Itamira",
+"students": [
+"ADRIELE PACHECO DE SOUZA",
+"ADRIELLE ROCHA SANTOS",
+"ALAN BATISTA DE JESUS",
+"BRUNA LAURINY SANTOS VIEIRA",
+"CAILAN RAMOS DE SOUZA",
+"CAIO UENDSON DA SILVA SANTOS",
+"CECILIA COSTA",
+"DANILO JEFFERSON DOS SANTOS SILVA",
+"ERIC SILVA DIAS",
+"HELOANY RAMOS VASCONCELOS",
+"IASMIM MACHADO DOS SANTOS",
+"JOSE EDUARDO SILVA DA MATA MATA",
+"LETICIA SOUZA",
+"LIAN BRITO DOS SANTOS",
+"MARIA EDUARDA DE SOUZA SANTOS",
+"MARIA JULIA ARAUJO DE CARVALHO",
+"MARISSA CRISTINE SANTOS SILVA",
+"NAIARA ALMEIDA DE SANTANA",
+"SAMARA CONCEICAO",
+"VALDIR NASCIMENTO SANTOS",
+"VITORIA CARLA SANTOS SOUZA"
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "DEIVISON TRINDADE DOS SANTOS",
+"school": "CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA",
+"students": [
+"ALESSANDRA DOS ANJOS FREITAS",
+"ALICE CONCEICAO DE SOUZA",
+"ANA BEATRIZ NUNES SANTOS",
+"ANA CAROLINE MONBACH MACEDO DINIZ",
+"ANA ELOISE TRINDADE DO NASCIMENTO",
+"ANA JULIA DE JESUS SANTOS",
+"ANDREY FONSECA BONFIM",
+"ANNA BEATRIZ PIO SANTOS",
+"BRUNA PORTUGAL SILVESTRE",
+"CAIQUE SIMOES NUNES",
+"CAMILA ALMEIDA DOS SANTOS",
+"CAMILLA DAS VIRGENS DE JESUS SOARES",
+"CAUAN EDUARDO RODRIGUES RABELO",
+"CAUAN SANTOS CRUZ",
+"DAVID SILVA PEREIRA",
+"DEIVID SANTOS",
+"DIANA SANTO BISPO",
+"DIOGO GABRIEL COELHO DE OLIVEIRA",
+"EDUARDA DE QUEIROZ OLIVEIRA",
+"ELLEN FERREIRA REIS SANTOS",
+"EMANUELLY DE SOUZA SANTANA",
+"EMILE SOUZA DE JESUS",
+"EMILLY SAO PAULO",
+"EMILLY SAO PAULO DOS SANTOS",
+"EMILY VITORIA DE JESUS",
+"ESTEFANY SANTANA DA PAIXAO",
+"ESTER SANTOS CAMPOS",
+"EVELLYN",
+"GABRIEL OLIVEIRA GONCALVES",
+"GLEICE QUELI DE SOUZA SANTOS",
+"HUGO JACQUES DA SILVA SIQUEIRA",
+"IASMIN SANTANA FERREIRA",
+"INGRID ANUNCIACAO PINTO ANUNCIACAO",
+"ISMAEL SANTOS ALVES GONCALVES",
+"IVSON DOS SANTOS ALMEIDA FILHO",
+"JESSICA SANTOS DO LAGO",
+"JOAO GABRIEL DE JESUS LIMA BISPO",
+"JULIA SANTOS ANTAO",
+"JULIANA",
+"KAILANY DAS VIRGENS SANTOS",
+"KAIQUE TORRES DE BRITO",
+"KEYVERSON SANTOS DE DEUS",
+"LAVINE DAQUELE SANTOS GRAMOSA",
+"LETICIA DE JESUS SILVA",
+"LETICIA NONATO DOS SANTOS",
+"MANOEL PEREIRA DA SILVA NETO",
+"MARCOS VINICIUS DOS SANTOS ASSUNCAO",
+"MARIA EDUARDA LIGER DE JESUS",
+"MARIA EDUARDA RODRIGUES ARAUJO SANTOS",
+"MARIA JULIA DOS SANTOS FERREIRA",
+"MARIA JULIA GOMES ALMEIDA",
+"MARLEY DE JESUS FRANCA",
+"MIKAEL SANTOS",
+"MIRIAN DA LUZ FELIX",
+"PABLO LAGO",
+"RAQUELE VITORIA PEREIRA DA SILVA",
+"RAYSSA SENA ARAUJO PEREIRA",
+"RIAN SANTOS DA CONCEICAO",
+"RICKELMY LIMA DE JESUS",
+"RILARY NASCIMENTO PEREIRA",
+"RODRIGO DOS SANTOS DE JESUS",
+"STEFHANY SILVA DOS SANTOS",
+"SUELEN PAIM DOS SANTOS",
+"TALITA CAMARA PEREIRA",
+"THAIANE DOS SANTOS DE ARAUJO",
+"THEYLON DE JESUS OLIVEIRA",
+"TIALLA DOS SANTOS ARAUJO",
+"UELBER DA SILVA VASCONCELOS",
+"VINICIUS LIMA CARDOSO",
+"VITORIA HELLEN DE JESUS SOUZA",
+"WILLIAM COSTA LOPES",
+"YASMIN GOMES SANTOS"
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "DEIVISON TRINDADE DOS SANTOS",
+"school": "COLEGIO ESTADUAL DESEMBARGADOR PEDRO RIBEIRO",
+"students": [
+"ARIELE LIMA",
+"CAMILLA EVELIN SENA DA CRUZ",
+"DAVYD WILLIAM CONCEICAO DAS VIRGENS",
+"JULIANE SENA SENA",
+"KAUE MOITINHO RIBEIRO",
+"MICAELLE SANTOS DA SILVA",
+"PEDRO DANIEL DE JESUS ALMEIDA",
+"VALNEI DOS SANTOS BARRETO"
+]
+},
+{
+"nte": "NTE 18 - Alagoinhas",
+"name": "DEIVISON TRINDADE DOS SANTOS",
+"school": "Centro Estadual de Educação Profissional em Controle e Gestão do Nordeste Baiano Pedro Ribeiro Pessoa",
+"students": [
+"ALANE OLIVEIRA DO NASCIMENTO",
+"ANA CLARA DE JESUS",
+"BRUNNA AYARLA GOMES SANTOS",
+"EDJAN MACHADO DANTAS DA SILVA",
+"ELLEN MAYLANE LAGO DO NASCIMENTO",
+"IAGO SANTOS PEDRA",
+"IASMIN DOS SANTOS SILVA",
+"IMNA MEIRELES",
+"JOAO SILAS DOS SANTOS SILVA",
+"MAURICIO ANDRADE DA CRUZ",
+"MILENA MAURICIO DOS SANTOS",
+"QUEILANE DE LIMA CONCEICAO",
+"RAILLAN GONCALVES DOS SANTOS",
+"RICHARLISSON SOUZA SANTOS",
+"THAMYRES VITORIA DO CARMO LIMA"
+]
+},
+{
+"nte": "NTE 19 - Feira de Santana",
+"name": "AGEU REIS DOS SANTOS CARDOSO",
+"school": "COLEGIO ESTADUAL PROFESSORA CARMINDA MASCARENHAS VIEIRA",
+"students": [
+"AMANDA JESSICA FERREIRA BRITO",
+"ANA CLARA CONCEICAO AMORIM",
+"ANA HELLOISY SOBRINHO RAMOS",
+"ANANDA DOS SANTOS",
+"ARIADNA",
+"BEATRIZ DOREA DE AQUINO",
+"BRUNA SANTANA",
+"DANIEVELYN FERREIRA SILVA",
+"DAVI LUCAS SILVA NASCIMENTO",
+"DEBORA DE JESUS MAXIMO",
+"GABRIEL DE ALMEIDA SOUZA ARAUJO",
+"HELIO DE SOUZA ALVES",
+"IASMIN PEREIRA DOS SANTOS",
+"ISRAEL BORGES OLIVEIRA",
+"JENNIFER VICTORIA DA SILVA CERQUEIRA",
+"JOAO GABRIEL DE JESUS SOUZA",
+"JOAO PAULO PINHEIRO PEREIRA",
+"JULIA LIMA DA SILVA",
+"LAURA LETICIA",
+"LUIS GUILHERME DOS SANTOS ALMEIDA",
+"MAYLLON DE RIETI FERREIRA DOS SANTOS",
+"SAMUEL BAHIA ASSUNCAO",
+"SAMUEL MAIA OLIVEIRA DE JESUS",
+"SOFIA FABRINE FERNANDES CORREIA",
+"SOPHIA DOS SANTOS SANTIAGO",
+"THAILANY FONSECA DE ALMEIDA"
+]
+},
+{
+"nte": "NTE 19 - Feira de Santana",
+"name": "LEILA THAISE SANTANA DE OLIVEIRA SANTOS",
+"school": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO",
+"students": [
+"ADILSON PRADO LIMA JUNIOR",
+"ALDAIR JOSE AZEVEDO SANTANA",
+"ANTONIETA DIAS DAS VIRGENS",
+"CLAUDIA DE SOUZA SANTIAGO AMORIM",
+"CRISTIANA DA CRUZ PAIM",
+"GILSON DE JESUS MOURA",
+"INGRID MAGALHAES DE SOUSA LIMA",
+"IVANILDE SANTOS DE OLIVEIRA",
+"JOSILENE CONCEICAO DOS SANTOS",
+"MAIANA SILVA BARRETO",
+"MARIA GERUZA NASCIMENTO",
+"PAULA COELHO SOUZA DA SILVA",
+"PITAGORA LIMA DA ANUNCIACAO",
+"PRISCILLA LIMA AMORIM",
+"REGINA SANTOS DE LIMA",
+"SIMONE BARBOSA SILVA"
+]
+},
+{
+"nte": "NTE 19 - Feira de Santana",
+"name": "MURIEL PATRICIA SILVA DE ASSIS",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE",
+"students": [
+"ADRIELE DE CARVALHO LIMA",
+"AGNALDO RIBEIRO DE JESUS JUNIOR",
+"AMANDA ALMEIDA LIMA",
+"AMANDA DE JESUS ARAUJO",
+"ANALU ALVES DE CARVALHO CERQUEIRA",
+"ANGELINA NASCIMENTO GONZAGA",
+"BRUNA DOS SANTOS PEREIRA",
+"BRUNO PINHEIRO DOS SANTOS",
+"CASSIANI CARDOSO DE JESUS CARVALHO",
+"CISSA BARBOSA DA SILVA",
+"CLEITON DE BRITO FREITAS",
+"DANIEL ESTRELA SAMPAIO",
+"DANIEL LIMA SOUZA",
+"DANIEL MARTINS LIMA",
+"DANILO DA SILVA LIMA",
+"DAVI DE JESUS LIMA",
+"DIOGO SOUZA DE JESUS",
+"ELIONAI CRUZ DE SANTANA",
+"ELIZEU NASCIMENTO DA SILVA",
+"EMILY CERQUEIRA DE SOUZA",
+"EMILY VITORIA MAIA ALMEIDA",
+"FABRICIO DE LIMA PAIVA MASCARENHAS",
+"GABRIELA DA SILVA SANTOS",
+"GABRIELA DE JESUS LIMA",
+"GEILSON MERCES DE JESUS",
+"GUSTAVO SANTOS CORDEIRO",
+"IAGO CERQUEIRA LAGO",
+"IASMIM PEREIRA RAMOS",
+"IVANILDA COSTA DE JESUS",
+"JACKSON GUSTAVO DE JESUS CARVALHO",
+"JANAISE CARVALHO DE SOUZA",
+"JEFERSON SILVA MANGABEIRA",
+"JOAO LUIS FERNANDES COSTA",
+"JOAO VITOR FREITAS",
+"JONATHAS ALMEIDA DE CARVALHO",
+"JORGE HENRIQUE COUTINHO DA SILVA",
+"JUAN LUZ SILVA",
+"KAILA DE SOUZA LIMA",
+"LAIS DE JESUS SANTOS",
+"LIDIO DE SOUZA ESTRELA JUNIOR",
+"MAICON SOUZA LIMA",
+"MAISA DOS SANTOS NASCIMENTO",
+"MARCUS VINICIUS DE JESUS MACIEL",
+"MARIA CLARA ALMEIDA SANTANA",
+"MARIA LUIZA DA CONCEICAO SAMPAIO",
+"PAMELA SOUSA DE JESUS",
+"PAULO SERGIO ALMEIDA DE LIMA",
+"RAI MARINHO DE JESUS",
+"RAILANE JULIA PERES SANTANA",
+"RAISSA LUZ SILVA",
+"RAISSA OLIVEIRA DA SILVA",
+"RAYLANY DA SILVA OLIVEIRA",
+"RENATA",
+"RIQUELMI DA LUZ BRITO",
+"RUAN GABRIEL MOTA DA SILVA",
+"SAMIRA CRUZ DE SANTANA",
+"SIRLANE DOS SANTOS BATISTA",
+"TAYLA REIS DA VISITACAO",
+"TIAGO SOUZA FERREIRA FILHO",
+"VITORIA LIMA BRITO",
+"WANDERSON CARVALHO SANTANA"
+]
+},
+{
+"nte": "NTE 19 - Feira de Santana",
+"name": "NARIA REIS DOS SANTOS BREUSS",
+"school": "COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO",
+"students": [
+"ALINE DOS SANTOS SILVA",
+"AMANDA SANTOS SANTIAGO",
+"ANA BEATRIZ SILVA DOS SANTOS",
+"BRIGIDA HELOISA ARAUJO DE JESUS SOUZA",
+"CLARISSA LISBOA DO CARMO",
+"DAVI LUCAS GOIS ASSIS",
+"DAVI SANTOS FIGUEIREDO",
+"ELLEN LETICIA SANTOS DIAS",
+"ELOA PEREIRA DA SILVA",
+"EMILY KAROLINE AGUILAR OLIVEIRA",
+"EMILY VITORIA CORREIA DE SENA",
+"ERIC SAMUEL SANTOS DE JESUS",
+"GABRIELLA SANTANA LOBO",
+"GISELE DO CARMO OLIVEIRA",
+"GISELE VIEIRA BARBOSA",
+"GUSTAVO ADRIANO SANTOS DA SILVA",
+"ICARO RAPHAEL",
+"ISABELA SANTOS DE JESUS",
+"ISABELLE",
+"IWINE PEREIRA DA SILVA",
+"JAIANE VITORIA RIBEIRO HUNGRIA",
+"JAQUELINE DA SILVA BRANDAO",
+"JAYANNE SILVA SANTOS",
+"JEAN PAULO RODRIGUES NUNES",
+"JOSIANE RODRIGUES COIMBRA",
+"JULIANA JESUS DOS SANTOS",
+"KAREN NASCIMENTO SENA",
+"KAUA ALMEIDA PEREIRA TIMOTEO",
+"LAVINIA DOS SANTOS SILVA",
+"LEVI KEIRRISON OLIVEIRA SACRAMENTO",
+"MARCELLY SOUZA E SOUZA",
+"MARCONY SILVA PEREIRA DIAS",
+"MARIA EDUARDA ALVES SILVA",
+"MARIA LUIZA BARBOSA CONCEICAO",
+"MARIANNA DE OLIVEIRA AZEVEDO",
+"MARLON CARMO SILVA",
+"MATEUS GALIZAS CRUZ",
+"MELISSA DOS SANTOS ANDRADE",
+"MIRELE SANTANA DE JESUS",
+"MURILO DOS SANTOS SILVA",
+"NAIDARA SILVA DE SANTANA BASTOS",
+"NAIELLE VITORIA ALMEIDA CRUZ",
+"NAYANE CONCEICAO DE OLIVEIRA",
+"PEDRO CAUA CARDOSO MOTA",
+"RAYLANE RIBEIRO GONZAGA",
+"REBECA CONCEICAO CERQUEIRA SANTIAGO",
+"REBECA DA SILVA RIBEIRO REBECA",
+"REINAN SANTANA DE JESUS",
+"REYNAN LIMA ARAUJO",
+"RIANNA LEMOS AZEVEDO",
+"ROBSON LUIS SANTANA ALMEIDA",
+"ROSANGELA FIGUEREDO",
+"RYAN CASSIO SOUZA GOMES",
+"SANDI IASMIM DE OLIVEIRA SANTOS DIAS",
+"SARA CARNEIRO SANTOS SILVA",
+"SELMA DE ALMEIDA BORGES",
+"STEPHANIE MAGALHAES SOUZA",
+"STEPHANIE VITORIA CERQUEIRA DO ESPIRITO SANTO",
+"STEPHANIE VITORIA LOBO SANTASMOTA",
+"STHEFANE CONCEICAO TEIXEIRA",
+"THAYLA LETICIA CONCEICAO OLIVEIRA",
+"THAYSE EVANGELISTA RIBEIRO",
+"WILIANE OLIVEIRA DE JESUS",
+"YASMIN MAGALHAES DE SOUSA LIMA",
+"YASMIN SANTOS"
+]
+},
+{
+"nte": "NTE 20 - Vitória da Conquista",
+"name": "JORGE CLEITON SILVA SOUZA",
+"school": "COLEGIO ESTADUAL SISINIO RIBEIRO SILVA",
+"students": [
+"ADRIELLE SILVA GOMES",
+"ALEXANDRE CHAVES SILVA",
+"ANA LUIZA SANTOS PEREIRA",
+"CARINE DE JESUS NASCIMENTO",
+"CAROLINE SANTOS CUNHA",
+"DOMINIQUE MEIRA CARVALHO",
+"EMANUELLE MEIRA TEIXEIRA",
+"FELIPE RANIEL DANTAS ROCHA",
+"GEOVANA SILVA DUTRA",
+"GUILHERME SAMPAIO TEIXEIRA",
+"GUSTAVO GOMES AZEVEDO",
+"HENRIQUE ALMEIDA SILVA",
+"IASMIN DE JESUS NOVAES",
+"ISABELLY DE PADUA MEIRA NOLASCO",
+"JAMILE SAMPAIO AZEVEDO",
+"JOAO",
+"JOSE PIETRO SILVA MEIRA",
+"JULIA DE ANDRADE NOLASCO",
+"JULIANO MORENO DANTAS",
+"KAUAN SOUSA MORENO",
+"KENISON GABRIEL LIVRAMENTO LEITE",
+"LARA CARVALHO SANTOS",
+"LARISSA GOMES DA SILVA",
+"LORRANY ARAGAO DA SILVA",
+"MAISA RIBEIRO",
+"MATHEUS SENA DOS SANTOS",
+"MIKAEL CASTRO SOUSA",
+"NIQUELE PACHECO SANTOS",
+"POLIANA ANDRADE SILVA",
+"RAIAN GUIMARAES FERREIRA",
+"RAYSSA SANTOS NONO",
+"RICHARD SILVA MACEDO",
+"SABRINO OLIVEIRA SANTOS",
+"SAMILLY CHAVES NOLASCO",
+"TAINA RIBEIRO BRITO",
+"THIAGO SOUSA SANTOS",
+"UELLEN ALMEIDA SANTOS",
+"VINICIUS PINHEIRO SANTOS",
+"VIVIANE PEREIRA SANTOS",
+"YURI RICARDO"
+]
+},
+{
+"nte": "NTE 20 - Vitória da Conquista",
+"name": "LILIAN MOREIRA PEREIRA DOS SANTOS",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA",
+"students": [
+"ALEX ENZZO SANTOS DE MAGALHAES",
+"ALINE DOS SANTOS DE MENDONCA",
+"ANA BEATRIZ RIBEIRO VIANA",
+"ANA SOFIA COSTA DA ROCHA",
+"BIANCA PEREIRA BRITO",
+"BRAYAN OLIVEIRA DIAS",
+"CARLOS MANOEL VIEIRA DE JESUS",
+"CAROLINE AZEVEDO VIANA",
+"DANIEL NOVAIS DA SILVA",
+"EDUARDO MORAES DUARTE SILVA SANTOS",
+"EMILLYALVESVIANACOSTA",
+"ERICK ALVES DA SILVA",
+"ERICK HENRIQUE DA SILVA",
+"EVILIN BATISTA DE CARVALHO",
+"GABRIEL NARCISO DOS SANTOS",
+"GISELE SANTIAGO SANTOS",
+"HAGNNYS PENA VIANA",
+"HIGOR GUERRA CARDOSO SANTOS",
+"IAN TELES SILVA",
+"IANNE SOARES DE MATOS",
+"ISABELY CAROL GOMES VIANA",
+"JAIZA RODRIGUES MARQUES",
+"JOAO ANTONIO DE OLIVEIRA LIMA",
+"JOAO PEDRO SANTOS DA SILVA",
+"KEREN HAPUQUE SOUZA ALVES",
+"LAIS RIBEIRO SILVA",
+"LORRANY ROCHA VIANA",
+"LUIS MIGUEL PINHEIRO SANTOS",
+"MAGDHA EDUARDA RIBEIRO DA SILVA",
+"MAIARA CORDEIRO DO VAL",
+"MARIA CLARA RIBEIRO NOVAIS",
+"MARIA EDUARDA COSTA VIANA",
+"MARIA EDUARDA SILVA DOS SANTOS",
+"MARIA IZABEL JARDIM SILVA",
+"MARIA JULIA PINHEIRO MOREIRA",
+"MARIANA FONSECA MOURA",
+"MARIELY OLIVEIRA DE CARVALHO",
+"MATEUS DOS SANTOS RIBEIRO",
+"MICAELY DIAS JARDIM",
+"NICOLY RIBEIRO BRITO",
+"NYCOLAS SANTOS BARBOSA",
+"PEDRO AMORIM GONCALVES DIAS",
+"RAYLANDER LIMA DO VALE",
+"REBECA BATISTA VIANA DA SILVA",
+"RIANNA ALVES ALMEIDA",
+"SOFIA OLIVEIRA GOMES",
+"TIAGO AZEVEDO",
+"VENANCIO PEREIRA DOS SANTOS",
+"VINICIUS NASCIMENTO BENTO",
+"VITOR JARDIM DOS REIS",
+"VITORIA FRANCO ROCHA",
+"VITORIA OLIVEIRA RIBEIRO",
+"VITORIA SANTOS LIMA",
+"WARLEY DIAS DA SAILVA",
+"WICTORIA SOARES DA SILVA",
+"WILLIAM PIETRO DA COSTA VIANA",
+"YAMIM BATISTA MENDONCA",
+"YSADORA FERRAZ SANTOS"
+]
+},
+{
+"nte": "NTE 20 - Vitória da Conquista",
+"name": "LILIANE ALVES DE LIMA FERREIRA",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA",
+"students": [
+"ANA BEATRIZ LOPES DIAS",
+"ANA CAROLINA NOVAIS SANTANA",
+"ARTHUR ROCHA PEREIRA",
+"ARTUR RIBEIRO DOS SANTOS",
+"BEATRIZ DA SILVA VIANA",
+"BEATRIZ DONATO DA SILVA",
+"BEATRIZ MONTES RODRIGUES",
+"CAUAN PEREIRA DA ROCHA",
+"DANIEL SANTOS LIMA",
+"DAYANE SANTOS DA SILVA",
+"DEBORA SILVA PINHEIRO",
+"EDUARDO JARDIM DOS SANTOS",
+"EDUARDO PINHEIRO DIAS",
+"ELLOISA DIAS RIBEIRO",
+"EMILY OLIVEIRA ROCHA",
+"ENNY COSTA SANTOS",
+"ERIK JARDIM DOS REIS",
+"HARIANY VIEIRA AGUIAR",
+"JAMILE SILVA VIANA",
+"JOAO VITOR PEREIRA COSTA",
+"JULIA ALMEIDA",
+"JULIANA ANDRADE VIANA",
+"KAMINY VIANA SILVA",
+"KELVIN ROCHA SOTERO DOS SANTOS",
+"LARA KAUANY DA SILVA TRINDADE",
+"LARISSA ROCHA SANTANA",
+"LIVIA SOARES DA ROCHA",
+"LORRANA DE CARVALHO SILVA DOS SANTOS",
+"MIRELLA DOS SANTOS SILVA",
+"MONIKY CRUZ MATOS",
+"PIETRO DA SILVA LIMA",
+"RAYANE SILVA CORREIA",
+"STEFANY PINTO SANTOS",
+"STHEFANNE FRANCO DE LIMA",
+"TAUANE SANTOS RIBEIRO",
+"THAINA DOS SANTOS PEREIRA",
+"WANNGY DA ROCHA CASTRO"
+]
+},
+{
+"nte": "NTE 20 - Vitória da Conquista",
+"name": "TAMARA SIBELE DOS SANTOS",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA",
+"students": [
+"ADRIELLY ALVES ROCHA",
+"ALAN ROCHA CASTRO",
+"ALINE CRUZ DOS SANTOS",
+"ALLINY MOREIRA FRANCO",
+"ANA CRISTINA DE JESUS BRITO",
+"ANDRESSA COSTA BARBOSA",
+"ANGELA VITORIA PINTO SANTOS",
+"ANTONY MATHEUS NOVAIS DE BRITO",
+"ARTHUR PEREIRA DE SOUSA",
+"ARTUR OLIVEIRA DO VALE",
+"BRUNO ROCHA DA SILVA",
+"CAIO SOARES PEREIRA",
+"DAFNY SILVA CRUZ",
+"DAYANE PEREIRA LIMA",
+"DEYSE VIANA ALVES",
+"DIOGO DIAS DE JESUS",
+"EDUARDO DA SILVA SANTOS",
+"ESTER SERAFIM ROCHA CASTRO",
+"EVELYN MATOS DA SILVA",
+"EVYLIN LIMA SILVA",
+"FATIMA NOVAIS JEUSS",
+"FRANCINY SILVA REIS",
+"GUSTAVO COSTA SOUSA",
+"GUSTAVO EMANUEL DE SOUZA SANTOS",
+"HARYSOM VIEIRA AGUIAR",
+"JEFERSON CASTRO SANTOS",
+"JISLANY SILVA MARQUES",
+"JUSCELIA PEREIRA",
+"KAUE DONATO SILVA",
+"KEILA FANNY PEREIRA BRITO",
+"KELLY BARBOSA SILVA",
+"LAIS COSTA OLIVEIRA",
+"LAURA ROCHA LIMA",
+"LILIANE CRUZ DA SILVA",
+"LUIZ FERNANDO PEREIRA RIBEIRO",
+"M",
+"MAISA MELVINA NOVAIS",
+"MARIA EDUARDA ROCHA BRITO",
+"MARIA VITORIA DE OLIVEIRA BARBOSA",
+"MARIA VITORIA OLIVEIRA DA SILVA",
+"MILENE SILVA RIBEIRO",
+"NAIANE MARIA DA SILVA",
+"NAIARA SANTANA DOS SANTOS",
+"NAILY KELLLY MOURA DE JESUS",
+"NAILY KELLY MOURA DE JESUS",
+"PEDRO HENRIQUE PENA JARDIM",
+"RAFAEL ALMEIDA DOS SANTOS",
+"RONE COSTA LIMA",
+"RYAN SERGIO QUEIROZ",
+"SAMARA FRANCO RIBEIRO",
+"SARA LIMA CARVALHO",
+"THAINA PEREIRA FRANCO",
+"THIAGO SOARES LIMA",
+"VICTOR ALVES RIBEIRO",
+"VITORIA RODRIGUES PACHECO",
+"YARA DUTRA DE SOUSA"
+]
+},
+{
+"nte": "NTE 21 - Santo Antônio de Jesus",
+"name": "ANA CARLA BARBUDA DOS SANTOS",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SALINAS DA MARGARIDA",
+"students": [
+"ADRIANO DO VALE SOUSA",
+"ALLEHANDRO FARIAS CONCEICAO",
+"ANA BEATRIZ SOUZA DOS SANTOS",
+"ANA CAROLAYNE SANTANA DAMASIO",
+"ANA CAROLINA DE JESUS DOS SANTOS",
+"ANA CLAUDIA ARAUJO DA CONCEICAO",
+"ANA RACHEL RODRIGUES CARVALHO",
+"ANDREZA SOUZA DA NASCIMENTO",
+"ARTHUR MACEDO DOS SANTOS",
+"CARMEN HELEN TEIXEIRA DA SILVA SANTOS",
+"CAUA ALMEIDA DE JESUS BARROS",
+"CELIDSON VITOR DE BRITO FRANCA",
+"DANIEL DE SOUZA SILVA",
+"DANILO GABRIEL E HEBERT DAMASCO",
+"DAVY HENRIQUE CONCEICAO PEREIRA",
+"ELLEN ASSIS REZENDE",
+"ELOISA COSTA SANTANA",
+"ERICK DOS SANTOS SANTANA",
+"EVELEN SILVA SANTOS",
+"EVELLYN ASSIS REZENDE",
+"GILSON SOUZA DE ASSIS FILHO",
+"GUILHERME DE JESUS MACHADO",
+"GUILHERME DO ESPIRITO SANTO CERQUEIRA REGO",
+"HEBERT DAMASCENO SANTANA",
+"IAN RIQUELME VENTURA SANTANA",
+"IASMIN ROCHA DE CARVALHO",
+"ICARO SANTOS BAIAO",
+"JASMIN NEVES DA CONCEICAO CERQUEIRA",
+"JESSICA MARIA SILVA DE JESUS",
+"JOSE EDUARDO PAIXAO DOS SANTOS",
+"KAILA NATALIA DOS SANTOS CESQUIERA",
+"KAREN HELEN SANTANA BAHIANA",
+"KARYNI SANTANA MOTA",
+"KAUA ENZZO DO CARMO DEMAIO",
+"KAYLANA DE JESUS SANTOS",
+"KAYLANE SANTANA MOTA",
+"LAINAN FERREIRA MIRANDA",
+"LAURA LUIZA SANTANA DOS SANTOS",
+"LAYNE DOS SANTOS DE SANTANA",
+"LEONARDO SILVA PEREIRA",
+"LETICIA DOS SANTOS DE SANTANA",
+"LIANE VITORIA GONCALVES DOS SANTOS",
+"LUAN GABRIEL DA PAIXAO DOS SANTOS",
+"LUANE DA CRUZ CONCEICAO",
+"LUCIANE SANTOS DOS SANTOS",
+"LUIS FELIPE PEREIRA SANTOS",
+"LUIZ MANOEL CHAGAS DO ROSARIO",
+"MAISA DA HORA ROCHA",
+"MARIA JULIA ALVES DOS SANTOS PINTO",
+"MATEUS SILVA RIBEIRO",
+"MATHEUS DA SILVA SOUZA",
+"NIKOLAS MIRANDA BORGES",
+"PABLO ROCHA DE CARVALHO",
+"PEDRO ANUNCIACAO PEREIRA",
+"RICARDO BOTELHO CALHEIRA",
+"RONALDO",
+"SILAS DE ASSIS RAMOS",
+"SOPHIA LOREN SANTOS VALE",
+"STEFANO GABRIEL NASCIMENTO SANTOS",
+"TACIO DO NASCIMENTO GOMES",
+"THAIANE GABRIELLE SANTOS SOARES",
+"VALDINEI CONCEICAO DOS SANTOS",
+"WENDEL DA ENCARNACAO DE SOUZA",
+"WESLEY CAETANO DE JESUS",
+"WEVERTE SILVA SANTOS",
+"WILTON SILVA DE JESUS",
+"YANNE BEATRIZ COELHO SOUZA"
+]
+},
+{
+"nte": "NTE 22 - Jequié",
+"name": "EDUARDO FERNANDES LINO",
+"school": "COLEGIO ESTADUAL GILDA RAMOS DOS SANTOS",
+"students": [
+"ADAILTON RAMOS SOARES",
+"ALANA GABRIELLA CRUZ DOS SANTOS",
+"ALICE DE JESUS SANTIAGO",
+"ALISSA VITORIA SANTANA DIAS",
+"ANA BEATRIZ ARCANJO DOS SANTOS",
+"BARBARA SILVA CARVALHO",
+"CAROL SANTOS DE SOUZA",
+"CASSIELE SANTANA DE SOUZA",
+"CAYLA SANTOS DA CRUZ",
+"CLARA SANTANA MOREIRA",
+"CLARA SANTOS",
+"EDUARDO BRITO QUERINO",
+"EDUARDO DE JESUS SILVA",
+"ELOA SANTOS DE OLIVEIRA",
+"ELOYSA GONCALVES NASCIMENTO",
+"EMANUEL OLIVEIRA DE SANTANA",
+"EMERSON SANTOS BATISTA",
+"EMILY SENA SANTOS",
+"ESTEFANY DE JESUS DIAS",
+"EVELLYN VICTORIA ALVES DA SILVA",
+"FABIANO GOMES PEIXOTO",
+"FLAVIA HILDA SANTOS ROCHA",
+"GEOVANA APOSTOLO DO NASCIMENTO",
+"GUSTAVO SANTOS DE JESUS",
+"HERCULES DO CARMO COSTA",
+"IRYS DA SILVA MARCELO",
+"JAIRLAN JESUS SANTOS",
+"JEFERSON DE JESUS SANTOS",
+"JESSICA MIRANDA MENDES",
+"JHENNY SEYLLEN BATISTA SAMPAIO",
+"JONILSON EVANGELISTA",
+"JUCIETE OLIVEIRA DE SOUZA EVANGELISTA",
+"KELVY DOS SANTOS CALIXTO ALVES",
+"LARAH JAINE",
+"LARAH JAINE SILVA BASTOS",
+"LORRANE MARINHO DA SILVA",
+"LUAN DE ARAUJO SANTOS",
+"LUARA KAINNY COSTA SANTOS",
+"MARCOS ANTONIO XAVIER DOS SANTOS",
+"MARIA CLARA SANTOS OLIVEIRA",
+"MARIA FERNANDA DE OLIVEIRA CRUZ",
+"MARIA ISABEL FERREIRA DE JESUS",
+"MARINA SOUZA DA SILVA",
+"MARLY MENDES OLIVEIRA",
+"MATHEUS HENRIQUI CARDOSO ALVES DA SILVA",
+"MAURINA JESUS SANTOS",
+"NATIELE DE JESUS SANTOS",
+"PABLO RIBEIRO ALVES",
+"PHEROLLA XAVIER BARRETO",
+"RAFAEL SANTOS SILVA",
+"RAFAELA SILVA SOUZA",
+"RAI JESUS DAMACENA",
+"RAKEL CLIMENE LINHARES FLOZINI PEREIRA",
+"RENATA SILVA OLIVEIRA",
+"ROSINEIDE VIEIRA GOMES",
+"RUAN ALBERTINO OLIVEIRA",
+"TELISVAN OLIVEIRA GONZAGA",
+"THAISSA SANTOS DE FRANCA",
+"VAGNER SOUZA DOS SANTOS",
+"VICENTE ALFREDO SOARES DOS SANTOS",
+"VITORIA PEREIRA BORGES ARAUJO",
+"YASMIN SANTOS DA SILVA",
+"YVILI OLIVEIRA FELIX"
+]
+},
+{
+"nte": "NTE 22 - Jequié",
+"name": "PAULO HENRIQUE SOUZA SANTOS",
+"school": "COLEGIO DA POLICIA MILITAR - CPM PROFESSOR POETA LUIS NEVES COTRIM",
+"students": [
+"ARTHUR DE JESUS TRINDADE",
+"BRYAN DE PAULA DUARTE",
+"DAVI AUGUSTO DE OLIVEIRA GOTADO",
+"ENZO DE JESUS MOREIRA",
+"ENZO PIETRO AYADE ANDRADE",
+"FELIPE ALEC NASCIMENTO MIRANDA",
+"FELIPE VIEIRA FARIAS",
+"FILIPE VIEIRA DE OLIVEIRA SANTANA",
+"GABRIEL PIMENTEL CARVALHO",
+"GUSTAVO BRITO PASSOS",
+"HENRY MARCOS OLIVEIRA SANTOS",
+"ISADORA RAMOS ARAUJO",
+"JOAO PEDRO LEAL ROCHA",
+"JOAO PEDRO REIS MIRANDA",
+"KAUE THEODORO SANTANA SILVA",
+"LUIZ ROBERTO DOS SANTOS FILHO",
+"MARLON OLIVEIRA DOS SANTOS JUNIOR",
+"NICOLY SOUZA RIBEIRO",
+"PAULO NUNES DOS SANTOS JUNIOR",
+"PEDRO ALMEIDA DE SOUZA",
+"SAULO SILVA RIBEIRO",
+"STEPHANY VITORIA CARDOSO TEIXEIRA",
+"VITORIA GONCALVES PEREIRA SILVA",
+"YAGO MENDES ARGOLO"
+]
+},
+{
+"nte": "NTE 22 - Jequié",
+"name": "SAVIO LEAL OLIVEIRA",
+"school": "CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA",
+"students": [
+"ANALU RAIANE DA SILVA MARTINS",
+"JANICE DA SILVA MONTEIRO",
+"KAUA DA SILVA PIRES",
+"KAYLANE ALVES GOMES",
+"MARIA LUIZA FORTUNATO GONCALVES",
+"MIGUEL RIBEIRO NUNES",
+"NICOLLY GOMES DE MENDONCA",
+"RAQUEL LISBOA LOPES",
+"SUENIA DOMINIQUE DE ALMEIDA LIMA",
+"WENDEL DOS SANTOS FRANCA",
+"YASMIN SOUZA"
+]
+},
+{
+"nte": "NTE 23 - Santa Maria da Vitória",
+"name": "HIGOR PEREIRA DOS ANJOS",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL RUY BARBOSA",
+"students": [
+"ANDRESSA DE SOUZA SILVA",
+"EDNA VITORIA SOUZA DA CONCEICAO",
+"ELLEN SIVA SOUZA",
+"EMANUEL DE OLIVEIRA TONHA SILVA",
+"FANNY SOPHIA QUEIROZ CAIRES",
+"GLAUBERT RODRIGUES DE SOUZA",
+"HELAINE ELLEN SOUZA DOS ANJOS NETO",
+"HIAGO SOUZA DA SILVA",
+"IARLLEY QUEIROZ SANTOS",
+"ILANA EMYLIA MOREIRA MENDES",
+"ISABELA DOS ANJOS SANTANA",
+"JANIKELLY DE QUEIROZ SILVA",
+"KAIKE COSTA DE SOUZA",
+"KALEBE FLORES DE ALMEIDA",
+"KALLYEL SILVA DE SALES",
+"KARLLA ARAUJO SILVA",
+"KATIELLE DA CONCEICAO SALES",
+"KCLARA SOPHYA FERREIRA DOS ANJOS",
+"LESLIE COSTA E BRITO",
+"LUCAS ANTONIO MONTEIRO DO REGO",
+"MAICON DE ALMEIDA GONCALVES",
+"MARCELO REIS DA SILVA QUEIROZ",
+"MELISSA TRINDADE DE SOUZA",
+"MICHELLI SOUZA DO REGO",
+"PAMELA REBECA DE SOUSA COSTA",
+"PAULO SERGIO ARAUJO NASCIMENTO",
+"SAMARA MONTALVAO DOS SANTOS",
+"VITOR GABRIEL SANTOS SALES",
+"WANDERSON URSINO OLIVEIRA"
+]
+},
+{
+"nte": "NTE 24 - Paulo Afonso",
+"name": "ANTONIA PEREIRA DA SILVA",
+"school": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO",
+"students": [
+"ALBERTH HENRIQUE FERNANDES DE SOUZA",
+"ALINY KAUANY ALEXANDRE PIRES",
+"ANA BEATRIZ RIBEIRO",
+"ANDREA ALVES DOS SANTOS",
+"ARIANY CONCEICAO SILVA",
+"ARTHUR GOMES",
+"BARBARA SAMIRY DOS SANTOS",
+"BEATRIZ BELCHIOR DOS SANTOS",
+"BIANCA GOMES DA SILVA",
+"BRENDA ARYADNNA BARBOSA FRAGOSO",
+"CATARINA RIBEIRO DOS SANTOS",
+"DARLIENE KELY DA SILVA",
+"DEBORA LAIANE DA SILVA GOMES",
+"EDUARDA PIRES BARBOSA",
+"ELAINE MARIA DA SILVA SANTOS",
+"ELLYS REGINA DOS SANTOS SILVA",
+"EMERSON AUGUSTO DOS SANTOS LIMA",
+"GABRIEL SILVA CONCEICAO",
+"GABRIELY MARIA DA SILVA SA",
+"GEIZIELLE DOS SANTOS",
+"HELOISA ARAUJO CONCEICAO",
+"ICARO GABRIEL RIBEIRO GOMES",
+"ISIS GABRIELLY ARAUJO CONCEICAO",
+"ISLAYNE BARBOSA DOS SANTOS",
+"IZABELLA LUZIA SILVA MACIEL",
+"JHENIFER GABRIELLE BARBOSA GOMES",
+"JOAO PAULO BISPO DOS SANTOS",
+"KAIKY EVERTON ALVES DA SILVA",
+"KAIQUE",
+"KAREN MICKAELA DE CARVALHO DANTAS",
+"KETELY VITORIA BEZERRA GOMES",
+"KEZIA JAMILLY RIBEIRO DOS SANTOS",
+"LAYSE DE CARVALHO SANTOS",
+"LIVIA DA SILVA PEREIRA",
+"LUCAS DOS SANTOS CORREIA",
+"LUCIENE DE BARROS SILVA",
+"LUCLECIO RODRIGUES DA SILVA",
+"LUIS ANTONIO",
+"MAICON CAVALCANTI DE BARROS",
+"MAISA FERNANDA RIBEIRO SIMOES",
+"MARCELO DOS SANTOS NASCIMENTO",
+"MARIA CLARICE ALVES DA SILVA",
+"MARIA DE FATIMA DA SILVA CONCEICAO",
+"MARIA EDUARDA DOS SANTOS ARAUJO",
+"MARIA VICTORIA PEREIRA DOS SANTOS",
+"MARINA GOMES DE SA FERREIRA",
+"MARLA LETICIA SILVA ANDRADE",
+"MIKAEL DE CARVALHO DANTAS",
+"NATYELLE SABINA DOS REZES",
+"ORLANDODECARVALHOSANTOS",
+"RAISSA LORRANE DE OLIVEIRA",
+"RICLEY RYAN LOPES FERREIRA",
+"SAFIRA ALMEIDA DE OLIVEIRA",
+"SARA HENNYA PEREIRA DA SILVA",
+"THAYLA KAUANE",
+"VANESSA SOARES DOS SANTOS",
+"VICTOR HUGO RIBEIRO MOTA",
+"VITOR KAUE DA SILVA SANTOS",
+"WANDERSON GABRIEL BARBOSA SILVA",
+"YASMIM ALVES DE SOUZA",
+"YASMIM CONCEICAO DE SA"
+]
+},
+{
+"nte": "NTE 24 - Paulo Afonso",
+"name": "ANTONIO SALVE BATISTA",
+"school": "CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA",
+"students": [
+"ALICIA DA SILVA GONCALVES",
+"ANA VITORIA",
+"ANATALIA PIETRA DOS SANTOS",
+"ANE JOYCE SOARES PEREIRA",
+"ANTHONY PIETTRO ALVES DE SOUZA",
+"CAIO ALVES ARAUJO",
+"DAVID GABRIEL LOPES VIANA",
+"DEIVISON RYAN SANTOS SIQUEIRA",
+"ELLEN CRISTINA SILVA SANTOS",
+"EMANUEL PAIXAO DE MATOS",
+"EMANUELA CRISTINE SOARES DOS PASSOS",
+"EMILLY BEZERRA DA ROCHA",
+"EMILY OLIVEIRA MARQUES DOS SANTOS",
+"FABRICIO PEREIRA DE OLIVEIRA",
+"FELIPE MAIA",
+"GABRIELY VENTURA SILVA",
+"GESIELLE DA SILVA BARBOSA",
+"GLEYDSON EDUARDO SANTOS BARROS",
+"GUSTAVO DA SILVA COSTA",
+"GUSTAVO DA SILVA NASCIMENTO",
+"GUSTAVO DE OLIVEIRA FERREIRA",
+"INGRID JOCE TEIXEIRA DOS ANJOS",
+"ISABELLA NOGUEIRA MENEZES",
+"JAMILE BEZERRA EVANGELISTA DOS SANTOS",
+"JEFFERSON DOS SANTOS",
+"JENNIFER ESTELA DA SILVA ALVES",
+"JOSE MIGUEL BEZERRA DA CONCEICAO ALEXANDRE",
+"JUAN CARLOS ALMEIDA DA SILVA",
+"JULIA NAIARA ALVES GOMES",
+"JULIANE EMILY SANTOS RIBEIRO",
+"KAIQUE MATHEUS MACHADO DE LIMA",
+"KAMILLY VITORIA RODRIGUES MARQUES ARAUJO",
+"KAUA GAMA NUNES",
+"KAUA SOARES DOS SANTOS",
+"KAUE BATISTA RAMALHO",
+"KEVEN RAIN FERREIRA ANTUNES",
+"LAYANE MAIRA DE OLIVEIRA XAVIER",
+"LEONARDO CAVALCANTE BRITO",
+"LORENA SILVA",
+"LUCAS GABRIEL SILVA DE MOURA",
+"MAIRLA FERREIRA DA SILVA",
+"MARCOS VINICIUS DA SILVA VIEIRA",
+"MARIA CLARA DA CONCEICAO SILVA",
+"MARIA CLARA DA SILVA ALVES",
+"MARIA CLARA GOMES DA SILVA",
+"MARIA ISABELA ALVES DE LIMA",
+"MARIA ISADORA DE OLIVEIRA LEITE",
+"MARIA LUIZA CONCEICAO DE SOUZA",
+"MARIANI CHAVES FERREIRA DE SOUZA",
+"MATEUS ALVES TEIXEIRA",
+"NAYLA YASMIM SOUSA SILVA",
+"PAMELA SAFIRA SANTOS FERREIRA",
+"PEDRO COATE DA SILVA ALVES MACEDO",
+"SAMILLY DA SILVA NASCIMENTO",
+"SAMUEL HENRIQUE MATIAS DOS SANTOS",
+"SHAIANE YASMIM SILVA DOS SANTOS",
+"TAINA GOMES DA SILVA",
+"VANDSON LIMA BARBOSA",
+"VICTOR VINICIUS CORDEIRO SILVA",
+"VINICIUS PEREIRA DA SILVA",
+"VITORIA GABRIELA RIBEIRO VIANA",
+"WANE CAROLINE",
+"YAN GUSTAVO DO AMARAL DORIA",
+"YASMIN SILVA DE SA",
+"YURI ALEXANDRE SILVA"
+]
+},
+{
+"nte": "NTE 24 - Paulo Afonso",
+"name": "CLAUDIA BEZERRA DOS SANTOS MONTEIRO",
+"school": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO",
+"students": [
+"ALICIA SANTOS POSSIDONIO",
+"ANA BEATRIZ LIMA CERQUEIRA",
+"ANA CLARA DA SILVA GOMES",
+"ANA GABRIELA BARROS DA SILVA",
+"ANA JULIA DOS SANTOS ZEFERINO",
+"ANA LUCIA",
+"ANNY RAKELLY RODRIGUES FRAGOSO",
+"ANTHONY GABRIEL DO NASCIMENTO PEREIRA",
+"ANTONIO RIAN DOS SANTOS DIAS",
+"ARICIA MARRY DOS SANTOS MOTA",
+"ARIEL",
+"AYLA GLEISYANE MENDES PEREIRA",
+"BRENO PIRES DOS SANTOS",
+"CAIO FRANCISCO LIMA DOS SANTOS",
+"CAMILA LIMA DE SA",
+"CARLOS EDUARDO DE ARAUJO DA SILVA",
+"CAROLAINE BARBOSA DA SILVA",
+"CAUANE ARAUJO SILVA",
+"CHRISTIAN APOLO RAMOS DE SOUZA",
+"DAFNE PEREIRA NASCIMENTO",
+"DALLYSSOM CAUE CONCEICAO DOS SANTOS",
+"DANIEL CONCEICAO DA SILVA",
+"DANIEL VICTOR GOMES MOTA",
+"DEIVID CAUAN DOS SANTOS",
+"EDNA VICTORIA DA SILVA SANTOS",
+"ELOA DE OLIVEIRA ALVES",
+"ERICK DOS SANTOS ALMEIDA",
+"ERIKA POSSIDONIO DOS SANTOS",
+"FERNANDO ARAUJO DA SILVA",
+"FERNANDO GOMES",
+"FLAVIA SILVA DE ALMEIDA",
+"FREDSON DOS SANTOS EVANGELISTA",
+"GEOVANE DOS SANTOS SOARES",
+"GLEYDSON EZEQUIAS DA SILVA BARBOSA",
+"GRAZIELY ARAUJO DA SILVA",
+"HELEN THAINA CONCEICAO DOS SANTOS",
+"HIGO BARBOSA DE ALMEIDA",
+"IGO SIMOES SILVA PAIVA FILHO",
+"IRIS GABRIELLE SOBREIRA DE ANDRADE ARRUDA",
+"ISABELLE CONCEICAO DOS SANTOS",
+"ITALA RAIANY ANDRADE BARBOSA",
+"JANIELE BARBOSA DOS SANTOS",
+"JOHNATA GABRIEL DE SA PAIVA",
+"JOHNATAN HENRIQUE DOS SANTOS PEREIRA",
+"JOSE VITOR ARAUJO MELO",
+"KAROL SILVA SANTOS",
+"LARA VALENTINNI ARAUJO SANTOS",
+"LAYRA NASCIMENTO RODRIGUES",
+"LUCAS ANDREY BARBOSA AGUIAR",
+"LUCAS BARBOSA DE ARAUJO",
+"LUCAS MOISES",
+"LUCAS RODRIGUES DE SA",
+"LUIZ GUSTAVO DA SILVA BARBOSA",
+"MARA JANIELE DOS SANTOS",
+"MARIA ALICIA CONCEICAO DA SILVA",
+"MARIA LUISA DA SILVA LOPES",
+"MARLOS BARBOSA DA CRUZ",
+"MATHEUS BARBOSA JERICO",
+"MICAELLY DE LIMA TOLENTINO",
+"MURILO BARBOSA PAIVA",
+"NEIVER SUELEN CONCEICAO SANTOS",
+"NICOLLY DOS SANTOS BATISTA",
+"REGINA RAFAELA RODRIGUES FRAGOSO",
+"RENAN DA SILVA GOMES",
+"RENATA SANTANA SOARES DOS SANTOS",
+"RITHA DE KASSYA DOS SANTOS NASCIMENTO",
+"RONIELTON BARBOSA DOS SANTOS",
+"RUAN DOS SANTOS DANTAS",
+"SABRINA RIBEIRO PEREIRA",
+"SARAH REBEKA BEZERRA MONTEIRO",
+"SILAS BARBOSA CARVALHO",
+"VICTOR RIBEIRO",
+"VITOR BARBOSA RODRIGUES",
+"VITOR GABRIEL BATISTA DA SILVA",
+"VITOR PAIVA FAGUNDES",
+"WANDERSON PAIXAO MAIA DOS SANTOS",
+"WANNE NATHIELE DA SILVA LIMA",
+"YASMIM ARAUJO ZEFERINO",
+"YASMIM CARVALHO SILVA"
+]
+},
+{
+"nte": "NTE 24 - Paulo Afonso",
+"name": "ELISVANE NEIDE DOS SANTOS",
+"school": "COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSIDÔNIO",
+"students": [
+"ANA CLARA CONCEICAO DE SA",
+"ANA CLARA NASCIMENTO SILVA",
+"ANA LUIZA DA SILVA GOMES",
+"ANDRE WILK OLIVEIRA DOS SANTOS",
+"ANTONIA TEIXEIRA DANTAS NETA",
+"ANTONIO VICTOR DA SILVA TOLENTINO",
+"ARIANE MAIA DOS SANTOS",
+"CAMILA RIBEIRO SIMOES",
+"CARLOS EDUARDO SANTOS PAIVA",
+"CARLOS HENRIQUE RIBEIRO",
+"CAUA CEZAR RODRIGUES EVANGELISTA",
+"CELINA EMANUELLE ARAUJO DA SILVA",
+"CLARISSA LORRANE BARROS CAVALCANTE",
+"ELDER GUSTAVO DE SA PAIVA",
+"EMANUELA DOS SANTOS RODRIGUES",
+"EMMILI THAIZ RIBEIRO SILVA",
+"FELIPE PEREIRA TOLENTINO",
+"FRANCIELLY DOS SANTOS SILVA",
+"FRANCISCO MARTINS VIANA",
+"GABRIELY SANTOS DOS ANJOS",
+"GUSTAVO BARBOSA DA SILVA",
+"JOAO PAULO DIAS POSSIDONIO",
+"KAMILE RAIANE DA SILVA POSSIDONIO",
+"LARISSA DA SILVA BARBOSA",
+"LUIS FELIPE DE OLIVEIRA MOTA",
+"MARIA CLARA DE OLIVEIRA MENEZES",
+"MARIA CLARA SILVA BARBOSA",
+"MARIA INES DOS SANTOS SILVA",
+"MARIA RITA DE MORAIS NASCIMENTO",
+"MARIAIZABELABARBOZACARVALHO",
+"MATEUS SOARES DA SILVA",
+"MONICA PIRES CAPISTANO",
+"PRISCILA DA SILVA MAIA",
+"RAFAELA MARGARIDA MACIEL MACHADO",
+"RAFAELA SILVA LIMA",
+"RAISSA PEREIRA DA SILVA",
+"RAUL VICTOR DE MELO SILVA",
+"THAINA DA SILVA OLIVEIRA",
+"VICTOR EMANUEL ALVES MAIA",
+"VITOR EMANUEL RODRIGUES DOS SANTOS"
+]
+},
+{
+"nte": "NTE 24 - Paulo Afonso",
+"name": "MAISA COSTA DA ENCARNACAO",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL QUITERIA MARIA DE JESUS",
+"students": [
+"ADRIAN ALVES DA SILVA VIEIRA",
+"ADRIELY GOMES DE OLIVEIRA LISBOA",
+"ADRYAN NOIA GOMES",
+"ALESSANDRO FERREIRA ALVES",
+"AMANDA RADIJA ANDRADE SILVA",
+"ANA CLARA CAMPOS ALBUQUERQUE SILVA",
+"ANNE BEATRIZ DA SILVA LIMA",
+"ANTONIO MARCOS ALVES DA SILVA",
+"CAIO CESAR BRAZ DA SILVA",
+"CARLOS ANTONIO DOS SANTOS FERREIRA",
+"CARLOS EDUARDO FARIAS DE OLIVEIRA",
+"CICERO LUAN CAVALCANTE DE SOUZA",
+"CLARISSE NASCIMENTO SILVA",
+"CLEBERTON OZIEL FERREIRA DA SILVA",
+"DENYSON CORREIA DOS ANJOS",
+"DOUGLAS ALVES DOS SANTOS",
+"EDSON GALDINO DA SILVA",
+"EDSON MANOEL DA SILVA",
+"EDUARDO SOUZA OLIVEIRA",
+"EMERSON GOMES DE SOUZA",
+"EMILLY SILVA DE SOUZA",
+"EMILY GRAZIELY ROCHA DOS SANTOS",
+"EMILY PEREIRA PORTO",
+"ERIKSON TORRES DE MEDEIROS",
+"EXPEDITO GOMES DA SILVA",
+"FELIPE DA SILVA ALMEIDA",
+"FELIPE SANTOS COSTAS",
+"GABRIEL DE ALCANTARA ANJOS",
+"GABRIEL SILVA DOS SANTOS",
+"GABRIELE BEZERRA RODRIGUES",
+"GRAZIELE MUNIZ MONTEIRO",
+"GUILHERME BARBOSA DOS SANTOS",
+"GUILHERME KAEFER ROCHA",
+"GUSTAVO LUIZ CAMPOS ALBUQUERQUE SILVA",
+"HEBERT GUSTAVO GOMES SIQUEIRA",
+"HELOAR DA SILVA FILHA",
+"IAGO MARCELINO SANTOS SILVA",
+"JOANDERSON CELSO SERAFIM DA SILVA",
+"JOAO AUGUSTO DA SILVA NETO",
+"JOAO PEDRO ALMEIDA SILVA DE SA",
+"JOAO VICTOR TEIXEIRA NASCIMENTO",
+"JOAO VITOR DA SILVA SANTOS",
+"JOSAFA MANOEL DA SILVA FILHO",
+"JOSE RODRIGO RODRIGUES DA SILVA",
+"JOSE WENDERSON SANTOS SILVA",
+"JULIA DA SILVA CAMPOS ALBUQUERQUE",
+"JULIA NAARA ALVES DE FARIAS",
+"KAUA FRANCISCO DE SOUZA SILVA",
+"KAUANNY CASTRO DA SILVA",
+"KETHYN GOMES DA SILVA MIRO",
+"LAILA MAIANE SILVA SANTANA",
+"LETICIA FIRMINO DA SILVA SANTOS",
+"LUCIANA SOARES DOS SANTOS",
+"LUIZ FERNANDO SILVA GOMES",
+"MAIARA CARVALHO DOS SANTOS",
+"MANOELA ALVES NEVES DA SILVA",
+"MARCIA REGINA DE SOUZA SANTOS",
+"MARCIEL OLIVEIRA RAMIRO",
+"MARIA CLARA FRANCA PONTES",
+"MARIA JULIA DE MELO ROCHA",
+"MARIA MICHAELLY CARVALHO DA SILVA",
+"MARIA VITORIA DE ARAUJO LEMOS",
+"MATEUS GABRIEL DA SILVA",
+"MATHEUS ALVES DE OLIVEIRA",
+"MATHEUS NUNES ALVES",
+"NICOLE SANTOS DA SILVA",
+"PAMELA VITORIA LIMA GADELHA",
+"PEDRO HENRICK RODRIQUES SOUZA",
+"RAFAELA DE SOUZA",
+"RAIANY MIRELA DAMASIO DA SILVA",
+"RIAN MENEZES RODRIGUES",
+"RICKELMY MATEUS PEREIRA",
+"ROBERTA SANTOS DA SILVA",
+"SAMUEL JOADSON FIDELIS DA SILVA",
+"TAINY XAVIER DA SILVA",
+"THAUANY DA SILVA CIPRIANO",
+"THIAGO GOMES DA SILVA",
+"VITOR OTONIEL BATISTA ALVES",
+"WANDSON DE OLIVEIRA GOMES",
+"WELIDA SARAH GOMES RODRIGUES",
+"WESLEY RAI RODRIGUES DOS SANTOS",
+"YZES KAROLINE PEREIRA DA SILVA"
+]
+},
+{
+"nte": "NTE 25 - Senhor do Bonfim",
+"name": "SUZANA SANTOS JATOBA",
+"school": "COL. EST. QUILOMBOLA DE SAO TOME - BREJAO DA CAATINGA - ANEXO",
+"students": [
+"ANA CARLA DOS SANTOS DA SILVA",
+"ANA CAROLINY OLIVEIRA SANTOS SILVA",
+"ANTONIO SILVA NETO",
+"CARLOS ADRIANO RIBEIRO DE SOUZA",
+"CAUA FERREIRA VIEIRA DE SOUZA",
+"DAFFNE VITORIA DE SOUZA DO AMORIM",
+"DAISA SOARES DE JESUS",
+"JAILMA VIEIRA UMBUZEIRO",
+"JAMERSON HUGO SOUZA DOS SANTOS",
+"JONATAS MIRANDA",
+"KEDILY KAUANY DE JESUS SANTOS",
+"KETLIN CAROLINE DA SILVA DA CRUZ",
+"KETTLY KAUANNY SANTOS",
+"MARCELA JATOBA DOS SANTOS",
+"RAIANE GOMES DO NASCIMENTO"
+]
+},
+{
+"nte": "NTE 26 - Salvador",
+"name": "CLAUDIA DE FARIA BARBOSA",
+"school": "COLEGIO ESTADUAL DINAH GONCALVES",
+"students": [
+"ALICE VITORIA COUTINHO DE JESUS",
+"BEATRIZ OLIVEIRA DE SOUZA",
+"CIBELLE DA SILVA CRUZ",
+"EDUARDO DE SOUZA DOS SANTOS",
+"ELOA QUEIROZ MENDES",
+"EMANUEL DOS SANTOS SANTOS",
+"ENZO DE BRITO SANTOS",
+"GIOVANA VIRGINIO DA SILVA",
+"GRAZIELLA DE JESUS FERREIRA MACHADO",
+"GUILHERME ERNANDE SANTOS DE MATOS",
+"ILANA SANTOS CARNEIRO",
+"IURE FELIPE SANTOS SILVA",
+"JOAO LUCAS PEREIRA SANTOS DA CRUZ",
+"JOSE VICTOR SOUSA RIOS",
+"KAIQUE NASCIMENTO DOS SANTOS",
+"KAROL NUNES BONFIM",
+"LARYSSA CRISTINA SILVA DE OLIVEIRA",
+"MAIZA CONCEICAO OLIVEIRA",
+"MARIA LUIZA JONKO SANTOS",
+"MARILSON ALMEIDA DE JESUS",
+"NICOLE DE CARVALHO BOMFIM",
+"PEROLA ASSIS ARAUJO",
+"RAFAELA DE SOUZA DA SILVA",
+"REINAN GASPAR DA SILVA",
+"ROSANA BISPO AMARAL",
+"SAMUEL OLIVEIRA DA SILVA",
+"STEFANE SANTOS SOUZA",
+"YASMIN PINHEIRO NOVAES"
+]
+},
+{
+"nte": "NTE 26 - Salvador",
+"name": "DAILA ATAIDE DOS SANTOS",
+"school": "COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA",
+"students": [
+"AIANE JAULA SANTOS BRITO",
+"ALESSANDRO LEITE DOS SANTOS",
+"ANA LUIZA LARANJEIRA CARVALHO",
+"ANDREY BERNARDO SILVA DE SOUSA",
+"DANIELLE SOUSA BARRETO",
+"DANILLO GIANNI SANTOS DANTAS",
+"EFRAIM AZEVEDO SANTOS",
+"ENZO GABRIEL ALMEIDA BORGES",
+"ENZO REIS NEVES",
+"ESDRAS DO SACRAMENTO CERQUEIRA",
+"FABRICIO SAMUEL SANTOS OLIVEIRA DE ARAUJO",
+"FRED REINAN DA SILVA OLIVEIRA",
+"JOADSON CARDOSO NONATO",
+"JOANDERSON DE JESUS SANTOS",
+"JONATAS FILIPE VIEIRA DA SILVA",
+"JONATHA MENEZES DE ASSIS",
+"JULIA ARAUJO ALCANTARA DOS SANTOS",
+"KARINE SILVA SANTOS SOUSA CRUZ",
+"LUIS FILIPE FERREIRA RAMOS",
+"LUIZ ANTONIO FARIAS LEITE",
+"MARCOS KAUA BRITO DOS SANTOS",
+"MARCUS EDUARDO RAMOS RIBEIRO",
+"MARIA CLARA LIMA DE JESUS",
+"MARIA EDUARDA SILVA DE ALMEIDA",
+"MARIA LETICIA DOS SANTOS MAGALHAES",
+"MIRIAN SANTOS LEITE",
+"PAOLA FERNANDES DE MATOS SILVA",
+"RAFAEL DE SOUZA GALIZA",
+"YURI GUILHERME SANTOS DE OLIVEIRA"
+]
+},
+{
+"nte": "NTE 26 - Salvador",
+"name": "DENILSON MIGUEL SILVA",
+"school": "COLEGIO ESTADUAL DE TEMPO INTEGRAL ERNESTO CARNEIRO RIBEIRO",
+"students": [
+"ALESSANDRA CRUZ DOS SANTOS",
+"ANANDA VITORIA DE OLIVEREIRA SOARES COSTA",
+"CAIO JOHNSON MONTEIRO DE JESUS",
+"CATIANE SANTOS DA SILVA",
+"CLEYTON DA MOTA REIS SOUSA",
+"CRISTIANA VITORIA MONTEIRO SANTOS",
+"EICON SANTANA COUTINHO",
+"EMANOEL DOS SANTOS ANUNCIACAO",
+"EVERALDO MONTIVAL DOS SANTOS NETO",
+"ILLANA DE DEUS SENA",
+"ISABELLA SILVA DE DEUS",
+"ISAQUE MUNIZ SANTANA",
+"JUAN CARLOS CRUZ SANTOS",
+"KAYLA VITORIA ARAUJO GALRAO",
+"KEILA SANTOS PIRES",
+"LUAN PEDRO DE JESUS PINTO",
+"LUIZA SILVA SOUZA",
+"MARIA CLARA MONTEIRO DE SANTANA",
+"MAYANA SILVA SANTANA",
+"MICAELA COSTA CAVALCANTE",
+"MIRELLA COSTA CAVALCANTE",
+"PEDRO VITOR SANTANA SANTOS",
+"POLIANA SOUZA AMORIM",
+"THAILA VITORIA SANTOS OLIVEIRA"
+]
+},
+{
+"nte": "NTE 26 - Salvador",
+"name": "EDEMIR BRASIL FERREIRA",
+"school": "COLEGIO ESTADUAL CLERISTON ANDRADE TEMPO INTEGRAL",
+"students": [
+"ADRIANA BRAGA SANTOS",
+"ALANA MONIQUE OLIVEIRA DOS SANTOS",
+"ALANA OLIVEIRA DA SILVA",
+"ALTAIZA CAMPOS SACRAMENTO",
+"ANA CLARA ARAUJO FERREIRA",
+"ANDREIA FERREIRA DOS SANTOS DE MELO",
+"ANDREZA SOARES",
+"ANILDETE BACELAR DE SOUZA RAMOS",
+"BARBARA KAREN ALMEIDA",
+"BEATRIZ SANTOS",
+"CINTIA LEA DE ALCANTARA BARBOSA",
+"CLAUDIO SILVA DE JESUS",
+"CREMILDA ROCHA DE CARVALHO",
+"DEBORA SANTOS DO CARMO",
+"EDEMIR",
+"ELIOMAR SANTOS CONCEICAO",
+"ERIC DE SANTANA BARROS",
+"FRANKLIN LEONE GOMES FERREIRA",
+"GICELIA OLIVEIRA MACEDO",
+"GILVANILDO RAMOS CUNHA",
+"GILVONADIA JESUS DA SILVA",
+"INDIRA CONCEICAO DA SILVA",
+"IRIS DE JESUS NUNES DOS SANTOS",
+"IVANILDES SOARES SANTOS",
+"JANETE DOS SANTOS DE CAMPOS",
+"JESSICA DA SILVA ANDRADE",
+"JESSIELE DA SILVA ANDRADE",
+"JOSELITA NASCIMENTO",
+"JOSENAIDE DOS SANTOS NASCIMENTO",
+"LAISE DE SANTANA CONCEICAO",
+"LINDALVA MARIANA DA SILVA",
+"LUAN",
+"LUAN CRISTIAN DA CRUZ SANTOS",
+"LUAN HENRIQUE NASCIMENTO ARAUJO",
+"LUCAS SILVA SANTANA",
+"MARIA DA CONCEICAO SANTOS ALVES",
+"MARIA DOMINGAS ARAUJO DOS SANTOS",
+"MARIA EDUARDA DE PAULA SANTOS",
+"MARIA VIANEY MENDES DE ALMEIDA",
+"MARISTELA SANTOS OLIVEIRA",
+"MILEDE DA CONCEICAO PASSOS",
+"NATALIA AZEVEDO",
+"NICOLLE",
+"PATRICIA VIRGINIA ALMEIDA NASCIMENTO",
+"REBECA SANTOS SILVA",
+"RENATA ANDREZA JESUS DOS SANTOS",
+"ROBERLENE REIS MOTTA DE JESUS",
+"SANDE CLEIDE DE SANTANA BOMFIM",
+"TAINA VIRGINIA ALMEIDA COUTINHO",
+"TALISSON",
+"TALISSON LEITE DOS SANTOS OLIVEIRA",
+"TATEANE NUNES BRITO DE JESUS",
+"TATIANA LEMOS GOMES",
+"TATIANE NUNES BRITO DE JESUS",
+"UESLEI PASSOS PEREIRA",
+"VALDIRENE DA ROCHA MARTINS",
+"VALESKA OLIVEIRA",
+"VANESSA NUNES DE JESUS",
+"VANIA",
+"VANIA BATISTA CARDOSO",
+"VITORIA DAS VIRGENS PINHO",
+"YASMIN NASCIMENTO SANTOS DE ALMEIDA"
+]
+},
+{
+"nte": "NTE 26 - Salvador",
+"name": "ERIKA ARAUJO SANTANA DIMAS",
+"school": "CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA",
+"students": [
+"ADMA MAIANA SOUZA DA CONCEICAO",
+"AMANDA TAISSA SANTOS DOS SANTOS",
+"ANA KEZIA RODRIGUES DE MELO",
+"ANA LUIZA VIEIRA DO NASCIMENTO",
+"ANDRE HENRY JESUS SANTOS",
+"BRENDA SOUSA DE QUEIROS",
+"CAUAN SANTOS TELES",
+"CAUANE SANTOS TELES",
+"CLARA SILVA SANTOS DO NASCIMENTO",
+"CRISTIANE SILVA CRUZ BOAVENTURA",
+"CRISTIANO MARINHO SILVA",
+"DAVI DE SOUZA ABREU DUARTE",
+"FERNANDA VITORIA SANTANA CALDAS",
+"GERSON LEITE DA SILVA NETO",
+"GUILHERME ARTHUR OLIVEIRA BOMFIM MENEZES",
+"HENRY HESDRAS BURY DA CUNHA SANTOS",
+"IAGO DAVI SANTANA SANTOS OSORIO",
+"JADE CRISTINE DE JESUS SANTIAGO",
+"JESSICA FALHEIRO SANTOS",
+"JULIA DIAS GABRIEL",
+"KAILANE CRISTINA SILVA RODRIGUES",
+"KAILARA CRISTINA SILVA RODRIGUES",
+"KEVIN LUIZ SANTOS MONTEIRO",
+"LARISSA BATISTA DA SILVA MENESES",
+"LAYANA KELLY DOS SANTOS GABRIEL",
+"LUA GABRIELLI SOUZA VIGNOLA",
+"LUCCA IANNINI",
+"LUIZ OTAVIO ANDRADE SOUZA",
+"LUNA GOMES ALVES",
+"MAIZA CRUZ SILVA DA PAIXAO",
+"MARIA CLARA SANTOS MUNIZ DE CARVALHO",
+"MARIA JULIA MARTINS OLIVEIRA",
+"MARIANA CAROLINA SANTOS RAMOS",
+"MURILO BARRETO COSTA DOS SANTOS",
+"PAMELA BRUNA SANTIAGO SILVA",
+"PEDRO VINICIUS DOS SANTOS TELES",
+"RAQUELE SILVA TELES",
+"REBECA DA SILVA",
+"RENAN RODRIGUES CARDOSO SANTOS",
+"ROMULO",
+"SABRINA NASCIMENTO OLIVEIRA DA SILVA",
+"SARAH VITORIA DE SANTANA ANDRADE",
+"TIFANI SANTOS COSTA",
+"VITORIA CAUANE OLIVEIRA CAVALCANTI",
+"YASMIN SANTOS CARVALHO"
+]
+},
+{
+"nte": "NTE 27 - Eunápolis",
+"name": "CONSEPION DIAS DA COSTA",
+"school": "COLEGIO ESTADUAL JESUS MOURA",
+"students": [
+"ABEL LOPES",
+"ADONIAS JESUS SOUZA",
+"ALANA MENEZES",
+"ALERRANDRO PIEDRO REIS DE SANTANA",
+"ALESON MENEZES MELO",
+"ALYFFI FERREIRA DA SILVA",
+"ALZICASSIA ALVES DOS SANTOS",
+"ANA BEATRIZ SANTOS DA SILVA",
+"ANA FLAVIA DE OLIVEIRA SOUZA",
+"ANA HELUYSA DE SOUZA OLIVEIRA",
+"ANA JULIA SANTOS DIAS",
+"ANA LAURA FERREIRA PIAS",
+"ANDERSON DOS SANTOS DE SOUZA",
+"ANDRE MEDEIROS ARAUJO",
+"ANGELINA BATISTA CAMPOS",
+"ANNA CAROLINY SOUZA PINHEIRO",
+"ANNA CLARA SANT ANA MORAIS",
+"ANNA CLARA SANTANA MORAIS",
+"ANNA CLARA SANTANA MORAIS SANTANA MORAIS",
+"ANNA JULYA LISBOA DA SILVA",
+"ANNA LIVIA COSTA SANTOS",
+"ARLINDO SOUZA DA SILVA",
+"ARTHUR DE OLIVEIRA SANTOS",
+"ARTHUR LEANDRO NASCIMENTO",
+"AYRTON RODRIGUES MENEZES",
+"BEATRINY SOUZA LIMA",
+"BEATRIZ CHAGAS SERRA",
+"BENICIO LIMA CARVALHO",
+"BENICIO VENANCIO LIMA",
+"BIANCA PORTO BIANCHINE",
+"BRUNA SANTOS SOUZA",
+"CARLOS HENRIQUE DOS SANTOS SOUZA",
+"CELIA PINHEIRO MEIRA",
+"CLARA BEATRIZ ALMEIDA DIAS",
+"CLARA STEFANY",
+"CLARA STEFANY DE JESUS SOUZA",
+"CLARICE AZEVEDO CALDEIRA",
+"DANIEL DE JESUS TEIXEIRA",
+"DANIEL FERREIRA SANTOS",
+"DANYEL DE JESUS SANTOS",
+"DAVI CALDEIRA COELHO",
+"DAVI MENESES RODRIGUES",
+"DAVI PEREIRA AGRA",
+"DAVID BECKHAM DE SOUZA OLIVEIRA",
+"DHARA GONCALVES VIEIRA BERNADES",
+"DHEMILLY PEREIRA SILVA",
+"DHENIFER KAILA OLIVEIRA BARROS",
+"EDICLEIA COSTA OLIVEIRA",
+"EISHYLLA CARDOSO DA ROCHA",
+"ELIANE DE JESUS SOUZA",
+"ELIANE OLIVEIRA LIMA",
+"ELOA RODRIGUES GOMES",
+"EMILLY SANTOS BRITO",
+"EMILY DA SILVA SANTOS",
+"ENZO GABRIEL PEREIRA DE ALMEIDA",
+"ENZO LIMA MARTINS",
+"GABRIEL CABRAL DA SILVA",
+"GABRIEL RODRIGUES SANTOS",
+"GABRIEL SANTOS LIONATO",
+"GEOVANNA SILVA MELO",
+"GERIENE SANTOS SOUZA",
+"GIOVANNA GOMES ALVES",
+"GLEICIELLE SOUZA SANTOS",
+"GLEYCE EMILY SANTOS",
+"GUILHERME DE OLIVEIRA FIGUEIREDO",
+"GUSTAVO CABRAL DOS SANTOS",
+"GUSTAVO VIANA PINTO",
+"HELOYSA DE ALMEIDA LIMA",
+"HELOYZA RODRIGUES SANTOS",
+"HEVELIN SILVA COSTA",
+"HEVILLY SANTOS PEREIRA",
+"HILARY RESENDE DOS SANTOS",
+"IARLLE SANTOS DE SANTANA",
+"INGLID SANTOS SILVA",
+"ISABELLA MOTA SANTOS",
+"ISACK PIETRO SILVA COUTINHO",
+"IURY SANTOS SILVA",
+"JAMILY INACIO DE ALMEIDA SILVA",
+"JAMILY VALERIO MEDINA",
+"JEFTE SILVA COSTA",
+"JESSICA ALEXANDRINO DE PAULA",
+"JHON HERBERT SOARES BATISTA",
+"JOAB SANTOS BRITO",
+"JOAO GUILHERME SILVA SANTOS",
+"JOAO PEDRO RIBEIRO TEIXEIRA",
+"JOELMA OLIVEIRA SILVA",
+"JOSE HENRIQUE OLIVEIRA PINHEIRO",
+"JULIANA MENDES DE JESUS",
+"KAMILA COSTA SANTOS",
+"KAMILLY SOUZA OLIVEIRA",
+"KAUAN RODRIGUES SANTOS",
+"KEISE MARIA SILVA MARES",
+"KENDELLY VITORIA XAVIER SANTOS",
+"KLEBE SANTOS DOS ANJOS",
+"LAIS DE JESUS SILVA",
+"LARA MENEZES SANTANA",
+"LAVINIA LIMA SANTOS",
+"LIVYA HELLEN DE JESUS DE PAULA",
+"LOIS LANE MARQUES DE OLIVEIRA",
+"LUANA RAMOS SOUZA",
+"LUDMILLA REIS BOMFIM",
+"LUIDSON VASCONCELOS DE SENA",
+"LUINE VITORIA PEREIRA NASCIMENTO",
+"LUIZRODRIGUESDEPASSOSFILHO",
+"MARCOS PAULO SANTOS SOUZA",
+"MARIA APARECIDA BATISTA ALVES",
+"MARIA APARECIDA BATISTA ALVES MA",
+"MARIA EDUARDA GOMES COSTA",
+"MARIA EDUARDA SOUZA BATISTA",
+"MATHEUS MENDES COSTA",
+"MATHEUS SOUZA ALMEIDA",
+"MAURICELIA RAMOS DA SILVA",
+"MELISSA LEAL PEREIRA",
+"MESSI SANTOS DE JESUS",
+"MILENA SOARES DE CALDAS",
+"MIRELLA PEREIRA VICTOR",
+"MOZART MENDES EVANGELISTA",
+"NAIARA SILVA ARAUJO",
+"NATIANE RAMOS COSTA",
+"NATIELE RAMOS COSTA",
+"NILS KAIO",
+"PAOLLA OLIVEIRA SANTOS",
+"PEDRO ANTONIO ELES MONIZ",
+"PEDRO HENRIQUE NUNES SANTOS",
+"PEDRO PAULO DE JESUS SOUZA",
+"PHYETRO FERREIRA SOUZA",
+"RAFAELLY MARES FERREIRA",
+"RAISSA PEREIRA DIAS",
+"RAKELLE DA SILVA DE JESUS",
+"RANIA OLIVEIRA DE JESUS",
+"RAQUEL DE SOUZA SANTANA",
+"REGIANE DE JESUS SANTOS",
+"RILLARY",
+"RYAN ROCHA PEREIRA",
+"SAMA SILVA RODRIGUES",
+"SAMILE DE JESUS SILVA",
+"SYMON SANTOS ARRUDA",
+"TABITHA SOUZA ALMEIDA",
+"TALITA SOUZA",
+"TAMIRES ANDRADE SELES",
+"THALINY CAMPOS BRITO",
+"THAYS RIBEIRO DA SILVA",
+"THIAGO SALOMAO REIS",
+"TIAGO GOMES DE JESUS",
+"VICTOR ROCHA BAIAO",
+"VITORIA SANTANA ALMEIDA",
+"WARLEY TAVARES SANTOS",
+"WILKY FERRAZ SOUZA",
+"YSAELLE MEIRA RODRIGUES"
+]
+},
+{
+"nte": "NTE 27 - Eunápolis",
+"name": "GLAUBER CASSIMIRO SANTOS GUIRRA",
+"school": "COLEGIO ESTADUAL ELOYNA BARRADAS",
+"students": [
+"ALERRANDRO RODRIGUES DA SILVA",
+"ANA BEATRIZ DE JESUS PESSOA",
+"ANA CARLA VIANA DOS SANTOS",
+"ANA FLAVIA CARVALHO GOMES",
+"ANA LUCIA OLIVEIRA DOS SANTOS",
+"ANDERSON OLIVEIRA SANTOS",
+"ARTHUR SANTANA MATOS DOS SANTOS",
+"BARBARA NICOLY SILVA SANTOS",
+"BRUNO DOS SANTOS COSTA",
+"CAIO SILVA",
+"DANIEL PEREIRA NASCIMENTO",
+"DIOGO PAIXAO DO CARMO",
+"ENTONY DE JESUS RIBEIRO",
+"ESMERALDA DE JESUS SANTOS",
+"ESTHER ARAGAO GOMES",
+"EVELIN SABRINA CRUZ OLIVEIRA",
+"EVELLYN MELO DE SOUZA",
+"GABRIELLY NASCIMENTO DA SILVA",
+"GENIVAN SANTOS FERREIRA",
+"GIULIA FELIX VIANA",
+"HENRIQUECOUTINHOALMEIDA",
+"HUGO ROCHA DA CONCEICAO",
+"ISE DOS SANTOS SOUZA",
+"JULIANE DA CONCEICAO BARBOSA",
+"KAMYLLE VITORIA ROCHA OLIVEIRA",
+"KAROLINE SOUZA CARDOSO",
+"KAUA ARAUJO RODRIGUES",
+"LAZARO MOTA SOARES",
+"LORRAN ANDRADE LORENCINI",
+"MARIA EDUARDA RODRIGUES SANTOS",
+"MARIA EDUARDA SOUZA DE OLIVEIRA",
+"MARIANA DE SOUZA SILVA",
+"MATHEUS ALEXANDRE MAGALHAES RIBEIRO",
+"MATHEUS FERREIRA SANTOS",
+"NYCOLLE SANTOS FIGUEREDO",
+"RAYANE MAXIMA COSTA",
+"RYAN FERREIRA MELO",
+"STHEFANI LUANE DE OLIVEIRA SILVA",
+"THAUAN HENRIQUE MARTINS SANTOS",
+"VITOR GUSTAVO MEDINA DINIZ",
+"YASMIN DA ROCHA SANTOS"
+]
+},
+{
+"nte": "NTE 27 - Eunápolis",
+"name": "STEPHANNY GRAFF SOUZA SANTOS DIAS",
+"school": "COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC",
+"students": [
+"ALEXANDRE DOS SANTOS LIMA",
+"ANA CLARA MARTINS DE ARAUJO",
+"ANA CLARA NEVES SILVA",
+"ANA JULIA FERREIRA BELLO",
+"ANA LIVIA SOUSA SANTOS",
+"ANNA CLARA COSTA DOS SANTOS",
+"BRYAN GLORIA LIMA",
+"CAMILLY STHEFANE SANTOS LIMA",
+"CAROLINA MACHADO ROCHA",
+"DAVI AMORIM SANTOS",
+"DIOGO AMORIM SANTOS",
+"EVELYN SAMARY SALES SILVA",
+"FELLIPE MENDES OLIVEIRA",
+"FLORISVALDO MIGUEL RODRIGUES DOS SANTOS",
+"GABRIEL BRITO GOMES",
+"GABRIEL CORREIA PRADES",
+"GABRIELE LIMA DOS SANTOS",
+"GIOVANNE LOUREIRO SANTOS",
+"GUILHERME ALVES BARBOSA",
+"GUILHERME SANTANA TEIXEIRA",
+"GUSTAVO SANTOS QUEROZ",
+"JHONNEY KELME BORGES REIS",
+"JOSE ANGELO",
+"LETICIA SANTOS DA SILVA",
+"LUIZ FELIPE GONCALVES LUZ",
+"MAIKON SCHER DIAS",
+"MARIA CLARA CAMPOS BRITO",
+"MARIA CLARA SANTOS SILVA",
+"MARIANA DE SOUZA COSTA BARROS",
+"MARIANE DE JESUS SILVA",
+"MATHEUS",
+"PEDRO HAWANDER GONCALVES DE JESUS",
+"PEDRO LUCAS SANTOS SILVA",
+"RHUAN KARLOS SANTOS SOUZA",
+"RHUAN PEDRO DOMINGUES BANDEIRA",
+"THIAGO ARAUJO SANTOS",
+"VALENTINA",
+"VICTOR GOMES PACHECO",
+"YASMIN LIMA SANTOS"
+]
+}
+];
+
+const NEWS_OUTLETS = [
+  "Globo / TV Globo / G1","Record / Record News","SBT / SBT Brasil","CNN Brasil",
+  "BBC Brasil","Folha de S. Paulo","UOL","Brasil 247","O Antagonista","Jornal da Cidade Online"
+];
+
+const DISCERNMENT_ITEMS = [
+  { id:"E1", img:"assets/e1.png", label:"E1. positive_lula_true", headline:'Lula diz que o fim da escala 6x1 é uma "conquista civilizatória" e promete trabalhar pela aprovação no Senado.' },
+  { id:"E2", img:"assets/e2.png", label:"E2. positive_lula_false", headline:"Lula aparece na capa da revista Time, a mais importante do mundo." },
+  { id:"E3", img:"assets/e3.png", label:"E3. negative_lula_true", headline:"O filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
+  { id:"E4", img:"assets/e4.png", label:"E4. negative_lula_false", headline:"O filho de Lula comprou a Azul Linhas Aéreas." },
+  { id:"E5", img:"assets/e5.png", label:"E5. positive_bolsonaro_true", headline:'Trump posta foto com Flávio Bolsonaro: "Um jovem inteligente que ama muito seu país."' },
+  { id:"E6", img:"assets/e6.png", label:"E6. positive_bolsonaro_false", headline:"O Intercept admite erro e diz não ter evidências de que dinheiro do Master Bank financiou filme sobre Bolsonaro." },
+  { id:"E7", img:"assets/e7.png", label:"E7. negative_bolsonaro_true", headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas." },
+  { id:"E8", img:"assets/e8.png", label:"E8. negative_bolsonaro_false", headline:"Vídeo mostra Bolsonaro guardando no bolso um objeto dourado entregue por um militar." },
+  { id:"E9", img:"assets/e9.png", label:"E9. non_political_true", headline:"Guerra no Irã e El Niño levam economistas a projetar inflação mais alta este ano." },
+  { id:"E10", img:"assets/e10.png", label:"E10. non_political_false", headline:"Hantavírus é listado como evento adverso da vacina contra o coronavírus." },
+  { id:"E11", img:"assets/e11.png", label:"E11. old_true", headline:"Água em cidade canadense fica rosa e assusta moradores." },
+  { id:"E12", img:"assets/e12.png", label:"E12. old_false", headline:"WhatsApp passará a notificar motoristas quando o semáforo estiver prestes a abrir." }
+];
+
+// Conjoint: 12 stories, 4 source variants, 2 virality variants
+// We pick 5 random pairs (one false f*, one true t*) with random variants
+const CONJOINT_STORIES = [
+  { prefix:"f1", false:true },  { prefix:"f2", false:true },  { prefix:"f3", false:true },
+  { prefix:"f4", false:true },  { prefix:"f5", false:true },  { prefix:"f6", false:true },
+  { prefix:"t1", false:false }, { prefix:"t2", false:false }, { prefix:"t3", false:false },
+  { prefix:"t4", false:false }, { prefix:"t5", false:false }, { prefix:"t6", false:false }
+];
+const SOURCES = ["g1","no_source","post","post_source"];
+const VIRALITY = ["high","low"];
+
+const OPINION_PAIRS = [
+  { news:"assets/1_news_folha.png", opinion:"assets/1_opinion_folha.png", outlet:"Folha de S. Paulo" },
+  { news:"assets/2_news_oglobo.png", opinion:"assets/2_opinion_globo.png", outlet:"O Globo" },
+  { news:"assets/3_news_estadao.png", opinion:"assets/3_opinion_estadao.png", outlet:"Estadão" },
+  { news:"assets/4_news_uol.png", opinion:"assets/4_opinion_uol.png", outlet:"UOL" }
+];
+
+// ═══════════════════════════════════════════════════════
+// SEEDED RANDOM (deterministic for reproducibility)
+// ═══════════════════════════════════════════════════════
+let seed = 42;
+function seededRand() {
+  seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+  return (seed >>> 0) / 0xffffffff;
+}
+function seededShuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRand() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Pick 5 conjoint pairs
+function pickConjointTasks() {
+  const falseStories = seededShuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
+  const trueStories  = seededShuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
+  return falseStories.map((f, i) => {
+    const t = trueStories[i];
+    const src1 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
+    const vir1 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
+    const src2 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
+    const vir2 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
+    const flipSides = seededRand() > 0.5;
+    const imgA = `assets/${f.prefix}_${src1}_${vir1}.jpg`;
+    const imgB = `assets/${t.prefix}_${src2}_${vir2}.jpg`;
+    return flipSides
+      ? { left: imgB, right: imgA, leftKey: `${t.prefix}_${src2}_${vir2}`, rightKey: `${f.prefix}_${src1}_${vir1}` }
+      : { left: imgA, right: imgB, leftKey: `${f.prefix}_${src1}_${vir1}`, rightKey: `${t.prefix}_${src2}_${vir2}` };
+  });
+}
+
+const CONJOINT_TASKS = pickConjointTasks();
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let currentScreen = 0;
+const TOTAL_SCREENS = 36;
+const responses = {};
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  populateStudents();
+  populateM7();
+  generateDiscernmentScreens();
+  generateConjointScreens();
+  generateOpinionScreens();
+  updateProgress();
+  setupOptionListeners();
+});
+
+function populateStudents() {
+  // Populate NTE dropdown
+  const nteSelect = document.getElementById('nte-select');
+  const ntes = [...new Set(TEACHERS_DATA.map(t => t.nte))].sort();
+  ntes.forEach(nte => {
+    const opt = document.createElement('option');
+    opt.value = nte;
+    opt.textContent = nte;
+    nteSelect.appendChild(opt);
+  });
+}
+
+function onNTEChange() {
+  const nte = document.getElementById('nte-select').value;
+  const teacherSelect = document.getElementById('teacher-select');
+  const blockTeacher = document.getElementById('block-teacher');
+  const blockSchool = document.getElementById('block-school');
+  const blockStudent = document.getElementById('block-student');
+
+  // Reset downstream
+  teacherSelect.innerHTML = '<option value="">— Select teacher —</option>';
+  document.getElementById('student-select').innerHTML = '<option value="">— Select your name —</option>';
+  document.getElementById('school-display').textContent = '';
+  document.getElementById('school-select').value = '';
+  blockSchool.style.display = 'none';
+  blockStudent.style.display = 'none';
+
+  if (!nte) { blockTeacher.style.display = 'none'; return; }
+  blockTeacher.style.display = 'block';
+
+  const teachers = TEACHERS_DATA.filter(t => t.nte === nte);
+  teachers.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.name;
+    opt.textContent = t.name;
+    teacherSelect.appendChild(opt);
+  });
+}
+
+function onTeacherChange() {
+  const teacherName = document.getElementById('teacher-select').value;
+  const blockSchool = document.getElementById('block-school');
+  const blockStudent = document.getElementById('block-student');
+  const studentSelect = document.getElementById('student-select');
+
+  studentSelect.innerHTML = '<option value="">— Select your name —</option>';
+  document.getElementById('new-name-wrap').style.display = 'none';
+
+  if (!teacherName) { blockSchool.style.display = 'none'; blockStudent.style.display = 'none'; return; }
+
+  const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
+  if (!teacher) return;
+
+  // Show school
+  document.getElementById('school-display').textContent = teacher.school;
+  document.getElementById('school-select').value = teacher.school;
+  blockSchool.style.display = 'block';
+  blockStudent.style.display = 'block';
+
+  // Populate students
+  teacher.students.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    studentSelect.appendChild(opt);
+  });
+  const other = document.createElement('option');
+  other.value = '__other__';
+  other.textContent = 'My name is not in the list';
+  studentSelect.appendChild(other);
+
+  checkIdentifiers();
+}
+
+function populateM7() {
+  const tbody = document.querySelector('#m7-table tbody');
+  NEWS_OUTLETS.forEach((outlet, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${outlet}</td>
+      <td><select name="m7_${i}_a"><option value="">—</option><option value="1">Yes</option><option value="0">No</option></select></td>
+      <td><select name="m7_${i}_b"><option value="">—</option><option value="1">Yes</option><option value="0">No</option></select></td>
+      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Yes</option><option value="2">Somewhat</option><option value="0">No</option><option value="">I don't know</option></select></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function generateDiscernmentScreens() {
+  const container = document.querySelector('.container');
+  const refScreen = document.getElementById('screen-22');
+  DISCERNMENT_ITEMS.forEach((item, idx) => {
+    const screenNum = 10 + idx;
+    const div = document.createElement('div');
+    div.className = 'screen';
+    div.id = `screen-${screenNum}`;
+    div.innerHTML = `
+      <div class="card">
+        <div class="task-counter" id="disc-counter-${idx}"></div>
+        <div class="headline-label">Evaluate the accuracy of the headline below:</div>
+        <div class="headline-img-wrap">
+          <img src="${item.img}" alt="${item.label}" loading="lazy">
+        </div>
+        <div class="question-text" style="margin-bottom:16px;">How accurate do you think this headline is?</div>
+        <div class="scale-wrap">
+          <div class="scale-labels">
+            <span>Definitely false</span><span>Probably false</span><span>Not sure</span><span>Probably true</span><span>Definitely true</span>
+          </div>
+          <div class="scale-buttons" id="scale-${item.id.toLowerCase()}">
+            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',1,this)">1</button>
+            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',2,this)">2</button>
+            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',3,this)">3</button>
+            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',4,this)">4</button>
+            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',5,this)">5</button>
+          </div>
+        </div>
+        <div class="alert" id="alert-${item.id.toLowerCase()}">Please select an option.</div>
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Back</button>
+          <button class="btn btn-primary" onclick="requireScale('${item.id.toLowerCase()}', ${screenNum + 1})">Next →</button>
+        </div>
+      </div>`;
+    container.insertBefore(div, refScreen);
+  });
+  // Build task counter dots for discernment
+  setTimeout(() => {
+    DISCERNMENT_ITEMS.forEach((_, idx) => {
+      const counter = document.getElementById(`disc-counter-${idx}`);
+      if (!counter) return;
+      for (let i = 0; i < 12; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'task-dot' + (i === idx ? ' active' : '');
+        dot.id = `disc-dot-${idx}-${i}`;
+        counter.appendChild(dot);
+      }
+    });
+  }, 0);
+}
+
+function generateConjointScreens() {
+  const container = document.querySelector('.container');
+  const refScreen = document.getElementById('screen-28');
+  CONJOINT_TASKS.forEach((task, idx) => {
+    const screenNum = 23 + idx;
+    const div = document.createElement('div');
+    div.className = 'screen';
+    div.id = `screen-${screenNum}`;
+    div.innerHTML = `
+      <div class="card">
+        <div class="instruction-box">
+          <strong>📲 Imagine you received these messages in a WhatsApp group.</strong>
+          After reading both messages, click the one you would be more likely to share with other people.
+        </div>
+        <div class="conjoint-pair">
+          <div class="conjoint-card" id="conj-${idx}-A" onclick="selectConjoint(${idx},'A')">
+            <img src="${task.left}" alt="Message A" loading="lazy">
+            <div class="choice-label">📤 I would share this one</div>
+          </div>
+          <div class="conjoint-card" id="conj-${idx}-B" onclick="selectConjoint(${idx},'B')">
+            <img src="${task.right}" alt="Message B" loading="lazy">
+            <div class="choice-label">📤 I would share this one</div>
+          </div>
+        </div>
+        <div class="alert" id="alert-conj-${idx}">Please select one of the messages.</div>
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Back</button>
+          <button class="btn btn-primary" onclick="requireConjoint(${idx}, ${screenNum + 1})">Next →</button>
+        </div>
+      </div>`;
+    container.insertBefore(div, refScreen);
+  });
+}
+
+function generateOpinionScreens() {
+  const container = document.querySelector('.container');
+  const refScreen = document.getElementById('screen-33');
+  OPINION_PAIRS.forEach((pair, idx) => {
+    const screenNum = 29 + idx;
+    const div = document.createElement('div');
+    div.className = 'screen';
+    div.id = `screen-${screenNum}`;
+    div.innerHTML = `
+      <div class="card">
+        <div class="instruction-box">
+          <strong>📰 Which of the two images is more likely to provide objective and detailed information?</strong>
+          Click on the image that best represents informative journalism about the facts.
+        </div>
+        <div class="opinion-pair">
+          <div class="opinion-card" id="op-${idx}-A" onclick="selectOpinion(${idx},'A')">
+            <img src="${pair.news}" alt="Article A" loading="lazy">
+            <div class="choice-label">Select this one</div>
+          </div>
+          <div class="opinion-card" id="op-${idx}-B" onclick="selectOpinion(${idx},'B')">
+            <img src="${pair.opinion}" alt="Article B" loading="lazy">
+            <div class="choice-label">Select this one</div>
+          </div>
+        </div>
+        <div class="alert" id="alert-op-${idx}">Please select one of the images.</div>
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Back</button>
+          <button class="btn btn-primary" onclick="requireOpinion(${idx}, ${screenNum + 1})">Next →</button>
+        </div>
+      </div>`;
+    container.insertBefore(div, refScreen);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+// Map each screen to a major section number (1–6)
+// 1: Introduction & Identification (0–1)
+// 2: Participation (2)
+// 3: Media Consumption (3–5)
+// 4: Knowledge (6–7)
+// 5: Discernment & Tasks (8–31)
+// 6: Critical Thinking & Closing (32–33)
+function getSectionLabel(n) {
+  if (n <= 1)  return 'Section 1 of 6';
+  if (n === 2) return 'Section 2 of 6';
+  if (n <= 5)  return 'Section 3 of 6';
+  if (n <= 7)  return 'Section 4 of 6';
+  if (n <= 33) return 'Section 5 of 6';
+  return 'Section 6 of 6';
+}
+
+function goTo(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(`screen-${n}`);
+  if (target) {
+    target.classList.add('active');
+    currentScreen = n;
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateDiscernmentDots(n);
+  }
+}
+
+function updateProgress() {
+  const pct = Math.round((currentScreen / (TOTAL_SCREENS - 1)) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${currentScreen} de ${TOTAL_SCREENS - 1}`;
+  document.getElementById('section-label').textContent = getSectionLabel(currentScreen);
+}
+
+function updateDiscernmentDots(n) {
+  if (n >= 10 && n <= 21) {
+    const idx = n - 10;
+    for (let task = 0; task < 12; task++) {
+      for (let dot = 0; dot < 12; dot++) {
+        const el = document.getElementById(`disc-dot-${task}-${dot}`);
+        if (!el) continue;
+        el.className = 'task-dot' + (dot < idx ? ' done' : dot === idx ? ' active' : '');
+      }
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// OPTION CLICK HIGHLIGHTING
+// ═══════════════════════════════════════════════════════
+function setupOptionListeners() {
+  document.addEventListener('change', e => {
+    if (e.target.type === 'radio') {
+      const name = e.target.name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
+        inp.closest('.opt')?.classList.toggle('selected', inp.checked);
+      });
+    }
+    if (e.target.type === 'checkbox') {
+      e.target.closest('.opt')?.classList.toggle('selected', e.target.checked);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// SCALE
+// ═══════════════════════════════════════════════════════
+function setScale(key, val, btn) {
+  const container = document.getElementById(`scale-${key}`);
+  if (!container) return;
+  container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  responses[key] = val;
+}
+
+function requireScale(key, next) {
+  const alert = document.getElementById(`alert-${key}`);
+  if (!responses[key]) {
+    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    return;
+  }
+  if (alert) alert.classList.remove('show');
+  goTo(next);
+}
+
+// ═══════════════════════════════════════════════════════
+// CONJOINT / OPINION SELECTION
+// ═══════════════════════════════════════════════════════
+function selectConjoint(idx, side) {
+  ['A','B'].forEach(s => document.getElementById(`conj-${idx}-${s}`)?.classList.remove('selected'));
+  document.getElementById(`conj-${idx}-${side}`)?.classList.add('selected');
+  responses[`conjoint_${idx}`] = side === 'A'
+    ? CONJOINT_TASKS[idx].leftKey
+    : CONJOINT_TASKS[idx].rightKey;
+}
+
+function requireConjoint(idx, next) {
+  if (!responses[`conjoint_${idx}`]) {
+    const alert = document.getElementById(`alert-conj-${idx}`);
+    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    return;
+  }
+  goTo(next);
+}
+
+function selectOpinion(idx, side) {
+  ['A','B'].forEach(s => document.getElementById(`op-${idx}-${s}`)?.classList.remove('selected'));
+  document.getElementById(`op-${idx}-${side}`)?.classList.add('selected');
+  responses[`opinion_${idx}`] = side;
+}
+
+function requireOpinion(idx, next) {
+  if (!responses[`opinion_${idx}`]) {
+    const alert = document.getElementById(`alert-op-${idx}`);
+    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    return;
+  }
+  goTo(next);
+}
+
+// ═══════════════════════════════════════════════════════
+// VALIDATION HELPERS
+// ═══════════════════════════════════════════════════════
+function enableNext(btnId) {
+  document.getElementById(btnId).disabled = false;
+}
+
+function showNoConsent() {
+  document.getElementById('no-consent-msg').style.display = 'block';
+}
+
+function onStudentChange() {
+  const sel = document.getElementById('student-select').value;
+  document.getElementById('new-name-wrap').style.display =
+    sel === '__other__' ? 'block' : 'none';
+  if (sel !== '__other__') {
+    document.getElementById('new-name-input').value = '';
+  }
+  checkIdentifiers();
+}
+
+function checkIdentifiers() {
+  const nte = document.getElementById('nte-select').value;
+  const t = document.getElementById('teacher-select').value;
+  const s = document.getElementById('school-select').value;
+  const st = document.getElementById('student-select').value;
+  const newName = document.getElementById('new-name-input').value.trim();
+  return !!(nte && t && s && st && (st !== '__other__' || newName));
+}
+
+function validateSection(radioNames, alertId, next) {
+  const missing = radioNames.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
+  if (missing.length > 0) {
+    const alert = document.getElementById(alertId);
+    alert.classList.add('show');
+    setTimeout(() => alert.classList.remove('show'), 3000);
+    return;
+  }
+  // Save radio responses
+  radioNames.forEach(name => {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    if (checked) responses[name] = checked.value;
+  });
+  goTo(next);
+}
+
+function validateAndGoTo(next, alertId, checkFn) {
+  if (!checkFn()) {
+    const alert = document.getElementById(alertId);
+    alert.classList.add('show');
+    setTimeout(() => alert.classList.remove('show'), 3000);
+    return;
+  }
+  // Save identifier responses
+  responses.nte = document.getElementById('nte-select').value;
+  responses.teacher = document.getElementById('teacher-select').value;
+  responses.school = document.getElementById('school-select').value;
+  const sel = document.getElementById('student-select').value;
+  responses.student = sel === '__other__'
+    ? document.getElementById('new-name-input').value.trim()
+    : sel;
+  goTo(next);
+}
+
+function validateSectionD(from, next) {
+  // Check b10 radio at minimum
+  const b10 = document.querySelector('input[name="b10"]:checked');
+  if (!b10) {
+    const alert = document.getElementById('alert-c2');
+    alert.classList.add('show');
+    setTimeout(() => alert.classList.remove('show'), 3000);
+    return;
+  }
+  // Save all b5-b10
+  ['b10'].forEach(name => {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    if (checked) responses[name] = checked.value;
+  });
+  goTo(next);
+}
+
+// Handle screen 35 — final
+const origGoTo = goTo;
+window.goTo = function(n) {
+  if (n === 35) {
+    collectAllResponses();
+    submitToGoogleSheets();
+    showSummary();
+  }
+  origGoTo(n);
+};
+
+function validateAtt(num, name, alertId, next) {
+  const sel = document.querySelector(`input[name="${name}"]:checked`);
+  if (!sel) {
+    const a = document.getElementById(alertId);
+    a.classList.add('show');
+    setTimeout(() => a.classList.remove('show'), 3000);
+    return;
+  }
+  responses[name] = sel.value;
+  goTo(next);
+}
+
+const GOOGLE_SHEET_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+function submitToGoogleSheets() {
+  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
+    console.warn('Google Sheet URL not configured — skipping submission.');
+    return;
+  }
+  try {
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(responses)
+    });
+  } catch(err) {
+    console.warn('Submission error:', err);
+  }
+}
+
+function collectAllResponses() {
+  // Collect all radio/checkbox responses still not saved
+  document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(inp => {
+    if (inp.type === 'checkbox') {
+      if (!responses[inp.name]) responses[inp.name] = [];
+      if (!Array.isArray(responses[inp.name])) responses[inp.name] = [responses[inp.name]];
+      if (!responses[inp.name].includes(inp.value)) responses[inp.name].push(inp.value);
+    } else {
+      responses[inp.name] = inp.value;
+    }
+  });
+  responses.ctfc1_q1 = document.getElementById('ctfc1-q1')?.value || '';
+  responses.ctfc1_q2 = document.getElementById('ctfc1-q2')?.value || '';
+  responses.ctfc1_q3 = document.getElementById('ctfc1-q3')?.value || '';
+  responses.timestamp = new Date().toISOString();
+  responses.conjoint_tasks = CONJOINT_TASKS.map(t => ({ left: t.leftKey, right: t.rightKey }));
+  console.log('Survey responses:', JSON.stringify(responses, null, 2));
+}
+
+function showSummary() {
+  const el = document.getElementById('response-summary');
+  const lines = Object.entries(responses)
+    .filter(([k]) => !['conjoint_tasks'].includes(k))
+    .map(([k, v]) => `<div style="margin-bottom:4px;"><strong>${k}:</strong> ${Array.isArray(v) ? v.join(', ') : v}</div>`);
+  el.innerHTML = lines.join('');
+}
+</script>
+</body>
+</html>

@@ -1,16 +1,14 @@
 // ============================================================
 // Google Apps Script — Bahia Survey collector
 // ------------------------------------------------------------
-// CORRECT SETUP STEPS:
+// Setup steps:
 //
-//   1. Go to Google Drive → New → Google Sheets
-//      Name it e.g. "Bahia Survey Responses"
+//   1. Go to script.google.com → New project (or use an
+//      existing one — either standalone or sheet-bound works)
 //
-//   2. Inside that sheet: Extensions menu → Apps Script
-//      (This binds the script to YOUR sheet automatically)
+//   2. Delete any existing code, paste this entire file
 //
-//   3. Delete any existing code in the editor, paste this
-//      entire file
+//   3. Make sure SHEET_NAME below matches your sheet name exactly
 //
 //   4. Click Deploy → New deployment → Web app
 //      - Execute as: Me
@@ -20,10 +18,10 @@
 //   5. In each survey HTML file, replace:
 //        PASTE_YOUR_APPS_SCRIPT_URL_HERE
 //      with the URL you just copied
-//
-// ⚠️  Do NOT create this at script.google.com as a standalone
-//     script — it won't know which sheet to write to.
 // ============================================================
+
+// ← Change this if the sheet is ever renamed
+const SHEET_NAME = 'Bahia Survey Responses Treatment';
 
 const COLUMN_ORDER = [
   'timestamp','nte','teacher','school','student','consent',
@@ -47,10 +45,20 @@ const COLUMN_ORDER = [
   'conjoint_tasks'
 ];
 
+// Finds the sheet by name in Google Drive — works whether this
+// script is standalone or bound to a spreadsheet
+function getSheet() {
+  const files = DriveApp.getFilesByName(SHEET_NAME);
+  if (!files.hasNext()) {
+    throw new Error('Sheet not found: "' + SHEET_NAME + '". Check the name matches exactly.');
+  }
+  return SpreadsheetApp.openById(files.next().getId()).getActiveSheet();
+}
+
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data  = JSON.parse(e.postData.contents);
+    const sheet = getSheet();
 
     // Write header row once
     if (sheet.getLastRow() === 0) {
@@ -80,10 +88,10 @@ function doPost(e) {
   }
 }
 
-// Test function — run this manually inside the Apps Script editor
-// to confirm the script can write to the sheet before deploying
+// Run this manually in the Apps Script editor to confirm
+// the script can find and write to the sheet
 function testWrite() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const sheet = getSheet();
   sheet.appendRow(['TEST_ROW', new Date().toISOString()]);
-  Logger.log('Test row written successfully.');
+  Logger.log('Success — wrote to: ' + sheet.getParent().getName());
 }

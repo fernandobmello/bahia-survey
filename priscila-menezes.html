@@ -479,7 +479,10 @@
     <div class="question-block" id="block-school" style="display:none;">
       <div class="question-number">Sua escola</div>
       <div class="question-text">Escola:</div>
-      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500;"></div>
+      <div id="school-display" style="padding:12px 16px; background:#f8fafc; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); font-weight:500; display:none;"></div>
+      <select id="school-select-dropdown" onchange="onSchoolChange()" style="display:none; width:100%; padding:12px 16px; border:2px solid var(--border); border-radius:10px; font-size:0.93rem; color:var(--text); background:#fff; cursor:pointer;">
+        <option value="">— Selecione sua escola —</option>
+      </select>
       <input type="hidden" id="school-select">
     </div>
     <div class="question-block" id="block-student" style="display:none;">
@@ -1063,8 +1066,8 @@ const TEACHERS_DATA = [
 {
 "nte": "NTE 26 - Salvador",
 "name": "PRISCILA DE SOUZA SANTOS MENEZES",
-"school": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS",
-"students": [
+"schools": [
+{"name": "COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
 "CAMILE SILVA PEREIRA DOS SANTOS",
 "KEZIA FERREIRA SILVA",
 "LARISSA DOS SANTOS REIS",
@@ -1076,6 +1079,10 @@ const TEACHERS_DATA = [
 "SUZANE SANTOS OLIVEIRA",
 "VERONICA BISPO SOUZA",
 "VIVIANE MARIA DA SILVA"
+]},
+{"name": " COLEGIO ESTADUAL PROFESSOR CARLOS BARROS", "students": [
+"NICOLLE DE SOUZA PURIFICACAO SAMPAIO MIRANDA"
+]}
 ]
 }
 ];
@@ -1199,6 +1206,9 @@ function onNTEChange() {
   teacherSelect.innerHTML = '<option value="">— Selecione o professor —</option>';
   document.getElementById('student-select').innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('school-display').textContent = '';
+  document.getElementById('school-display').style.display = 'none';
+  document.getElementById('school-select-dropdown').style.display = 'none';
+  document.getElementById('school-select-dropdown').innerHTML = '<option value="">— Selecione sua escola —</option>';
   document.getElementById('school-select').value = '';
   blockSchool.style.display = 'none';
   blockStudent.style.display = 'none';
@@ -1216,38 +1226,87 @@ function onNTEChange() {
 }
 
 function onTeacherChange() {
-  const teacherName = document.getElementById('teacher-select').value;
-  const blockSchool = document.getElementById('block-school');
-  const blockStudent = document.getElementById('block-student');
-  const studentSelect = document.getElementById('student-select');
+  const teacherName    = document.getElementById('teacher-select').value;
+  const blockSchool    = document.getElementById('block-school');
+  const blockStudent   = document.getElementById('block-student');
+  const studentSelect  = document.getElementById('student-select');
+  const schoolDisplay  = document.getElementById('school-display');
+  const schoolDropdown = document.getElementById('school-select-dropdown');
 
+  // Reset downstream
   studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('new-name-wrap').style.display = 'none';
+  schoolDisplay.style.display = 'none';
+  schoolDisplay.textContent = '';
+  schoolDropdown.style.display = 'none';
+  schoolDropdown.innerHTML = '<option value="">— Selecione sua escola —</option>';
+  document.getElementById('school-select').value = '';
+  blockStudent.style.display = 'none';
 
-  if (!teacherName) { blockSchool.style.display = 'none'; blockStudent.style.display = 'none'; return; }
+  if (!teacherName) { blockSchool.style.display = 'none'; return; }
 
   const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
   if (!teacher) return;
 
-  // Show school
-  document.getElementById('school-display').textContent = teacher.school;
-  document.getElementById('school-select').value = teacher.school;
   blockSchool.style.display = 'block';
-  blockStudent.style.display = 'block';
 
-  // Populate students
-  teacher.students.forEach(name => {
+  if (teacher.schools.length === 1) {
+    // Single school: show static label and populate students immediately
+    const school = teacher.schools[0];
+    schoolDisplay.textContent = school.name;
+    schoolDisplay.style.display = 'block';
+    document.getElementById('school-select').value = school.name;
+    populateStudents(school.students, studentSelect);
+    blockStudent.style.display = 'block';
+  } else {
+    // Multiple schools: show dropdown, wait for selection
+    teacher.schools.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.name;
+      opt.textContent = s.name;
+      schoolDropdown.appendChild(opt);
+    });
+    schoolDropdown.style.display = 'block';
+  }
+
+  checkIdentifiers();
+}
+
+function onSchoolChange() {
+  const teacherName   = document.getElementById('teacher-select').value;
+  const schoolName    = document.getElementById('school-select-dropdown').value;
+  const studentSelect = document.getElementById('student-select');
+  const blockStudent  = document.getElementById('block-student');
+
+  studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
+  document.getElementById('new-name-wrap').style.display = 'none';
+  document.getElementById('school-select').value = '';
+
+  if (!schoolName) { blockStudent.style.display = 'none'; checkIdentifiers(); return; }
+
+  document.getElementById('school-select').value = schoolName;
+
+  const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
+  if (!teacher) return;
+  const school = teacher.schools.find(s => s.name === schoolName);
+  if (!school) return;
+
+  populateStudents(school.students, studentSelect);
+  blockStudent.style.display = 'block';
+  checkIdentifiers();
+}
+
+function populateStudents(students, selectEl) {
+  students.forEach(name => {
     const opt = document.createElement('option');
     opt.value = name;
     opt.textContent = name;
-    studentSelect.appendChild(opt);
+    selectEl.appendChild(opt);
   });
   const other = document.createElement('option');
   other.value = '__other__';
   other.textContent = 'Meu nome não está na lista';
-  studentSelect.appendChild(other);
-
-  checkIdentifiers();
+  selectEl.appendChild(other);
 }
 
 function populateM7() {

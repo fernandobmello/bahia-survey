@@ -622,7 +622,7 @@
     <div class="alert" id="alert-b1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['dl6','dl7'], 'alert-b1', 4)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateSection(['dl5','dl6','dl7','dl8'], 'alert-b1', 4)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -668,9 +668,10 @@
       </div>
     </div>
 
+    <div class="alert" id="alert-m">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goTo(5)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateM1M7(5)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1029,9 +1030,10 @@
       </div>
     </div>
 
+    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(33)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goTo(35)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(35)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1071,6 +1073,7 @@ const TEACHERS_DATA = [
 "ANTHONY GABRIEL MORAIS",
 "ARTHUR LEITE PORTELA",
 "BRUNO DA SILVA SANTOS",
+"CALINY RODRIGUES DA CONCEICAO",
 "CAMILA NASCIMENTO DE SOUZA SANTOS",
 "ELIZEU DA SILVA ARAUJO",
 "ELLEN CRISTINA SALES RODRIGUES NUNES",
@@ -1099,9 +1102,6 @@ const TEACHERS_DATA = [
 "THIAGO CRUZ",
 "VINICIUS DA SILVA ALVES",
 "YASMIN OLIVEIRA FERREIRA"
-]},
-{"name": " COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA", "students": [
-"CALINY RODRIGUES DA CONCEICAO"
 ]}
 ]
 }
@@ -1153,6 +1153,15 @@ function seededRand() {
   seed = (seed * 1664525 + 1013904223) & 0xffffffff;
   return (seed >>> 0) / 0xffffffff;
 }
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function seededShuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -1164,15 +1173,15 @@ function seededShuffle(arr) {
 
 // Pick 5 conjoint pairs
 function pickConjointTasks() {
-  const falseStories = seededShuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
-  const trueStories  = seededShuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
+  const falseStories = shuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
+  const trueStories  = shuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
   return falseStories.map((f, i) => {
     const t = trueStories[i];
-    const src1 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
-    const vir1 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
-    const src2 = SOURCES[Math.floor(seededRand() * SOURCES.length)];
-    const vir2 = VIRALITY[Math.floor(seededRand() * VIRALITY.length)];
-    const flipSides = seededRand() > 0.5;
+    const src1 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
+    const vir1 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
+    const src2 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
+    const vir2 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
+    const flipSides = Math.random() > 0.5;
     const imgA = `assets/${f.prefix}_${src1}_${vir1}.jpg`;
     const imgB = `assets/${t.prefix}_${src2}_${vir2}.jpg`;
     return flipSides
@@ -1201,6 +1210,7 @@ document.addEventListener('DOMContentLoaded', () => {
   generateOpinionScreens();
   updateProgress();
   setupOptionListeners();
+  randomizeOptions();
 });
 
 function populateStudents() {
@@ -1337,7 +1347,7 @@ function populateM7() {
       <td>${outlet}</td>
       <td><select name="m7_${i}_a"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
       <td><select name="m7_${i}_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
-      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Parcialmente</option><option value="0">Não</option><option value="">Não sei</option></select></td>
+      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Parcialmente</option><option value="0">Não</option><option value="9">Não sei</option></select></td>
     `;
     tbody.appendChild(tr);
   });
@@ -1346,7 +1356,8 @@ function populateM7() {
 function generateDiscernmentScreens() {
   const container = document.querySelector('.container');
   const refScreen = document.getElementById('screen-22');
-  DISCERNMENT_ITEMS.forEach((item, idx) => {
+  const discItems = shuffle(DISCERNMENT_ITEMS);   // new random order per student
+  discItems.forEach((item, idx) => {
     const screenNum = 10 + idx;
     const div = document.createElement('div');
     div.className = 'screen';
@@ -1381,7 +1392,7 @@ function generateDiscernmentScreens() {
   });
   // Build task counter dots for discernment
   setTimeout(() => {
-    DISCERNMENT_ITEMS.forEach((_, idx) => {
+    discItems.forEach((_, idx) => {
       const counter = document.getElementById(`disc-counter-${idx}`);
       if (!counter) return;
       for (let i = 0; i < 12; i++) {
@@ -1459,6 +1470,28 @@ function generateOpinionScreens() {
         </div>
       </div>`;
     container.insertBefore(div, refScreen);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// OPTION RANDOMIZATION
+// ═══════════════════════════════════════════════════════
+// Shuffle answer options on load; pin "Não sei / Outro / Nenhuma" to bottom.
+function randomizeOptions() {
+  const groups = ['q-a4','q-dl5','q-dl8','q-m1','q-b1','q-b2','q-b3','q-b4','q-b7','q-b10'];
+  const lastPattern = /não sei|não quero|nenhuma|outro/i;
+  groups.forEach(id => {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const opts = Array.from(container.querySelectorAll(':scope > label.opt'));
+    if (opts.length < 2) return;
+    const keep = opts.filter(o => lastPattern.test(o.textContent));
+    const rest = opts.filter(o => !lastPattern.test(o.textContent));
+    for (let i = rest.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [rest[i], rest[j]] = [rest[j], rest[i]];
+    }
+    [...rest, ...keep].forEach(o => container.appendChild(o));
   });
 }
 
@@ -1544,7 +1577,7 @@ function setScale(key, val, btn) {
 function requireScale(key, next) {
   const alert = document.getElementById(`alert-${key}`);
   if (!responses[key]) {
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   if (alert) alert.classList.remove('show');
@@ -1565,7 +1598,7 @@ function selectConjoint(idx, side) {
 function requireConjoint(idx, next) {
   if (!responses[`conjoint_${idx}`]) {
     const alert = document.getElementById(`alert-conj-${idx}`);
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   goTo(next);
@@ -1580,7 +1613,7 @@ function selectOpinion(idx, side) {
 function requireOpinion(idx, next) {
   if (!responses[`opinion_${idx}`]) {
     const alert = document.getElementById(`alert-op-${idx}`);
-    if (alert) { alert.classList.add('show'); setTimeout(() => alert.classList.remove('show'), 3000); }
+    if (alert) { alert.classList.add('show'); }
     return;
   }
   goTo(next);
@@ -1616,18 +1649,62 @@ function checkIdentifiers() {
   return !!(nte && t && s && st && (st !== '__other__' || newName));
 }
 
-function validateSection(radioNames, alertId, next) {
-  const missing = radioNames.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
-  if (missing.length > 0) {
-    const alert = document.getElementById(alertId);
-    alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
+function validateM1M7(next) {
+  const alertEl = document.getElementById('alert-m');
+  if (!document.querySelector('input[name="m1"]:checked')) {
+    alertEl.classList.add('show');
+    document.getElementById('q-m1')?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  // Save radio responses
-  radioNames.forEach(name => {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    if (checked) responses[name] = checked.value;
+  for (let i = 0; i < NEWS_OUTLETS.length; i++) {
+    for (const col of ['a','b','c']) {
+      const sel = document.querySelector(`select[name="m7_${i}_${col}"]`);
+      if (sel && !sel.value) {
+        alertEl.classList.add('show');
+        sel.closest('tr')?.scrollIntoView({ behavior:'smooth', block:'center' });
+        return;
+      }
+    }
+  }
+  alertEl.classList.remove('show');
+  goTo(next);
+}
+
+function validateCTFC1(next) {
+  const q1 = document.getElementById('ctfc1-q1')?.value.trim();
+  const q2 = document.getElementById('ctfc1-q2')?.value.trim();
+  const q3 = document.getElementById('ctfc1-q3')?.value.trim();
+  const alertEl = document.getElementById('alert-ctfc');
+  if (!q1 || !q2 || !q3) {
+    alertEl.classList.add('show');
+    if (!q1) document.getElementById('ctfc1-q1')?.focus();
+    else if (!q2) document.getElementById('ctfc1-q2')?.focus();
+    else document.getElementById('ctfc1-q3')?.focus();
+    return;
+  }
+  alertEl.classList.remove('show');
+  goTo(next);
+}
+
+function validateSection(names, alertId, next) {
+  const missing = names.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
+  if (missing.length > 0) {
+    const alertEl = document.getElementById(alertId);
+    alertEl.classList.add('show');
+    const firstEl = document.getElementById(`q-${missing[0]}`) || document.getElementById(`scale-${missing[0]}`);
+    if (firstEl) firstEl.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  document.getElementById(alertId)?.classList.remove('show');
+  // Save responses (handles both radio and checkbox)
+  names.forEach(name => {
+    const boxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    if (!boxes.length) return;
+    if (boxes[0].type === 'checkbox') {
+      responses[name] = Array.from(boxes).map(b => b.value);
+    } else {
+      responses[name] = boxes[0].value;
+    }
   });
   goTo(next);
 }
@@ -1636,7 +1713,6 @@ function validateAndGoTo(next, alertId, checkFn) {
   if (!checkFn()) {
     const alert = document.getElementById(alertId);
     alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
     return;
   }
   // Save identifier responses
@@ -1651,19 +1727,18 @@ function validateAndGoTo(next, alertId, checkFn) {
 }
 
 function validateSectionD(from, next) {
-  // Check b10 radio at minimum
-  const b10 = document.querySelector('input[name="b10"]:checked');
-  if (!b10) {
-    const alert = document.getElementById('alert-c2');
-    alert.classList.add('show');
-    setTimeout(() => alert.classList.remove('show'), 3000);
+  const alertEl = document.getElementById('alert-c2');
+  const missingScale = ['b5','b6','b8','b9'].some(k => !responses[k]);
+  const b7ok  = document.querySelector('input[name="b7"]:checked');
+  const b10ok = document.querySelector('input[name="b10"]:checked');
+  if (missingScale || !b7ok || !b10ok) {
+    alertEl.classList.add('show');
+    const firstMissing = ['b5','b6','b8','b9'].find(k => !responses[k]);
+    if (firstMissing) document.getElementById(`scale-${firstMissing}`)?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  // Save all b5-b10
-  ['b10'].forEach(name => {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    if (checked) responses[name] = checked.value;
-  });
+  alertEl.classList.remove('show');
+  responses.b10 = b10ok.value;
   goTo(next);
 }
 
@@ -1683,7 +1758,6 @@ function validateAtt(num, name, alertId, next) {
   if (!sel) {
     const a = document.getElementById(alertId);
     a.classList.add('show');
-    setTimeout(() => a.classList.remove('show'), 3000);
     return;
   }
   responses[name] = sel.value;

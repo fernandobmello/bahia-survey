@@ -486,17 +486,14 @@
 
 <div class="container">
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 0 — CONSENT
-══════════════════════════════════════════════════════════ -->
 <div class="screen active" id="screen-0">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📖</div>
     <div class="intro-title">Olá! Bem-vindo(a) à pesquisa</div>
     <div class="intro-sub">
-      Somos pesquisadores realizando um estudo sobre como os jovens utilizam a mídia e processam informações sobre diversos temas.<br><br>
-      A pesquisa leva cerca de <strong>35–40 minutos</strong>. Não há respostas certas ou erradas — queremos apenas sua opinião honesta.<br><br>
-      Suas respostas são <strong>completamente confidenciais</strong> e serão usadas apenas para fins de pesquisa.
+      Somos pesquisadores conduzindo um estudo sobre como os jovens utilizam a mídia e processam informações sobre diversos temas.<br><br>
+      O questionário leva aproximadamente <strong>35–40 minutos</strong>. Não há respostas certas ou erradas — queremos apenas a sua opinião sincera.<br><br>
+      Suas respostas são <strong>completamente confidenciais</strong>. Nem seu professor nem qualquer outra pessoa terá acesso a elas, e serão utilizadas apenas para fins de pesquisa.
     </div>
     <div style="margin-bottom:20px;">
       <span class="info-pill">⏱ 35–40 minutos</span>
@@ -538,9 +535,6 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 1 — IDENTIFIERS
-══════════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-1">
   <div class="card">
     <div class="question-block">
@@ -569,7 +563,7 @@
     <div class="question-block" id="block-student" style="display:none;">
       <div class="question-number">Seu nome</div>
       <div class="question-text">Selecione seu nome na lista:</div>
-      <div class="question-subtext">Se seu nome não estiver na lista, selecione "Meu nome não está na lista".</div>
+      <div class="question-subtext">Se o seu nome não estiver na lista, selecione "Meu nome não está na lista".</div>
       <select id="student-select" onchange="onStudentChange()">
         <option value="">— Selecione seu nome —</option>
       </select>
@@ -586,97 +580,63 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 2 — SECTION A
-══════════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-2">
   <div class="card">
     <div class="question-block">
-      <div class="question-text">Quantas sessões do programa na sua escola você frequentou?</div>
-      <div class="options" id="q-a1">
-        <label class="opt"><input type="radio" name="a1" value="6"><label>Todas as seis</label></label>
-        <label class="opt"><input type="radio" name="a1" value="5"><label>Cinco</label></label>
-        <label class="opt"><input type="radio" name="a1" value="4"><label>Quatro</label></label>
-        <label class="opt"><input type="radio" name="a1" value="3"><label>Três</label></label>
-        <label class="opt"><input type="radio" name="a1" value="2"><label>Duas</label></label>
-        <label class="opt"><input type="radio" name="a1" value="1"><label>Uma</label></label>
-        <label class="opt"><input type="radio" name="a1" value="0"><label>Nenhuma</label></label>
+      <div class="question-text">De quantas aulas do programa da pesquisa você participou?</div>
+      <div class="options" id="q-attendance" onchange="onAttendanceChange()">
+        <label class="opt"><input type="radio" name="attendance" value="6"><label>Todas as seis</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="5"><label>Cinco</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="4"><label>Quatro</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="3"><label>Três</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="2"><label>Duas</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="1"><label>Uma</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="0"><label>Nenhuma</label></label>
       </div>
     </div>
-    <div class="question-block" id="block-a2" style="display:none;">
+    <div class="question-block" id="block-attendance_reasons" style="display:none;">
       <div class="question-text">Por que você não conseguiu participar de todas as sessões?</div>
       <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
-      <div class="options" id="q-a2">
-        <label class="opt"><input type="checkbox" name="a2" value="1"><label>O local ou horário da escola era inconveniente</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="2"><label>Eu tinha outras obrigações escolares (ex.: aulas de reforço)</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="3"><label>Eu tinha outras obrigações em casa (ex.: trabalho, tarefas domésticas)</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="4"><label>Eu não estava interessado(a) no conteúdo</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="5"><label>Eu não fui informado(a) sobre as sessões</label></label>
-        <label class="opt"><input type="checkbox" name="a2" value="6"><label>Outro</label></label>
+      <div class="options" id="q-attendance_reasons">
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="1"><label>O local ou horário da escola era inconveniente</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="2"><label>Eu tinha outras obrigações relacionadas à escola (por exemplo, reforço escolar)</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="3"><label>Eu tinha outras obrigações em casa (por exemplo, trabalho, tarefas domésticas)</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="4"><label>Eu não tinha interesse no conteúdo</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="5"><label>O professor não deu todas as aulas</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="6"><label>Outro</label></label>
       </div>
     </div>
     <div class="question-block">
-      <div class="question-text">Você recebeu algum material impresso das aulas? Se sim, como?</div>
-      <div class="options" id="q-a3">
-        <label class="opt"><input type="radio" name="a3" value="1"><label>Sim, o professor distribuiu na aula</label></label>
-        <label class="opt"><input type="radio" name="a3" value="2"><label>Sim, outro estudante me entregou</label></label>
-        <label class="opt"><input type="radio" name="a3" value="3"><label>Não recebi nenhum material impresso</label></label>
+      <div class="question-text">Você recebeu algum material impresso das aulas?</div>
+      <div class="options" id="q-tipsheet">
+        <label class="opt"><input type="radio" name="tipsheet" value="1"><label>Sim, o professor distribuiu em sala</label></label>
+        <label class="opt"><input type="radio" name="tipsheet" value="2"><label>Sim, outro aluno me entregou</label></label>
+        <label class="opt"><input type="radio" name="tipsheet" value="3"><label>Não recebi nenhum material impresso</label></label>
       </div>
     </div>
     <div class="question-block">
-      <div class="question-text">Pensando nas sessões que você frequentou, qual foi o principal tema ensinado?</div>
-      <div class="options" id="q-a4">
-        <label class="opt"><input type="radio" name="a4" value="1"><label>Como consumir informação de forma responsável</label></label>
-        <label class="opt"><input type="radio" name="a4" value="2"><label>Inglês conversacional</label></label>
-        <label class="opt"><input type="radio" name="a4" value="3"><label>Física básica</label></label>
-        <label class="opt"><input type="radio" name="a4" value="4"><label>Eleições</label></label>
-        <label class="opt"><input type="radio" name="a4" value="5"><label>Como interagir com outras pessoas</label></label>
-        <label class="opt"><input type="radio" name="a4" value="6"><label>Não sei</label></label>
+      <div class="question-text">Pensando nas aulas das quais você participou, qual foi o principal tema ensinado?</div>
+      <div class="options" id="q-manipulation_check">
+        <label class="opt"><input type="radio" name="manipulation_check" value="1"><label>Como consumir informações de forma responsável</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="2"><label>Inglês conversacional</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="3"><label>Física básica</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="4"><label>Eleições</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="5"><label>Como interagir com outras pessoas</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="9"><label>Não sei</label></label>
       </div>
     </div>
     <div class="alert" id="alert-a">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['a1','a3','a4'], 'alert-a', 3)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateSectionA(3)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 3 — SECTION B (DL5–DL8)
-══════════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-3">
   <div class="card">
-
     <div class="question-block">
-      <div class="question-text">Pensando nos aplicativos e plataformas que você usa, quais são os três principais motivos pelos quais os utiliza?</div>
-      <div class="question-subtext">Selecione até 3 opções.</div>
-      <div class="options" id="q-dl5">
-        <label class="opt"><input type="checkbox" name="dl5" value="a"><label>Comunicar-me com amigos e familiares</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="b"><label>Entretenimento (música, vídeos, memes, etc.)</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="c"><label>Trabalhos escolares ou estudos</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="d"><label>Obter notícias e informações sobre eventos atuais</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="e"><label>Acompanhar política ou conteúdo político</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="f"><label>Comprar ou vender produtos</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="g"><label>Jogar</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="h"><label>Criar conteúdo (postar fotos, vídeos, etc.)</label></label>
-        <label class="opt"><input type="checkbox" name="dl5" value="i"><label>Outro</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Em média, quantas horas por dia você passa em redes sociais ou aplicativos de mensagens?</div>
-      <div class="options" id="q-dl6">
-        <label class="opt"><input type="radio" name="dl6" value="1"><label>Menos de 1 hora</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="2"><label>1–2 horas</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="3"><label>3–4 horas</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="4"><label>5–6 horas</label></label>
-        <label class="opt"><input type="radio" name="dl6" value="5"><label>Mais de 6 horas</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Com que frequência você usa a internet especificamente para buscar notícias ou informações sobre política e eventos atuais?</div>
+      <div class="question-text">Com que frequência você utiliza as redes sociais para buscar notícias ou informações sobre política e acontecimentos atuais?</div>
       <div class="options" id="q-dl7">
         <label class="opt"><input type="radio" name="dl7" value="5"><label>Muitas vezes por dia</label></label>
         <label class="opt"><input type="radio" name="dl7" value="4"><label>Uma ou duas vezes por dia</label></label>
@@ -685,295 +645,76 @@
         <label class="opt"><input type="radio" name="dl7" value="1"><label>Nunca</label></label>
       </div>
     </div>
-
     <div class="question-block">
-      <div class="question-text">Você já realizou alguma das seguintes atividades online?</div>
-      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
-      <div class="options" id="q-dl8">
-        <label class="opt"><input type="checkbox" name="dl8" value="a"><label>Busquei informações para verificar se uma notícia é verdadeira</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="b"><label>Acessei um site de verificação de fatos (ex.: Aos Fatos, Agência Lupa, AFP Fact Check)</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="c"><label>Denunciei conteúdo falso ou enganoso em uma plataforma</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="d"><label>Usei pesquisa reversa de imagens para verificar autenticidade</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="e"><label>Pesquisei a propriedade ou financiamento de um veículo de comunicação</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="f"><label>Compartilhei uma notícia ou conteúdo político com amigos ou familiares</label></label>
-        <label class="opt"><input type="checkbox" name="dl8" value="g"><label>Nenhuma das anteriores</label></label>
-      </div>
-    </div>
-
-    <div class="alert" id="alert-b1">Por favor, responda todas as perguntas desta seção.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['dl5','dl6','dl7','dl8'], 'alert-b1', 4)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 4 — M1 + M7
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-4">
-  <div class="card">
-
-    <div class="question-block">
-      <div class="question-text">Como você geralmente obtém informações sobre o que está acontecendo no mundo?</div>
+      <div class="question-text">Você costuma se informar sobre o que está acontecendo no mundo por meio das seguintes fontes?</div>
       <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
       <div class="options" id="q-m1">
-        <label class="opt"><input type="checkbox" name="m1" value="a"><label>Leio jornal ou revista impressa</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="b"><label>Assisto ao noticiário na TV</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="c"><label>Ouço notícias no rádio</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="d"><label>Obtenho notícias online por meio de sites ou portais de notícias</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="e"><label>Obtenho notícias por redes sociais ou aplicativos de mensagens (WhatsApp, Instagram, TikTok, etc.)</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="f"><label>Conversando com familiares</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="g"><label>Conversando com amigos ou conhecidos</label></label>
-        <label class="opt"><input type="checkbox" name="m1" value="h"><label>Normalmente não acompanho as notícias</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="a"><label>Ler jornal ou revista impressos</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="b"><label>Assistir a telejornais</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="c"><label>Obter notícias online por meio de sites ou portais de notícias</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="d"><label>Obter notícias por meio de redes sociais ou aplicativos de mensagens (WhatsApp, Instagram, TikTok etc.)</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="e"><label>Conversar com familiares</label></label>
+        <label class="opt"><input type="checkbox" name="m1" value="f"><label>Conversar com amigos ou conhecidos</label></label>
       </div>
     </div>
-
     <div class="question-block">
-      <div class="question-text">Para cada um dos seguintes veículos de comunicação, indique:</div>
-      <div class="question-subtext">(a) Você já ouviu falar? &nbsp; (b) Obteve notícias no último mês? &nbsp; (c) Considera fonte confiável?</div>
+      <div class="question-text">Para cada uma das seguintes organizações de notícias, informe:</div>
+      <div class="question-subtext">(b) Você obteve notícias por meio dela no último mês? &nbsp; (c) Você considera que ela é uma fonte confiável de notícias?</div>
       <div style="overflow-x:auto;">
         <table class="grid-table" id="m7-table">
           <thead>
             <tr>
               <th>Veículo</th>
-              <th>(a) Conhece?</th>
               <th>(b) Usou no último mês?</th>
               <th>(c) Confiável?</th>
             </tr>
           </thead>
+          <tbody><!-- populated by JS --></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="alert" id="alert-b">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateB1(4)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-4">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Na última semana, antes de confiar e compartilhar uma informação online, com que frequência você verificou de onde ela veio?</div>
+      <div class="options" id="q-verified_source">
+        <label class="opt"><input type="radio" name="verified_source" value="a"><label>Nunca</label></label>
+        <label class="opt"><input type="radio" name="verified_source" value="b"><label>Uma ou duas vezes</label></label>
+        <label class="opt"><input type="radio" name="verified_source" value="c"><label>Algumas vezes</label></label>
+        <label class="opt"><input type="radio" name="verified_source" value="d"><label>Quase sempre</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Você viu ou ouviu falar das seguintes notícias/manchetes no último mês?</div>
+      <div style="overflow-x:auto;">
+        <table class="grid-table" id="rec-table">
+          <thead><tr><th>Manchete</th><th>Sim</th><th>Talvez</th><th>Não</th></tr></thead>
           <tbody>
-            <!-- populated by JS -->
+            <tr><td>Mulher com 22 filhos recebe R$ 15 mil de Bolsa Família</td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_bolsafamilia" value="sim"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_bolsafamilia" value="talvez"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_bolsafamilia" value="nao"></label></td></tr>
+            <tr><td>Ypê anunciou recorde de vendas após suspensão da Anvisa</td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_ype" value="sim"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_ype" value="talvez"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_ype" value="nao"></label></td></tr>
+            <tr><td>Receita Federal ampliou a fiscalização e vai monitorar cada PIX e pagamentos por aproximação</td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_pix" value="sim"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_pix" value="talvez"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_pix" value="nao"></label></td></tr>
+            <tr><td>O técnico do Brasil, Carlo Ancelotti, recebeu propina para perder a Copa do Mundo</td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_ancelotti" value="sim"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_ancelotti" value="talvez"></label></td><td style="text-align:center;"><label class="grid-radio"><input type="radio" name="rec_ancelotti" value="nao"></label></td></tr>
           </tbody>
         </table>
       </div>
     </div>
-
-    <div class="alert" id="alert-m">Por favor, responda todas as perguntas desta seção.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateM1M7(5)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 5 — T1, T2, P1
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-5">
-  <div class="card">
-
-    <div class="question-block">
-      <div class="question-text">Em geral, o quanto você confia nas informações fornecidas pela mídia noticiosa no Brasil?</div>
-      <div class="options" id="q-t1">
-        <label class="opt"><input type="radio" name="t1" value="5"><label>Confio completamente</label></label>
-        <label class="opt"><input type="radio" name="t1" value="4"><label>Confio parcialmente</label></label>
-        <label class="opt"><input type="radio" name="t1" value="3"><label>Nem confio nem desconfio</label></label>
-        <label class="opt"><input type="radio" name="t1" value="2"><label>Não confio muito</label></label>
-        <label class="opt"><input type="radio" name="t1" value="1"><label>Não confio de jeito nenhum</label></label>
-        <label class="opt"><input type="radio" name="t1" value="0"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">E especificamente quando a notícia é sobre política, o quanto você confia nela?</div>
-      <div class="options" id="q-t2">
-        <label class="opt"><input type="radio" name="t2" value="5"><label>Confio completamente</label></label>
-        <label class="opt"><input type="radio" name="t2" value="4"><label>Confio parcialmente</label></label>
-        <label class="opt"><input type="radio" name="t2" value="3"><label>Nem confio nem desconfio</label></label>
-        <label class="opt"><input type="radio" name="t2" value="2"><label>Não confio muito</label></label>
-        <label class="opt"><input type="radio" name="t2" value="1"><label>Não confio de jeito nenhum</label></label>
-        <label class="opt"><input type="radio" name="t2" value="0"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">O quanto você se interessa por política?</div>
-      <div class="options" id="q-p1">
-        <label class="opt"><input type="radio" name="p1" value="5"><label>Extremamente interessado(a)</label></label>
-        <label class="opt"><input type="radio" name="p1" value="4"><label>Muito interessado(a)</label></label>
-        <label class="opt"><input type="radio" name="p1" value="3"><label>Moderadamente interessado(a)</label></label>
-        <label class="opt"><input type="radio" name="p1" value="2"><label>Levemente interessado(a)</label></label>
-        <label class="opt"><input type="radio" name="p1" value="1"><label>Sem nenhum interesse</label></label>
-        <label class="opt"><input type="radio" name="p1" value="0"><label>Não sei</label></label>
-      </div>
-    </div>
-
     <div class="alert" id="alert-b2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['t1','t2','p1'], 'alert-b2', 6)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['verified_source','rec_bolsafamilia','rec_ype','rec_pix','rec_ancelotti'], 'alert-b2', 5)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 6 — SECTION C (B1–B4)
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-6">
-  <div class="card">
-
-    <div class="question-block">
-      <div class="question-text">Qual é a principal diferença entre <em>desinformação (misinformation)</em> e <em>informação falsa intencional (disinformation)</em>?</div>
-      <div class="options" id="q-b1">
-        <label class="opt"><input type="radio" name="b1" value="a"><label>A intenção do emissor</label></label>
-        <label class="opt"><input type="radio" name="b1" value="b"><label>A ideologia política do emissor</label></label>
-        <label class="opt"><input type="radio" name="b1" value="c"><label>Uma é verdadeira e a outra é falsa</label></label>
-        <label class="opt"><input type="radio" name="b1" value="d"><label>São a mesma coisa</label></label>
-        <label class="opt"><input type="radio" name="b1" value="e"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Em quais principais níveis a desinformação pode causar efeitos prejudiciais?</div>
-      <div class="options" id="q-b2">
-        <label class="opt"><input type="radio" name="b2" value="a"><label>Individual, comunitário e democrático</label></label>
-        <label class="opt"><input type="radio" name="b2" value="b"><label>Diário, semanal e mensal</label></label>
-        <label class="opt"><input type="radio" name="b2" value="c"><label>Brasil, Índia e Estados Unidos</label></label>
-        <label class="opt"><input type="radio" name="b2" value="d"><label>Candidatos, eleitores e juízes</label></label>
-        <label class="opt"><input type="radio" name="b2" value="e"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Qual é a fonte mais comum de desinformação no Brasil?</div>
-      <div class="options" id="q-b3">
-        <label class="opt"><input type="radio" name="b3" value="a"><label>Familiares e amigos compartilhando conteúdo online</label></label>
-        <label class="opt"><input type="radio" name="b3" value="b"><label>Políticos</label></label>
-        <label class="opt"><input type="radio" name="b3" value="c"><label>Empresas profissionais</label></label>
-        <label class="opt"><input type="radio" name="b3" value="d"><label>Contas internacionais</label></label>
-        <label class="opt"><input type="radio" name="b3" value="e"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Na sua opinião, qual é o maior problema que os jovens do Brasil enfrentam hoje?</div>
-      <div class="options" id="q-b4">
-        <label class="opt"><input type="radio" name="b4" value="a"><label>Desinformação e notícias falsas</label></label>
-        <label class="opt"><input type="radio" name="b4" value="b"><label>Violência e criminalidade</label></label>
-        <label class="opt"><input type="radio" name="b4" value="c"><label>Qualidade da educação</label></label>
-        <label class="opt"><input type="radio" name="b4" value="d"><label>Falta de oportunidades de emprego e carreira</label></label>
-        <label class="opt"><input type="radio" name="b4" value="e"><label>Problemas de saúde mental (estresse, ansiedade, depressão)</label></label>
-        <label class="opt"><input type="radio" name="b4" value="f"><label>Pobreza e dificuldades financeiras</label></label>
-        <label class="opt"><input type="radio" name="b4" value="g"><label>Discriminação e preconceito</label></label>
-        <label class="opt"><input type="radio" name="b4" value="h"><label>Redes sociais e danos online</label></label>
-        <label class="opt"><input type="radio" name="b4" value="i"><label>Polarização política e divisão social</label></label>
-        <label class="opt"><input type="radio" name="b4" value="j"><label>Outro</label></label>
-      </div>
-    </div>
-
-    <div class="alert" id="alert-c1">Por favor, responda todas as perguntas desta seção.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['b1','b2','b3','b4'], 'alert-c1', 7)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 7 — B5–B10
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-7">
-  <div class="card">
-    <div class="question-subtext" style="margin-bottom:20px;">Para cada afirmação abaixo, indique o quanto você concorda ou discorda.</div>
-
-    <div class="question-block">
-      <div class="question-text">As organizações noticiosas escolhem as histórias com base no que atrairá o maior público.</div>
-      <div class="scale-wrap">
-        <div class="scale-labels">
-          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
-        </div>
-        <div class="scale-buttons" id="scale-b5">
-          <button class="scale-btn" onclick="setScale('b5',1,this)">1</button>
-          <button class="scale-btn" onclick="setScale('b5',2,this)">2</button>
-          <button class="scale-btn" onclick="setScale('b5',3,this)">3</button>
-          <button class="scale-btn" onclick="setScale('b5',4,this)">4</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Histórias que envolvem conflito e emoções fortes têm mais chances de receber cobertura de destaque nas notícias.</div>
-      <div class="scale-wrap">
-        <div class="scale-labels">
-          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
-        </div>
-        <div class="scale-buttons" id="scale-b6">
-          <button class="scale-btn" onclick="setScale('b6',1,this)">1</button>
-          <button class="scale-btn" onclick="setScale('b6',2,this)">2</button>
-          <button class="scale-btn" onclick="setScale('b6',3,this)">3</button>
-          <button class="scale-btn" onclick="setScale('b6',4,this)">4</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">De acordo com a aula, quais dos seguintes processos psicológicos podem tornar as pessoas mais propensas a acreditar em desinformação?</div>
-      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
-      <div class="options" id="q-b7">
-        <label class="opt"><input type="checkbox" name="b7" value="a"><label>Viés de confirmação</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="b"><label>Viés de desconfirmação</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="c"><label>Raciocínio motivado</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="d"><label>Pensamento crítico</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="e"><label>Verificação de fatos</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="f"><label>Letramento midiático</label></label>
-        <label class="opt"><input type="checkbox" name="b7" value="g"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">As pessoas prestam mais atenção a informações que se encaixam em suas crenças existentes do que a informações que as desafiam.</div>
-      <div class="scale-wrap">
-        <div class="scale-labels">
-          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
-        </div>
-        <div class="scale-buttons" id="scale-b8">
-          <button class="scale-btn" onclick="setScale('b8',1,this)">1</button>
-          <button class="scale-btn" onclick="setScale('b8',2,this)">2</button>
-          <button class="scale-btn" onclick="setScale('b8',3,this)">3</button>
-          <button class="scale-btn" onclick="setScale('b8',4,this)">4</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">O viés de confirmação é um dos principais motivos pelos quais as pessoas acreditam em desinformação.</div>
-      <div class="scale-wrap">
-        <div class="scale-labels">
-          <span>Discordo totalmente</span><span></span><span></span><span></span><span>Concordo totalmente</span>
-        </div>
-        <div class="scale-buttons" id="scale-b9">
-          <button class="scale-btn" onclick="setScale('b9',1,this)">1</button>
-          <button class="scale-btn" onclick="setScale('b9',2,this)">2</button>
-          <button class="scale-btn" onclick="setScale('b9',3,this)">3</button>
-          <button class="scale-btn" onclick="setScale('b9',4,this)">4</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="question-block">
-      <div class="question-text">Qual das alternativas a seguir melhor descreve o protocolo P.I.E.R. para avaliar informações online?</div>
-      <div class="options" id="q-b10">
-        <label class="opt"><input type="radio" name="b10" value="a"><label>Pausar, Investigar a fonte, Encontrar cobertura melhor, Rastrear alegações até a fonte original</label></label>
-        <label class="opt"><input type="radio" name="b10" value="b"><label>Pausar, Identificar o autor, Avaliar as evidências, Reportar desinformação</label></label>
-        <label class="opt"><input type="radio" name="b10" value="c"><label>Proteger, Informar o autor, Avaliar, Revisar a fonte</label></label>
-        <label class="opt"><input type="radio" name="b10" value="d"><label>Pausar, Investigar a fonte, Avaliar, Responder ao autor</label></label>
-        <label class="opt"><input type="radio" name="b10" value="e"><label>Não sei</label></label>
-      </div>
-    </div>
-
-    <div class="alert" id="alert-c2">Por favor, responda todas as perguntas desta seção.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSectionD(7, 8)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 8 — ATTENTION CHECK 1
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-8">
+<div class="screen" id="screen-5">
   <div class="card">
     <div class="question-block">
       <div class="question-text">As pessoas gostam de diferentes tipos de conteúdo online. Nesta pergunta, pedimos que você selecione <strong>"Notícias e acontecimentos atuais"</strong>, independentemente da sua preferência real, para confirmar que está lendo as instruções.</div>
@@ -987,87 +728,370 @@
     </div>
     <div class="alert" id="alert-att1">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 9)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 6)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 9 — SECTION D INTRO
-══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-6">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Qual é a principal diferença entre desinformação e informação falsa?</div>
+      <div class="options" id="q-misinfo_disinfo">
+        <label class="opt"><input type="radio" name="misinfo_disinfo" value="a"><label>A intenção de quem envia a informação</label></label>
+        <label class="opt"><input type="radio" name="misinfo_disinfo" value="b"><label>A ideologia política de quem envia a informação</label></label>
+        <label class="opt"><input type="radio" name="misinfo_disinfo" value="c"><label>Uma é verdadeira e a outra é falsa</label></label>
+        <label class="opt"><input type="radio" name="misinfo_disinfo" value="d"><label>São a mesma coisa</label></label>
+        <label class="opt"><input type="radio" name="misinfo_disinfo" value="e"><label>Não sei</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Qual das alternativas descreve melhor o protocolo P.I.E.R. para avaliar informações online?</div>
+      <div class="options" id="q-pier">
+        <label class="opt"><input type="radio" name="pier" value="a"><label>Pausar, Investigar a fonte, Encontrar melhor cobertura, Rastrear as alegações até a fonte original</label></label>
+        <label class="opt"><input type="radio" name="pier" value="b"><label>Pausar, Identificar o autor, Avaliar as evidências, Denunciar desinformação</label></label>
+        <label class="opt"><input type="radio" name="pier" value="c"><label>Proteger, Informar o autor, Avaliar, Revisar a fonte</label></label>
+        <label class="opt"><input type="radio" name="pier" value="d"><label>Pausar, Investigar a fonte, Avaliar, Responder ao autor</label></label>
+        <label class="opt"><input type="radio" name="pier" value="e"><label>Não sei</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Qual é a principal diferença entre uma reportagem e um artigo de opinião (editorial)?</div>
+      <div class="options" id="q-report_vs_opinion">
+        <label class="opt"><input type="radio" name="report_vs_opinion" value="a"><label>Artigos de opinião são sempre falsos e reportagens são sempre verdadeiras</label></label>
+        <label class="opt"><input type="radio" name="report_vs_opinion" value="b"><label>Reportagens relatam o que aconteceu; artigos de opinião expressam a visão e a interpretação do autor</label></label>
+        <label class="opt"><input type="radio" name="report_vs_opinion" value="c"><label>Reportagens são sempre mais longas do que artigos de opinião</label></label>
+        <label class="opt"><input type="radio" name="report_vs_opinion" value="d"><label>Artigos de opinião não são escritos por jornalistas de verdade</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">O que é uma "busca reversa de imagens"?</div>
+      <div class="options" id="q-reverse_image">
+        <label class="opt"><input type="radio" name="reverse_image" value="a"><label>Um recurso que corrige automaticamente erros gramaticais e ortográficos em fotos</label></label>
+        <label class="opt"><input type="radio" name="reverse_image" value="b"><label>Uma ferramenta que permite encontrar a fonte original de uma imagem e ver onde mais ela foi utilizada online</label></label>
+        <label class="opt"><input type="radio" name="reverse_image" value="c"><label>Uma forma de tornar imagens de baixa qualidade mais nítidas na sua tela</label></label>
+        <label class="opt"><input type="radio" name="reverse_image" value="d"><label>Um filtro de rede social que inverte uma foto</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-c1">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['misinfo_disinfo','pier','report_vs_opinion','reverse_image'], 'alert-c1', 7)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-7">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Na sua opinião, qual é o maior problema enfrentado pelos jovens no Brasil hoje? Selecione 1.</div>
+      <div class="options" id="q-youth_problem">
+        <label class="opt"><input type="radio" name="youth_problem" value="a"><label>Desinformação e fake news</label></label>
+        <label class="opt"><input type="radio" name="youth_problem" value="b"><label>Violência e criminalidade</label></label>
+        <label class="opt"><input type="radio" name="youth_problem" value="c"><label>Qualidade da educação</label></label>
+        <label class="opt"><input type="radio" name="youth_problem" value="d"><label>Falta de oportunidades de emprego e carreira</label></label>
+        <label class="opt"><input type="radio" name="youth_problem" value="e"><label>Discriminação e preconceito</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Um boato falso se espalha nas redes sociais alegando que um político cometeu um crime grave. Milhares de pessoas compartilham a informação antes que ela seja comprovadamente falsa. Quais poderiam ser as consequências no mundo real?</div>
+      <div class="question-subtext">Selecione TODAS as opções que se aplicam.</div>
+      <div class="options" id="q-hoax_consequences">
+        <label class="opt"><input type="checkbox" name="hoax_consequences" value="a"><label>A reputação do político pode ser permanentemente prejudicada, mesmo após a verdade ser revelada</label></label>
+        <label class="opt"><input type="checkbox" name="hoax_consequences" value="b"><label>As pessoas podem tomar decisões de voto com base em informações falsas</label></label>
+        <label class="opt"><input type="checkbox" name="hoax_consequences" value="c"><label>A confiança pública nas instituições democráticas pode ser enfraquecida</label></label>
+        <label class="opt"><input type="checkbox" name="hoax_consequences" value="d"><label>Pessoas que compartilharam o boato podem enfrentar consequências legais em alguns casos</label></label>
+        <label class="opt"><input type="checkbox" name="hoax_consequences" value="e"><label>Nada de grave — é apenas rede social e as pessoas sabem que ela não é confiável</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-c2">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['youth_problem','hoax_consequences'], 'alert-c2', 8)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-8">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:18px;">Agora gostaríamos de saber sua opinião sobre os meios de comunicação.</div>
+    <div class="question-block">
+      <div class="question-text">O que significa quando um veículo de notícias é "financiado por" ou pertence a uma grande empresa ou grupo político?</div>
+      <div class="options" id="q-media_ownership">
+        <label class="opt"><input type="radio" name="media_ownership" value="a"><label>Isso significa automaticamente que o veículo publica informações falsas</label></label>
+        <label class="opt"><input type="radio" name="media_ownership" value="b"><label>O financiador ou proprietário pode influenciar quais histórias são cobertas e como elas são apresentadas</label></label>
+        <label class="opt"><input type="radio" name="media_ownership" value="c"><label>Isso significa que o veículo produz conteúdo para audiências internacionais</label></label>
+        <label class="opt"><input type="radio" name="media_ownership" value="d"><label>Isso não tem qualquer efeito sobre a qualidade ou imparcialidade da cobertura</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Você encontra um site de notícias que nunca viu antes. Qual é a MELHOR maneira de descobrir se ele pode ter um viés político ou comercial?</div>
+      <div class="options" id="q-find_bias">
+        <label class="opt"><input type="radio" name="find_bias" value="a"><label>Contar quantos anúncios aparecem na página inicial</label></label>
+        <label class="opt"><input type="radio" name="find_bias" value="b"><label>Verificar quantos seguidores o veículo possui nas redes sociais</label></label>
+        <label class="opt"><input type="radio" name="find_bias" value="c"><label>Pesquisar quem é o proprietário e financiador do veículo e verificar essa informação em um monitor de viés da mídia</label></label>
+        <label class="opt"><input type="radio" name="find_bias" value="d"><label>Perguntar aos seus amigos se eles confiam nesse site</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-c3">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['media_ownership','find_bias'], 'alert-c3', 9)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
 <div class="screen" id="screen-9">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Leia a descrição abaixo. Que comportamento ela descreve?<br><br><em>"Sofia lê apenas notícias que concordam com suas opiniões políticas já existentes. Quando encontra uma matéria que desafia suas opiniões, ela imediatamente a descarta como 'fake news' sem sequer lê-la."</em></div>
+      <div class="options" id="q-confirmation_bias_id">
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="a"><label>Pensamento crítico</label></label>
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="b"><label>Viés de confirmação</label></label>
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="c"><label>Verificação de fatos</label></label>
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="d"><label>Alfabetização midiática</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Tiago acredita que um político local é corrupto. No mesmo dia, ele vê duas notícias: uma confirma sua crença e outra apresenta evidências de que o político agiu de forma justa e legal. O que o viés de confirmação o levaria a fazer?</div>
+      <div class="options" id="q-tiago_confirmation">
+        <label class="opt"><input type="radio" name="tiago_confirmation" value="a"><label>Confiar igualmente nas duas notícias e atualizar sua opinião com base nas evidências</label></label>
+        <label class="opt"><input type="radio" name="tiago_confirmation" value="b"><label>Confiar na notícia que confirma sua crença e encontrar razões para duvidar da notícia que a desafia</label></label>
+        <label class="opt"><input type="radio" name="tiago_confirmation" value="c"><label>Compartilhar ambas as notícias para que seus seguidores decidam</label></label>
+        <label class="opt"><input type="radio" name="tiago_confirmation" value="d"><label>Rejeitar ambas as notícias porque não confia na mídia</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Qual das alternativas é a MELHOR estratégia para evitar o viés de confirmação ao pesquisar um tema?</div>
+      <div class="options" id="q-avoid_confirmation">
+        <label class="opt"><input type="radio" name="avoid_confirmation" value="a"><label>Ler apenas fontes nas quais você sempre confiou</label></label>
+        <label class="opt"><input type="radio" name="avoid_confirmation" value="b"><label>Pedir a um amigo que compartilha suas opiniões para confirmar sua visão</label></label>
+        <label class="opt"><input type="radio" name="avoid_confirmation" value="c"><label>Buscar ativamente notícias e perspectivas confiáveis que desafiem sua visão atual</label></label>
+        <label class="opt"><input type="radio" name="avoid_confirmation" value="d"><label>Utilizar apenas redes sociais para obter notícias, porque os algoritmos mostram opiniões diversas</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-c4">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(8)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['confirmation_bias_id','tiago_confirmation','avoid_confirmation'], 'alert-c4', 10)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-10">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">🔍</div>
     <div class="intro-title">Seção D — Discernimento</div>
     <div class="intro-sub">
-      Agora vamos mostrar a você <strong>12 informações</strong> que circularam recentemente online.<br><br>
+      Agora vamos mostrar a você <strong>14 informações</strong> que circularam recentemente online.<br><br>
       Algumas dessas afirmações são <strong>verdadeiras</strong>, enquanto outras são <strong>falsas</strong>.<br><br>
-      Para cada afirmação, indique <strong>o quanto você acha que ela é precisa</strong>, com base em seu melhor julgamento.<br><br>
-      Não há penalidades por respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
+      Para cada afirmação, indique <strong>o quanto você acredita que ela seja precisa</strong>, com base no seu melhor julgamento. Caso não tenha certeza, forneça sua melhor estimativa.<br><br>
+      Não há penalidades para respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(8)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(10)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(9)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(11)">Começar →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREENS 9–20 — E1–E12 (generated by JS)
-══════════════════════════════════════════════════════════ -->
-
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 22 — CONJOINT INTRO
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-22">
+<div class="screen" id="screen-25">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">💬</div>
     <div class="intro-title">Tarefa — Mensagens do WhatsApp</div>
     <div class="intro-sub">
-      Na próxima seção, você verá uma série de <strong>conversas do WhatsApp</strong>.<br><br>
-      Em cada tarefa, duas mensagens serão exibidas lado a lado. As mensagens podem diferir em seu conteúdo, fonte, número de reações e outras características.<br><br>
+      Na próxima seção, você verá uma série de <strong>conversas no WhatsApp</strong>.<br><br>
+      Em cada tarefa, duas mensagens serão exibidas lado a lado.<br><br>
       <strong>Imagine que essas mensagens apareceram em um grupo de WhatsApp do qual você participa.</strong><br><br>
-      Após ler as duas mensagens, indique qual delas você teria mais probabilidade de compartilhar com outras pessoas.<br><br>
-      Estamos interessados em suas reações honestas às mensagens que você vê.
+      Em alguns casos perguntaremos qual mensagem você teria mais probabilidade de <strong>compartilhar</strong>; em outros, qual você considera <strong>mais confiável</strong>.<br><br>
+      Estamos interessados em suas reações sinceras às mensagens apresentadas.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(21)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(23)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(24)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(26)">Começar →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREENS 22–26 — CONJOINT TASKS (generated by JS)
-══════════════════════════════════════════════════════════ -->
-
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 28 — OPINION INTRO
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-28">
+<div class="screen" id="screen-32">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📰</div>
-    <div class="intro-title">Jornalismo Informativo vs. de Opinião</div>
+    <div class="intro-title">Jornalismo Informativo vs. Opinativo</div>
     <div class="intro-sub">
-      Nas próximas quatro telas, mostraremos a você <strong>pares de artigos noticiosos</strong> que apareceram sobre questões políticas ou outros assuntos recentes.<br><br>
-      Em cada caso, identifique aquele com maior probabilidade de fornecer <strong>informação objetiva e detalhada</strong> sobre os fatos do assunto.
+      Nas próximas quatro telas, mostraremos a você <strong>pares de matérias jornalísticas</strong> sobre questões políticas ou outros temas recentes.<br><br>
+      Em cada caso, identifique qual delas tem maior probabilidade de fornecer <strong>informações objetivas e detalhadas</strong> sobre os fatos.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(27)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(29)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(31)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(33)">Começar →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREENS 28–31 — OPINION TASKS (generated by JS)
-══════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-37">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Observe a manchete abaixo e escreva três perguntas que você faria a si mesmo para determinar se ela está correta ou não.</div>
+      <div class="headline-img-wrap" style="margin:12px 0;">
+        <img src="assets/ctfc1.png" alt="Manchete" loading="lazy"
+             onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="question-subtext">Por exemplo: "Quem é a fonte desta informação?"</div>
+      <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+        <div><label class="input-label">1ª pergunta:</label>
+          <textarea id="ctfc1-q1" placeholder="Escreva sua primeira pergunta..."></textarea></div>
+        <div><label class="input-label">2ª pergunta:</label>
+          <textarea id="ctfc1-q2" placeholder="Escreva sua segunda pergunta..."></textarea></div>
+        <div><label class="input-label">3ª pergunta:</label>
+          <textarea id="ctfc1-q3" placeholder="Escreva sua terceira pergunta..."></textarea></div>
+      </div>
+    </div>
+    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(36)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(38)">Próximo →</button>
+    </div>
+  </div>
+</div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 33 — ATTENTION CHECK 2
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-33">
+<div class="screen" id="screen-38">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Qual das seguintes opções seria a fonte MAIS confiável para obter informações sobre a segurança de um novo medicamento?</div>
+      <div class="options" id="q-source_medication">
+        <label class="opt"><input type="radio" name="source_medication" value="a"><label>Uma publicação no Facebook compartilhada por 100 mil pessoas</label></label>
+        <label class="opt"><input type="radio" name="source_medication" value="b"><label>Um estudo revisado por pares publicado em uma revista médica</label></label>
+        <label class="opt"><input type="radio" name="source_medication" value="c"><label>Um vídeo de um influenciador popular de saúde no YouTube</label></label>
+        <label class="opt"><input type="radio" name="source_medication" value="d"><label>Um site chamado "real-health-secrets.net"</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Você está pesquisando sobre mudanças climáticas para um trabalho escolar. Em qual fonte você mais confiaria?</div>
+      <div class="options" id="q-source_climate">
+        <label class="opt"><input type="radio" name="source_climate" value="a"><label>Uma postagem de blog escrita por uma pessoa anônima que afirma ser cientista</label></label>
+        <label class="opt"><input type="radio" name="source_climate" value="b"><label>Um relatório publicado por uma agência governamental de meio ambiente com referências bibliográficas</label></label>
+        <label class="opt"><input type="radio" name="source_climate" value="c"><label>Um vídeo com 5 milhões de visualizações afirmando que as mudanças climáticas são uma fraude</label></label>
+        <label class="opt"><input type="radio" name="source_climate" value="d"><label>Uma publicação no Instagram compartilhada pela sua celebridade favorita</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-se">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 39)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-39">
+  <div class="card">
+    <div class="question-block">
+      <div class="headline-img-wrap" style="margin-bottom:10px;"><img src="assets/whatsapp_fake.png" alt="Mensagem de WhatsApp" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+      <div class="question-text">Observe a mensagem de WhatsApp abaixo. Quais dos itens a seguir são sinais de alerta de que essa mensagem pode ser falsa ou enganosa?</div>
+      <div class="question-subtext">Selecione TODAS as opções que se aplicam.</div>
+      <div class="options" id="q-whatsapp_redflags">
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="a"><label>Usa letras maiúsculas e excesso de pontos de exclamação</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="b"><label>Cria um forte senso de urgência ("Compartilhe antes que apaguem isso!")</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="c"><label>Afirma que o governo ou as autoridades estão escondendo algo</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="d"><label>Contém erros ortográficos e gramaticais</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="e"><label>Não menciona nenhuma fonte, autor ou evidência identificável</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="f"><label>Promete um resultado extremo ou milagroso (por exemplo, "cura o câncer em 3 dias")</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="g"><label>Nenhuma das opções acima — esta mensagem parece confiável</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Qual das seguintes opções é um SINAL DE ALERTA de que uma notícia pode ser enganosa?</div>
+      <div class="options" id="q-misleading_redflag">
+        <label class="opt"><input type="radio" name="misleading_redflag" value="a"><label>A matéria inclui citações de vários especialistas identificados</label></label>
+        <label class="opt"><input type="radio" name="misleading_redflag" value="b"><label>O título utiliza palavras chocantes, emocionais ou que provocam raiva para chamar sua atenção</label></label>
+        <label class="opt"><input type="radio" name="misleading_redflag" value="c"><label>A matéria apresenta links para as pesquisas ou estudos originais mencionados</label></label>
+        <label class="opt"><input type="radio" name="misleading_redflag" value="d"><label>A matéria informa claramente a data de publicação</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Verdadeiro ou falso: Um site com aparência profissional e bem elaborada sempre significa que as informações nele contidas são precisas.</div>
+      <div class="options" id="q-professional_site_tf">
+        <label class="opt"><input type="radio" name="professional_site_tf" value="a"><label>Verdadeiro</label></label>
+        <label class="opt"><input type="radio" name="professional_site_tf" value="b"><label>Falso</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-fc1">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','misleading_redflag','professional_site_tf'], 'alert-fc1', 40)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-40">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Você lê a seguinte estatística: "90% dos adolescentes compartilham fake news todos os dias." O que você deve fazer ANTES de decidir acreditar ou compartilhar essa afirmação?</div>
+      <div class="options" id="q-statistic_check">
+        <label class="opt"><input type="radio" name="statistic_check" value="a"><label>Compartilhá-la imediatamente — a porcentagem faz a afirmação parecer confiável</label></label>
+        <label class="opt"><input type="radio" name="statistic_check" value="b"><label>Procurar a fonte original ou o estudo do qual a estatística foi retirada</label></label>
+        <label class="opt"><input type="radio" name="statistic_check" value="c"><label>Presumir que é verdadeira se aparecer em qualquer site de notícias</label></label>
+        <label class="opt"><input type="radio" name="statistic_check" value="d"><label>Discordar automaticamente porque ela não descreve sua experiência pessoal</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Qual das seguintes opções NÃO é um método confiável para verificar uma informação?</div>
+      <div class="options" id="q-not_reliable_method">
+        <label class="opt"><input type="radio" name="not_reliable_method" value="a"><label>Verificar se múltiplas fontes de notícias confiáveis e independentes relatam a mesma informação</label></label>
+        <label class="opt"><input type="radio" name="not_reliable_method" value="b"><label>Verificar a data original de publicação da matéria</label></label>
+        <label class="opt"><input type="radio" name="not_reliable_method" value="c"><label>Verificar quantas curtidas e compartilhamentos a publicação recebeu</label></label>
+        <label class="opt"><input type="radio" name="not_reliable_method" value="d"><label>Pesquisar o autor para verificar se ele possui experiência relevante e histórico na área</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Nas últimas duas semanas, quais dos seguintes métodos de verificação de informações você utilizou?</div>
+      <div class="question-subtext">Selecione TODAS as opções que se aplicam.</div>
+      <div class="options" id="q-verification_methods_used">
+        <label class="opt"><input type="checkbox" name="verification_methods_used" value="a"><label>Procurei a mesma notícia em outros sites de notícias confiáveis</label></label>
+        <label class="opt"><input type="checkbox" name="verification_methods_used" value="b"><label>Fiz uma busca reversa de imagem em uma foto sobre a qual tinha dúvidas</label></label>
+        <label class="opt"><input type="checkbox" name="verification_methods_used" value="c"><label>Pesquisei o autor ou a organização responsável por uma matéria ou publicação</label></label>
+        <label class="opt"><input type="checkbox" name="verification_methods_used" value="d"><label>Verifiquei a data original de publicação de uma matéria</label></label>
+        <label class="opt"><input type="checkbox" name="verification_methods_used" value="e"><label>Utilizei um site ou aplicativo de checagem de fatos</label></label>
+        <label class="opt"><input type="checkbox" name="verification_methods_used" value="f"><label>Não utilizei nenhum desses métodos nas últimas duas semanas</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-fc2">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 41)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-41">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Seu colega de classe envia uma mensagem pedindo que você compartilhe uma matéria sobre uma fraude nas urnas eletrônicas nas eleições brasileiras. Você está cético e não acredita que a matéria esteja correta. Qual é a atitude MAIS responsável?</div>
+      <div class="options" id="q-peer_share_fraud">
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="a"><label>Compartilhar para apoiar seu amigo — ele não enviaria algo falso</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="b"><label>Procurar fontes confiáveis sobre o tema e, caso a afirmação seja falsa, informar educadamente seu amigo</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="c"><label>Compartilhar porque seu amigo disse que funciona e isso é evidência suficiente</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="d"><label>Ignorar a mensagem e não dizer nada</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">No último mês, você corrigiu ou questionou alguém — um amigo, familiar ou contato online — que compartilhou o que você acreditava ser uma informação falsa?</div>
+      <div class="options" id="q-corrected_someone">
+        <label class="opt"><input type="radio" name="corrected_someone" value="a"><label>Sim, corrigi pessoalmente</label></label>
+        <label class="opt"><input type="radio" name="corrected_someone" value="b"><label>Sim, corrigi online ou por mensagem</label></label>
+        <label class="opt"><input type="radio" name="corrected_someone" value="c"><label>Não — eu queria fazer isso, mas me senti inseguro ou desconfortável</label></label>
+        <label class="opt"><input type="radio" name="corrected_someone" value="d"><label>Não — a situação não ocorreu ou não achei necessário</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-peer">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 42)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-42">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Queremos ter certeza de que você está lendo com atenção. Apenas neste item, por favor selecione a opção <strong>"Discordo totalmente"</strong>.</div>
@@ -1080,49 +1104,35 @@
     </div>
     <div class="alert" id="alert-att2">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(32)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 34)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(41)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 43)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 34 — CTFC1
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-34">
+<div class="screen" id="screen-43">
   <div class="card">
-
     <div class="question-block">
-      <div class="question-text">Por favor, escreva três perguntas que os leitores devem se fazer para determinar se a afirmação feita em uma manchete é correta ou não.</div>
-      <div class="question-subtext">Por exemplo: "Quem é a fonte desta informação?"</div>
-      <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
-        <div>
-          <label class="input-label">1ª pergunta:</label>
-          <textarea id="ctfc1-q1" placeholder="Escreva sua primeira pergunta..."></textarea>
-        </div>
-        <div>
-          <label class="input-label">2ª pergunta:</label>
-          <textarea id="ctfc1-q2" placeholder="Escreva sua segunda pergunta..."></textarea>
-        </div>
-        <div>
-          <label class="input-label">3ª pergunta:</label>
-          <textarea id="ctfc1-q3" placeholder="Escreva sua terceira pergunta..."></textarea>
-        </div>
+      <div class="question-text">Nos últimos meses, perfis anônimos no Instagram em diversas escolas públicas no estado da Bahia foram criados para espalhar informações falsas sobre professores e alunos. Um documento está sendo organizado com assinaturas de alunos que irão pedir ao Instagram que remova esses perfis. Você gostaria de assinar esse pedido?</div>
+      <div class="question-subtext">O nome de todos os alunos que assinarem será divulgado em um site.</div>
+      <div class="options" id="q-petition" onchange="onPetitionChange()">
+        <label class="opt"><input type="radio" name="petition" value="sim"><label>SIM, quero assinar</label></label>
+        <label class="opt"><input type="radio" name="petition" value="nao"><label>NÃO quero assinar</label></label>
       </div>
     </div>
-
-    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
+    <div class="question-block" id="block-petition_text" style="display:none;">
+      <div class="question-text">Escreva algumas palavras para que outras pessoas vejam por que os perfis devem ser deletados:</div>
+      <textarea id="petition-text" placeholder="Escreva aqui (opcional)..."></textarea>
+    </div>
+    <div class="alert" id="alert-petition">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(33)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateCTFC1(35)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(42)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validatePetition(44)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCREEN 35 — THANK YOU
-══════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-35">
+<div class="screen" id="screen-44">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
@@ -1141,10 +1151,6 @@
 </div><!-- /container -->
 
 <script>
-// ═══════════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════════
-
 const TEACHERS_DATA = [
 {
 "nte": "NTE 02 - Bom Jesus da Lapa",
@@ -1176,99 +1182,82 @@ const TEACHERS_DATA = [
 }
 ];
 
-const NEWS_OUTLETS = [
-  "Globo / TV Globo / G1","Record / Record News","SBT / SBT Brasil","CNN Brasil",
-  "BBC Brasil","Folha de S. Paulo","UOL","Brasil 247","O Antagonista","Jornal da Cidade Online"
-];
+const NEWS_OUTLETS = ["Globo / TV Globo / G1", "Record / Record News", "SBT / SBT Brasil", "CNN Brasil", "Folha de S. Paulo", "Brasil 247", "Jovem Pan", "Jornal da Cidade Online", "Diário do Centro do Mundo", "Canal Léo Dias", "Te Atualizei", "Alexandre Garcia"];
 
 const DISCERNMENT_ITEMS = [
-  { id:"E1", img:"assets/e1.jpg", label:"E1. positive_lula_true", headline:'Lula diz que o fim da escala 6x1 é uma "conquista civilizatória" e promete trabalhar pela aprovação no Senado.' },
-  { id:"E2", img:"assets/e2.jpg", label:"E2. positive_lula_false", headline:"Lula aparece na capa da revista Time, a mais importante do mundo." },
-  { id:"E3", img:"assets/e3.jpg", label:"E3. negative_lula_true", headline:"O filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
-  { id:"E4", img:"assets/e4.jpg", label:"E4. negative_lula_false", headline:"O filho de Lula comprou a Azul Linhas Aéreas." },
-  { id:"E5", img:"assets/e5.jpg", label:"E5. positive_bolsonaro_true", headline:'Trump posta foto com Flávio Bolsonaro: "Um jovem inteligente que ama muito seu país."' },
-  { id:"E6", img:"assets/e6.jpg", label:"E6. positive_bolsonaro_false", headline:"O Intercept admite erro e diz não ter evidências de que dinheiro do Master Bank financiou filme sobre Bolsonaro." },
-  { id:"E7", img:"assets/e7.jpg", label:"E7. negative_bolsonaro_true", headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas." },
-  { id:"E8", img:"assets/e8.jpg", label:"E8. negative_bolsonaro_false", headline:"Vídeo mostra Bolsonaro guardando no bolso um objeto dourado entregue por um militar." },
-  { id:"E9", img:"assets/e9.jpg", label:"E9. non_political_true", headline:"Guerra no Irã e El Niño levam economistas a projetar inflação mais alta este ano." },
-  { id:"E10", img:"assets/e10.jpg", label:"E10. non_political_false", headline:"Hantavírus é listado como evento adverso da vacina contra o coronavírus." },
-  { id:"E11", img:"assets/e11.jpg", label:"E11. old_true", headline:"Água em cidade canadense fica rosa e assusta moradores." },
-  { id:"E12", img:"assets/e12.jpg", label:"E12. old_false", headline:"WhatsApp passará a notificar motoristas quando o semáforo estiver prestes a abrir." }
+  { id:"e1", img:"assets/e1.png", key:"positive_lula_true", truth:true, headline:"Lula diz que o fim da escala 6x1 é uma \"conquista civilizatória\" e promete trabalhar pela aprovação no Senado Federal." },
+  { id:"e2", img:"assets/e2.png", key:"positive_lula_false", truth:false, headline:"Lula aparece na capa da Time, a revista mais importante do mundo." },
+  { id:"e3", img:"assets/e3.png", key:"negative_lula_true", truth:true, headline:"Filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
+  { id:"e4", img:"assets/e4.png", key:"negative_lula_false", truth:false, headline:"Filho de Lula comprou a companhia aérea Azul." },
+  { id:"e5", img:"assets/e5.png", key:"positive_bolsonaro_true", truth:true, headline:"Trump publica foto com Flávio Bolsonaro: \"Jovem inteligente que ama muito o seu país\"." },
+  { id:"e6", img:"assets/e6.png", key:"positive_bolsonaro_false", truth:false, headline:"Intercept admite erro e diz não ter prova de dinheiro do Master ter financiado filme de Bolsonaro." },
+  { id:"e7", img:"assets/e7.png", key:"negative_bolsonaro_true", truth:true, headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas internacionais." },
+  { id:"e8", img:"assets/e8.png", key:"negative_bolsonaro_false", truth:false, headline:"Vídeo mostra Bolsonaro embolsando objeto dourado dado por militar." },
+  { id:"e9", img:"assets/e9.png", key:"non_political_true", truth:true, headline:"Guerra no Irã e El Niño levam economistas a projetar aumento de inflação para o ano." },
+  { id:"e10", img:"assets/e10.png", key:"non_political_false", truth:false, headline:"Hantavírus está listado como evento adverso da vacina contra coronavírus." },
+  { id:"e11", img:"assets/e11.png", key:"old_true", truth:true, headline:"Água de cidade no Canadá fica rosa e assusta moradores." },
+  { id:"e12", img:"assets/e12.png", key:"old_false", truth:false, headline:"WhatsApp passará a avisar a motoristas quando o farol for abrir." },
+  { id:"e13", img:"assets/e13.png", key:"viral_true", truth:true, headline:"Red Bull pagará US$ 13 mi a clientes 'que não ganharam asas'." },
+  { id:"e14", img:"assets/e14.png", key:"viral_false", truth:false, headline:"Mensagem alerta sobre brinquedo que pode esconder câmera e polícia faz alerta." }
 ];
 
-// Conjoint: 12 stories, 4 source variants, 2 virality variants
-// We pick 5 random pairs (one false f*, one true t*) with random variants
+// Conjoint: 6 false (f1-f6) and 6 true (t1-t6) stories, 4 source variants, 2 virality variants.
 const CONJOINT_STORIES = [
-  { prefix:"f1", false:true },  { prefix:"f2", false:true },  { prefix:"f3", false:true },
-  { prefix:"f4", false:true },  { prefix:"f5", false:true },  { prefix:"f6", false:true },
-  { prefix:"t1", false:false }, { prefix:"t2", false:false }, { prefix:"t3", false:false },
-  { prefix:"t4", false:false }, { prefix:"t5", false:false }, { prefix:"t6", false:false }
+  { prefix:"f1", false:true }, { prefix:"f2", false:true }, { prefix:"f3", false:true },
+  { prefix:"f4", false:true }, { prefix:"f5", false:true }, { prefix:"f6", false:true },
+  { prefix:"t1", false:false },{ prefix:"t2", false:false },{ prefix:"t3", false:false },
+  { prefix:"t4", false:false },{ prefix:"t5", false:false },{ prefix:"t6", false:false }
 ];
-const SOURCES = ["g1","no_source","post","post_source"];
+const SOURCES  = ["g1","no_source","post","post_source"];
 const VIRALITY = ["high","low"];
 
 const OPINION_PAIRS = [
-  { news:"assets/1_news_folha.jpg", opinion:"assets/1_opinion_folha.jpg", outlet:"Folha de S. Paulo" },
-  { news:"assets/2_news_oglobo.jpg", opinion:"assets/2_opinion_globo.jpg", outlet:"O Globo" },
-  { news:"assets/3_news_estadao.jpg", opinion:"assets/3_opinion_estadao.jpg", outlet:"Estadão" },
-  { news:"assets/4_news_uol.jpg", opinion:"assets/4_opinion_uol.jpg", outlet:"UOL" }
+  { news:"assets/1_news_folha.png", opinion:"assets/1_opinion_folha.png", outlet:"Folha de S. Paulo" },
+  { news:"assets/2_news_oglobo.png", opinion:"assets/2_opinion_globo.png", outlet:"O Globo" },
+  { news:"assets/3_news_estadao.png", opinion:"assets/3_opinion_estadao.png", outlet:"Estadão" },
+  { news:"assets/4_news_uol.png", opinion:"assets/4_opinion_uol.png", outlet:"UOL" }
 ];
 
+
 // ═══════════════════════════════════════════════════════
-// SEEDED RANDOM (deterministic for reproducibility)
+// SCREEN LAYOUT CONSTANTS  (computed by build_survey_v4.py)
 // ═══════════════════════════════════════════════════════
+const TOTAL_SCREENS = 45;
+const FINAL_SCREEN  = 44;
+const DISC_START = 11, DISC_COUNT = 14, DISC_ANCHOR = 25;
+const CONJ_START = 26, CONJ_COUNT = 6, CONJ_ANCHOR = 32;
+const OPIN_START = 33, OPIN_COUNT = 4, OPIN_ANCHOR = 37;
+const SURVEY_GROUP = "treatment";
+
+let currentScreen = 0;
+const responses = {};
+let DISCERNMENT_ORDER = null, OPINION_PAIRS_ORDER = null, M7_ORDER = null, CONJOINT_TASKS = null;
 let seed = 42;
-function seededRand() {
-  seed = (seed * 1664525 + 1013904223) & 0xffffffff;
-  return (seed >>> 0) / 0xffffffff;
-}
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
-function seededShuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(seededRand() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+function seededRand() { seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 0xffffffff; }
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
-// Pick 5 conjoint pairs
+function slugify(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,''); }
+
+// ── Conjoint: 3 "share" pairs + 3 "trust" pairs ──
 function pickConjointTasks() {
-  const falseStories = shuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, 5);
-  const trueStories  = shuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, 5);
+  const falseStories = shuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, CONJ_COUNT);
+  const trueStories  = shuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, CONJ_COUNT);
   return falseStories.map((f, i) => {
     const t = trueStories[i];
-    const src1 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
-    const vir1 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
-    const src2 = SOURCES[Math.floor(Math.random() * SOURCES.length)];
-    const vir2 = VIRALITY[Math.floor(Math.random() * VIRALITY.length)];
-    const flipSides = Math.random() > 0.5;
-    const imgA = `assets/${f.prefix}_${src1}_${vir1}.jpg`;
-    const imgB = `assets/${t.prefix}_${src2}_${vir2}.jpg`;
-    return flipSides
-      ? { left: imgB, right: imgA, leftKey: `${t.prefix}_${src2}_${vir2}`, rightKey: `${f.prefix}_${src1}_${vir1}` }
-      : { left: imgA, right: imgB, leftKey: `${f.prefix}_${src1}_${vir1}`, rightKey: `${t.prefix}_${src2}_${vir2}` };
+    const src1 = SOURCES[Math.floor(Math.random()*SOURCES.length)];
+    const vir1 = VIRALITY[Math.floor(Math.random()*VIRALITY.length)];
+    const src2 = SOURCES[Math.floor(Math.random()*SOURCES.length)];
+    const vir2 = VIRALITY[Math.floor(Math.random()*VIRALITY.length)];
+    const flip = Math.random() > 0.5;
+    const fImg = `assets/${f.prefix}_${src1}_${vir1}.jpg`, fKey = `${f.prefix}_${src1}_${vir1}`;
+    const tImg = `assets/${t.prefix}_${src2}_${vir2}.jpg`, tKey = `${t.prefix}_${src2}_${vir2}`;
+    const dv = i < (CONJ_COUNT/2) ? 'share' : 'trust';
+    return flip
+      ? { left:tImg, right:fImg, leftKey:tKey, rightKey:fKey, dv }
+      : { left:fImg, right:tImg, leftKey:fKey, rightKey:tKey, dv };
   });
 }
-
-let CONJOINT_TASKS;  // assigned on name confirmation, not at page load
-
-// ═══════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════
-let currentScreen = 0;
-const TOTAL_SCREENS = 36;
-const responses = {};
-let DISCERNMENT_ORDER  = null;   // shuffled DISCERNMENT_ITEMS; saved for resume
-let OPINION_PAIRS_ORDER = null;  // shuffled OPINION_PAIRS; saved for resume
 
 // ═══════════════════════════════════════════════════════
 // INIT
@@ -1278,380 +1267,252 @@ document.addEventListener('DOMContentLoaded', () => {
   populateM7();
   updateProgress();
   setupOptionListeners();
-  // generateDiscernmentScreens / generateConjointScreens / generateOpinionScreens
-  // / randomizeOptions are called inside validateAndGoTo() so randomization
-  // is seeded from the moment the student confirms their identity, not page load.
 });
 
 function populateStudents() {
-  // Populate NTE dropdown
   const nteSelect = document.getElementById('nte-select');
   const ntes = [...new Set(TEACHERS_DATA.map(t => t.nte))].sort();
-  ntes.forEach(nte => {
-    const opt = document.createElement('option');
-    opt.value = nte;
-    opt.textContent = nte;
-    nteSelect.appendChild(opt);
-  });
+  ntes.forEach(nte => { const o=document.createElement('option'); o.value=nte; o.textContent=nte; nteSelect.appendChild(o); });
 }
 
 function onNTEChange() {
   const nte = document.getElementById('nte-select').value;
   const teacherSelect = document.getElementById('teacher-select');
-  const blockTeacher = document.getElementById('block-teacher');
-  const blockSchool = document.getElementById('block-school');
-  const blockStudent = document.getElementById('block-student');
-
-  // Reset downstream
+  document.getElementById('block-teacher');
   teacherSelect.innerHTML = '<option value="">— Selecione o professor —</option>';
   document.getElementById('student-select').innerHTML = '<option value="">— Selecione seu nome —</option>';
-  document.getElementById('school-display').textContent = '';
-  document.getElementById('school-display').style.display = 'none';
-  document.getElementById('school-select-dropdown').style.display = 'none';
+  document.getElementById('school-display').textContent = ''; document.getElementById('school-display').style.display='none';
+  document.getElementById('school-select-dropdown').style.display='none';
   document.getElementById('school-select-dropdown').innerHTML = '<option value="">— Selecione sua escola —</option>';
-  document.getElementById('school-select').value = '';
-  blockSchool.style.display = 'none';
-  blockStudent.style.display = 'none';
-
-  if (!nte) { blockTeacher.style.display = 'none'; return; }
-  blockTeacher.style.display = 'block';
-
-  const teachers = TEACHERS_DATA.filter(t => t.nte === nte);
-  teachers.forEach(t => {
-    const opt = document.createElement('option');
-    opt.value = t.name;
-    opt.textContent = t.name;
-    teacherSelect.appendChild(opt);
-  });
+  document.getElementById('school-select').value='';
+  document.getElementById('block-school').style.display='none';
+  document.getElementById('block-student').style.display='none';
+  if (!nte) { document.getElementById('block-teacher').style.display='none'; return; }
+  document.getElementById('block-teacher').style.display='block';
+  TEACHERS_DATA.filter(t => t.nte === nte).forEach(t => { const o=document.createElement('option'); o.value=t.name; o.textContent=t.name; teacherSelect.appendChild(o); });
 }
 
 function onTeacherChange() {
-  const teacherName    = document.getElementById('teacher-select').value;
-  const blockSchool    = document.getElementById('block-school');
-  const blockStudent   = document.getElementById('block-student');
-  const studentSelect  = document.getElementById('student-select');
-  const schoolDisplay  = document.getElementById('school-display');
+  const teacherName = document.getElementById('teacher-select').value;
+  const blockSchool = document.getElementById('block-school');
+  const blockStudent = document.getElementById('block-student');
+  const studentSelect = document.getElementById('student-select');
+  const schoolDisplay = document.getElementById('school-display');
   const schoolDropdown = document.getElementById('school-select-dropdown');
-
-  // Reset downstream
   studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
-  document.getElementById('new-name-wrap').style.display = 'none';
-  schoolDisplay.style.display = 'none';
-  schoolDisplay.textContent = '';
-  schoolDropdown.style.display = 'none';
-  schoolDropdown.innerHTML = '<option value="">— Selecione sua escola —</option>';
-  document.getElementById('school-select').value = '';
-  blockStudent.style.display = 'none';
-
-  if (!teacherName) { blockSchool.style.display = 'none'; return; }
-
+  document.getElementById('new-name-wrap').style.display='none';
+  schoolDisplay.style.display='none'; schoolDisplay.textContent='';
+  schoolDropdown.style.display='none'; schoolDropdown.innerHTML='<option value="">— Selecione sua escola —</option>';
+  document.getElementById('school-select').value=''; blockStudent.style.display='none';
+  if (!teacherName) { blockSchool.style.display='none'; return; }
   const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
   if (!teacher) return;
-
-  blockSchool.style.display = 'block';
-
-  // Always show ALL students for this teacher across every school,
-  // sorted alphabetically and deduplicated.
-  const allStudents = [...new Set(
-    teacher.schools.flatMap(s => s.students)
-  )].sort();
+  blockSchool.style.display='block';
+  const allStudents = [...new Set(teacher.schools.flatMap(s => s.students))].sort();
   fillStudentSelect(allStudents, studentSelect);
-  blockStudent.style.display = 'block';
-
+  blockStudent.style.display='block';
   if (teacher.schools.length === 1) {
-    // Single school: auto-fill, no choice needed
-    schoolDisplay.textContent = teacher.schools[0].name;
-    schoolDisplay.style.display = 'block';
+    schoolDisplay.textContent = teacher.schools[0].name; schoolDisplay.style.display='block';
     document.getElementById('school-select').value = teacher.schools[0].name;
   } else {
-    // Multiple schools: show dropdown so student can identify their school
-    teacher.schools.forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s.name;
-      opt.textContent = s.name;
-      schoolDropdown.appendChild(opt);
-    });
-    schoolDropdown.style.display = 'block';
+    teacher.schools.forEach(s => { const o=document.createElement('option'); o.value=s.name; o.textContent=s.name; schoolDropdown.appendChild(o); });
+    schoolDropdown.style.display='block';
   }
-
   checkIdentifiers();
 }
 
 function onSchoolChange() {
-  // School change only updates the hidden school-select value; student list
-  // is already fully populated and does not change.
-  const schoolName = document.getElementById('school-select-dropdown').value;
-  document.getElementById('school-select').value = schoolName;
+  document.getElementById('school-select').value = document.getElementById('school-select-dropdown').value;
   checkIdentifiers();
 }
 
 function fillStudentSelect(students, selectEl) {
-  students.forEach(name => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    selectEl.appendChild(opt);
-  });
-  const other = document.createElement('option');
-  other.value = '__other__';
-  other.textContent = 'Meu nome não está na lista';
-  selectEl.appendChild(other);
+  students.forEach(name => { const o=document.createElement('option'); o.value=name; o.textContent=name; selectEl.appendChild(o); });
+  const other=document.createElement('option'); other.value='__other__'; other.textContent='Meu nome não está na lista'; selectEl.appendChild(other);
 }
 
 function populateM7() {
   const tbody = document.querySelector('#m7-table tbody');
-  NEWS_OUTLETS.forEach((outlet, i) => {
+  if (!tbody) return;
+  if (!M7_ORDER) M7_ORDER = shuffle(NEWS_OUTLETS.map((o,i)=>({ name:o, slug:slugify(o) })));
+  M7_ORDER.forEach(({name, slug}) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${outlet}</td>
-      <td><select name="m7_${i}_a"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
-      <td><select name="m7_${i}_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
-      <td><select name="m7_${i}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Parcialmente</option><option value="0">Não</option><option value="9">Não sei</option></select></td>
-    `;
+      <td>${name}</td>
+      <td><select name="m7_${slug}_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td>
+      <td><select name="m7_${slug}_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td>`;
     tbody.appendChild(tr);
   });
 }
 
 function generateDiscernmentScreens() {
   const container = document.querySelector('.container');
-  const refScreen = document.getElementById('screen-22');
+  const ref = document.getElementById(`screen-${DISC_ANCHOR}`);
   if (!DISCERNMENT_ORDER) DISCERNMENT_ORDER = shuffle(DISCERNMENT_ITEMS);
-  const discItems = DISCERNMENT_ORDER;
-  discItems.forEach((item, idx) => {
-    const screenNum = 10 + idx;
+  DISCERNMENT_ORDER.forEach((item, idx) => {
+    const n = DISC_START + idx;
+    const key = `disc_${item.key}`;
     const div = document.createElement('div');
-    div.className = 'screen';
-    div.id = `screen-${screenNum}`;
+    div.className='screen'; div.id=`screen-${n}`;
     div.innerHTML = `
       <div class="card">
         <div class="task-counter" id="disc-counter-${idx}"></div>
         <div class="headline-label">Avalie a precisão da manchete abaixo:</div>
-        <div class="headline-img-wrap">
-          <img src="${item.img}" alt="${item.label}" loading="lazy">
-        </div>
-        <div class="question-text" style="margin-bottom:16px;">O quanto você acha que esta manchete é precisa?</div>
+        <div class="headline-img-wrap"><img src="${item.img}" alt="${item.key}" loading="lazy"></div>
+        <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
         <div class="scale-wrap">
-          <div class="scale-labels">
-            <span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span>
-          </div>
-          <div class="scale-buttons" id="scale-${item.id.toLowerCase()}">
-            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',1,this)">1</button>
-            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',2,this)">2</button>
-            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',3,this)">3</button>
-            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',4,this)">4</button>
-            <button class="scale-btn" onclick="setScale('${item.id.toLowerCase()}',5,this)">5</button>
+          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
+          <div class="scale-buttons" id="scale-${key}">
+            <button class="scale-btn" onclick="setScale('${key}',1,this)">1</button>
+            <button class="scale-btn" onclick="setScale('${key}',2,this)">2</button>
+            <button class="scale-btn" onclick="setScale('${key}',3,this)">3</button>
+            <button class="scale-btn" onclick="setScale('${key}',4,this)">4</button>
+            <button class="scale-btn" onclick="setScale('${key}',5,this)">5</button>
           </div>
         </div>
-        <div class="alert" id="alert-${item.id.toLowerCase()}">Por favor, selecione uma opção.</div>
+        <div class="alert" id="alert-${key}">Por favor, selecione uma opção.</div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Voltar</button>
-          <button class="btn btn-primary" onclick="requireScale('${item.id.toLowerCase()}', ${screenNum + 1})">Próximo →</button>
+          <button class="btn btn-secondary" onclick="goTo(${n-1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireScale('${key}', ${n+1})">Próximo →</button>
         </div>
       </div>`;
-    container.insertBefore(div, refScreen);
+    container.insertBefore(div, ref);
   });
-  // Build task counter dots for discernment
   setTimeout(() => {
-    discItems.forEach((_, idx) => {
+    DISCERNMENT_ORDER.forEach((_, idx) => {
       const counter = document.getElementById(`disc-counter-${idx}`);
       if (!counter) return;
-      for (let i = 0; i < 12; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'task-dot' + (i === idx ? ' active' : '');
-        dot.id = `disc-dot-${idx}-${i}`;
-        counter.appendChild(dot);
-      }
+      for (let i=0;i<DISC_COUNT;i++){ const d=document.createElement('div'); d.className='task-dot'+(i===idx?' active':''); d.id=`disc-dot-${idx}-${i}`; counter.appendChild(d); }
     });
   }, 0);
 }
 
 function generateConjointScreens() {
   const container = document.querySelector('.container');
-  const refScreen = document.getElementById('screen-28');
+  const ref = document.getElementById(`screen-${CONJ_ANCHOR}`);
   CONJOINT_TASKS.forEach((task, idx) => {
-    const screenNum = 23 + idx;
+    const n = CONJ_START + idx;
+    const isShare = task.dv === 'share';
+    const prompt = isShare
+      ? 'Após ler as duas mensagens, clique naquela que você teria mais probabilidade de <strong>compartilhar</strong> com outras pessoas.'
+      : 'Após ler as duas mensagens, clique naquela que você considera <strong>mais confiável</strong>.';
+    const label = isShare ? '📤 Compartilharia esta' : '✓ Mais confiável';
     const div = document.createElement('div');
-    div.className = 'screen';
-    div.id = `screen-${screenNum}`;
+    div.className='screen'; div.id=`screen-${n}`;
     div.innerHTML = `
       <div class="card">
         <div class="instruction-box">
           <strong>📲 Imagine que você recebeu estas mensagens em um grupo do WhatsApp.</strong>
-          Após ler as duas mensagens, clique naquela que você teria mais probabilidade de compartilhar com outras pessoas.
+          ${prompt}
         </div>
         <div class="conjoint-pair">
           <div class="conjoint-card" id="conj-${idx}-A" onclick="selectConjoint(${idx},'A')">
-            <img src="${task.left}" alt="Mensagem A" loading="lazy">
-            <div class="choice-label">📤 Compartilharia esta</div>
-          </div>
+            <img src="${task.left}" alt="Mensagem A" loading="lazy"><div class="choice-label">${label}</div></div>
           <div class="conjoint-card" id="conj-${idx}-B" onclick="selectConjoint(${idx},'B')">
-            <img src="${task.right}" alt="Mensagem B" loading="lazy">
-            <div class="choice-label">📤 Compartilharia esta</div>
-          </div>
+            <img src="${task.right}" alt="Mensagem B" loading="lazy"><div class="choice-label">${label}</div></div>
         </div>
         <div class="alert" id="alert-conj-${idx}">Por favor, selecione uma das mensagens.</div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Voltar</button>
-          <button class="btn btn-primary" onclick="requireConjoint(${idx}, ${screenNum + 1})">Próximo →</button>
+          <button class="btn btn-secondary" onclick="goTo(${n-1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireConjoint(${idx}, ${n+1})">Próximo →</button>
         </div>
       </div>`;
-    container.insertBefore(div, refScreen);
+    container.insertBefore(div, ref);
   });
 }
 
 function generateOpinionScreens() {
   const container = document.querySelector('.container');
-  const refScreen = document.getElementById('screen-33');
+  const ref = document.getElementById(`screen-${OPIN_ANCHOR}`);
   if (!OPINION_PAIRS_ORDER) OPINION_PAIRS_ORDER = shuffle([...OPINION_PAIRS]);
   OPINION_PAIRS_ORDER.forEach((pair, idx) => {
-    const screenNum = 29 + idx;
+    const n = OPIN_START + idx;
+    const flip = Math.random() > 0.5;
+    const leftImg  = flip ? pair.opinion : pair.news;
+    const rightImg = flip ? pair.news : pair.opinion;
+    const leftIsNews = !flip;
     const div = document.createElement('div');
-    div.className = 'screen';
-    div.id = `screen-${screenNum}`;
+    div.className='screen'; div.id=`screen-${n}`;
+    div.dataset.leftnews = leftIsNews ? '1' : '0';
     div.innerHTML = `
       <div class="card">
         <div class="instruction-box">
-          <strong>📰 Qual das duas imagens tem mais chance de passar informação objetiva e detalhada?</strong>
-          Clique na imagem que melhor representa jornalismo informativo sobre os fatos.
+          <strong>📰 Qual das duas imagens tem maior probabilidade de fornecer informações objetivas e detalhadas?</strong>
         </div>
         <div class="opinion-pair">
           <div class="opinion-card" id="op-${idx}-A" onclick="selectOpinion(${idx},'A')">
-            <img src="${pair.news}" alt="Artigo A" loading="lazy">
-            <div class="choice-label">Selecionar esta</div>
-          </div>
+            <img src="${leftImg}" alt="Matéria A" loading="lazy"><div class="choice-label">Selecionar esta</div></div>
           <div class="opinion-card" id="op-${idx}-B" onclick="selectOpinion(${idx},'B')">
-            <img src="${pair.opinion}" alt="Artigo B" loading="lazy">
-            <div class="choice-label">Selecionar esta</div>
-          </div>
+            <img src="${rightImg}" alt="Matéria B" loading="lazy"><div class="choice-label">Selecionar esta</div></div>
         </div>
         <div class="alert" id="alert-op-${idx}">Por favor, selecione uma das imagens.</div>
         <div class="nav-buttons">
-          <button class="btn btn-secondary" onclick="goTo(${screenNum - 1})">← Voltar</button>
-          <button class="btn btn-primary" onclick="requireOpinion(${idx}, ${screenNum + 1})">Próximo →</button>
+          <button class="btn btn-secondary" onclick="goTo(${n-1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireOpinion(${idx}, ${n+1})">Próximo →</button>
         </div>
       </div>`;
-    container.insertBefore(div, refScreen);
+    container.insertBefore(div, ref);
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// PAUSE / RESUME  (localStorage, 6-digit PIN)
-// ═══════════════════════════════════════════════════════
+// ── PAUSE / RESUME ──
 function pauseSurvey() {
-  const pin = String(Math.floor(100000 + Math.random() * 900000));
-  const state = {
-    v: 1,
-    ts: Date.now(),
-    screen: currentScreen,
-    responses: Object.assign({}, responses),
-    conjointTasks: CONJOINT_TASKS,
-    discernmentOrder: DISCERNMENT_ORDER,
-    opinionOrder: OPINION_PAIRS_ORDER
-  };
-  try {
-    localStorage.setItem('bahiasv_' + pin, JSON.stringify(state));
-  } catch(e) {
-    alert('Não foi possível salvar neste dispositivo.');
-    return;
-  }
+  const pin = String(Math.floor(100000 + Math.random()*900000));
+  const state = { v:4, ts:Date.now(), screen:currentScreen, responses:Object.assign({},responses),
+    conjointTasks:CONJOINT_TASKS, discernmentOrder:DISCERNMENT_ORDER, opinionOrder:OPINION_PAIRS_ORDER, m7Order:M7_ORDER };
+  try { localStorage.setItem('bahiasv_'+pin, JSON.stringify(state)); }
+  catch(e){ alert('Não foi possível salvar neste dispositivo.'); return; }
   document.getElementById('pause-pin-display').textContent = pin;
-  document.getElementById('pause-modal').style.display = 'flex';
+  document.getElementById('pause-modal').style.display='flex';
 }
 
 function resumeSurvey() {
-  const pin = document.getElementById('resume-pin-input').value.replace(/\D/g, '').trim();
-  const errorEl = document.getElementById('resume-error');
-  errorEl.style.display = 'none';
-
-  const raw = localStorage.getItem('bahiasv_' + pin);
-  if (!raw) { errorEl.style.display = 'block'; return; }
-
-  let state;
-  try { state = JSON.parse(raw); } catch(e) { errorEl.style.display = 'block'; return; }
-
-  // Restore survey state
+  const pin = document.getElementById('resume-pin-input').value.replace(/\D/g,'').trim();
+  const errorEl = document.getElementById('resume-error'); errorEl.style.display='none';
+  const raw = localStorage.getItem('bahiasv_'+pin);
+  if (!raw){ errorEl.style.display='block'; return; }
+  let state; try { state=JSON.parse(raw); } catch(e){ errorEl.style.display='block'; return; }
   Object.assign(responses, state.responses);
-  CONJOINT_TASKS      = state.conjointTasks;
-  DISCERNMENT_ORDER   = state.discernmentOrder;
+  CONJOINT_TASKS = state.conjointTasks; DISCERNMENT_ORDER = state.discernmentOrder;
   OPINION_PAIRS_ORDER = state.opinionOrder;
-
-  // Re-generate dynamic screens using the saved randomization order
-  generateDiscernmentScreens();
-  generateConjointScreens();
-  generateOpinionScreens();
-  randomizeOptions();
-
-  // Navigate to the saved screen
+  if (state.m7Order) { M7_ORDER = state.m7Order; const tb=document.querySelector('#m7-table tbody'); if(tb){tb.innerHTML=''; populateM7();} }
+  generateDiscernmentScreens(); generateConjointScreens(); generateOpinionScreens(); randomizeOptions();
   goTo(state.screen);
-
-  // Re-populate any visible form elements from saved responses
   requestAnimationFrame(restoreFormState);
 }
 
 function restoreFormState() {
-  Object.entries(responses).forEach(([k, v]) => {
-    if (v === null || v === undefined || v === '') return;
-    // Checkbox array
-    if (Array.isArray(v)) {
-      v.forEach(val => {
-        const el = document.querySelector(`input[type="checkbox"][name="${k}"][value="${val}"]`);
-        if (el) { el.checked = true; el.closest('.opt')?.classList.add('selected'); }
-      });
-      return;
-    }
-    // Radio
-    const radio = document.querySelector(`input[type="radio"][name="${k}"][value="${String(v)}"]`);
-    if (radio) { radio.checked = true; radio.closest('.opt')?.classList.add('selected'); return; }
-    // Range slider
-    const range = document.querySelector(`input[type="range"][name="${k}"]`);
-    if (range) { range.value = v; range.dispatchEvent(new Event('input')); return; }
-    // Select
-    const sel = document.querySelector(`select[name="${k}"]`);
-    if (sel) { sel.value = v; return; }
-    // Textarea
-    const ta = document.querySelector(`textarea[name="${k}"]`);
-    if (ta) { ta.value = v; }
+  Object.entries(responses).forEach(([k,v]) => {
+    if (v===null||v===undefined||v==='') return;
+    if (Array.isArray(v)) { v.forEach(val => { const el=document.querySelector(`input[type="checkbox"][name="${k}"][value="${val}"]`); if(el){el.checked=true; el.closest('.opt')?.classList.add('selected');} }); return; }
+    const radio=document.querySelector(`input[type="radio"][name="${k}"][value="${String(v)}"]`); if(radio){radio.checked=true; radio.closest('.opt')?.classList.add('selected'); return;}
+    const sel=document.querySelector(`select[name="${k}"]`); if(sel){sel.value=v; return;}
+    const ta=document.getElementById(k==='petition_text'?'petition-text':k); if(ta&&ta.tagName==='TEXTAREA'){ta.value=v;}
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// OPTION RANDOMIZATION
-// ═══════════════════════════════════════════════════════
-// Shuffle answer options on load; pin "Não sei / Outro / Nenhuma" to bottom.
+// ── OPTION RANDOMIZATION ──
 function randomizeOptions() {
-  const groups = ['q-a4','q-dl5','q-dl8','q-m1','q-b1','q-b2','q-b3','q-b4','q-b7','q-b10'];
+  const groups = ['q-manipulation_check','q-m1','q-youth_problem'];
   const lastPattern = /não sei|não quero|nenhuma|outro/i;
   groups.forEach(id => {
-    const container = document.getElementById(id);
-    if (!container) return;
-    const opts = Array.from(container.querySelectorAll(':scope > label.opt'));
-    if (opts.length < 2) return;
-    const keep = opts.filter(o => lastPattern.test(o.textContent));
-    const rest = opts.filter(o => !lastPattern.test(o.textContent));
-    for (let i = rest.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [rest[i], rest[j]] = [rest[j], rest[i]];
-    }
-    [...rest, ...keep].forEach(o => container.appendChild(o));
+    const c=document.getElementById(id); if(!c) return;
+    const opts=Array.from(c.querySelectorAll(':scope > label.opt')); if(opts.length<2) return;
+    const keep=opts.filter(o=>lastPattern.test(o.textContent));
+    const rest=opts.filter(o=>!lastPattern.test(o.textContent));
+    for(let i=rest.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rest[i],rest[j]]=[rest[j],rest[i]];}
+    [...rest,...keep].forEach(o=>c.appendChild(o));
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════════════
-// Map each screen to a major section number (1–6)
-// 1: Introdução & Identificação (0–1)
-// 2: Participação (2)
-// 3: Consumo de Mídia (3–5)
-// 4: Conhecimento (6–7)
-// 5: Discernimento & Tarefas (8–31)
-// 6: Pensamento Crítico & Encerramento (32–33)
+// ── NAVIGATION ──
 function getSectionLabel(n) {
-  if (n <= 1)  return 'Seção 1 de 6';
-  if (n === 2) return 'Seção 2 de 6';
-  if (n <= 5)  return 'Seção 3 de 6';
-  if (n <= 7)  return 'Seção 4 de 6';
-  if (n <= 33) return 'Seção 5 de 6';
+  if (n <= 1) return 'Seção 1 de 6';
+  if (n <= 2) return 'Seção 2 de 6';
+  if (n <= 5) return 'Seção 3 de 6';
+  if (n <= 9) return 'Seção 4 de 6';
+  if (n <= 36) return 'Seção 5 de 6';
+  if (n <= 44) return 'Seção 6 de 6';
   return 'Seção 6 de 6';
 }
 
@@ -1659,242 +1520,126 @@ function goTo(n) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById(`screen-${n}`);
   if (target) {
-    target.classList.add('active');
-    currentScreen = n;
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    updateDiscernmentDots(n);
-    // Show Pausar button once the survey is in progress (screen 2+)
+    target.classList.add('active'); currentScreen=n; updateProgress();
+    window.scrollTo({top:0,behavior:'smooth'}); updateDiscernmentDots(n);
     document.getElementById('pause-btn').style.display = n >= 2 ? 'inline-flex' : 'none';
   }
 }
 
 function updateProgress() {
-  const pct = Math.round((currentScreen / (TOTAL_SCREENS - 1)) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = `${currentScreen} de ${TOTAL_SCREENS - 1}`;
+  const pct = Math.round((currentScreen/(TOTAL_SCREENS-1))*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-label').textContent = `${currentScreen} de ${TOTAL_SCREENS-1}`;
   document.getElementById('section-label').textContent = getSectionLabel(currentScreen);
 }
 
 function updateDiscernmentDots(n) {
-  if (n >= 10 && n <= 21) {
-    const idx = n - 10;
-    for (let task = 0; task < 12; task++) {
-      for (let dot = 0; dot < 12; dot++) {
-        const el = document.getElementById(`disc-dot-${task}-${dot}`);
-        if (!el) continue;
-        el.className = 'task-dot' + (dot < idx ? ' done' : dot === idx ? ' active' : '');
+  if (n >= DISC_START && n < DISC_START+DISC_COUNT) {
+    const idx = n - DISC_START;
+    for (let task=0; task<DISC_COUNT; task++)
+      for (let dot=0; dot<DISC_COUNT; dot++) {
+        const el=document.getElementById(`disc-dot-${task}-${dot}`); if(!el) continue;
+        el.className='task-dot'+(dot<idx?' done':dot===idx?' active':'');
       }
-    }
   }
 }
 
-// ═══════════════════════════════════════════════════════
-// OPTION CLICK HIGHLIGHTING
-// ═══════════════════════════════════════════════════════
 function setupOptionListeners() {
   document.addEventListener('change', e => {
-    if (e.target.type === 'radio') {
-      const name = e.target.name;
-      document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
-        inp.closest('.opt')?.classList.toggle('selected', inp.checked);
-      });
-    }
-    if (e.target.type === 'checkbox') {
-      e.target.closest('.opt')?.classList.toggle('selected', e.target.checked);
-    }
+    if (e.target.type==='radio'){ const name=e.target.name; document.querySelectorAll(`input[name="${name}"]`).forEach(inp=>{inp.closest('.opt')?.classList.toggle('selected',inp.checked);}); }
+    if (e.target.type==='checkbox'){ e.target.closest('.opt')?.classList.toggle('selected',e.target.checked); }
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// SCALE
-// ═══════════════════════════════════════════════════════
-function setScale(key, val, btn) {
-  const container = document.getElementById(`scale-${key}`);
-  if (!container) return;
-  container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  responses[key] = val;
-}
+function setScale(key,val,btn){ const c=document.getElementById(`scale-${key}`); if(!c) return; c.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); responses[key]=val; }
+function requireScale(key,next){ const a=document.getElementById(`alert-${key}`); if(!responses[key]){ if(a)a.classList.add('show'); return;} if(a)a.classList.remove('show'); goTo(next); }
 
-function requireScale(key, next) {
-  const alert = document.getElementById(`alert-${key}`);
-  if (!responses[key]) {
-    if (alert) { alert.classList.add('show'); }
-    return;
-  }
-  if (alert) alert.classList.remove('show');
-  goTo(next);
-}
+function selectConjoint(idx,side){ ['A','B'].forEach(s=>document.getElementById(`conj-${idx}-${s}`)?.classList.remove('selected')); document.getElementById(`conj-${idx}-${side}`)?.classList.add('selected'); responses[`conjoint_${idx}`]= side==='A'?CONJOINT_TASKS[idx].leftKey:CONJOINT_TASKS[idx].rightKey; responses[`conjoint_${idx}_dv`]=CONJOINT_TASKS[idx].dv; }
+function requireConjoint(idx,next){ if(!responses[`conjoint_${idx}`]){ document.getElementById(`alert-conj-${idx}`)?.classList.add('show'); return;} goTo(next); }
+function selectOpinion(idx,side){ ['A','B'].forEach(s=>document.getElementById(`op-${idx}-${s}`)?.classList.remove('selected')); document.getElementById(`op-${idx}-${side}`)?.classList.add('selected'); const scr=document.getElementById(`op-${idx}-A`).closest('.screen'); const leftNews=scr?.dataset.leftnews==='1'; const chosenNews=(side==='A')===leftNews; responses[`opinion_${idx}`]=side; responses[`opinion_${idx}_chose`]=chosenNews?'news':'opinion'; }
+function requireOpinion(idx,next){ if(!responses[`opinion_${idx}`]){ document.getElementById(`alert-op-${idx}`)?.classList.add('show'); return;} goTo(next); }
 
-// ═══════════════════════════════════════════════════════
-// CONJOINT / OPINION SELECTION
-// ═══════════════════════════════════════════════════════
-function selectConjoint(idx, side) {
-  ['A','B'].forEach(s => document.getElementById(`conj-${idx}-${s}`)?.classList.remove('selected'));
-  document.getElementById(`conj-${idx}-${side}`)?.classList.add('selected');
-  responses[`conjoint_${idx}`] = side === 'A'
-    ? CONJOINT_TASKS[idx].leftKey
-    : CONJOINT_TASKS[idx].rightKey;
-}
+function enableNext(btnId){ document.getElementById(btnId).disabled=false; }
+function showNoConsent(){ document.getElementById('no-consent-msg').style.display='block'; }
+function onStudentChange(){ const sel=document.getElementById('student-select').value; document.getElementById('new-name-wrap').style.display= sel==='__other__'?'block':'none'; if(sel!=='__other__') document.getElementById('new-name-input').value=''; checkIdentifiers(); }
+function checkIdentifiers(){ const nte=document.getElementById('nte-select').value, t=document.getElementById('teacher-select').value, s=document.getElementById('school-select').value, st=document.getElementById('student-select').value, nn=document.getElementById('new-name-input').value.trim(); return !!(nte&&t&&s&&st&&(st!=='__other__'||nn)); }
 
-function requireConjoint(idx, next) {
-  if (!responses[`conjoint_${idx}`]) {
-    const alert = document.getElementById(`alert-conj-${idx}`);
-    if (alert) { alert.classList.add('show'); }
-    return;
-  }
-  goTo(next);
-}
+function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
+function onPetitionChange(){ const v=document.querySelector('input[name="petition"]:checked')?.value; document.getElementById('block-petition_text').style.display = v==='sim'?'block':'none'; }
 
-function selectOpinion(idx, side) {
-  ['A','B'].forEach(s => document.getElementById(`op-${idx}-${s}`)?.classList.remove('selected'));
-  document.getElementById(`op-${idx}-${side}`)?.classList.add('selected');
-  responses[`opinion_${idx}`] = side;
-}
-
-function requireOpinion(idx, next) {
-  if (!responses[`opinion_${idx}`]) {
-    const alert = document.getElementById(`alert-op-${idx}`);
-    if (alert) { alert.classList.add('show'); }
-    return;
-  }
-  goTo(next);
-}
-
-// ═══════════════════════════════════════════════════════
-// VALIDATION HELPERS
-// ═══════════════════════════════════════════════════════
-function enableNext(btnId) {
-  document.getElementById(btnId).disabled = false;
-}
-
-function showNoConsent() {
-  document.getElementById('no-consent-msg').style.display = 'block';
-}
-
-function onStudentChange() {
-  const sel = document.getElementById('student-select').value;
-  document.getElementById('new-name-wrap').style.display =
-    sel === '__other__' ? 'block' : 'none';
-  if (sel !== '__other__') {
-    document.getElementById('new-name-input').value = '';
-  }
-  checkIdentifiers();
-}
-
-function checkIdentifiers() {
-  const nte = document.getElementById('nte-select').value;
-  const t = document.getElementById('teacher-select').value;
-  const s = document.getElementById('school-select').value;
-  const st = document.getElementById('student-select').value;
-  const newName = document.getElementById('new-name-input').value.trim();
-  return !!(nte && t && s && st && (st !== '__other__' || newName));
-}
-
-function validateM1M7(next) {
-  const alertEl = document.getElementById('alert-m');
-  if (!document.querySelector('input[name="m1"]:checked')) {
-    alertEl.classList.add('show');
-    document.getElementById('q-m1')?.scrollIntoView({ behavior:'smooth', block:'center' });
-    return;
-  }
-  for (let i = 0; i < NEWS_OUTLETS.length; i++) {
-    for (const col of ['a','b','c']) {
-      const sel = document.querySelector(`select[name="m7_${i}_${col}"]`);
-      if (sel && !sel.value) {
-        alertEl.classList.add('show');
-        sel.closest('tr')?.scrollIntoView({ behavior:'smooth', block:'center' });
-        return;
-      }
-    }
-  }
-  alertEl.classList.remove('show');
-  goTo(next);
-}
-
-function validateCTFC1(next) {
-  const q1 = document.getElementById('ctfc1-q1')?.value.trim();
-  const q2 = document.getElementById('ctfc1-q2')?.value.trim();
-  const q3 = document.getElementById('ctfc1-q3')?.value.trim();
-  const alertEl = document.getElementById('alert-ctfc');
-  if (!q1 || !q2 || !q3) {
-    alertEl.classList.add('show');
-    if (!q1) document.getElementById('ctfc1-q1')?.focus();
-    else if (!q2) document.getElementById('ctfc1-q2')?.focus();
-    else document.getElementById('ctfc1-q3')?.focus();
-    return;
-  }
-  alertEl.classList.remove('show');
-  goTo(next);
-}
-
+// ── VALIDATORS ──
 function validateSection(names, alertId, next) {
   const missing = names.filter(name => !document.querySelector(`input[name="${name}"]:checked`));
-  if (missing.length > 0) {
-    const alertEl = document.getElementById(alertId);
-    alertEl.classList.add('show');
-    const firstEl = document.getElementById(`q-${missing[0]}`) || document.getElementById(`scale-${missing[0]}`);
-    if (firstEl) firstEl.scrollIntoView({ behavior:'smooth', block:'center' });
-    return;
-  }
+  if (missing.length) { document.getElementById(alertId).classList.add('show');
+    const fe=document.getElementById(`q-${missing[0]}`)||document.getElementById(`scale-${missing[0]}`); if(fe)fe.scrollIntoView({behavior:'smooth',block:'center'}); return; }
   document.getElementById(alertId)?.classList.remove('show');
-  // Save responses (handles both radio and checkbox)
-  names.forEach(name => {
-    const boxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-    if (!boxes.length) return;
-    if (boxes[0].type === 'checkbox') {
-      responses[name] = Array.from(boxes).map(b => b.value);
-    } else {
-      responses[name] = boxes[0].value;
-    }
-  });
+  names.forEach(name => { const b=document.querySelectorAll(`input[name="${name}"]:checked`); if(!b.length) return; responses[name]= b[0].type==='checkbox'?Array.from(b).map(x=>x.value):b[0].value; });
   goTo(next);
 }
 
 function validateAndGoTo(next, alertId, checkFn) {
-  if (!checkFn()) {
-    const alert = document.getElementById(alertId);
-    alert.classList.add('show');
-    return;
-  }
-  // Save identifier responses
-  responses.nte = document.getElementById('nte-select').value;
-  responses.teacher = document.getElementById('teacher-select').value;
-  responses.school = document.getElementById('school-select').value;
-  const sel = document.getElementById('student-select').value;
-  responses.student = sel === '__other__'
-    ? document.getElementById('new-name-input').value.trim()
-    : sel;
-  // ── Randomize NOW, tied to this specific student's confirmation ──
+  if (!checkFn()){ document.getElementById(alertId).classList.add('show'); return; }
+  responses.nte=document.getElementById('nte-select').value;
+  responses.teacher=document.getElementById('teacher-select').value;
+  responses.school=document.getElementById('school-select').value;
+  const sel=document.getElementById('student-select').value;
+  responses.student= sel==='__other__'?document.getElementById('new-name-input').value.trim():sel;
   randomizeOptions();
   CONJOINT_TASKS = pickConjointTasks();
-  generateDiscernmentScreens();
-  generateConjointScreens();
-  generateOpinionScreens();
+  generateDiscernmentScreens(); generateConjointScreens(); generateOpinionScreens();
   goTo(next);
 }
 
-function validateSectionD(from, next) {
-  const alertEl = document.getElementById('alert-c2');
-  const missingScale = ['b5','b6','b8','b9'].some(k => !responses[k]);
-  const b7ok  = document.querySelector('input[name="b7"]:checked');
-  const b10ok = document.querySelector('input[name="b10"]:checked');
-  if (missingScale || !b7ok || !b10ok) {
-    alertEl.classList.add('show');
-    const firstMissing = ['b5','b6','b8','b9'].find(k => !responses[k]);
-    if (firstMissing) document.getElementById(`scale-${firstMissing}`)?.scrollIntoView({ behavior:'smooth', block:'center' });
-    return;
-  }
-  alertEl.classList.remove('show');
-  responses.b10 = b10ok.value;
+function validateSectionA(next) {
+  const req=['attendance','tipsheet','manipulation_check'];
+  const missing=req.filter(n=>!document.querySelector(`input[name="${n}"]:checked`));
+  const a=document.getElementById('alert-a');
+  if (missing.length){ a.classList.add('show'); document.getElementById(`q-${missing[0]}`)?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  a.classList.remove('show');
+  req.forEach(n=>{ responses[n]=document.querySelector(`input[name="${n}"]:checked`).value; });
+  const reasons=Array.from(document.querySelectorAll('input[name="attendance_reasons"]:checked')).map(x=>x.value);
+  if (reasons.length) responses.attendance_reasons=reasons;
   goTo(next);
 }
 
-// Handle screen 35 — final
+function validateB1(next) {
+  const a=document.getElementById('alert-b');
+  if (!document.querySelector('input[name="dl7"]:checked')){ a.classList.add('show'); document.getElementById('q-dl7').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  if (!document.querySelector('input[name="m1"]:checked')){ a.classList.add('show'); document.getElementById('q-m1').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  const sels=document.querySelectorAll('#m7-table select');
+  for (const s of sels){ if(!s.value){ a.classList.add('show'); s.closest('tr').scrollIntoView({behavior:'smooth',block:'center'}); return; } }
+  a.classList.remove('show');
+  responses.dl7=document.querySelector('input[name="dl7"]:checked').value;
+  responses.m1=Array.from(document.querySelectorAll('input[name="m1"]:checked')).map(x=>x.value);
+  document.querySelectorAll('#m7-table select').forEach(s=>{ responses[s.name]=s.value; });
+  goTo(next);
+}
+
+function validateAtt(num, name, alertId, next) {
+  const sel=document.querySelector(`input[name="${name}"]:checked`);
+  if (!sel){ document.getElementById(alertId).classList.add('show'); return; }
+  responses[name]=sel.value; goTo(next);
+}
+
+function validateCTFC1(next) {
+  const q1=document.getElementById('ctfc1-q1')?.value.trim(), q2=document.getElementById('ctfc1-q2')?.value.trim(), q3=document.getElementById('ctfc1-q3')?.value.trim();
+  const a=document.getElementById('alert-ctfc');
+  if (!q1||!q2||!q3){ a.classList.add('show'); (!q1?document.getElementById('ctfc1-q1'):!q2?document.getElementById('ctfc1-q2'):document.getElementById('ctfc1-q3')).focus(); return; }
+  a.classList.remove('show'); goTo(next);
+}
+
+function validatePetition(next) {
+  const sel=document.querySelector('input[name="petition"]:checked');
+  if (!sel){ document.getElementById('alert-petition').classList.add('show'); return; }
+  responses.petition=sel.value;
+  responses.petition_text=document.getElementById('petition-text')?.value||'';
+  goTo(next);
+}
+
+// ── FINAL: collect + (pipeline-injected submit) + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
-  if (n === 35) {
+  if (n === 44) {
     collectAllResponses();
     submitToGoogleSheets();
     showSummary();
@@ -1902,59 +1647,43 @@ window.goTo = function(n) {
   origGoTo(n);
 };
 
-function validateAtt(num, name, alertId, next) {
-  const sel = document.querySelector(`input[name="${name}"]:checked`);
-  if (!sel) {
-    const a = document.getElementById(alertId);
-    a.classList.add('show');
-    return;
-  }
-  responses[name] = sel.value;
-  goTo(next);
-}
-
-const GOOGLE_SHEET_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const YOUR_GS_URL  = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const IBPAD_GS_URL = 'PASTE_IBPAD_APPS_SCRIPT_URL_HERE';
 function submitToGoogleSheets() {
-  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
-    console.warn('Google Sheet URL not configured.');
-    return;
-  }
-  try {
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(responses)
-    });
-  } catch(err) { console.warn('Submission error:', err); }
+  const payload = JSON.stringify(responses);
+  [YOUR_GS_URL, IBPAD_GS_URL].forEach(function(url) {
+    if (!url || url.includes('PASTE_')) return;
+    try {
+      fetch(url, { method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'application/json'}, body: payload });
+    } catch(err) { console.warn('Submission error:', err); }
+  });
 }
 
 function collectAllResponses() {
-  // Collect all radio/checkbox responses still not saved
   document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(inp => {
-    if (inp.type === 'checkbox') {
-      if (!responses[inp.name]) responses[inp.name] = [];
-      if (!Array.isArray(responses[inp.name])) responses[inp.name] = [responses[inp.name]];
-      if (!responses[inp.name].includes(inp.value)) responses[inp.name].push(inp.value);
-    } else {
-      responses[inp.name] = inp.value;
-    }
+    if (inp.type==='checkbox'){ if(!responses[inp.name])responses[inp.name]=[]; if(!Array.isArray(responses[inp.name]))responses[inp.name]=[responses[inp.name]]; if(!responses[inp.name].includes(inp.value))responses[inp.name].push(inp.value); }
+    else responses[inp.name]=inp.value;
   });
-  responses.ctfc1_q1 = document.getElementById('ctfc1-q1')?.value || '';
-  responses.ctfc1_q2 = document.getElementById('ctfc1-q2')?.value || '';
-  responses.ctfc1_q3 = document.getElementById('ctfc1-q3')?.value || '';
-  responses.timestamp = new Date().toISOString();
-  responses.conjoint_tasks = CONJOINT_TASKS.map(t => ({ left: t.leftKey, right: t.rightKey }));
+  document.querySelectorAll('#m7-table select, #rec-table select').forEach(s => { if(s.value!=='') responses[s.name]=s.value; });
+  responses.ctfc1_q1=document.getElementById('ctfc1-q1')?.value||'';
+  responses.ctfc1_q2=document.getElementById('ctfc1-q2')?.value||'';
+  responses.ctfc1_q3=document.getElementById('ctfc1-q3')?.value||'';
+  responses.petition_text=document.getElementById('petition-text')?.value||responses.petition_text||'';
+  responses.survey_version='v4';
+  responses.survey_group=SURVEY_GROUP;
+  responses.timestamp=new Date().toISOString();
+  if (CONJOINT_TASKS) responses.conjoint_tasks=CONJOINT_TASKS.map(t=>({left:t.leftKey,right:t.rightKey,dv:t.dv}));
+  if (M7_ORDER) responses.m7_order=M7_ORDER.map(o=>o.slug);
   console.log('Survey responses:', JSON.stringify(responses, null, 2));
 }
 
 function showSummary() {
-  const el = document.getElementById('response-summary');
-  const lines = Object.entries(responses)
-    .filter(([k]) => !['conjoint_tasks'].includes(k))
-    .map(([k, v]) => `<div style="margin-bottom:4px;"><strong>${k}:</strong> ${Array.isArray(v) ? v.join(', ') : v}</div>`);
-  el.innerHTML = lines.join('');
+  const el=document.getElementById('response-summary');
+  el.innerHTML = Object.entries(responses).filter(([k])=>!['conjoint_tasks','m7_order'].includes(k))
+    .map(([k,v])=>`<div style="margin-bottom:4px;"><strong>${k}:</strong> ${Array.isArray(v)?v.join(', '):v}</div>`).join('');
 }
+
 </script>
 </body>
 </html>

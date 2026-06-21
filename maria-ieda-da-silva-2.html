@@ -537,14 +537,7 @@
 
 <div class="screen" id="screen-1">
   <div class="card">
-    <div class="question-block">
-      <div class="question-number">Sua regional (NTE)</div>
-      <div class="question-text">Selecione o NTE (Núcleo Territorial de Educação) da sua escola:</div>
-      <select id="nte-select" onchange="onNTEChange()">
-        <option value="">— Selecione seu NTE —</option>
-      </select>
-    </div>
-    <div class="question-block" id="block-teacher" style="display:none;">
+    <div class="question-block" id="block-teacher">
       <div class="question-number">Confirmação do professor</div>
       <div class="question-text">Selecione o nome do seu professor:</div>
       <select id="teacher-select" onchange="onTeacherChange()">
@@ -1229,33 +1222,18 @@ function pickConjointTasks() {
 // INIT
 // ═══════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  populateStudents();
+  populateTeachers();
   populateM7();
   updateProgress();
   setupOptionListeners();
 });
 
-function populateStudents() {
-  const nteSelect = document.getElementById('nte-select');
-  const ntes = [...new Set(TEACHERS_DATA.map(t => t.nte))].sort();
-  ntes.forEach(nte => { const o=document.createElement('option'); o.value=nte; o.textContent=nte; nteSelect.appendChild(o); });
-}
-
-function onNTEChange() {
-  const nte = document.getElementById('nte-select').value;
-  const teacherSelect = document.getElementById('teacher-select');
-  document.getElementById('block-teacher');
-  teacherSelect.innerHTML = '<option value="">— Selecione o professor —</option>';
-  document.getElementById('student-select').innerHTML = '<option value="">— Selecione seu nome —</option>';
-  document.getElementById('school-display').textContent = ''; document.getElementById('school-display').style.display='none';
-  document.getElementById('school-select-dropdown').style.display='none';
-  document.getElementById('school-select-dropdown').innerHTML = '<option value="">— Selecione sua escola —</option>';
-  document.getElementById('school-select').value='';
-  document.getElementById('block-school').style.display='none';
-  document.getElementById('block-student').style.display='none';
-  if (!nte) { document.getElementById('block-teacher').style.display='none'; return; }
-  document.getElementById('block-teacher').style.display='block';
-  TEACHERS_DATA.filter(t => t.nte === nte).forEach(t => { const o=document.createElement('option'); o.value=t.name; o.textContent=t.name; teacherSelect.appendChild(o); });
+function populateTeachers() {
+  const ts = document.getElementById('teacher-select');
+  const names = [...new Set(TEACHERS_DATA.map(t => t.name))].sort();
+  names.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = n; ts.appendChild(o); });
+  // Per-teacher pages have exactly one teacher — auto-select it.
+  if (names.length === 1) { ts.value = names[0]; onTeacherChange(); }
 }
 
 function onTeacherChange() {
@@ -1527,7 +1505,7 @@ function requireOpinion(idx,next){ if(!responses[`opinion_${idx}`]){ document.ge
 function enableNext(btnId){ document.getElementById(btnId).disabled=false; }
 function showNoConsent(){ document.getElementById('no-consent-msg').style.display='block'; }
 function onStudentChange(){ const sel=document.getElementById('student-select').value; document.getElementById('new-name-wrap').style.display= sel==='__other__'?'block':'none'; if(sel!=='__other__') document.getElementById('new-name-input').value=''; checkIdentifiers(); }
-function checkIdentifiers(){ const nte=document.getElementById('nte-select').value, t=document.getElementById('teacher-select').value, s=document.getElementById('school-select').value, st=document.getElementById('student-select').value, nn=document.getElementById('new-name-input').value.trim(); return !!(nte&&t&&s&&st&&(st!=='__other__'||nn)); }
+function checkIdentifiers(){ const t=document.getElementById('teacher-select').value, s=document.getElementById('school-select').value, st=document.getElementById('student-select').value, nn=document.getElementById('new-name-input').value.trim(); return !!(t&&s&&st&&(st!=='__other__'||nn)); }
 
 function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
 function onPetitionChange(){ const v=document.querySelector('input[name="petition"]:checked')?.value; document.getElementById('block-petition_text').style.display = v==='sim'?'block':'none'; }
@@ -1544,7 +1522,6 @@ function validateSection(names, alertId, next) {
 
 function validateAndGoTo(next, alertId, checkFn) {
   if (!checkFn()){ document.getElementById(alertId).classList.add('show'); return; }
-  responses.nte=document.getElementById('nte-select').value;
   responses.teacher=document.getElementById('teacher-select').value;
   responses.school=document.getElementById('school-select').value;
   const sel=document.getElementById('student-select').value;

@@ -1152,6 +1152,10 @@
       Sua participação é muito importante para a nossa pesquisa sobre mídia e informação no Brasil.<br><br>
       <strong>Você pode fechar esta página.</strong>
     </div>
+    <div id="submit-error" style="display:none; margin-top:20px; padding:16px 18px; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; color:#b91c1c; font-size:0.86rem; line-height:1.4;">
+      ⚠️ Não foi possível enviar suas respostas automaticamente. Verifique sua conexão com a internet e tente novamente.
+      <div style="margin-top:10px;"><button class="btn btn-primary" onclick="submitToGoogleSheets()" style="font-size:0.85rem;">Tentar enviar novamente</button></div>
+    </div>
     <div style="margin-top:24px; padding:20px; background:#f0fdf4; border-radius:10px; border:1px solid #bbf7d0;">
       <div style="font-size:0.82rem; color:#166534; font-weight:600; margin-bottom:8px;">Resumo das suas respostas:</div>
       <div id="response-summary" style="font-size:0.78rem; color:#374151; text-align:left; max-height:300px; overflow-y:auto;"></div>
@@ -6439,6 +6443,9 @@ function setupOptionListeners() {
     if (e.target.type==='checkbox'){ e.target.closest('.opt')?.classList.toggle('selected',e.target.checked); }
   });
 }
+
+// Shown by the pipeline-injected submitToGoogleSheets() if the POST fails.
+function showSubmissionError(){ const el=document.getElementById('submit-error'); if(el) el.style.display='block'; }
 
 // ── IMAGE LIGHTBOX (tap to enlarge) ──
 function openLightbox(src){ const lb=document.getElementById('lightbox'); if(!lb) return; document.getElementById('lightbox-img').src=src; lb.classList.add('show'); document.body.style.overflow='hidden'; }

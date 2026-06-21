@@ -485,6 +485,25 @@
 </div>
 
 <div class="container">
+<style>
+  /* Bigger task images: stack the WhatsApp + journalism pairs one-per-row on
+     phones/tablets so each image is full width. */
+  @media (max-width: 820px) { .conjoint-pair, .opinion-pair { grid-template-columns: 1fr; } }
+  .conjoint-card, .opinion-card { position: relative; }
+  .zoom-btn { position: absolute; top: 8px; right: 8px; z-index: 3;
+    background: rgba(255,255,255,0.94); border: none; border-radius: 8px;
+    width: 38px; height: 38px; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.28); }
+  .zoom-btn:hover { background: #fff; }
+  .zoomable { cursor: zoom-in; }
+  .zoom-hint { font-size: 0.74rem; color: var(--muted); text-align: center; margin-top: 6px; }
+  #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+    display: none; align-items: center; justify-content: center; z-index: 9999; padding: 10px; }
+  #lightbox.show { display: flex; }
+  #lightbox img { max-width: 100%; max-height: 92vh; border-radius: 6px; }
+  #lightbox .lb-close { position: absolute; top: 10px; right: 18px; color: #fff;
+    font-size: 2.4rem; background: none; border: none; cursor: pointer; line-height: 1; }
+</style>
 
 <div class="screen active" id="screen-0">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
@@ -1143,6 +1162,11 @@
 
 </div><!-- /container -->
 
+<div id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <script>
 const TEACHERS_DATA = [
 {
@@ -1340,7 +1364,8 @@ function generateDiscernmentScreens() {
       <div class="card">
         <div class="task-counter" id="disc-counter-${idx}"></div>
         <div class="headline-label">Avalie a precisão da manchete abaixo:</div>
-        <div class="headline-img-wrap"><img src="${item.img}" alt="${item.key}" loading="lazy"></div>
+        <div class="headline-img-wrap"><img src="${item.img}" alt="${item.key}" class="zoomable" onclick="openLightbox('${item.img}')" loading="lazy"></div>
+        <div class="zoom-hint">🔍 Toque na imagem para ampliar</div>
         <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
         <div class="scale-wrap">
           <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
@@ -1387,10 +1412,13 @@ function generateConjointScreens() {
           <strong>📲 Imagine que você recebeu estas mensagens em um grupo do WhatsApp.</strong>
           ${prompt}
         </div>
+        <div class="zoom-hint">🔍 Toque na lupa para ampliar a imagem</div>
         <div class="conjoint-pair">
           <div class="conjoint-card" id="conj-${idx}-A" onclick="selectConjoint(${idx},'A')">
+            <button class="zoom-btn" onclick="event.stopPropagation();openLightbox('${task.left}')" title="Ampliar">🔍</button>
             <img src="${task.left}" alt="Mensagem A" loading="lazy"><div class="choice-label">${label}</div></div>
           <div class="conjoint-card" id="conj-${idx}-B" onclick="selectConjoint(${idx},'B')">
+            <button class="zoom-btn" onclick="event.stopPropagation();openLightbox('${task.right}')" title="Ampliar">🔍</button>
             <img src="${task.right}" alt="Mensagem B" loading="lazy"><div class="choice-label">${label}</div></div>
         </div>
         <div class="alert" id="alert-conj-${idx}">Por favor, selecione uma das mensagens.</div>
@@ -1421,10 +1449,13 @@ function generateOpinionScreens() {
         <div class="instruction-box">
           <strong>📰 Qual das duas imagens tem maior probabilidade de fornecer informações objetivas e detalhadas?</strong>
         </div>
+        <div class="zoom-hint">🔍 Toque na lupa para ampliar a imagem</div>
         <div class="opinion-pair">
           <div class="opinion-card" id="op-${idx}-A" onclick="selectOpinion(${idx},'A')">
+            <button class="zoom-btn" onclick="event.stopPropagation();openLightbox('${leftImg}')" title="Ampliar">🔍</button>
             <img src="${leftImg}" alt="Matéria A" loading="lazy"><div class="choice-label">Selecionar esta</div></div>
           <div class="opinion-card" id="op-${idx}-B" onclick="selectOpinion(${idx},'B')">
+            <button class="zoom-btn" onclick="event.stopPropagation();openLightbox('${rightImg}')" title="Ampliar">🔍</button>
             <img src="${rightImg}" alt="Matéria B" loading="lazy"><div class="choice-label">Selecionar esta</div></div>
         </div>
         <div class="alert" id="alert-op-${idx}">Por favor, selecione uma das imagens.</div>
@@ -1532,6 +1563,10 @@ function setupOptionListeners() {
     if (e.target.type==='checkbox'){ e.target.closest('.opt')?.classList.toggle('selected',e.target.checked); }
   });
 }
+
+// ── IMAGE LIGHTBOX (tap to enlarge) ──
+function openLightbox(src){ const lb=document.getElementById('lightbox'); if(!lb) return; document.getElementById('lightbox-img').src=src; lb.classList.add('show'); document.body.style.overflow='hidden'; }
+function closeLightbox(){ const lb=document.getElementById('lightbox'); if(!lb) return; lb.classList.remove('show'); document.getElementById('lightbox-img').src=''; document.body.style.overflow=''; }
 
 function setScale(key,val,btn){ const c=document.getElementById(`scale-${key}`); if(!c) return; c.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); responses[key]=val; }
 function requireScale(key,next){ const a=document.getElementById(`alert-${key}`); if(!responses[key]){ if(a)a.classList.add('show'); return;} if(a)a.classList.remove('show'); goTo(next); }

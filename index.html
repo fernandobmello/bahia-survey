@@ -1,95 +1,1521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bahia Survey — Version Index</title>
+<title>Pesquisa Bahia 2026 — Professores</title>
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 680px; margin: 60px auto;
-         padding: 0 20px; color: #1e293b; background: #f0f4f8; }
-  h1 { color: #1a56db; font-size: 1.4rem; margin-bottom: 4px; }
-  p  { color: #64748b; font-size: 0.9rem; margin-bottom: 32px; }
-  .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.08);
-          padding: 20px 24px; margin-bottom: 16px; display: flex;
-          align-items: center; justify-content: space-between; }
-  .card h2 { font-size: 1rem; margin: 0 0 4px; }
-  .card small { color: #64748b; font-size: 0.82rem; }
-  .btn { background: #1a56db; color: #fff; border: none; padding: 10px 20px;
-         border-radius: 8px; font-size: 0.9rem; cursor: pointer;
-         text-decoration: none; white-space: nowrap; }
-  .btn:hover { background: #1e40af; }
-  .badge { display: inline-block; background: #eff6ff; color: #1a56db;
-           font-size: 0.72rem; font-weight: 700; padding: 2px 8px;
-           border-radius: 20px; margin-left: 8px; }
-  .warn { background: #fefce8; border: 1px solid #fde047; border-radius: 10px;
-          padding: 14px 18px; font-size: 0.85rem; color: #713f12; margin-bottom: 28px; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:system-ui,sans-serif;max-width:820px;margin:40px auto;
+       padding:0 16px 48px;color:#1e293b;background:#f1f5f9;}
+  header{margin-bottom:28px;}
+  h1{font-size:1.45rem;font-weight:700;color:#1e293b;margin-bottom:4px;}
+  .subtitle{color:#64748b;font-size:0.88rem;}
+  #search{display:block;width:100%;padding:12px 16px;border:2px solid #cbd5e1;
+          border-radius:10px;font-size:1rem;outline:none;background:#fff;
+          margin-bottom:24px;}
+  #search:focus{border-color:#475569;box-shadow:0 0 0 3px rgba(71,85,105,.12);}
+  .nte-group{margin-bottom:20px;}
+  .nte-header{font-weight:700;font-size:0.78rem;text-transform:uppercase;
+              letter-spacing:.06em;color:#64748b;padding:6px 0 8px;
+              border-bottom:2px solid #e2e8f0;margin-bottom:8px;}
+  .badge{display:inline-block;background:#e2e8f0;color:#475569;font-size:0.7rem;
+         font-weight:700;padding:2px 7px;border-radius:20px;margin-left:8px;
+         text-transform:none;letter-spacing:0;}
+  .teacher-card{display:flex;align-items:center;gap:10px;
+                background:#fff;border-radius:10px;padding:10px 14px;
+                margin-bottom:6px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+  .teacher-name{font-weight:600;font-size:0.92rem;flex:1;min-width:0;}
+  .teacher-school{font-size:0.78rem;color:#64748b;flex:2;
+                  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .btn{background:#1e293b;color:#fff;padding:7px 14px;border-radius:7px;
+       font-size:0.82rem;font-weight:500;text-decoration:none;
+       white-space:nowrap;flex-shrink:0;transition:background .15s;}
+  .btn:hover{background:#334155;}
+  .hidden{display:none;}
+  #no-results{text-align:center;color:#94a3b8;padding:40px;display:none;}
+  @media(max-width:520px){
+    .teacher-card{flex-wrap:wrap;}
+    .teacher-school{flex:1 1 100%;}
+  }
 </style>
 </head>
 <body>
+<header>
+  <h1>Pesquisa Bahia 2026</h1>
+  <p class="subtitle">267 professores · busque seu nome e clique em <strong>Acessar</strong></p>
+</header>
+<input id="search" type="search" placeholder="Buscar por nome, escola ou NTE…"
+       oninput="filter()" autocomplete="off" autofocus>
+<div id="list">
+    <div class="nte-group">
+      <div class="nte-header">NTE 01 - Irecê<span class="badge">3 professores</span></div>
+          <div class="teacher-card" data-name="ana karine loula torres rocha" data-school="anexo -col est de tempo inte evandro brandao-aguas termais do paulista | centro terri.de educ.profi.sta rita de cassia-cetep sta rita de cassia | centro territorial de educacao profissional de irece" data-nte="nte 01 - irecê">
+            <div class="teacher-name">ANA KARINE LOULA TORRES ROCHA</div>
+            <div class="teacher-school">ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA · CENTRO TERRI.DE EDU…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-rocha.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marlon de araujo nascimento" data-school="centro terri.de educ.profi.sta rita de cassia-cetep sta rita de cassia | centro territorial de educacao profissional de irece | colegio da policia militar - cpm dona leonor calmon" data-nte="nte 01 - irecê">
+            <div class="teacher-name">MARLON DE ARAUJO NASCIMENTO</div>
+            <div class="teacher-school">CENTRO TERRI.DE EDUC.PROFI.STA RITA DE CASSIA-CETEP STA RITA DE CASSIA · CENTRO TERRITORIAL …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marlon-nascimento.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="tercio da rita feitosa" data-school="centro est de educacao profi em recursos naturais do centro baiano" data-nte="nte 01 - irecê">
+            <div class="teacher-name">TERCIO DA RITA FEITOSA</div>
+            <div class="teacher-school">CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/tercio-feitosa.html">Acessar →</a>
+          </div>
+    </div>
 
-<h1>📋 Bahia Media Survey — Links</h1>
-<p>Share the link for the correct version with each teacher's class.</p>
+    <div class="nte-group">
+      <div class="nte-header">NTE 02 - Bom Jesus da Lapa<span class="badge">6 professores</span></div>
+          <div class="teacher-card" data-name="eliel de araujo andrade" data-school="colegio da policia militar - cpm bom jesus da lapa" data-nte="nte 02 - bom jesus da lapa">
+            <div class="teacher-name">ELIEL DE ARAUJO ANDRADE</div>
+            <div class="teacher-school">COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eliel-andrade.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="fabio novais barbosa" data-school="anexo - colegio estadual adonias filho - conjunto penal de itabuna | colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 02 - bom jesus da lapa">
+            <div class="teacher-name">FABIO NOVAIS BARBOSA</div>
+            <div class="teacher-school">ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA · COLEGIO ESTADUAL DE TEM…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/fabio-barbosa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria helena de assis laranjeira gomes" data-school="colegio estadual de tempo integral cleonice olegario dos santos | colegio estadual de tempo integral cleriston andrade | colegio estadual de tempo integral de vilas de abrantes" data-nte="nte 02 - bom jesus da lapa">
+            <div class="teacher-name">MARIA HELENA DE ASSIS LARANJEIRA GOMES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS · COLEGIO ESTADUAL DE TEMPO …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-gomes.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="pricila fernandes barbosa dos santos" data-school="anexo - colegio estadual adonias filho - conjunto penal de itabuna | colegio estadual monsenhor turibio vilanova | colegio estadual professor carlos barros | colégio estadual de tempo integral professora maria do socorro gomes possidônio" data-nte="nte 02 - bom jesus da lapa">
+            <div class="teacher-name">PRICILA FERNANDES BARBOSA DOS SANTOS</div>
+            <div class="teacher-school">ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA · COLEGIO ESTADUAL MONSEN…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/pricila-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="thais souza silva" data-school="colegio da policia militar - cpm bom jesus da lapa | colegio modelo luis eduardo magalhaes" data-nte="nte 02 - bom jesus da lapa">
+            <div class="teacher-name">THAIS SOUZA SILVA</div>
+            <div class="teacher-school">COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA · COLEGIO MODELO LUIS EDUARDO MAGALHAES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/thais-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="venilza amorim rodrigues" data-school="colegio estadual de tempo integral sinesio costa" data-nte="nte 02 - bom jesus da lapa">
+            <div class="teacher-name">VENILZA AMORIM RODRIGUES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL SINESIO COSTA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/venilza-rodrigues.html">Acessar →</a>
+          </div>
+    </div>
 
-<div class="card" style="background:#f0fdf4; border:1px solid #bbf7d0;">
-  <div>
-    <h2>🔗 Links por Professor — Grupo Tratamento</h2>
-    <small>100 professores · pesquisável por nome ou NTE</small>
-  </div>
-  <a class="btn" href="teachers.html" style="background:#16a34a;">Ver lista →</a>
-</div>
-<div class="card" style="background:#f0fdfa; border:1px solid #99f6e4;">
-  <div>
-    <h2>🔗 Links por Professor — Grupo Controle</h2>
-    <small>pesquisável por nome ou NTE</small>
-  </div>
-  <a class="btn" href="teachers2.html" style="background:#0f766e;">Ver lista →</a>
-</div>
-<hr style="border:none; border-top:1px solid #e2e8f0; margin:8px 0 20px;">
-<p style="font-size:0.8rem; color:#64748b; margin-bottom:12px;">Versões em lote (uso interno):</p>
+    <div class="nte-group">
+      <div class="nte-header">NTE 03 - Seabra<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="angelo riccell araujo carneiro piovischini" data-school="cetiss - colégio estadual de tempo integral de souto soares | colegio estadual de tempo integral de souto soares" data-nte="nte 03 - seabra">
+            <div class="teacher-name">ANGELO RICCELL ARAUJO CARNEIRO PIOVISCHINI</div>
+            <div class="teacher-school">CETISS - Colégio Estadual de Tempo Integral de Souto Soares · COLEGIO ESTADUAL DE TEMPO INTE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/angelo-piovischini.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="aparecida conceicao novais rocha" data-school="colegio estadual horacio de matos" data-nte="nte 03 - seabra">
+            <div class="teacher-name">APARECIDA CONCEICAO NOVAIS ROCHA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL HORACIO DE MATOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/aparecida-rocha.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="edson silva" data-school="cetiss - col�gio estadual de tempo integral de souto soares | colegio estadual de tempo integral de bonito | colegio estadual de tempo integral de souto soares | colegio estadual inacio tosta filho" data-nte="nte 03 - seabra">
+            <div class="teacher-name">EDSON SILVA</div>
+            <div class="teacher-school">CETISS - Col�gio Estadual de Tempo Integral de Souto Soares · COLEGIO ESTADUAL DE TEMPO INTE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/edson-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="kleiton jairo figueiredo souza" data-school="centro est de educ prof cont e gest do n baiano pedro ribeiro pessoa | colegio estadual do campo de inubia" data-nte="nte 03 - seabra">
+            <div class="teacher-name">KLEITON JAIRO FIGUEIREDO SOUZA</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA · COLEGIO ESTADUAL DO C…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/kleiton-souza.html">Acessar →</a>
+          </div>
+    </div>
 
+    <div class="nte-group">
+      <div class="nte-header">NTE 04 - Serrinha<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="ana claudia do carmo cedraz" data-school="anexo -col est de tempo inte evandro brandao-aguas termais do paulista | colegio estadual de barrocas | colegio estadual de tempo integral cleonice olegario dos santos | colégio estadual de tempo integral professora maria do socorro gomes possidônio | colégio estadual do campo luciberto oliveira dos santos" data-nte="nte 04 - serrinha">
+            <div class="teacher-name">ANA CLAUDIA DO CARMO CEDRAZ</div>
+            <div class="teacher-school">ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA · COLEGIO ESTADUAL DE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-cedraz.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jean lucas vinhas medeiros de carvalho" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | centro est de educacao profi em recursos naturais do centro baiano | centro territorial de educacao profissional da regiao metropolitana | centro territorial de educacao profissional de araci | centro territorial de educação profissional da bacia do rio grande | colegio estadual baden powell | colegio estadual senhor do bonfim" data-nte="nte 04 - serrinha">
+            <div class="teacher-name">JEAN LUCAS VINHAS MEDEIROS DE CARVALHO</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · CENTRO EST DE EDUCA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jean-carvalho.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marceli cedraz da silva" data-school="colegio polivalente de conceicao do coite" data-nte="nte 04 - serrinha">
+            <div class="teacher-name">MARCELI CEDRAZ DA SILVA</div>
+            <div class="teacher-school">COLEGIO POLIVALENTE DE CONCEICAO DO COITE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marceli-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marcia maria de souza mota" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio estadual de tempo integral de tucano | colegio polivalente de conceicao do coite" data-nte="nte 04 - serrinha">
+            <div class="teacher-name">MARCIA MARIA DE SOUZA MOTA</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COLEGIO ESTADUAL DE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marcia-mota.html">Acessar →</a>
+          </div>
+    </div>
 
-<div class="card">
-  <div>
-    <h2>Version 1 <span class="badge">English</span></h2>
-    <small>73 teachers · 23 NTEs</small>
-  </div>
-  <a class="btn" href="survey_treatment_v1.html" target="_blank">Open →</a>
-</div>
-<div class="card">
-  <div>
-    <h2>Version 2</h2>
-    <small>13 teachers · 5 NTEs</small>
-  </div>
-  <a class="btn" href="survey_treatment_v2.html" target="_blank">Open →</a>
-</div>
-<div class="card">
-  <div>
-    <h2>Version 3</h2>
-    <small>6 teachers · 2 NTEs</small>
-  </div>
-  <a class="btn" href="survey_treatment_v3.html" target="_blank">Open →</a>
-</div>
-<div class="card">
-  <div>
-    <h2>Version 4</h2>
-    <small>5 teachers · NTE 26 Salvador</small>
-  </div>
-  <a class="btn" href="survey_treatment_v4.html" target="_blank">Open →</a>
-</div>
-<div class="card">
-  <div>
-    <h2>Version 5</h2>
-    <small>5 teachers · NTE 26 Salvador</small>
-  </div>
-  <a class="btn" href="survey_treatment_v5.html" target="_blank">Open →</a>
-</div>
-<div class="card">
-  <div>
-    <h2>Version 6</h2>
-    <small>4 teachers · NTE 26 Salvador</small>
-  </div>
-  <a class="btn" href="survey_treatment_v6.html" target="_blank">Open →</a>
-</div>
+    <div class="nte-group">
+      <div class="nte-header">NTE 05 - Itabuna<span class="badge">9 professores</span></div>
+          <div class="teacher-card" data-name="ana cleia dos santos" data-school="centro est de educacao profi em recursos naturais do centro baiano" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">ANA CLEIA DOS SANTOS</div>
+            <div class="teacher-school">CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-cleia-dos-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ana cristina de araujo" data-school="anexo -col est de tempo inte evandro brandao-aguas termais do paulista | colegio estadual de barrocas" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">ANA CRISTINA DE ARAUJO</div>
+            <div class="teacher-school">ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA · COLEGIO ESTADUAL DE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-araujo.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="andrea fabiane silva oliveira" data-school="anexo -col est de tempo inte evandro brandao-aguas termais do paulista | centro est de educacao profi em recursos naturais do centro baiano | colegio estadual adonias filho - conjunto penal de itabuna - anexo" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">ANDREA FABIANE SILVA OLIVEIRA</div>
+            <div class="teacher-school">ANEXO -COL EST DE TEMPO INTE EVANDRO BRANDAO-AGUAS TERMAIS DO PAULISTA · CENTRO EST DE EDUCA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/andrea-oliveira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="andrea maria brandao meireles" data-school="colegio estadual adonias filho - conjunto penal de itabuna - anexo | colégio estadual adonias filho - conjunto penal de itabuna - anexo" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">ANDREA MARIA BRANDAO MEIRELES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA - ANEXO · COLÉGIO ESTADUAL ADONIA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/andrea-meireles.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="eudes dias barbosa" data-school="colegio estadual inacio tosta filho" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">EUDES DIAS BARBOSA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL INACIO TOSTA FILHO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eudes-barbosa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jose carlos dos santos" data-school="anexo - colegio estadual adonias filho - conjunto penal de itabuna | colegio da policia militar - cpm antonio carlos magalhaes | nte 05 - itabuna" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">JOSE CARLOS DOS SANTOS</div>
+            <div class="teacher-school">ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA · COLEGIO DA POLICIA MILI…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jose-carlos-dos-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="max augusto alves de souza" data-school="colegio estadual de tempo integral sinesio costa" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">MAX AUGUSTO ALVES DE SOUZA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL SINESIO COSTA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/max-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="thays cristine ferreira farias" data-school="colegio modelo luis eduardo magalhaes" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">THAYS CRISTINE FERREIRA FARIAS</div>
+            <div class="teacher-school">COLEGIO MODELO LUIS EDUARDO MAGALHAES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/thays-farias.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="thiago carvalho silva" data-school="anexo - colegio estadual adonias filho - conjunto penal de itabuna | cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio estadual de tempo integral antonio batista | colegio modelo luis eduardo magalhaes | nte 05 - itabuna" data-nte="nte 05 - itabuna">
+            <div class="teacher-name">THIAGO CARVALHO SILVA</div>
+            <div class="teacher-school">ANEXO - COLEGIO ESTADUAL ADONIAS FILHO - CONJUNTO PENAL DE ITABUNA · CENT EST. DE REFERENCIA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/thiago-silva.html">Acessar →</a>
+          </div>
+    </div>
 
+    <div class="nte-group">
+      <div class="nte-header">NTE 06 - Valença<span class="badge">10 professores</span></div>
+          <div class="teacher-card" data-name="claudia sandra de jesus santos nascimento" data-school="centro de apoio pedagogico especializado - cape valenca | centro territorial de educacao profissional do reconcavo | colegio estadual jesus moura" data-nte="nte 06 - valença">
+            <div class="teacher-name">CLAUDIA SANDRA DE JESUS SANTOS NASCIMENTO</div>
+            <div class="teacher-school">CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA · CENTRO TERRITORIAL DE EDUCACAO PRO…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/claudia-nascimento.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="denisson almeida novais" data-school=" colégio estadual do campo clemente mariani" data-nte="nte 06 - valença">
+            <div class="teacher-name">DENISSON ALMEIDA NOVAIS</div>
+            <div class="teacher-school"> COLÉGIO ESTADUAL DO CAMPO CLEMENTE MARIANI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/denisson-novais-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="evandro jose de alcantara" data-school=" colegio estadual luiz jose de oliveira" data-nte="nte 06 - valença">
+            <div class="teacher-name">EVANDRO JOSE DE ALCANTARA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL LUIZ JOSE DE OLIVEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/evandro-alcantara-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="everson tarcisio de jesus" data-school=" colegio estadual de tempo integral maria xavier de andrade reis" data-nte="nte 06 - valença">
+            <div class="teacher-name">EVERSON TARCISIO DE JESUS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL MARIA XAVIER DE ANDRADE REIS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/everson-jesus-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="felipe rocha lima da silva" data-school=" colegio estadual de barreirinhas" data-nte="nte 06 - valença">
+            <div class="teacher-name">FELIPE ROCHA LIMA DA SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE BARREIRINHAS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/felipe-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="frank vieira dos santos" data-school="colegio estadual de tempo integral professor eraldo tinoco | colegio estadual quilombola bernardo bispo dos santos | colégio estadual quilombola de sao tome - brejao da caatinga - anexo" data-nte="nte 06 - valença">
+            <div class="teacher-name">FRANK VIEIRA DOS SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO · COLEGIO ESTADUAL QUILOMBOLA BER…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/frank-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="itala cristina machado franca barreto" data-school="colegio estadual professor carlos barros | colegio estadual quilombola bernardo bispo dos santos" data-nte="nte 06 - valença">
+            <div class="teacher-name">ITALA CRISTINA MACHADO FRANCA BARRETO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR CARLOS BARROS · COLEGIO ESTADUAL QUILOMBOLA BERNARDO BISPO DOS SA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/itala-barreto.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="junio de jesus dos santos" data-school=" colegio estadual de tempo integral adelaide souza" data-nte="nte 06 - valença">
+            <div class="teacher-name">JUNIO DE JESUS DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL ADELAIDE SOUZA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/junio-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="rafael conceicao bonfim" data-school=" colegio estadual de tempo integral adelaide souza" data-nte="nte 06 - valença">
+            <div class="teacher-name">RAFAEL CONCEICAO BONFIM</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL ADELAIDE SOUZA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/rafael-bonfim-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="valdeny do nascimento pereira" data-school="colegio estadual luis navarro de brito" data-nte="nte 06 - valença">
+            <div class="teacher-name">VALDENY DO NASCIMENTO PEREIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL LUIS NAVARRO DE BRITO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/valdeny-pereira.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 07 - Teixeira de Freitas<span class="badge">3 professores</span></div>
+          <div class="teacher-card" data-name="enok cruz de souza" data-school="colegio estadual do campo alcides afonso de souza" data-nte="nte 07 - teixeira de freitas">
+            <div class="teacher-name">ENOK CRUZ DE SOUZA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DO CAMPO ALCIDES AFONSO DE SOUZA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/enok-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="mirian de oliveira dias" data-school="centro estad de educ | colegio estadual de tempo integral professor eraldo tinoco | colegio estadual de tempo integral profª odontina laranjeira de souza | colegio estadual eraldo tinoco" data-nte="nte 07 - teixeira de freitas">
+            <div class="teacher-name">MIRIAN DE OLIVEIRA DIAS</div>
+            <div class="teacher-school">CENTRO ESTAD DE EDUC · COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSOR ERALDO TINOCO · COLEGIO …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/mirian-dias.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="neiva leticia de almeida santos" data-school="colegio estadual integracao" data-nte="nte 07 - teixeira de freitas">
+            <div class="teacher-name">NEIVA LETICIA DE ALMEIDA SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL INTEGRACAO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/neiva-santos.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 08 - Itapetinga<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="carine barreto da silva" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio polivalente de conceicao do coite | colegio polivalente de itapetinga" data-nte="nte 08 - itapetinga">
+            <div class="teacher-name">CARINE BARRETO DA SILVA</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COLEGIO POLIVALENTE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/carine-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="charlene cristine conceicao de jesus" data-school=" colegio estadual professor carlos valadares" data-nte="nte 08 - itapetinga">
+            <div class="teacher-name">CHARLENE CRISTINE CONCEICAO DE JESUS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL PROFESSOR CARLOS VALADARES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/charlene-jesus-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="lilia marcia melo pinheiro" data-school="colegio estadual de tempo integral florestal" data-nte="nte 08 - itapetinga">
+            <div class="teacher-name">LILIA MARCIA MELO PINHEIRO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL FLORESTAL</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/lilia-pinheiro.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="solange pereira batista" data-school=" colegio estadual gelasio alves dos santos" data-nte="nte 08 - itapetinga">
+            <div class="teacher-name">SOLANGE PEREIRA BATISTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL GELASIO ALVES DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/solange-batista-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 09 - Amargosa<span class="badge">5 professores</span></div>
+          <div class="teacher-card" data-name="alice almeida barreto santos" data-school=" colegio estadual de tempo integral jose malta maia" data-nte="nte 09 - amargosa">
+            <div class="teacher-name">ALICE ALMEIDA BARRETO SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL JOSE MALTA MAIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/alice-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="diogenes moraes santos" data-school="colegio estadual de tempo integral joao francisco da silva | colegio estadual joao das botas | colegio estadual joao pessoa | colegio estadual reitor miguel calmon" data-nte="nte 09 - amargosa">
+            <div class="teacher-name">DIOGENES MORAES SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL JOAO FRANCISCO DA SILVA · COLEGIO ESTADUAL JOAO DAS BOTAS…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/diogenes-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="elmo jakson silva trindade santos" data-school=" colegio estadual joao pessoa" data-nte="nte 09 - amargosa">
+            <div class="teacher-name">ELMO JAKSON SILVA TRINDADE SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL JOAO PESSOA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/elmo-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="micheli silva cardoso" data-school="colegio estadual professora nadir araujo copque" data-nte="nte 09 - amargosa">
+            <div class="teacher-name">MICHELI SILVA CARDOSO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO COPQUE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/micheli-cardoso.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="renildo de jesus da silva" data-school="colegio estadual de tempo integral joao francisco da silva | colegio estadual joao pessoa" data-nte="nte 09 - amargosa">
+            <div class="teacher-name">RENILDO DE JESUS DA SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL JOAO FRANCISCO DA SILVA · COLEGIO ESTADUAL JOAO PESSOA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/renildo-silva.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 10 - Juazeiro<span class="badge">17 professores</span></div>
+          <div class="teacher-card" data-name="aguinaldo lucas da silva" data-school=" anexo - colegio est. indigena angelo pereira xavier-faz chico raso da" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">AGUINALDO LUCAS DA SILVA</div>
+            <div class="teacher-school"> ANEXO - COLEGIO EST. INDIGENA ANGELO PEREIRA XAVIER-FAZ CHICO RASO DA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/aguinaldo-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="angelo ricardo campos de almeida" data-school=" colegio estadual reitor edgard santos" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">ANGELO RICARDO CAMPOS DE ALMEIDA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL REITOR EDGARD SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/angelo-almeida-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="antonia joseneide fortaleza" data-school=" colegio estadual de tempo integral lomanto junior" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">ANTONIA JOSENEIDE FORTALEZA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL LOMANTO JUNIOR</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonia-fortaleza-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="benedito sirqueira evangelista" data-school=" colegio estadual de tempo integral sete de setembro" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">BENEDITO SIRQUEIRA EVANGELISTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL SETE DE SETEMBRO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/benedito-evangelista-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="deize eustalia nunes de carvalho" data-school="colegio polivalente de itapetinga" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">DEIZE EUSTALIA NUNES DE CARVALHO</div>
+            <div class="teacher-school">COLEGIO POLIVALENTE DE ITAPETINGA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/deize-carvalho.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="hailton mendes dos santos junior" data-school=" colegio estadual antonilio da franca cardoso" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">HAILTON MENDES DOS SANTOS JUNIOR</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL ANTONILIO DA FRANCA CARDOSO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/hailton-junior-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="henrique juruna silva santos" data-school="colegio estadual dr. juca sento se - dist. de piri - anexo" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">HENRIQUE JURUNA SILVA SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DR. JUCA SENTO SE - DIST. DE PIRI - ANEXO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/henrique-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jailma nunes de souza" data-school=" colegio estadual do campo professor edivaldo machado boaventura" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">JAILMA NUNES DE SOUZA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DO CAMPO PROFESSOR EDIVALDO MACHADO BOAVENTURA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jailma-souza-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jean dos santos dias lima" data-school=" colegio estadual de tempo integral maria xavier de andrade reis" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">JEAN DOS SANTOS DIAS LIMA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL MARIA XAVIER DE ANDRADE REIS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jean-lima-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jhone joao gomes da silva" data-school="colegio estadual de tempo integral de casa nova | colegio estadual de tempo integral florestal | colegio estadual de tempo integral professor eraldo tinoco | colegio estadual eraldo tinoco | colegio estadual helena assis suzart | colégio estadual do campo professora maria tereza braga cabral" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">JHONE JOAO GOMES DA SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL DE CASA NOVA · COLEGIO ESTADUAL DE TEMPO INTEGRAL FLOREST…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jhone-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="joemesson rodrigues de araujo" data-school=" colegio da policia militar - cpm alfredo vianna" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">JOEMESSON RODRIGUES DE ARAUJO</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM ALFREDO VIANNA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/joemesson-araujo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="juraci felix da cunha filho" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | col. est. tempo integral sofia mascarenhas- lagoa do padre - anexo | colegio estadual de tempo integral sofia mascarenhas" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">JURACI FELIX DA CUNHA FILHO</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COL. EST. TEMPO INT…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/juraci-filho.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="karina amorim moreira menezes lourenco" data-school=" colegio estadual de tempo integral paulo jose de oliveira" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">KARINA AMORIM MOREIRA MENEZES LOURENCO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PAULO JOSE DE OLIVEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/karina-lourenco-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="miqueias souza santos" data-school=" colegio estadual nossa senhora auxiliadora" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">MIQUEIAS SOUZA SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL NOSSA SENHORA AUXILIADORA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/miqueias-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="vania cassia de souza lima oliveira" data-school=" centro terri.de educ.profi.sta rita de cassia-cetep sta rita de cassia" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">VANIA CASSIA DE SOUZA LIMA OLIVEIRA</div>
+            <div class="teacher-school"> CENTRO TERRI.DE EDUC.PROFI.STA RITA DE CASSIA-CETEP STA RITA DE CASSIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/vania-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="vanusa dos santos de macedo" data-school=" colegio estadual de tempo integral lomanto junior" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">VANUSA DOS SANTOS DE MACEDO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL LOMANTO JUNIOR</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/vanusa-macedo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="wellington moreira lopes" data-school=" colegio estadual do campo integracao lagoa do pires" data-nte="nte 10 - juazeiro">
+            <div class="teacher-name">WELLINGTON MOREIRA LOPES</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DO CAMPO INTEGRACAO LAGOA DO PIRES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/wellington-lopes-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 11 - Barreiras<span class="badge">12 professores</span></div>
+          <div class="teacher-card" data-name="ana paula anunciacao marques" data-school=" colegio estadual almirante barroso" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">ANA PAULA ANUNCIACAO MARQUES</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL ALMIRANTE BARROSO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-marques-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="fernanda de oliveira conceicao" data-school=" colegio da policia militar - cpm professor alexandre leal costa" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">FERNANDA DE OLIVEIRA CONCEICAO</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM PROFESSOR ALEXANDRE LEAL COSTA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/fernanda-conceicao-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="fernanda santos de jesus" data-school="colegio estadual professora maria anita |  colegio estadual professora maria anita" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">FERNANDA SANTOS DE JESUS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA MARIA ANITA ·  COLEGIO ESTADUAL PROFESSORA MARIA ANITA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/fernanda-jesus-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="leide lisboa figueiredo de morais" data-school=" colegio estadual de tempo integral de paulo afonso" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">LEIDE LISBOA FIGUEIREDO DE MORAIS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PAULO AFONSO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/leide-morais-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="leidiane batista da paixao" data-school=" colegio estadual de tempo integral maria otilia lutz" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">LEIDIANE BATISTA DA PAIXAO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL MARIA OTILIA LUTZ</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/leidiane-paixao-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="lucivania pereira dos santos" data-school="colegio estadual de tempo integral abelardo moreira |  centro juvenil de ciencia e cultura- cjcc barreiras" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">LUCIVANIA PEREIRA DOS SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL ABELARDO MOREIRA ·  CENTRO JUVENIL DE CIENCIA E CULTURA- …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/lucivania-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="petterson daher de oliveira" data-school=" colegio estadual de tempo integral maria otilia lutz" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">PETTERSON DAHER DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL MARIA OTILIA LUTZ</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/petterson-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="rosilene de almeida santos" data-school="colegio modelo luis eduardo magalhaes" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">ROSILENE DE ALMEIDA SANTOS</div>
+            <div class="teacher-school">COLEGIO MODELO LUIS EDUARDO MAGALHAES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/rosilene-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="tainan barreto gomes" data-school=" colegio estadual professor manoel macedo cirilo são desidério" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">TAINAN BARRETO GOMES</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL PROFESSOR MANOEL MACEDO CIRILO SÃO DESIDÉRIO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/tainan-gomes-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="thiago aron dos santos alves" data-school=" centro territorial de educação profissional da bacia do rio grande" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">THIAGO ARON DOS SANTOS ALVES</div>
+            <div class="teacher-school"> CENTRO TERRITORIAL DE EDUCAÇÃO PROFISSIONAL DA BACIA DO RIO GRANDE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/thiago-alves-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="valdirene de jesus alves da veiga" data-school="colegio de tempo integral anisio teixeira" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">VALDIRENE DE JESUS ALVES DA VEIGA</div>
+            <div class="teacher-school">COLEGIO DE TEMPO INTEGRAL ANISIO TEIXEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/valdirene-veiga-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="vera lucia de souza matos aragao" data-school="anexo-colegio est. profº ivardo pereira bastos - dist. de entrocamento" data-nte="nte 11 - barreiras">
+            <div class="teacher-name">VERA LUCIA DE SOUZA MATOS ARAGAO</div>
+            <div class="teacher-school">ANEXO-COLEGIO EST. PROFº IVARDO PEREIRA BASTOS - DIST. DE ENTROCAMENTO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/vera-aragao.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 12 - Macaúbas<span class="badge">7 professores</span></div>
+          <div class="teacher-card" data-name="adriana rosa de souza pereira" data-school=" colegio estadual paulo vi" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">ADRIANA ROSA DE SOUZA PEREIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL PAULO VI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adriana-pereira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="adriana souto carreiro" data-school=" colegio estadual nelson mandela" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">ADRIANA SOUTO CARREIRO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL NELSON MANDELA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adriana-carreiro-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="cleber de almeida ribeiro" data-school=" colegio estadual professor ivardo pereira bastos" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">CLEBER DE ALMEIDA RIBEIRO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL PROFESSOR IVARDO PEREIRA BASTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/cleber-ribeiro-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="erica costa rego" data-school="centro est de educ prof controle e processos indust newton sucupira" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">ERICA COSTA REGO</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/erica-rego.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="mariana de oliveira santos" data-school=" colegio estadual do campo de tempo integral de ibipitanga" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">MARIANA DE OLIVEIRA SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DO CAMPO DE TEMPO INTEGRAL DE IBIPITANGA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/mariana-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="wesley leonardo rubem macedo" data-school=" centro territorial de educação profissional da bacia do paramirim" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">WESLEY LEONARDO RUBEM MACEDO</div>
+            <div class="teacher-school"> CENTRO TERRITORIAL DE EDUCAÇÃO PROFISSIONAL DA BACIA DO PARAMIRIM</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/wesley-macedo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="wlamir nascimento dos santos junior" data-school=" colegio estadual de praia grande" data-nte="nte 12 - macaúbas">
+            <div class="teacher-name">WLAMIR NASCIMENTO DOS SANTOS JUNIOR</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE PRAIA GRANDE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/wlamir-junior-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 13 - Caetité<span class="badge">8 professores</span></div>
+          <div class="teacher-card" data-name="adilson de souza santos" data-school="anexo-colegio est. profº ivardo pereira bastos - dist. de entrocamento | cent est. de referencia do ensino medio com inter. tecnologica-cemitec | centro de apoio pedagogico especializado - cape valenca | centro est de educacao profis em tecnologia informacao e comunicacao | centro est de educacao profissional em saude do leste baiano | centro territorial de educacao profissional de araci | col est de t. i. de feira de santana -cj penal de f. de santana - anexo | colegio da policia militar - cpm dona leonor calmon | colegio estadual cleriston andrade tempo integral | colegio estadual de tempo integral cleonice olegario dos santos | colegio estadual polivalente de candeias | colegio estadual quilombola bernardo bispo dos santos | colegio modelo luis eduardo magalhaes | complexo integrado de educ basica profis e tecnologica-ciebtec | complexo integrado de educação basica" data-nte="nte 13 - caetité">
+            <div class="teacher-name">ADILSON DE SOUZA SANTOS</div>
+            <div class="teacher-school">ANEXO-COLEGIO EST. PROFº IVARDO PEREIRA BASTOS - DIST. DE ENTROCAMENTO · CENT EST. DE REFERE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adilson-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="adriana cruz veiga" data-school="colegio de tempo integral anisio teixeira" data-nte="nte 13 - caetité">
+            <div class="teacher-name">ADRIANA CRUZ VEIGA</div>
+            <div class="teacher-school">COLEGIO DE TEMPO INTEGRAL ANISIO TEIXEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adriana-veiga-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="amanda elizabete batista oliveira" data-school="colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 13 - caetité">
+            <div class="teacher-name">AMANDA ELIZABETE BATISTA OLIVEIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/amanda-oliveira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ana valeria ferreira da silva" data-school="colegio estadual dinah goncalves" data-nte="nte 13 - caetité">
+            <div class="teacher-name">ANA VALERIA FERREIRA DA SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DINAH GONCALVES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="eudite fernandes carneiro" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | centro educacional carneiro ribeiro - classe iv | complexo integrado de educ basica profis e tecnologica-ciebtec | complexo integrado de educação basica, profissional e tecnológica," data-nte="nte 13 - caetité">
+            <div class="teacher-name">EUDITE FERNANDES CARNEIRO</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · CENTRO EDUCACIONAL …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eudite-carneiro.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria ieda da silva" data-school=" colegio estadual de tempo integral joao vilas boas" data-nte="nte 13 - caetité">
+            <div class="teacher-name">MARIA IEDA DA SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL JOAO VILAS BOAS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-ieda-da-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria nilza bastos sousa fraga" data-school="colegio estadual de aplicacao anisio teixeira | complexo integrado de educ basica profis e tecnologica-ciebtec | complexo integrado de educação basica, profissional e tecnológica," data-nte="nte 13 - caetité">
+            <div class="teacher-name">MARIA NILZA BASTOS SOUSA FRAGA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE APLICACAO ANISIO TEIXEIRA · COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E T…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-fraga.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="zaira souza de oliveira" data-school=" colegio estadual do campo anna junqueira ayres tourinho" data-nte="nte 13 - caetité">
+            <div class="teacher-name">ZAIRA SOUZA DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DO CAMPO ANNA JUNQUEIRA AYRES TOURINHO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/zaira-oliveira-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 14 - Itaberaba<span class="badge">2 professores</span></div>
+          <div class="teacher-card" data-name="afonso alves de oliveira" data-school=" colegio estadual de tempo integral carlito de carvalho" data-nte="nte 14 - itaberaba">
+            <div class="teacher-name">AFONSO ALVES DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL CARLITO DE CARVALHO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/afonso-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="tiago ribeiro e silva" data-school="colégio estadual profª. maria bernadete brandao - anexo" data-nte="nte 14 - itaberaba">
+            <div class="teacher-name">TIAGO RIBEIRO E SILVA</div>
+            <div class="teacher-school">COLÉGIO ESTADUAL PROFª. MARIA BERNADETE BRANDAO - ANEXO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/tiago-silva.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 15 - Ipirá<span class="badge">5 professores</span></div>
+          <div class="teacher-card" data-name="alisson ferreira de oliveira" data-school="complexo integrado de educ basica profis e tecnologica-ciebtec" data-nte="nte 15 - ipirá">
+            <div class="teacher-name">ALISSON FERREIRA DE OLIVEIRA</div>
+            <div class="teacher-school">COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/alisson-oliveira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="mirailda fernandes oliveira santos" data-school="colegio estadual eraldo tinoco" data-nte="nte 15 - ipirá">
+            <div class="teacher-name">MIRAILDA FERNANDES OLIVEIRA SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL ERALDO TINOCO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/mirailda-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="sueleide alves de souza lima" data-school=" colegio estadual de tempo integral renato medeiros neto" data-nte="nte 15 - ipirá">
+            <div class="teacher-name">SUELEIDE ALVES DE SOUZA LIMA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL RENATO MEDEIROS NETO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/sueleide-lima-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="suely costa dos anjos" data-school=" colegio estadual professora nilde maria monteiro1avier" data-nte="nte 15 - ipirá">
+            <div class="teacher-name">SUELY COSTA DOS ANJOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL PROFESSORA NILDE MARIA MONTEIRO1AVIER</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/suely-anjos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="valeria barreto rios" data-school="centro territorial de educacao profissional de irece" data-nte="nte 15 - ipirá">
+            <div class="teacher-name">VALERIA BARRETO RIOS</div>
+            <div class="teacher-school">CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE IRECE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/valeria-rios.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 16 - Jacobina<span class="badge">1 professor</span></div>
+          <div class="teacher-card" data-name="elzenir freire da silva" data-school="colegio estadual do campo professora maria izabel de oliveira" data-nte="nte 16 - jacobina">
+            <div class="teacher-name">ELZENIR FREIRE DA SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DO CAMPO PROFESSORA MARIA IZABEL DE OLIVEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/elzenir-silva.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 17 - Ribeira do Pombal<span class="badge">3 professores</span></div>
+          <div class="teacher-card" data-name="adirene evangelista dos reis" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 17 - ribeira do pombal">
+            <div class="teacher-name">ADIRENE EVANGELISTA DOS REIS</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COLEGIO ESTADUAL DE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adirene-reis.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="guilherme gabriel santana santos" data-school=" colegio estadual josefa soares de oliveira" data-nte="nte 17 - ribeira do pombal">
+            <div class="teacher-name">GUILHERME GABRIEL SANTANA SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL JOSEFA SOARES DE OLIVEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/guilherme-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="severino da silva queiroz neto" data-school="colegio estadual de tempo integral aguas termais de cipo" data-nte="nte 17 - ribeira do pombal">
+            <div class="teacher-name">SEVERINO DA SILVA QUEIROZ NETO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL AGUAS TERMAIS DE CIPO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/severino-neto.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 18 - Alagoinhas<span class="badge">8 professores</span></div>
+          <div class="teacher-card" data-name="cintia porto dos santos franca" data-school="colegio estadual de tempo integral de itamira | colegio estadual de tempo integral de jacobina | colégio estadual de tempo integral de itamira" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">CINTIA PORTO DOS SANTOS FRANCA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL DE ITAMIRA · COLEGIO ESTADUAL DE TEMPO INTEGRAL DE JACOBI…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/cintia-franca.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="deivison trindade dos santos" data-school="centro est de educ prof cont e gest do n baiano pedro ribeiro pessoa | centro est de educacao profi em recursos naturais do centro baiano | centro terri.de educ.profi.sta rita de cassia-cetep sta rita de cassia | colegio estadual de tempo integral de vilas de abrantes | colegio estadual desembargador pedro ribeiro | centro estadual de educação profissional em controle e gestão do nordeste baiano pedro ribeiro pessoa" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">DEIVISON TRINDADE DOS SANTOS</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONT E GEST DO N BAIANO PEDRO RIBEIRO PESSOA · CENTRO EST DE EDUCACA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/deivison-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="fatima regina gomes chaves" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | centro de apoio pedagogico especializado - cape valenca | colegio estadual de tempo integral ruy barbosa | colegio modelo luis eduardo magalhaes | escola estadual dom avelar brandao vilela | escola professor julio leal araujo" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">FATIMA REGINA GOMES CHAVES</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · CENTRO DE APOIO PED…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/fatima-chaves.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="gilberto dos santos costa junior" data-school="colegio estadual doutor antonio carlos magalhaes" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">GILBERTO DOS SANTOS COSTA JUNIOR</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DOUTOR ANTONIO CARLOS MAGALHAES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/gilberto-junior.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="juliana souza bacelar estrela" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | centro est de educ prof cont e gest do n baiano pedro ribeiro pessoa | colegio estadual desembargador pedro ribeiro | centro estadual de educação profissional em controle e gestão do nordeste baiano pedro ribeiro pessoa" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">JULIANA SOUZA BACELAR ESTRELA</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · CENTRO EST DE EDUC …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/juliana-estrela.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria cristina dos santos jorge" data-school="colegio estadual doutor antonio carlos magalhaes | colegio estadual eliel martins" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">MARIA CRISTINA DOS SANTOS JORGE</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DOUTOR ANTONIO CARLOS MAGALHAES · COLEGIO ESTADUAL ELIEL MARTINS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-jorge.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="taiana do bomfim tarantino" data-school="colegio estadual de tempo integral aguas termais de cipo" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">TAIANA DO BOMFIM TARANTINO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL AGUAS TERMAIS DE CIPO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/taiana-tarantino.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="wilson albino de sa" data-school="colegio estadual de tempo integral antonio da costa brito" data-nte="nte 18 - alagoinhas">
+            <div class="teacher-name">WILSON ALBINO DE SA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL ANTONIO DA COSTA BRITO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/wilson-sa.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 19 - Feira de Santana<span class="badge">21 professores</span></div>
+          <div class="teacher-card" data-name="adenilton rozendo dos santos" data-school=" colegio da policia militar - cpm francisco pedro de oliveira" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">ADENILTON ROZENDO DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM FRANCISCO PEDRO DE OLIVEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adenilton-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ageu reis dos santos cardoso" data-school="anexo do colegio estadual do campo lucia rocha macedo | centro educacional carneiro ribeiro - classe iii | centro estadual de educacao profissional do oceano | colegio estadual castro alves | colegio estadual de tempo integral rio corrente | colegio estadual de tempo integral santo antonio | colegio estadual governador luiz viana filho | colegio estadual helena assis suzart | colegio estadual professora carminda mascarenhas vieira | colegio modelo luis eduardo magalhaes | colégio estadual de t. i. de feira de santana -cj penal de f. de santana - anexo" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">AGEU REIS DOS SANTOS CARDOSO</div>
+            <div class="teacher-school">ANEXO DO COLEGIO ESTADUAL DO CAMPO LUCIA ROCHA MACEDO · CENTRO EDUCACIONAL CARNEIRO RIBEIRO …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ageu-cardoso.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="alessandra cruz dos santos de souza" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio estadual de tempo integral aguas termais de cipo | colegio estadual de tempo integral cleonice olegario dos santos | colegio estadual de tempo integral de paulo afonso" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">ALESSANDRA CRUZ DOS SANTOS DE SOUZA</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COLEGIO ESTADUAL DE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/alessandra-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ana patricia silva" data-school=" centro integrado de educacao assis chateaubriand" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">ANA PATRICIA SILVA</div>
+            <div class="teacher-school"> CENTRO INTEGRADO DE EDUCACAO ASSIS CHATEAUBRIAND</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ana paula pereira de carvalho" data-school=" colegio estadual de agua fria" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">ANA PAULA PEREIRA DE CARVALHO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE AGUA FRIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-carvalho-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="carlos alexandre ramalho baptista" data-school=" centro estadual de ed profissional em saúde do centro baiano" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">CARLOS ALEXANDRE RAMALHO BAPTISTA</div>
+            <div class="teacher-school"> CENTRO ESTADUAL DE ED PROFISSIONAL EM SAÚDE DO CENTRO BAIANO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/carlos-baptista-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="consuelo penelu bitencourt" data-school=" colegio estadual teotonio vilela" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">CONSUELO PENELU BITENCOURT</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL TEOTONIO VILELA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/consuelo-bitencourt-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="deise benn pereira vivas" data-school=" colegio estadual de tempo integral georgina de melo erismann" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">DEISE BENN PEREIRA VIVAS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL GEORGINA DE MELO ERISMANN</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/deise-vivas-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ezequiel santiago gomes" data-school=" colegio estadual de tempo integral professora edite ferreira fonseca" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">EZEQUIEL SANTIAGO GOMES</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA EDITE FERREIRA FONSECA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ezequiel-gomes-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="juvenal janaino lima de santana" data-school=" centro estadual de ed profissional em saúde do centro baiano" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">JUVENAL JANAINO LIMA DE SANTANA</div>
+            <div class="teacher-school"> CENTRO ESTADUAL DE ED PROFISSIONAL EM SAÚDE DO CENTRO BAIANO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/juvenal-santana-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="leila thaise santana de oliveira santos" data-school="anexo-col est de t. i. de feira de santana -cj penal de f. de santana | col est de t. i. de feira de santana -cj penal de f. de santana - anexo" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">LEILA THAISE SANTANA DE OLIVEIRA SANTOS</div>
+            <div class="teacher-school">ANEXO-COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA · COL EST DE T. I. DE …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/leila-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria de fatima alves de lima campos" data-school=" colegio estadual de tempo integral sao jose" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">MARIA DE FATIMA ALVES DE LIMA CAMPOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-campos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria de fatima fernandes de souza" data-school=" colegio da policia militar - cpm bom jesus da lapa" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">MARIA DE FATIMA FERNANDES DE SOUZA</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-souza-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria izabel da silva sampaio" data-school=" colegio estadual do campo professor jose waldomiro santos da conceicao" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">MARIA IZABEL DA SILVA SAMPAIO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DO CAMPO PROFESSOR JOSE WALDOMIRO SANTOS DA CONCEICAO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-sampaio-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marli da silva barboza" data-school=" colegio estadual irma rosa aparecida" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">MARLI DA SILVA BARBOZA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL IRMA ROSA APARECIDA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marli-barboza-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="muriel patricia silva de assis" data-school="colegio estadual de tempo integral santo antonio | colegio estadual de tempo integral sao jose" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">MURIEL PATRICIA SILVA DE ASSIS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL SANTO ANTONIO · COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/muriel-assis.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="naria reis dos santos breuss" data-school="col est de t. i. de feira de santana -cj penal de f. de santana - anexo" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">NARIA REIS DOS SANTOS BREUSS</div>
+            <div class="teacher-school">COL EST DE T. I. DE FEIRA DE SANTANA -CJ PENAL DE F. DE SANTANA - ANEXO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/naria-breuss.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="noemia da cruz silva" data-school=" colegio estadual de tempo integral nelson maia" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">NOEMIA DA CRUZ SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL NELSON MAIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/noemia-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="osa elizabete monteiro rocha" data-school=" escola estadual pierre verger" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">OSA ELIZABETE MONTEIRO ROCHA</div>
+            <div class="teacher-school"> ESCOLA ESTADUAL PIERRE VERGER</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/osa-rocha-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ozeias de almeida santos" data-school=" colegio estadual de tempo integral de santo estevao" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">OZEIAS DE ALMEIDA SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL DE SANTO ESTEVAO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ozeias-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="sidelia castro de oliveira" data-school=" colegio estadual de tempo integral novis filho" data-nte="nte 19 - feira de santana">
+            <div class="teacher-name">SIDELIA CASTRO DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL NOVIS FILHO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/sidelia-oliveira-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 20 - Vitória da Conquista<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="jorge cleiton silva souza" data-school="centro estad de educ, inovacao e formacao da bahia-ceeifor- mae stella | colegio estadual sisinio ribeiro silva" data-nte="nte 20 - vitória da conquista">
+            <div class="teacher-name">JORGE CLEITON SILVA SOUZA</div>
+            <div class="teacher-school">CENTRO ESTAD DE EDUC, INOVACAO E FORMACAO DA BAHIA-CEEIFOR- MAE STELLA · COLEGIO ESTADUAL SI…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jorge-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="lilian moreira pereira dos santos" data-school="colegio estadual de tempo integral de piripa" data-nte="nte 20 - vitória da conquista">
+            <div class="teacher-name">LILIAN MOREIRA PEREIRA DOS SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/lilian-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="liliane alves de lima ferreira" data-school="colegio estadual de tempo integral de piripa" data-nte="nte 20 - vitória da conquista">
+            <div class="teacher-name">LILIANE ALVES DE LIMA FERREIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/liliane-ferreira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="tamara sibele dos santos" data-school="colegio estadual de tempo integral de piripa" data-nte="nte 20 - vitória da conquista">
+            <div class="teacher-name">TAMARA SIBELE DOS SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PIRIPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/tamara-santos.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 21 - Santo Antônio de Jesus<span class="badge">3 professores</span></div>
+          <div class="teacher-card" data-name="ana carla barbuda dos santos" data-school="centro est de educ prof controle e processos indust newton sucupira | colegio estadual de tempo integral cleonice olegario dos santos | colegio estadual de tempo integral de salinas da margarida | colégio estadual do campo luciberto oliveira dos santos" data-nte="nte 21 - santo antônio de jesus">
+            <div class="teacher-name">ANA CARLA BARBUDA DOS SANTOS</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA · COLEGIO ESTADUAL DE TE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ana-carla-barbuda-dos-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="daria glaucia santos silva de sousa" data-school=" centro est de educ profissional em turismo do leste baiano" data-nte="nte 21 - santo antônio de jesus">
+            <div class="teacher-name">DARIA GLAUCIA SANTOS SILVA DE SOUSA</div>
+            <div class="teacher-school"> CENTRO EST DE EDUC PROFISSIONAL EM TURISMO DO LESTE BAIANO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/daria-sousa-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="joseli oliveira sena batista" data-school=" colegio estadual desembargador julio virginio de santana" data-nte="nte 21 - santo antônio de jesus">
+            <div class="teacher-name">JOSELI OLIVEIRA SENA BATISTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DESEMBARGADOR JULIO VIRGINIO DE SANTANA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/joseli-batista-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 22 - Jequié<span class="badge">9 professores</span></div>
+          <div class="teacher-card" data-name="alaercio moura peixoto de jesus" data-school="centro est de educ prof controle e processos indust newton sucupira" data-nte="nte 22 - jequié">
+            <div class="teacher-name">ALAERCIO MOURA PEIXOTO DE JESUS</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/alaercio-jesus.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="carlos eduardo ferreira oliveira" data-school=" colegio estadual governador roberto santos" data-nte="nte 22 - jequié">
+            <div class="teacher-name">CARLOS EDUARDO FERREIRA OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL GOVERNADOR ROBERTO SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/carlos-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="eduardo fernandes lino" data-school="colegio estadual gilda ramos dos santos" data-nte="nte 22 - jequié">
+            <div class="teacher-name">EDUARDO FERNANDES LINO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL GILDA RAMOS DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eduardo-lino.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jeruza rocha lima arcanjo" data-school=" colegio estadual antonio mota bittencourt" data-nte="nte 22 - jequié">
+            <div class="teacher-name">JERUZA ROCHA LIMA ARCANJO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL ANTONIO MOTA BITTENCOURT</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jeruza-arcanjo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="manoel messias pereira" data-school=" colegio estadual maria de lourdes lima pereira" data-nte="nte 22 - jequié">
+            <div class="teacher-name">MANOEL MESSIAS PEREIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL MARIA DE LOURDES LIMA PEREIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/manoel-pereira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria nilsa silva braga" data-school="centro de apoio pedagogico especializado - cape valenca | centro est de educacao profissional em saude do leste baiano | centro ter de educ profi da bacia do jacuipe prof luiz carlos araujo | centro territorial de educacao profissional do reconcavo | colegio da policia militar - cpm antonio carlos magalhaes | colegio da policia militar - unidade ii cpm lobato | colegio estadual cleriston andrade tempo integral | colegio estadual de tempo integral de bonito | colegio estadual de tempo integral doutor jose carlos bezerra carvalho | colegio estadual de tempo integral doutor vasco filho | colegio estadual de tempo integral luiz navarro de brito | colegio estadual de tempo integral quiteria maria de jesus | colegio estadual de tempo integral ruy barbosa | colegio estadual de tempo integral sao jose | colegio estadual joao pessoa | colegio estadual professor carlos santana | colegio estadual zuleide freire de abreu - dist. de vila paiol - anexo" data-nte="nte 22 - jequié">
+            <div class="teacher-name">MARIA NILSA SILVA BRAGA</div>
+            <div class="teacher-school">CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA · CENTRO EST DE EDUCACAO PROFISSIONA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-braga-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="paulo henrique souza santos" data-school="colegio da policia militar - cpm professor poeta luis neves cotrim" data-nte="nte 22 - jequié">
+            <div class="teacher-name">PAULO HENRIQUE SOUZA SANTOS</div>
+            <div class="teacher-school">COLEGIO DA POLICIA MILITAR - CPM PROFESSOR POETA LUIS NEVES COTRIM</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/paulo-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="savio leal oliveira" data-school="centro territorial de educacao profis itaparica ii wilson pereira" data-nte="nte 22 - jequié">
+            <div class="teacher-name">SAVIO LEAL OLIVEIRA</div>
+            <div class="teacher-school">CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/savio-oliveira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="vilma solange dos santos dias" data-school=" colegio estadual gilda ramos dos santos" data-nte="nte 22 - jequié">
+            <div class="teacher-name">VILMA SOLANGE DOS SANTOS DIAS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL GILDA RAMOS DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/vilma-dias-2.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 23 - Santa Maria da Vitória<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="antonio jose pereira de souza" data-school="centro territorial de educacao profis itaparica ii wilson pereira" data-nte="nte 23 - santa maria da vitória">
+            <div class="teacher-name">ANTONIO JOSE PEREIRA DE SOUZA</div>
+            <div class="teacher-school">CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonio-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="bianca suzy dos reis dos santos" data-school=" colegio estadual francisco moreira alves" data-nte="nte 23 - santa maria da vitória">
+            <div class="teacher-name">BIANCA SUZY DOS REIS DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL FRANCISCO MOREIRA ALVES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/bianca-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="diego raian aguiar pinto" data-school=" colegio da policia militar - cpm bom jesus da lapa" data-nte="nte 23 - santa maria da vitória">
+            <div class="teacher-name">DIEGO RAIAN AGUIAR PINTO</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/diego-pinto-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="higor pereira dos anjos" data-school="colegio estadual de tempo integral ruy barbosa" data-nte="nte 23 - santa maria da vitória">
+            <div class="teacher-name">HIGOR PEREIRA DOS ANJOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL RUY BARBOSA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/higor-anjos.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 24 - Paulo Afonso<span class="badge">7 professores</span></div>
+          <div class="teacher-card" data-name="antonia pereira da silva" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio estadual professora maria odette pithon raynal | colégio estadual de tempo integral professora maria do socorro gomes possidônio" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">ANTONIA PEREIRA DA SILVA</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COLEGIO ESTADUAL PR…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonia-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="antonio salve batista" data-school="centro territorial de educacao profis itaparica ii wilson pereira" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">ANTONIO SALVE BATISTA</div>
+            <div class="teacher-school">CENTRO TERRITORIAL DE EDUCACAO PROFIS ITAPARICA II WILSON PEREIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonio-batista.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="claudia bezerra dos santos monteiro" data-school="centro territorial de educacao profissional de araci | colégio estadual de tempo integral professora maria do socorro gomes possidônio" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">CLAUDIA BEZERRA DOS SANTOS MONTEIRO</div>
+            <div class="teacher-school">CENTRO TERRITORIAL DE EDUCACAO PROFISSIONAL DE ARACI · COLÉGIO ESTADUAL DE TEMPO INTEGRAL PR…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/claudia-monteiro.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="elisvane neide dos santos" data-school="colégio estadual de tempo integral professora jaidê rocha | colégio estadual de tempo integral professora maria do socorro gomes possidônio" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">ELISVANE NEIDE DOS SANTOS</div>
+            <div class="teacher-school">COLÉGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA JAIDÊ ROCHA · COLÉGIO ESTADUAL DE TEMPO INTEGR…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/elisvane-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="felix ramon rodrigues silva" data-school=" colegio estadual de tempo integral quiteria maria de jesus" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">FELIX RAMON RODRIGUES SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL QUITERIA MARIA DE JESUS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/felix-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maisa costa da encarnacao" data-school="colegio estadual de tempo integral de paulo afonso | colegio estadual de tempo integral quiteria maria de jesus" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">MAISA COSTA DA ENCARNACAO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL DE PAULO AFONSO · COLEGIO ESTADUAL DE TEMPO INTEGRAL QUIT…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maisa-encarnacao.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="paulo nascimento silva" data-school="colegio estadual de tempo integral sao jose" data-nte="nte 24 - paulo afonso">
+            <div class="teacher-name">PAULO NASCIMENTO SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO JOSE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/paulo-silva.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 25 - Senhor do Bonfim<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="erinaldo ferreira do nascimento" data-school=" colegio estadual de tempo integral cecentino pereira maia" data-nte="nte 25 - senhor do bonfim">
+            <div class="teacher-name">ERINALDO FERREIRA DO NASCIMENTO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL CECENTINO PEREIRA MAIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/erinaldo-nascimento-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="keiliane almeida de oliveira" data-school=" colegio estadual de tempo integral cecentino pereira maia" data-nte="nte 25 - senhor do bonfim">
+            <div class="teacher-name">KEILIANE ALMEIDA DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL CECENTINO PEREIRA MAIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/keiliane-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="paula hyanne rodrigues fernandes" data-school=" colegio estadual de tempo integral cecentino pereira maia" data-nte="nte 25 - senhor do bonfim">
+            <div class="teacher-name">PAULA HYANNE RODRIGUES FERNANDES</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL CECENTINO PEREIRA MAIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/paula-fernandes-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="suzana santos jatoba" data-school="col. est. quilombola de sao tome - brejao da caatinga - anexo" data-nte="nte 25 - senhor do bonfim">
+            <div class="teacher-name">SUZANA SANTOS JATOBA</div>
+            <div class="teacher-school">COL. EST. QUILOMBOLA DE SAO TOME - BREJAO DA CAATINGA - ANEXO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/suzana-jatoba.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 26 - Salvador<span class="badge">47 professores</span></div>
+          <div class="teacher-card" data-name="aila hilario de souza" data-school="centro est de educ prof controle e processos indust newton sucupira | colegio estadual clarice santiago dos santos | colegio estadual de tempo integral cleonice olegario dos santos | colegio estadual thales de azevedo | colegio estadual zuleide freire de abreu - dist. de vila paiol - anexo" data-nte="nte 26 - salvador">
+            <div class="teacher-name">AILA HILARIO DE SOUZA</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA · COLEGIO ESTADUAL CLARI…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/aila-souza-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="carlos kleber moura da silva" data-school="colegio polivalente de itapetinga" data-nte="nte 26 - salvador">
+            <div class="teacher-name">CARLOS KLEBER MOURA DA SILVA</div>
+            <div class="teacher-school">COLEGIO POLIVALENTE DE ITAPETINGA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/carlos-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="claudia de faria barbosa" data-school="colegio estadual dinah goncalves" data-nte="nte 26 - salvador">
+            <div class="teacher-name">CLAUDIA DE FARIA BARBOSA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DINAH GONCALVES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/claudia-barbosa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="daila ataide dos santos" data-school="colegio estadual professor carlos barros | colegio estadual professor romulo almeida" data-nte="nte 26 - salvador">
+            <div class="teacher-name">DAILA ATAIDE DOS SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR CARLOS BARROS · COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/daila-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="delor gerbase gramacho" data-school=" colegio da policia militar - unidade ii cpm lobato" data-nte="nte 26 - salvador">
+            <div class="teacher-name">DELOR GERBASE GRAMACHO</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - UNIDADE II CPM LOBATO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/delor-gramacho-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="denilson miguel silva" data-school="colegio estadual de tempo integral ernesto carneiro ribeiro | colegio estadual ernesto carneiro ribeiro | colegio estadual professor romulo almeida" data-nte="nte 26 - salvador">
+            <div class="teacher-name">DENILSON MIGUEL SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL ERNESTO CARNEIRO RIBEIRO · COLEGIO ESTADUAL ERNESTO CARNE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/denilson-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="edemir brasil ferreira" data-school="colegio estadual cleriston andrade tempo integral" data-nte="nte 26 - salvador">
+            <div class="teacher-name">EDEMIR BRASIL FERREIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL CLERISTON ANDRADE TEMPO INTEGRAL</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/edemir-ferreira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="edmario ferreira de souza" data-school="colegio estadual professor carlos barros" data-nte="nte 26 - salvador">
+            <div class="teacher-name">EDMARIO FERREIRA DE SOUZA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR CARLOS BARROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/edmario-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="erika araujo santana dimas" data-school="centro est de educ prof controle e processos indust newton sucupira" data-nte="nte 26 - salvador">
+            <div class="teacher-name">ERIKA ARAUJO SANTANA DIMAS</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/erika-dimas.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="fabio valente de moraes" data-school="colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 26 - salvador">
+            <div class="teacher-name">FABIO VALENTE DE MORAES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/fabio-moraes.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="flavio augusto cardoso alves" data-school="colegio estadual professor carlos barros" data-nte="nte 26 - salvador">
+            <div class="teacher-name">FLAVIO AUGUSTO CARDOSO ALVES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR CARLOS BARROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/flavio-alves.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="francisco jose santana lima" data-school="centro educacional carneiro ribeiro - classe iii" data-nte="nte 26 - salvador">
+            <div class="teacher-name">FRANCISCO JOSE SANTANA LIMA</div>
+            <div class="teacher-school">CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE III</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/francisco-lima.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="graca regina armond matias ferreira" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | centro estadual de referencia do ensino medio com inter. tecnologica-cemitec" data-nte="nte 26 - salvador">
+            <div class="teacher-name">GRACA REGINA ARMOND MATIAS FERREIRA</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · CENTRO ESTADUAL DE …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/graca-ferreira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="graca viviane pereira santos pereira" data-school="centro estadual de referencia do ensino medio com inter. tecnologica-cemitec" data-nte="nte 26 - salvador">
+            <div class="teacher-name">GRACA VIVIANE PEREIRA SANTOS PEREIRA</div>
+            <div class="teacher-school">CENTRO ESTADUAL DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/graca-pereira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="hamilton souza filho" data-school="colegio estadual professora noemia rego" data-nte="nte 26 - salvador">
+            <div class="teacher-name">HAMILTON SOUZA FILHO</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA NOEMIA REGO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/hamilton-filho.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="heloneida castro loula dantas" data-school="colegio estadual professora maria anita" data-nte="nte 26 - salvador">
+            <div class="teacher-name">HELONEIDA CASTRO LOULA DANTAS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA MARIA ANITA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/heloneida-dantas.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="imaira santa rita regis" data-school="colegio da policia militar - unidade ii cpm lobato" data-nte="nte 26 - salvador">
+            <div class="teacher-name">IMAIRA SANTA RITA REGIS</div>
+            <div class="teacher-school">COLEGIO DA POLICIA MILITAR - UNIDADE II CPM LOBATO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/imaira-regis.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ivan pedro santos nascimento" data-school="centro estadual de educação profissional em gestão severino vieira" data-nte="nte 26 - salvador">
+            <div class="teacher-name">IVAN PEDRO SANTOS NASCIMENTO</div>
+            <div class="teacher-school">CENTRO ESTADUAL DE EDUCAÇÃO PROFISSIONAL EM GESTÃO SEVERINO VIEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ivan-nascimento.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jairo espirito santo silva" data-school="centro de apoio pedagogico especializado - cape valenca" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JAIRO ESPIRITO SANTO SILVA</div>
+            <div class="teacher-school">CENTRO DE APOIO PEDAGOGICO ESPECIALIZADO - CAPE VALENCA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jairo-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jamile do sacramento moura rosa cerqueira" data-school="colegio estadual alberto valenca" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JAMILE DO SACRAMENTO MOURA ROSA CERQUEIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL ALBERTO VALENCA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jamile-cerqueira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jamilton dos santos rodrigues" data-school="centro estadual de educacao profissional do oceano | colegio estadual professor carlos barros" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JAMILTON DOS SANTOS RODRIGUES</div>
+            <div class="teacher-school">CENTRO ESTADUAL DE EDUCACAO PROFISSIONAL DO OCEANO · COLEGIO ESTADUAL PROFESSOR CARLOS BARROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jamilton-rodrigues.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jaqueline ferreira sa" data-school="centro est de educ prof controle e processos indust newton sucupira | colegio estadual de tempo integral de vilas de abrantes | colegio estadual professor carlos barros | colegio estadual professora noemia rego" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JAQUELINE FERREIRA SA</div>
+            <div class="teacher-school">CENTRO EST DE EDUC PROF CONTROLE E PROCESSOS INDUST NEWTON SUCUPIRA · COLEGIO ESTADUAL DE TE…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jaqueline-sa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jose adailton santos" data-school="colegio estadual professora marileine da silva | colegio estadual professora nadir araujo copque" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JOSE ADAILTON SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA MARILEINE DA SILVA · COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO CO…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jose-adailton-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="juipurema alessandro sarraf sandes" data-school="colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JUIPUREMA ALESSANDRO SARRAF SANDES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE OLEGARIO DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/juipurema-sandes-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="juliana nascimento carvalho silva" data-school="colegio estadual professor carlos barros" data-nte="nte 26 - salvador">
+            <div class="teacher-name">JULIANA NASCIMENTO CARVALHO SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR CARLOS BARROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/juliana-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="leonardo rodrigues almeida" data-school="colegio estadual de tempo integral jardilina de santana oliveira | colegio modelo luis eduardo magalhaes" data-nte="nte 26 - salvador">
+            <div class="teacher-name">LEONARDO RODRIGUES ALMEIDA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL JARDILINA DE SANTANA OLIVEIRA · COLEGIO MODELO LUIS EDUAR…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/leonardo-almeida.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="leonildo goncalves" data-school="colegio estadual de tempo integral jardilina de santana oliveira | colegio estadual de tempo integral joao francisco da silva | colegio modelo luis eduardo magalhaes" data-nte="nte 26 - salvador">
+            <div class="teacher-name">LEONILDO GONCALVES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL JARDILINA DE SANTANA OLIVEIRA · COLEGIO ESTADUAL DE TEMPO…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/leonildo-goncalves.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="luciana moreira costa" data-school="colegio estadual professora maria bernadete brandao | colégio estadual profª. maria bernadete brandao - anexo" data-nte="nte 26 - salvador">
+            <div class="teacher-name">LUCIANA MOREIRA COSTA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA MARIA BERNADETE BRANDAO · COLÉGIO ESTADUAL PROFª. MARIA BERNADET…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/luciana-costa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marcelo da silva barbosa" data-school="colegio estadual professor romulo almeida | colegio polivalente de conceicao do coite" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARCELO DA SILVA BARBOSA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA · COLEGIO POLIVALENTE DE CONCEICAO DO COITE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marcelo-barbosa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marcelo henrique de souza" data-school="colegio estadual professor romulo almeida" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARCELO HENRIQUE DE SOUZA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marcelo-souza.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marcus alves de santana" data-school="centro estadual de educacao profissional do oceano | colegio da policia militar - unidade ii cpm lobato" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARCUS ALVES DE SANTANA</div>
+            <div class="teacher-school">CENTRO ESTADUAL DE EDUCACAO PROFISSIONAL DO OCEANO · COLEGIO DA POLICIA MILITAR - UNIDADE II…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marcus-santana.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maricelia rodrigues de andrade" data-school="colegio estadual alberto valenca | colegio estadual professor carlos barros" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARICELIA RODRIGUES DE ANDRADE</div>
+            <div class="teacher-school">COLEGIO ESTADUAL ALBERTO VALENCA · COLEGIO ESTADUAL PROFESSOR CARLOS BARROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maricelia-andrade.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marilia pinto fontes" data-school="cent est. de referencia do ensino medio com inter. tecnologica-cemitec | colegio estadual alberto valenca" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARILIA PINTO FONTES</div>
+            <div class="teacher-school">CENT EST. DE REFERENCIA DO ENSINO MEDIO COM INTER. TECNOLOGICA-CEMITEC · COLEGIO ESTADUAL AL…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marilia-fontes.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marta nascimento silva" data-school="colegio da policia militar - cpm dona leonor calmon | colegio estadual clarice santiago dos santos" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARTA NASCIMENTO SILVA</div>
+            <div class="teacher-school">COLEGIO DA POLICIA MILITAR - CPM DONA LEONOR CALMON · COLEGIO ESTADUAL CLARICE SANTIAGO DOS …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marta-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="martha luciene nogueira barros dantas" data-school="colegio estadual clarice santiago dos santos" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MARTHA LUCIENE NOGUEIRA BARROS DANTAS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL CLARICE SANTIAGO DOS SANTOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/martha-dantas.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="michel sampaio ferreira" data-school="colegio estadual boanovense | colegio estadual camaçari | colegio estadual professora nadir araujo copque" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MICHEL SAMPAIO FERREIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL BOANOVENSE · COLEGIO ESTADUAL CAMAÇARI · COLEGIO ESTADUAL PROFESSORA NADIR …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/michel-ferreira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="moises batista santos de oliveira" data-school="centro educacional carneiro ribeiro - classe iii | centro educacional carneiro ribeiro - classe iv" data-nte="nte 26 - salvador">
+            <div class="teacher-name">MOISES BATISTA SANTOS DE OLIVEIRA</div>
+            <div class="teacher-school">CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLASSE III · CENTRO EDUCACIONAL CARNEIRO RIBEIRO - CLA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/moises-oliveira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="nilza carla malta barbosa" data-school="colegio da policia militar - cpm bom jesus da lapa | complexo integrado de educ basica profis e tecnologica-ciebtec | complexo integrado de educação basica, profissional e tecnológica," data-nte="nte 26 - salvador">
+            <div class="teacher-name">NILZA CARLA MALTA BARBOSA</div>
+            <div class="teacher-school">COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA · COMPLEXO INTEGRADO DE EDUC BASICA PROFI…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/nilza-barbosa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="priscila de souza santos menezes" data-school="colegio estadual professor carlos barros" data-nte="nte 26 - salvador">
+            <div class="teacher-name">PRISCILA DE SOUZA SANTOS MENEZES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSOR CARLOS BARROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/priscila-menezes.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ramires fonseca silva" data-school="colegio estadual clarice santiago dos santos | colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 26 - salvador">
+            <div class="teacher-name">RAMIRES FONSECA SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL CLARICE SANTIAGO DOS SANTOS · COLEGIO ESTADUAL DE TEMPO INTEGRAL CLEONICE O…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ramires-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="reinaldo dos santos souza" data-school=" centro estad de educ, inovacao e formacao da bahia-ceeifor- mae stella" data-nte="nte 26 - salvador">
+            <div class="teacher-name">REINALDO DOS SANTOS SOUZA</div>
+            <div class="teacher-school"> CENTRO ESTAD DE EDUC, INOVACAO E FORMACAO DA BAHIA-CEEIFOR- MAE STELLA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/reinaldo-souza-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="rodrigo borges teles" data-school="colegio estadual professora nadir araujo copque |  colegio estadual professora nadir araujo copque" data-nte="nte 26 - salvador">
+            <div class="teacher-name">RODRIGO BORGES TELES</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO COPQUE ·  COLEGIO ESTADUAL PROFESSORA NADIR ARAUJO …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/rodrigo-teles-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="rosanna pereira de barros santos" data-school="colegio estadual polivalente de aratu | colegio estadual professor romulo almeida" data-nte="nte 26 - salvador">
+            <div class="teacher-name">ROSANNA PEREIRA DE BARROS SANTOS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL POLIVALENTE DE ARATU · COLEGIO ESTADUAL PROFESSOR ROMULO ALMEIDA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/rosanna-santos.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="soraia freire da silva" data-school="colegio estadual professora maria bernadete brandao" data-nte="nte 26 - salvador">
+            <div class="teacher-name">SORAIA FREIRE DA SILVA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA MARIA BERNADETE BRANDAO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/soraia-silva.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="soraia jesus de oliveira" data-school="colegio estadual professora maria bernadete brandao | colégio estadual profª. maria bernadete brandao - anexo" data-nte="nte 26 - salvador">
+            <div class="teacher-name">SORAIA JESUS DE OLIVEIRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL PROFESSORA MARIA BERNADETE BRANDAO · COLÉGIO ESTADUAL PROFª. MARIA BERNADET…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/soraia-oliveira.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="vanessa monique araujo bispo rocha" data-school="colegio estadual dinah goncalves | colegio estadual polivalente de aratu | colegio estadual polivalente de candeias" data-nte="nte 26 - salvador">
+            <div class="teacher-name">VANESSA MONIQUE ARAUJO BISPO ROCHA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DINAH GONCALVES · COLEGIO ESTADUAL POLIVALENTE DE ARATU · COLEGIO ESTADUAL …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/vanessa-rocha.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="wanderson queiroz bonfim" data-school="centro est de educacao profis em tecnologia informacao e comunicacao | colegio estadual de tempo integral cleonice olegario dos santos" data-nte="nte 26 - salvador">
+            <div class="teacher-name">WANDERSON QUEIROZ BONFIM</div>
+            <div class="teacher-school">CENTRO EST DE EDUCACAO PROFIS EM TECNOLOGIA INFORMACAO E COMUNICACAO · COLEGIO ESTADUAL DE T…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/wanderson-bonfim.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE 27 - Eunápolis<span class="badge">4 professores</span></div>
+          <div class="teacher-card" data-name="consepion dias da costa" data-school="colegio estadual de tempo integral rio corrente | colegio estadual jaci ferreira dos santos | colegio estadual jesus moura | colegio estadual joao das botas" data-nte="nte 27 - eunápolis">
+            <div class="teacher-name">CONSEPION DIAS DA COSTA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL DE TEMPO INTEGRAL RIO CORRENTE · COLEGIO ESTADUAL JACI FERREIRA DOS SANTOS …</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/consepion-costa.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="glauber cassimiro santos guirra" data-school="colegio estadual eloyna barradas" data-nte="nte 27 - eunápolis">
+            <div class="teacher-name">GLAUBER CASSIMIRO SANTOS GUIRRA</div>
+            <div class="teacher-school">COLEGIO ESTADUAL ELOYNA BARRADAS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/glauber-guirra.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="luciana souza pinheiro" data-school=" centro est de educacao profi em recursos naturais do centro baiano" data-nte="nte 27 - eunápolis">
+            <div class="teacher-name">LUCIANA SOUZA PINHEIRO</div>
+            <div class="teacher-school"> CENTRO EST DE EDUCACAO PROFI EM RECURSOS NATURAIS DO CENTRO BAIANO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/luciana-pinheiro-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="stephanny graff souza santos dias" data-school="complexo integrado de educ basica profis e tecnologica-ciebtec | complexo integrado de educação basica" data-nte="nte 27 - eunápolis">
+            <div class="teacher-name">STEPHANNY GRAFF SOUZA SANTOS DIAS</div>
+            <div class="teacher-school">COMPLEXO INTEGRADO DE EDUC BASICA PROFIS E TECNOLOGICA-CIEBTEC · COMPLEXO INTEGRADO DE EDUCA…</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/stephanny-dias.html">Acessar →</a>
+          </div>
+    </div>
+
+    <div class="nte-group">
+      <div class="nte-header">NTE não identificado<span class="badge">53 professores</span></div>
+          <div class="teacher-card" data-name="adneusa moreno rodrigues" data-school=" colegio estadual paulo vi" data-nte="nte não identificado">
+            <div class="teacher-name">ADNEUSA MORENO RODRIGUES</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL PAULO VI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adneusa-rodrigues-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="adryeini dantas baracho faria" data-school=" colegio estadual polivalente de camacari" data-nte="nte não identificado">
+            <div class="teacher-name">ADRYEINI DANTAS BARACHO FARIA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL POLIVALENTE DE CAMACARI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/adryeini-faria-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="angelica da silva meira" data-school=" colegio da policia militar - cpm bom jesus da lapa" data-nte="nte não identificado">
+            <div class="teacher-name">ANGELICA DA SILVA MEIRA</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/angelica-meira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="antonio carlos pereira de macedo" data-school=" colegio estadual santa rita de cassia" data-nte="nte não identificado">
+            <div class="teacher-name">ANTONIO CARLOS PEREIRA DE MACEDO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL SANTA RITA DE CASSIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonio-macedo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="antonio lazaro pimenta de araujo" data-school=" colegio estadual ruben dario" data-nte="nte não identificado">
+            <div class="teacher-name">ANTONIO LAZARO PIMENTA DE ARAUJO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL RUBEN DARIO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonio-araujo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="antonio marcos de almeida ribeiro" data-school=" colegio estadual de tempo integral euridice santana" data-nte="nte não identificado">
+            <div class="teacher-name">ANTONIO MARCOS DE ALMEIDA RIBEIRO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL EURIDICE SANTANA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/antonio-ribeiro-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ariane dos santos da silva" data-school=" colegio estadual polivalente de camacari" data-nte="nte não identificado">
+            <div class="teacher-name">ARIANE DOS SANTOS DA SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL POLIVALENTE DE CAMACARI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ariane-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="atanaildes caldas de santana" data-school=" colegio estadual doutor luiz viana filho" data-nte="nte não identificado">
+            <div class="teacher-name">ATANAILDES CALDAS DE SANTANA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DOUTOR LUIZ VIANA FILHO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/atanaildes-santana-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="cecilia machado de oliveira" data-school=" colegio estadual de tempo integral professora rosalia pereira da rocha" data-nte="nte não identificado">
+            <div class="teacher-name">CECILIA MACHADO DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA ROSALIA PEREIRA DA ROCHA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/cecilia-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="djalma nascimento lima" data-school=" colegio estadual de tempo integral professora rosalia pereira da rocha" data-nte="nte não identificado">
+            <div class="teacher-name">DJALMA NASCIMENTO LIMA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA ROSALIA PEREIRA DA ROCHA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/djalma-lima-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="eliomar oliveira dos santos" data-school=" centro estad de educ, inovacao e formacao da bahia-ceeifor- mae stella" data-nte="nte não identificado">
+            <div class="teacher-name">ELIOMAR OLIVEIRA DOS SANTOS</div>
+            <div class="teacher-school"> CENTRO ESTAD DE EDUC, INOVACAO E FORMACAO DA BAHIA-CEEIFOR- MAE STELLA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eliomar-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="elisangela aparecida leitao de oliveira" data-school=" colegio estadual de tempo integral prof carlos roberto arleo barbosa" data-nte="nte não identificado">
+            <div class="teacher-name">ELISANGELA APARECIDA LEITAO DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROF CARLOS ROBERTO ARLEO BARBOSA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/elisangela-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="elmo emanuel santos camaca" data-school=" colegio estadual luiz jose de oliveira" data-nte="nte não identificado">
+            <div class="teacher-name">ELMO EMANUEL SANTOS CAMACA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL LUIZ JOSE DE OLIVEIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/elmo-camaca-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="eloisa batista de santana" data-school=" colegio estadual dinah goncalves" data-nte="nte não identificado">
+            <div class="teacher-name">ELOISA BATISTA DE SANTANA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DINAH GONCALVES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eloisa-santana-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="elson silva araujo filho" data-school=" colegio estadual raymundo matta" data-nte="nte não identificado">
+            <div class="teacher-name">ELSON SILVA ARAUJO FILHO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL RAYMUNDO MATTA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/elson-filho-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="eric silva dos santos" data-school=" colegio estadual normal de serrinha" data-nte="nte não identificado">
+            <div class="teacher-name">ERIC SILVA DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL NORMAL DE SERRINHA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/eric-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="erika talita santos cerqueira" data-school=" colegio estadual de aratu" data-nte="nte não identificado">
+            <div class="teacher-name">ERIKA TALITA SANTOS CERQUEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE ARATU</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/erika-cerqueira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="erivan tavares santos" data-school=" colegio estadual polivalente de camacari" data-nte="nte não identificado">
+            <div class="teacher-name">ERIVAN TAVARES SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL POLIVALENTE DE CAMACARI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/erivan-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="fernanda loureiro ferreira dantas" data-school=" colegio da policia militar - cpm romulo galvao" data-nte="nte não identificado">
+            <div class="teacher-name">FERNANDA LOUREIRO FERREIRA DANTAS</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM ROMULO GALVAO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/fernanda-dantas-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="filipe emanuel soares silva" data-school=" colegio estadual de tempo integral prof pedro paulo marques e marques" data-nte="nte não identificado">
+            <div class="teacher-name">FILIPE EMANUEL SOARES SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROF PEDRO PAULO MARQUES E MARQUES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/filipe-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="francisco jose pereira de brito" data-school=" colegio estadual satelite" data-nte="nte não identificado">
+            <div class="teacher-name">FRANCISCO JOSE PEREIRA DE BRITO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL SATELITE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/francisco-brito-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="gabriela ferreira dos santos" data-school=" colegio estadual polivalente de aratu" data-nte="nte não identificado">
+            <div class="teacher-name">GABRIELA FERREIRA DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL POLIVALENTE DE ARATU</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/gabriela-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="gardenia pinto dos santos" data-school=" colegio estadual de tempo integral professora daria dourado lopes" data-nte="nte não identificado">
+            <div class="teacher-name">GARDENIA PINTO DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA DARIA DOURADO LOPES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/gardenia-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="gilleide ferreira santos" data-school=" colegio estadual polivalente de candeias" data-nte="nte não identificado">
+            <div class="teacher-name">GILLEIDE FERREIRA SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL POLIVALENTE DE CANDEIAS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/gilleide-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="gleidson oliveira da silva" data-school=" colegio estadual dona mora guimaraes" data-nte="nte não identificado">
+            <div class="teacher-name">GLEIDSON OLIVEIRA DA SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DONA MORA GUIMARAES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/gleidson-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ione de jesus costa" data-school=" colegio estadual manoel de jesus" data-nte="nte não identificado">
+            <div class="teacher-name">IONE DE JESUS COSTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL MANOEL DE JESUS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ione-costa-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jaqueline dos santos figueredo" data-school=" colegio estadual de tempo integral de bonito" data-nte="nte não identificado">
+            <div class="teacher-name">JAQUELINE DOS SANTOS FIGUEREDO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL DE BONITO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jaqueline-figueredo-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="jhonael rocha lima ursulino" data-school=" colegio estadual david mendes pereira" data-nte="nte não identificado">
+            <div class="teacher-name">JHONAEL ROCHA LIMA URSULINO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DAVID MENDES PEREIRA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/jhonael-ursulino-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="juciara maria lima mota" data-school=" colegio estadual mario costa neto" data-nte="nte não identificado">
+            <div class="teacher-name">JUCIARA MARIA LIMA MOTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL MARIO COSTA NETO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/juciara-mota-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="julio cesar vieira hoios" data-school=" colegio estadual de nova esperanca" data-nte="nte não identificado">
+            <div class="teacher-name">JULIO CESAR VIEIRA HOIOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE NOVA ESPERANCA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/julio-hoios-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="loana de abreu malta" data-school=" colegio estadual goes calmon" data-nte="nte não identificado">
+            <div class="teacher-name">LOANA DE ABREU MALTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL GOES CALMON</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/loana-malta-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="lucas miranda dos santos" data-school=" colegio estadual de tempo integral wilson lins" data-nte="nte não identificado">
+            <div class="teacher-name">LUCAS MIRANDA DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL WILSON LINS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/lucas-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="luciana almeida dos santos" data-school=" colegio estadual de tempo integral edith machado boaventura" data-nte="nte não identificado">
+            <div class="teacher-name">LUCIANA ALMEIDA DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL EDITH MACHADO BOAVENTURA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/luciana-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="luciana dos santos oliveira" data-school=" colegio estadual de tempo integral olavo alves pinto" data-nte="nte não identificado">
+            <div class="teacher-name">LUCIANA DOS SANTOS OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL OLAVO ALVES PINTO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/luciana-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="luciene rodrigues da silva" data-school=" colegio estadual nelson mandela" data-nte="nte não identificado">
+            <div class="teacher-name">LUCIENE RODRIGUES DA SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL NELSON MANDELA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/luciene-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="lucineide de jesus santos" data-school=" colegio estadual de valente" data-nte="nte não identificado">
+            <div class="teacher-name">LUCINEIDE DE JESUS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE VALENTE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/lucineide-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="luiz gonzaga correia e silva neto" data-school=" colegio da policia militar - cpm antonio carlos magalhaes" data-nte="nte não identificado">
+            <div class="teacher-name">LUIZ GONZAGA CORREIA E SILVA NETO</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM ANTONIO CARLOS MAGALHAES</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/luiz-neto-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marcio elizio teixeira dos santos" data-school=" centro estadual de educacao profissional do semi arido" data-nte="nte não identificado">
+            <div class="teacher-name">MARCIO ELIZIO TEIXEIRA DOS SANTOS</div>
+            <div class="teacher-school"> CENTRO ESTADUAL DE EDUCACAO PROFISSIONAL DO SEMI ARIDO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marcio-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marcos vinicius ribeiro dos santos" data-school=" centro territorial de educação profissional da chapada diamantina" data-nte="nte não identificado">
+            <div class="teacher-name">MARCOS VINICIUS RIBEIRO DOS SANTOS</div>
+            <div class="teacher-school"> CENTRO TERRITORIAL DE EDUCAÇÃO PROFISSIONAL DA CHAPADA DIAMANTINA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marcos-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria aparecida braz conceicao" data-school=" colegio estadual doutor ailton pinto de andrade" data-nte="nte não identificado">
+            <div class="teacher-name">MARIA APARECIDA BRAZ CONCEICAO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DOUTOR AILTON PINTO DE ANDRADE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-conceicao-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria d ajuda souza mariano" data-school=" colegio estadual de tempo integral de itajuipe" data-nte="nte não identificado">
+            <div class="teacher-name">MARIA D AJUDA SOUZA MARIANO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL DE ITAJUIPE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-mariano-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="maria das gracas pereira da silva" data-school=" colegio estadual americo simas" data-nte="nte não identificado">
+            <div class="teacher-name">MARIA DAS GRACAS PEREIRA DA SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL AMERICO SIMAS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/maria-das-gracas-pereira-da-silva-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="marquileide da silva oliveira" data-school=" colegio estadual de tempo integral do campo de miroros" data-nte="nte não identificado">
+            <div class="teacher-name">MARQUILEIDE DA SILVA OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL DO CAMPO DE MIROROS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/marquileide-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="matheus cruz santos" data-school=" colégio estadual vila canária" data-nte="nte não identificado">
+            <div class="teacher-name">MATHEUS CRUZ SANTOS</div>
+            <div class="teacher-school"> COLÉGIO ESTADUAL VILA CANÁRIA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/matheus-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="milene amelia conceicao camara" data-school=" colegio estadual de tempo integral professora rosalia pereira da rocha" data-nte="nte não identificado">
+            <div class="teacher-name">MILENE AMELIA CONCEICAO CAMARA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA ROSALIA PEREIRA DA ROCHA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/milene-camara-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="patricia alves da silva barros" data-school="colegio estadual thales de azevedo" data-nte="nte não identificado">
+            <div class="teacher-name">PATRICIA ALVES DA SILVA BARROS</div>
+            <div class="teacher-school">COLEGIO ESTADUAL THALES DE AZEVEDO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/patricia-barros.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="priscila dos santos lopes" data-school=" colegio da policia militar - unidade ii cpm lobato" data-nte="nte não identificado">
+            <div class="teacher-name">PRISCILA DOS SANTOS LOPES</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - UNIDADE II CPM LOBATO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/priscila-lopes-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="raimundo da paixao junior" data-school=" colegio da policia militar - cpm bom jesus da lapa" data-nte="nte não identificado">
+            <div class="teacher-name">RAIMUNDO DA PAIXAO JUNIOR</div>
+            <div class="teacher-school"> COLEGIO DA POLICIA MILITAR - CPM BOM JESUS DA LAPA</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/raimundo-junior-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="ricardo felix silva requiao" data-school=" colegio estadual vale dos lagos" data-nte="nte não identificado">
+            <div class="teacher-name">RICARDO FELIX SILVA REQUIAO</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL VALE DOS LAGOS</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/ricardo-requiao-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="silvana machado dos anjos costa" data-school=" colegio estadual de tempo integral sao daniel comboni" data-nte="nte não identificado">
+            <div class="teacher-name">SILVANA MACHADO DOS ANJOS COSTA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DE TEMPO INTEGRAL SAO DANIEL COMBONI</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/silvana-costa-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="silvia roberta santos dos santos" data-school=" colegio estadual do campo anna junqueira ayres tourinho" data-nte="nte não identificado">
+            <div class="teacher-name">SILVIA ROBERTA SANTOS DOS SANTOS</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL DO CAMPO ANNA JUNQUEIRA AYRES TOURINHO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/silvia-santos-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="sonia valeria barbosa de oliveira" data-school=" colegio estadual carneiro ribeiro" data-nte="nte não identificado">
+            <div class="teacher-name">SONIA VALERIA BARBOSA DE OLIVEIRA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL CARNEIRO RIBEIRO</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/sonia-oliveira-2.html">Acessar →</a>
+          </div>
+          <div class="teacher-card" data-name="telma santos silva" data-school=" colegio estadual raphael serravalle" data-nte="nte não identificado">
+            <div class="teacher-name">TELMA SANTOS SILVA</div>
+            <div class="teacher-school"> COLEGIO ESTADUAL RAPHAEL SERRAVALLE</div>
+            <a class="btn" href="https://fernandobmello.github.io/bahia-survey/telma-silva-2.html">Acessar →</a>
+          </div>
+    </div>
+</div>
+<div id="no-results">Nenhum professor encontrado para essa busca.</div>
+<script>
+function filter() {
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const groups = document.querySelectorAll(".nte-group");
+  let any = false;
+  groups.forEach(g => {
+    let hit = false;
+    g.querySelectorAll(".teacher-card").forEach(c => {
+      const show = !q ||
+        c.dataset.name.includes(q) ||
+        c.dataset.school.includes(q) ||
+        c.dataset.nte.includes(q);
+      c.classList.toggle("hidden", !show);
+      if (show) hit = true;
+    });
+    g.classList.toggle("hidden", !hit);
+    if (hit) any = true;
+  });
+  document.getElementById("no-results").style.display = any ? "none" : "block";
+}
+</script>
 </body>
 </html>

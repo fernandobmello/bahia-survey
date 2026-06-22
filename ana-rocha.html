@@ -463,6 +463,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1584,9 +1586,21 @@ function updateDiscernmentDots(n) {
 }
 
 function setupOptionListeners() {
+  // Options that mean "none of the above" — mutually exclusive with the rest.
+  const NONE_RE = /nenhuma das|nada de grave|não utilizei nenhum/i;
   document.addEventListener('change', e => {
     if (e.target.type==='radio'){ const name=e.target.name; document.querySelectorAll(`input[name="${name}"]`).forEach(inp=>{inp.closest('.opt')?.classList.toggle('selected',inp.checked);}); }
-    if (e.target.type==='checkbox'){ e.target.closest('.opt')?.classList.toggle('selected',e.target.checked); }
+    if (e.target.type==='checkbox'){
+      const box=e.target; box.closest('.opt')?.classList.toggle('selected', box.checked);
+      if (box.checked) {
+        const meNone = NONE_RE.test(box.closest('.opt')?.textContent || '');
+        document.querySelectorAll(`input[type="checkbox"][name="${box.name}"]`).forEach(o=>{
+          if (o===box || !o.checked) return;
+          // if I'm "none" uncheck everything else; if I'm a normal option uncheck the "none" option
+          if (meNone || NONE_RE.test(o.closest('.opt')?.textContent || '')) { o.checked=false; o.closest('.opt')?.classList.remove('selected'); }
+        });
+      }
+    }
   });
 }
 

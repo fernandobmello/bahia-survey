@@ -511,11 +511,11 @@
     <div class="intro-title">Olá! Bem-vindo(a) à pesquisa</div>
     <div class="intro-sub">
       Somos pesquisadores conduzindo um estudo sobre como os jovens utilizam a mídia e processam informações sobre diversos temas.<br><br>
-      O questionário leva aproximadamente <strong>35–40 minutos</strong>. Não há respostas certas ou erradas — queremos apenas a sua opinião sincera.<br><br>
+      O questionário leva aproximadamente <strong>40–50 minutos</strong>. Não há respostas certas ou erradas — queremos apenas a sua opinião sincera.<br><br>
       Suas respostas são <strong>completamente confidenciais</strong>. Nem seu professor nem qualquer outra pessoa terá acesso a elas, e serão utilizadas apenas para fins de pesquisa.
     </div>
     <div style="margin-bottom:20px;">
-      <span class="info-pill">⏱ 35–40 minutos</span>
+      <span class="info-pill">⏱ 40–50 minutos</span>
       <span class="info-pill">🔒 Confidencial</span>
       <span class="info-pill">📱 Responda com honestidade</span>
     </div>
@@ -891,31 +891,6 @@
 <div class="screen" id="screen-36">
   <div class="card">
     <div class="question-block">
-      <div class="question-text">Observe a manchete abaixo e escreva três perguntas que você faria a si mesmo para determinar se ela está correta ou não.</div>
-      <div style="margin:14px 0; padding:18px 22px; background:#f8fafc; border-left:4px solid var(--primary); border-radius:8px; font-size:1.18rem; font-weight:700; color:var(--text); line-height:1.35;">
-        “Golpistas invadem celular de quem informa ter sido vacinado”
-      </div>
-      <div class="question-subtext">Por exemplo: "Quem é a fonte desta informação?"</div>
-      <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
-        <div><label class="input-label">1ª pergunta:</label>
-          <textarea id="ctfc1-q1" placeholder="Escreva sua primeira pergunta..."></textarea></div>
-        <div><label class="input-label">2ª pergunta:</label>
-          <textarea id="ctfc1-q2" placeholder="Escreva sua segunda pergunta..."></textarea></div>
-        <div><label class="input-label">3ª pergunta:</label>
-          <textarea id="ctfc1-q3" placeholder="Escreva sua terceira pergunta..."></textarea></div>
-      </div>
-    </div>
-    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(35)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateCTFC1(37)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="screen-37">
-  <div class="card">
-    <div class="question-block">
       <div class="question-text">Qual das seguintes opções seria a fonte MAIS confiável para obter informações sobre a segurança de um novo medicamento?</div>
       <div class="options" id="q-source_medication">
         <label class="opt"><input type="radio" name="source_medication" value="a"><label>Uma publicação no Facebook compartilhada por 100 mil pessoas</label></label>
@@ -935,13 +910,13 @@
     </div>
     <div class="alert" id="alert-se">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(36)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 38)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(35)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 37)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-38">
+<div class="screen" id="screen-37">
   <div class="card">
     <div class="question-block">
       <div class="headline-img-wrap" style="margin-bottom:10px;"><img src="assets/whatsapp_fake.png" alt="Mensagem de WhatsApp" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
@@ -975,13 +950,13 @@
     </div>
     <div class="alert" id="alert-fc1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','misleading_redflag','professional_site_tf'], 'alert-fc1', 39)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(36)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','misleading_redflag','professional_site_tf'], 'alert-fc1', 38)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-39">
+<div class="screen" id="screen-38">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Você lê a seguinte estatística: "90% dos adolescentes compartilham fake news todos os dias." O que você deve fazer ANTES de decidir acreditar ou compartilhar essa afirmação?</div>
@@ -1015,13 +990,13 @@
     </div>
     <div class="alert" id="alert-fc2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 40)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 39)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-40">
+<div class="screen" id="screen-39">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Seu colega de classe envia uma mensagem pedindo que você compartilhe uma matéria sobre uma fraude nas urnas eletrônicas nas eleições brasileiras. Você está cético e não acredita que a matéria esteja correta. Qual é a atitude MAIS responsável?</div>
@@ -1043,13 +1018,13 @@
     </div>
     <div class="alert" id="alert-peer">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 41)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 40)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-41">
+<div class="screen" id="screen-40">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Queremos ter certeza de que você está lendo com atenção. Apenas neste item, por favor selecione a opção <strong>"Discordo totalmente"</strong>.</div>
@@ -1062,13 +1037,13 @@
     </div>
     <div class="alert" id="alert-att2">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 42)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 41)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-42">
+<div class="screen" id="screen-41">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Nos últimos meses, perfis anônimos no Instagram em diversas escolas públicas no estado da Bahia foram criados para espalhar informações falsas sobre professores e alunos. Um documento está sendo organizado com assinaturas de alunos que irão pedir ao Instagram que remova esses perfis. Você gostaria de assinar esse pedido?</div>
@@ -1084,8 +1059,33 @@
     </div>
     <div class="alert" id="alert-petition">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validatePetition(42)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-42">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Observe a manchete abaixo e escreva três perguntas que você faria a si mesmo para determinar se ela está correta ou não.</div>
+      <div style="margin:14px 0; padding:18px 22px; background:#f8fafc; border-left:4px solid var(--primary); border-radius:8px; font-size:1.18rem; font-weight:700; color:var(--text); line-height:1.35;">
+        “Golpistas invadem celular de quem informa ter sido vacinado”
+      </div>
+      <div class="question-subtext">Por exemplo: "Quem é a fonte desta informação?"</div>
+      <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+        <div><label class="input-label">1ª pergunta:</label>
+          <textarea id="ctfc1-q1" placeholder="Escreva sua primeira pergunta..."></textarea></div>
+        <div><label class="input-label">2ª pergunta:</label>
+          <textarea id="ctfc1-q2" placeholder="Escreva sua segunda pergunta..."></textarea></div>
+        <div><label class="input-label">3ª pergunta:</label>
+          <textarea id="ctfc1-q3" placeholder="Escreva sua terceira pergunta..."></textarea></div>
+      </div>
+    </div>
+    <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
+    <div class="nav-buttons">
       <button class="btn btn-secondary" onclick="goTo(41)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validatePetition(43)">Próximo →</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(43)">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1176,23 +1176,23 @@ const TEACHERS_DATA = [
 }
 ];
 
-const NEWS_OUTLETS = ["Globo / TV Globo / G1", "Record / Record News", "SBT / SBT Brasil", "CNN Brasil", "Folha de S. Paulo", "Brasil 247", "Jovem Pan", "Jornal da Cidade Online", "Diário do Centro do Mundo", "Canal Léo Dias", "Te Atualizei", "Alexandre Garcia"];
+const NEWS_OUTLETS = ["Globo / TV Globo / G1", "Record / Record News", "CNN Brasil", "Folha de S. Paulo", "Brasil 247", "Jovem Pan", "Jornal da Cidade Online", "Diário do Centro do Mundo", "Canal Léo Dias", "Te Atualizei"];
 
 const DISCERNMENT_ITEMS = [
-  { id:"e1", img:"assets/e1.png", key:"positive_lula_true", truth:true, headline:"Lula diz que o fim da escala 6x1 é uma \"conquista civilizatória\" e promete trabalhar pela aprovação no Senado Federal." },
-  { id:"e2", img:"assets/e2.png", key:"positive_lula_false", truth:false, headline:"Lula aparece na capa da Time, a revista mais importante do mundo." },
-  { id:"e3", img:"assets/e3.png", key:"negative_lula_true", truth:true, headline:"Filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
-  { id:"e4", img:"assets/e4.png", key:"negative_lula_false", truth:false, headline:"Filho de Lula comprou a companhia aérea Azul." },
-  { id:"e5", img:"assets/e5.png", key:"positive_bolsonaro_true", truth:true, headline:"Trump publica foto com Flávio Bolsonaro: \"Jovem inteligente que ama muito o seu país\"." },
-  { id:"e6", img:"assets/e6.png", key:"positive_bolsonaro_false", truth:false, headline:"Intercept admite erro e diz não ter prova de dinheiro do Master ter financiado filme de Bolsonaro." },
-  { id:"e7", img:"assets/e7.png", key:"negative_bolsonaro_true", truth:true, headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas internacionais." },
-  { id:"e8", img:"assets/e8.png", key:"negative_bolsonaro_false", truth:false, headline:"Vídeo mostra Bolsonaro embolsando objeto dourado dado por militar." },
-  { id:"e9", img:"assets/e9.png", key:"non_political_true", truth:true, headline:"Guerra no Irã e El Niño levam economistas a projetar aumento de inflação para o ano." },
-  { id:"e10", img:"assets/e10.png", key:"non_political_false", truth:false, headline:"Hantavírus está listado como evento adverso da vacina contra coronavírus." },
-  { id:"e11", img:"assets/e11.png", key:"old_true", truth:true, headline:"Água de cidade no Canadá fica rosa e assusta moradores." },
-  { id:"e12", img:"assets/e12.png", key:"old_false", truth:false, headline:"WhatsApp passará a avisar a motoristas quando o farol for abrir." },
-  { id:"e13", img:"assets/e13.png", key:"viral_true", truth:true, headline:"Red Bull pagará US$ 13 mi a clientes 'que não ganharam asas'." },
-  { id:"e14", img:"assets/e14.png", key:"viral_false", truth:false, headline:"Mensagem alerta sobre brinquedo que pode esconder câmera e polícia faz alerta." }
+  { id:"e1", img:"assets/e1.jpg", key:"positive_lula_true", truth:true, headline:"Lula diz que o fim da escala 6x1 é uma \"conquista civilizatória\" e promete trabalhar pela aprovação no Senado Federal." },
+  { id:"e2", img:"assets/e2.jpg", key:"positive_lula_false", truth:false, headline:"Lula aparece na capa da Time, a revista mais importante do mundo." },
+  { id:"e3", img:"assets/e3.jpg", key:"negative_lula_true", truth:true, headline:"Filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS." },
+  { id:"e4", img:"assets/e4.jpg", key:"negative_lula_false", truth:false, headline:"Filho de Lula comprou a companhia aérea Azul." },
+  { id:"e5", img:"assets/e5.jpg", key:"positive_bolsonaro_true", truth:true, headline:"Trump publica foto com Flávio Bolsonaro: \"Jovem inteligente que ama muito o seu país\"." },
+  { id:"e6", img:"assets/e6.jpg", key:"positive_bolsonaro_false", truth:false, headline:"Intercept admite erro e diz não ter prova de dinheiro do Master ter financiado filme de Bolsonaro." },
+  { id:"e7", img:"assets/e7.jpg", key:"negative_bolsonaro_true", truth:true, headline:"Filme sobre Bolsonaro ameaça candidatura de Flávio, dizem analistas internacionais." },
+  { id:"e8", img:"assets/e8.jpg", key:"negative_bolsonaro_false", truth:false, headline:"Vídeo mostra Bolsonaro embolsando objeto dourado dado por militar." },
+  { id:"e9", img:"assets/e9.jpg", key:"non_political_true", truth:true, headline:"Guerra no Irã e El Niño levam economistas a projetar aumento de inflação para o ano." },
+  { id:"e10", img:"assets/e10.jpg", key:"non_political_false", truth:false, headline:"Hantavírus está listado como evento adverso da vacina contra coronavírus." },
+  { id:"e11", img:"assets/e11.jpg", key:"old_true", truth:true, headline:"Água de cidade no Canadá fica rosa e assusta moradores." },
+  { id:"e12", img:"assets/e12.jpg", key:"old_false", truth:false, headline:"WhatsApp passará a avisar a motoristas quando o farol for abrir." },
+  { id:"e13", img:"assets/e13.jpg", key:"viral_true", truth:true, headline:"Red Bull pagará US$ 13 mi a clientes 'que não ganharam asas'." },
+  { id:"e14", img:"assets/e14.jpg", key:"viral_false", truth:false, headline:"Mensagem alerta sobre brinquedo que pode esconder câmera e polícia faz alerta." }
 ];
 
 // Conjoint: 6 false (f1-f6) and 6 true (t1-t6) stories, 4 source variants, 2 virality variants.

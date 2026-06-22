@@ -455,6 +455,10 @@
 </style>
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -488,6 +492,11 @@
 
 <div class="container">
 <style>
+  /* Center the "Próximo" button so its position can't bias answers toward the
+     option on the right. "Voltar" is pinned compactly to the far left. */
+  .nav-buttons { display: flex !important; justify-content: center !important; align-items: center; position: relative; min-height: 48px; gap: 0; }
+  .nav-buttons .btn-primary { margin: 0 auto; }
+  .nav-buttons .btn-secondary { position: absolute; left: 0; top: 50%; transform: translateY(-50%); padding: 8px 13px !important; font-size: 0.84rem !important; }
   /* Bigger task images: stack the WhatsApp + journalism pairs one-per-row on
      phones/tablets so each image is full width. */
   @media (max-width: 820px) { .conjoint-pair, .opinion-pair { grid-template-columns: 1fr; } }

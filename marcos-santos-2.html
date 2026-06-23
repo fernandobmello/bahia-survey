@@ -467,6 +467,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1527,6 +1529,17 @@ function checkIdentifiers(){ const t=document.getElementById('teacher-select').v
 
 function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
 function onPetitionChange(){ const v=document.querySelector('input[name="petition"]:checked')?.value; document.getElementById('block-petition_text').style.display = v==='sim'?'block':'none'; }
+function onWhatsappChange(){ const v=document.querySelector('input[name="whatsapp_fact_check"]:checked')?.value; document.getElementById('block-whatsapp_number').style.display = v==='sim'?'block':'none'; }
+function validateVotingWhatsapp(next){
+  const a=document.getElementById('alert-vw');
+  const v=document.querySelector('input[name="vote_2026"]:checked');
+  const w=document.querySelector('input[name="whatsapp_fact_check"]:checked');
+  if(!v||!w){ a.classList.add('show'); return; }
+  a.classList.remove('show');
+  responses.vote_2026=v.value; responses.whatsapp_fact_check=w.value;
+  responses.whatsapp_number=document.getElementById('whatsapp-number')?.value||'';
+  goTo(next);
+}
 
 // ── VALIDATORS ──
 function validateSection(names, alertId, next) {
@@ -1652,6 +1665,7 @@ function collectAllResponses() {
   responses.ctfc1_q2=document.getElementById('ctfc1-q2')?.value||'';
   responses.ctfc1_q3=document.getElementById('ctfc1-q3')?.value||'';
   responses.petition_text=document.getElementById('petition-text')?.value||responses.petition_text||'';
+  const wn=document.getElementById('whatsapp-number'); if(wn) responses.whatsapp_number=wn.value;
   responses.survey_version='v4';
   responses.survey_group=SURVEY_GROUP;
   responses.timestamp=new Date().toISOString();

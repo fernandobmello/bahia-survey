@@ -465,6 +465,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1000,10 +1002,10 @@
     <div class="question-block">
       <div class="question-text">Seu colega de classe envia uma mensagem pedindo que você compartilhe uma matéria sobre uma fraude nas urnas eletrônicas nas eleições brasileiras. Você está cético e não acredita que a matéria esteja correta. Qual é a atitude MAIS responsável?</div>
       <div class="options" id="q-peer_share_fraud">
-        <label class="opt"><input type="radio" name="peer_share_fraud" value="a"><label>Compartilhar para apoiar seu amigo — ele não enviaria algo falso</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="a"><label>Compartilhar para ajudar seu amigo</label></label>
         <label class="opt"><input type="radio" name="peer_share_fraud" value="b"><label>Procurar fontes confiáveis sobre o tema e, caso a afirmação seja falsa, informar educadamente seu amigo</label></label>
-        <label class="opt"><input type="radio" name="peer_share_fraud" value="c"><label>Compartilhar porque seu amigo disse que funciona e isso é evidência suficiente</label></label>
-        <label class="opt"><input type="radio" name="peer_share_fraud" value="d"><label>Ignorar a mensagem e não dizer nada</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="c"><label>Você reage com um emoji, mas não compartilha</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="d"><label>Ignorar a mensagem</label></label>
       </div>
     </div>
     <div class="question-block">
@@ -1300,13 +1302,12 @@ function generateDiscernmentScreens() {
         <div class="zoom-hint">🔍 Toque na imagem para ampliar</div>
         <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
         <div class="scale-wrap">
-          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
+          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
           <div class="scale-buttons" id="scale-${key}">
             <button class="scale-btn" onclick="setScale('${key}',1,this)">1</button>
             <button class="scale-btn" onclick="setScale('${key}',2,this)">2</button>
             <button class="scale-btn" onclick="setScale('${key}',3,this)">3</button>
             <button class="scale-btn" onclick="setScale('${key}',4,this)">4</button>
-            <button class="scale-btn" onclick="setScale('${key}',5,this)">5</button>
           </div>
         </div>
         <div class="alert" id="alert-${key}">Por favor, selecione uma opção.</div>

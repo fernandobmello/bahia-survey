@@ -469,6 +469,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -975,17 +977,19 @@
 <div class="screen" id="screen-38">
   <div class="card">
     <div class="question-block">
-      <div class="headline-img-wrap" style="margin-bottom:10px;"><img src="assets/whatsapp_fake.png" alt="Mensagem de WhatsApp" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
-      <div class="question-text">Observe a mensagem de WhatsApp abaixo. Quais dos itens a seguir são sinais de alerta de que essa mensagem pode ser falsa ou enganosa?</div>
+      <div class="question-text">Quais dos itens a seguir são sinais de alerta de que uma mensagem pode ser falsa ou enganosa?</div>
       <div class="question-subtext">Selecione TODAS as opções que se aplicam.</div>
       <div class="options" id="q-whatsapp_redflags">
         <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="a"><label>Usa letras maiúsculas e excesso de pontos de exclamação</label></label>
         <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="b"><label>Cria um forte senso de urgência ("Compartilhe antes que apaguem isso!")</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="c"><label>Afirma que o governo ou as autoridades estão escondendo algo</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="c"><label>Afirma que alguém está escondendo algo</label></label>
         <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="d"><label>Contém erros ortográficos e gramaticais</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="e"><label>Não menciona nenhuma fonte, autor ou evidência identificável</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="f"><label>Promete um resultado extremo ou milagroso (por exemplo, "cura o câncer em 3 dias")</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="g"><label>Nenhuma das opções acima — esta mensagem parece confiável</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="e"><label>Menciona fonte, autor ou evidência identificável</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="f"><label>Tem data de publicação</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="g"><label>Tem data de atualização</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="h"><label>Tem autor claramente identificado</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="i"><label>É de uma empresa conhecida</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="j"><label>Nenhuma das opções acima</label></label>
       </div>
     </div>
     <div class="question-block">
@@ -1612,7 +1616,7 @@ function restoreFormState() {
 
 // ── OPTION RANDOMIZATION ──
 function randomizeOptions() {
-  const groups = ['q-manipulation_check','q-m1','q-youth_problem'];
+  const groups = ['q-manipulation_check','q-m1','q-youth_problem','q-whatsapp_redflags'];
   const lastPattern = /não sei|não quero|nenhuma|outro/i;
   groups.forEach(id => {
     const c=document.getElementById(id); if(!c) return;

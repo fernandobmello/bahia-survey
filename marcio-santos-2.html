@@ -475,6 +475,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1111,10 +1113,7 @@
       ⚠️ Não foi possível enviar suas respostas automaticamente. Verifique sua conexão com a internet e tente novamente.
       <div style="margin-top:10px;"><button class="btn btn-primary" onclick="submitToGoogleSheets()" style="font-size:0.85rem;">Tentar enviar novamente</button></div>
     </div>
-    <div style="margin-top:24px; padding:20px; background:#f0fdf4; border-radius:10px; border:1px solid #bbf7d0;">
-      <div style="font-size:0.82rem; color:#166534; font-weight:600; margin-bottom:8px;">Resumo das suas respostas:</div>
-      <div id="response-summary" style="font-size:0.78rem; color:#374151; text-align:left; max-height:300px; overflow-y:auto;"></div>
-    </div>
+
   </div>
 </div>
 
@@ -1711,6 +1710,7 @@ function collectAllResponses() {
 
 function showSummary() {
   const el=document.getElementById('response-summary');
+  if(!el) return;
   el.innerHTML = Object.entries(responses).filter(([k])=>!['conjoint_tasks','m7_order'].includes(k))
     .map(([k,v])=>`<div style="margin-bottom:4px;"><strong>${k}:</strong> ${Array.isArray(v)?v.join(', '):v}</div>`).join('');
 }

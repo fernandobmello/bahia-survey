@@ -477,6 +477,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1245,6 +1247,26 @@
 </div>
 
 <div class="screen" id="screen-47">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Nos últimos 7 dias, com que frequência você fez cada uma das coisas abaixo?</div>
+      <div class="question-subtext">Marque uma resposta por linha.</div>
+      <div style="overflow-x:auto;"><table class="grid-table rand-rows" id="media-diet-table">
+        <thead><tr><th>Afirmação</th><th>Nunca</th><th>Uma vez na semana</th><th>Entre 2 e 3 dias na semana</th><th>Entre 4 e 5 dias na semana</th><th>Praticamente todos os dias da semana</th></tr></thead>
+        <tbody>
+            <tr><td class="m7n">Li posts ou assisti vídeos, podcasts ou lives que davam dicas sobre como ser homem numa sociedade que quer acabar com a masculinidade.</td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="1"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="2"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="3"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="4"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="5"></td></tr>
+            <tr><td class="m7n">Li posts ou assisti vídeos, podcasts ou lives que falavam sobre empoderamento feminino e igualdade de gênero.</td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="1"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="2"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="3"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="4"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="5"></td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="alert" id="alert-md">Por favor, responda todas as linhas.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(46)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 48)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-48">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
@@ -1327,8 +1349,8 @@ const OPINION_PAIRS = [
 // ═══════════════════════════════════════════════════════
 // SCREEN LAYOUT CONSTANTS  (computed by build_survey_v4.py)
 // ═══════════════════════════════════════════════════════
-const TOTAL_SCREENS = 48;
-const FINAL_SCREEN  = 47;
+const TOTAL_SCREENS = 49;
+const FINAL_SCREEN  = 48;
 const DISC_START = 11, DISC_COUNT = 14, DISC_ANCHOR = 25;
 const CONJ_START = 26, CONJ_COUNT = 6, CONJ_ANCHOR = 32;
 const OPIN_START = 33, OPIN_COUNT = 4, OPIN_ANCHOR = 37;
@@ -1599,6 +1621,12 @@ function randomizeOptions() {
     for(let i=rest.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rest[i],rest[j]]=[rest[j],rest[i]];}
     [...rest,...keep].forEach(o=>c.appendChild(o));
   });
+  // Shuffle the rows of any matrix table marked .rand-rows (e.g. media_diet)
+  document.querySelectorAll('table.rand-rows tbody').forEach(tb => {
+    const rows=[...tb.querySelectorAll(':scope > tr')];
+    for(let i=rows.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rows[i],rows[j]]=[rows[j],rows[i]];}
+    rows.forEach(r=>tb.appendChild(r));
+  });
 }
 
 // ── NAVIGATION ──
@@ -1608,7 +1636,7 @@ function getSectionLabel(n) {
   if (n <= 5) return 'Seção 3 de 6';
   if (n <= 9) return 'Seção 4 de 6';
   if (n <= 36) return 'Seção 5 de 6';
-  if (n <= 47) return 'Seção 6 de 6';
+  if (n <= 48) return 'Seção 6 de 6';
   return 'Seção 6 de 6';
 }
 
@@ -1764,7 +1792,7 @@ function validatePetition(next) {
 // ── FINAL: collect + (pipeline-injected submit) + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
-  if (n === 47) {
+  if (n === 48) {
     collectAllResponses();
     submitToGoogleSheets();
     showSummary();

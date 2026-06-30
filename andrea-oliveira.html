@@ -487,6 +487,10 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1240,6 +1244,16 @@
         <label class="opt"><input type="radio" name="vote_2026" value="f"><label>Não sabe</label></label>
       </div>
     </div>
+    <div class="alert" id="alert-vote">Por favor, responda a pergunta acima.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(46)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['vote_2026'], 'alert-vote', 48)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-48">
+  <div class="card">
     <div class="question-block">
       <div class="question-text">Você gostaria de participar de um grupo de WhatsApp que fará checagem de informações duvidosas sobre as eleições de 2026?</div>
       <div class="options" id="q-whatsapp_fact_check" onchange="onWhatsappChange()">
@@ -1251,15 +1265,15 @@
       <div class="question-text">Por favor, informe seu número de WhatsApp:</div>
       <input type="text" id="whatsapp-number" placeholder="(DDD) número" inputmode="tel">
     </div>
-    <div class="alert" id="alert-vw">Por favor, responda as perguntas acima.</div>
+    <div class="alert" id="alert-wa">Por favor, responda a pergunta acima.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(46)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateVotingWhatsapp(48)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(47)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateWhatsapp(49)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-48">
+<div class="screen" id="screen-49">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Nos últimos 7 dias, com que frequência você fez cada uma das coisas abaixo?</div>
@@ -1273,13 +1287,13 @@
     </div>
     <div class="alert" id="alert-md">Por favor, responda todas as linhas.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(47)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 49)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(48)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 50)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-49">
+<div class="screen" id="screen-50">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
@@ -1372,8 +1386,8 @@ const OPINION_PAIRS = [
 // ═══════════════════════════════════════════════════════
 // SCREEN LAYOUT CONSTANTS  (computed by build_survey_v4.py)
 // ═══════════════════════════════════════════════════════
-const TOTAL_SCREENS = 50;
-const FINAL_SCREEN  = 49;
+const TOTAL_SCREENS = 51;
+const FINAL_SCREEN  = 50;
 const DISC_START = 11, DISC_COUNT = 15, DISC_ANCHOR = 26;
 const CONJ_START = 27, CONJ_COUNT = 6, CONJ_ANCHOR = 33;
 const OPIN_START = 34, OPIN_COUNT = 4, OPIN_ANCHOR = 38;
@@ -1661,7 +1675,7 @@ function getSectionLabel(n) {
   if (n <= 5) return 'Seção 3 de 6';
   if (n <= 9) return 'Seção 4 de 6';
   if (n <= 37) return 'Seção 5 de 6';
-  if (n <= 49) return 'Seção 6 de 6';
+  if (n <= 50) return 'Seção 6 de 6';
   return 'Seção 6 de 6';
 }
 
@@ -1735,13 +1749,12 @@ function checkIdentifiers(){ const t=document.getElementById('teacher-select').v
 function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
 function onPetitionChange(){ const v=document.querySelector('input[name="petition"]:checked')?.value; document.getElementById('block-petition_text').style.display = v==='sim'?'block':'none'; }
 function onWhatsappChange(){ const v=document.querySelector('input[name="whatsapp_fact_check"]:checked')?.value; document.getElementById('block-whatsapp_number').style.display = v==='sim'?'block':'none'; }
-function validateVotingWhatsapp(next){
-  const a=document.getElementById('alert-vw');
-  const v=document.querySelector('input[name="vote_2026"]:checked');
+function validateWhatsapp(next){
+  const a=document.getElementById('alert-wa');
   const w=document.querySelector('input[name="whatsapp_fact_check"]:checked');
-  if(!v||!w){ a.classList.add('show'); return; }
+  if(!w){ a.classList.add('show'); return; }
   a.classList.remove('show');
-  responses.vote_2026=v.value; responses.whatsapp_fact_check=w.value;
+  responses.whatsapp_fact_check=w.value;
   responses.whatsapp_number=document.getElementById('whatsapp-number')?.value||'';
   goTo(next);
 }
@@ -1817,7 +1830,7 @@ function validatePetition(next) {
 // ── FINAL: collect + (pipeline-injected submit) + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
-  if (n === 49) {
+  if (n === 50) {
     collectAllResponses();
     submitToGoogleSheets();
     showSummary();

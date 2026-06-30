@@ -493,6 +493,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1826,10 +1828,13 @@ function collectAllResponses() {
   // Record the actual image FILENAMES shown (and the one chosen) for the two
   // image-choice tasks, so the characteristics of chosen vs. not-chosen images
   // are recoverable directly from the spreadsheet (not just from a parsed key).
+  // NOTE: we intentionally do NOT set responses.conjoint_tasks — that fed the
+  // older R-injected `conjoint_i_left/right/selected` (key) columns, which
+  // duplicated the `*_img` columns below. The *_img filenames are the canonical record.
   if (CONJOINT_TASKS) {
-    responses.conjoint_tasks=CONJOINT_TASKS.map(t=>({left:t.leftKey,right:t.rightKey,dv:t.dv}));
     CONJOINT_TASKS.forEach((t,i)=>{
       const sel=responses[`conjoint_${i}`];
+      responses[`conjoint_${i}_dv`]           = t.dv;
       responses[`conjoint_${i}_left_img`]     = t.left;
       responses[`conjoint_${i}_right_img`]    = t.right;
       responses[`conjoint_${i}_selected_img`] = sel===t.leftKey ? t.left : (sel===t.rightKey ? t.right : '');

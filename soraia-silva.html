@@ -485,6 +485,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1560,6 +1562,8 @@ function generateOpinionScreens() {
     const div = document.createElement('div');
     div.className='screen'; div.id=`screen-${n}`;
     div.dataset.leftnews = leftIsNews ? '1' : '0';
+    div.dataset.leftimg = leftImg;
+    div.dataset.rightimg = rightImg;
     div.innerHTML = `
       <div class="card">
         <div class="instruction-box">
@@ -1860,7 +1864,26 @@ function collectAllResponses() {
   responses.survey_version='v4';
   responses.survey_group=SURVEY_GROUP;
   responses.timestamp=new Date().toISOString();
-  if (CONJOINT_TASKS) responses.conjoint_tasks=CONJOINT_TASKS.map(t=>({left:t.leftKey,right:t.rightKey,dv:t.dv}));
+  // Record the actual image FILENAMES shown (and the one chosen) for the two
+  // image-choice tasks, so the characteristics of chosen vs. not-chosen images
+  // are recoverable directly from the spreadsheet (not just from a parsed key).
+  if (CONJOINT_TASKS) {
+    responses.conjoint_tasks=CONJOINT_TASKS.map(t=>({left:t.leftKey,right:t.rightKey,dv:t.dv}));
+    CONJOINT_TASKS.forEach((t,i)=>{
+      const sel=responses[`conjoint_${i}`];
+      responses[`conjoint_${i}_left_img`]     = t.left;
+      responses[`conjoint_${i}_right_img`]    = t.right;
+      responses[`conjoint_${i}_selected_img`] = sel===t.leftKey ? t.left : (sel===t.rightKey ? t.right : '');
+    });
+  }
+  if (OPINION_PAIRS_ORDER) OPINION_PAIRS_ORDER.forEach((pair,i)=>{
+    const scr=document.getElementById(`op-${i}-A`)?.closest('.screen'); if(!scr) return;
+    const side=responses[`opinion_${i}`];
+    responses[`opinion_${i}_outlet`]       = pair.outlet;
+    responses[`opinion_${i}_left_img`]     = scr.dataset.leftimg||'';
+    responses[`opinion_${i}_right_img`]    = scr.dataset.rightimg||'';
+    responses[`opinion_${i}_selected_img`] = side==='A' ? (scr.dataset.leftimg||'') : (side==='B' ? (scr.dataset.rightimg||'') : '');
+  });
   if (M7_ORDER) responses.m7_order=M7_ORDER.map(o=>o.slug);
   console.log('Survey responses:', JSON.stringify(responses, null, 2));
 }

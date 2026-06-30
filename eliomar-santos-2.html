@@ -491,6 +491,8 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -1749,6 +1751,12 @@ function collectAllResponses() {
   document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(inp => {
     if (inp.type==='checkbox'){ if(!responses[inp.name])responses[inp.name]=[]; if(!Array.isArray(responses[inp.name]))responses[inp.name]=[responses[inp.name]]; if(!responses[inp.name].includes(inp.value))responses[inp.name].push(inp.value); }
     else responses[inp.name]=inp.value;
+  });
+  // For every "select all that apply" question, emit a column for EVERY option
+  // (1 = selected, 0 = not) so all options are visible in the sheet, not only
+  // the chosen ones. Reads all checkboxes from the DOM (covers randomized order).
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    if (cb.name && cb.value) responses[`${cb.name}_${cb.value}`] = cb.checked ? 1 : 0;
   });
   document.querySelectorAll('#m7-table select, #rec-table select').forEach(s => { if(s.value!=='') responses[s.name]=s.value; });
   responses.ctfc1_q1=document.getElementById('ctfc1-q1')?.value||'';

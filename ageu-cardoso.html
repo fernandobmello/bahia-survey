@@ -200,8 +200,8 @@
 
   /* ── SCALE (5-point) ── */
   .scale-wrap { margin-top: 8px; }
-  .scale-labels { display: flex; justify-content: space-between; margin-bottom: 6px; gap: 2px; }
-  .scale-labels span { font-size: 0.65rem; color: var(--muted); max-width: 60px; text-align: center; line-height: 1.2; word-break: break-word; flex: 1; }
+  .scale-labels { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .scale-labels span { font-size: 0.58rem; color: var(--muted); text-align: center; line-height: 1.3; white-space: nowrap; flex: 0 1 auto; }
   .scale-buttons { display: flex; gap: 8px; }
   .scale-btn {
     flex: 1;
@@ -387,6 +387,30 @@
     margin: 4px;
   }
 
+  /* ── TCLE CONSENT SCREEN ── */
+  .tcle-header { display:flex; align-items:center; gap:12px; border-bottom:2px solid var(--border); padding-bottom:14px; margin-bottom:16px; }
+  .tcle-icon { width:44px; height:44px; border-radius:10px; background:linear-gradient(135deg,#eff6ff,#dbeafe); display:flex; align-items:center; justify-content:center; font-size:1.35rem; flex-shrink:0; }
+  .tcle-title { font-size:1.05rem; font-weight:700; color:var(--text); line-height:1.3; }
+  .tcle-subtitle { font-size:0.78rem; color:var(--muted); margin-top:2px; }
+  .tcle-body p { font-size:0.9rem; line-height:1.65; color:#374151; margin-bottom:10px; }
+  .tcle-body p:last-child { margin-bottom:0; }
+  .tcle-section { margin-top:18px; }
+  .tcle-section-label { font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--primary); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .tcle-section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+  .tcle-list { list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .tcle-list li { font-size:0.88rem; line-height:1.55; color:#374151; padding-left:18px; position:relative; }
+  .tcle-list li::before { content:'•'; position:absolute; left:5px; color:var(--primary); font-weight:700; }
+  .consent-inline { background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin:18px 0 4px; }
+  .prot-box { background:#f8fafc; border:1px solid #cbd5e1; border-left:3px solid var(--primary); border-radius:10px; padding:14px 16px; margin-top:18px; }
+  .prot-box-title { font-size:0.68rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--primary); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .prot-box-title::after { content:''; flex:1; height:1px; background:#cbd5e1; }
+  .prot-row { margin-bottom:6px; font-size:0.84rem; line-height:1.5; }
+  .prot-row:last-child { margin-bottom:0; }
+  .prot-label { font-weight:700; color:var(--text); }
+  .prot-val { color:#374151; }
+  a.prot-link { color:var(--primary); text-decoration:none; }
+  a.prot-link:hover { text-decoration:underline; }
+
   /* ── TASK COUNTER ── */
   .task-counter {
     display: flex;
@@ -459,42 +483,6 @@
   <meta name="robots" content="notranslate">
   <meta name="google" content="notranslate">
   <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
-  <meta name="google" content="notranslate">
-  <meta name="robots" content="notranslate">
 </head>
 <body>
 
@@ -550,58 +538,87 @@
   #lightbox img { max-width: 100%; max-height: 92vh; border-radius: 6px; }
   #lightbox .lb-close { position: absolute; top: 10px; right: 18px; color: #fff;
     font-size: 2.4rem; background: none; border: none; cursor: pointer; line-height: 1; }
-  /* Discernment 4-point scale labels: never break a word mid-character
-     ("Definitivamente"/"Provavelmente" must stay whole). The original head CSS
-     caps each label at 60px with word-break:break-word, which split words ugly. */
-  .scale-labels span { max-width: none; word-break: normal; overflow-wrap: normal; hyphens: none; }
-  @media (max-width: 480px) { .scale-labels span { font-size: 0.6rem; overflow-wrap: break-word; } }
 </style>
 
 <div class="screen active" id="screen-0">
-  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
-    <div class="intro-icon">📖</div>
-    <div class="intro-title">Olá! Bem-vindo(a) à pesquisa</div>
-    <div class="intro-sub">
-      Somos pesquisadores conduzindo um estudo sobre como os jovens utilizam a mídia e processam informações sobre diversos temas.<br><br>
-      O questionário leva aproximadamente <strong>40–50 minutos</strong>. Não há respostas certas ou erradas — queremos apenas a sua opinião sincera.<br><br>
-      Suas respostas são <strong>completamente confidenciais</strong>. Nem seu professor nem qualquer outra pessoa terá acesso a elas, e serão utilizadas apenas para fins de pesquisa.
-    </div>
-    <div style="margin-bottom:20px;">
-      <span class="info-pill">⏱ 40–50 minutos</span>
-      <span class="info-pill">🔒 Confidencial</span>
-      <span class="info-pill">📱 Responda com honestidade</span>
-    </div>
-    <div class="question-text" style="margin-bottom:16px;">Você concorda em participar?</div>
-    <div class="options" style="max-width:360px; margin:0 auto 20px;">
-      <label class="opt" id="consent-yes">
-        <input type="radio" name="consent" value="yes" onchange="enableNext('btn-consent')">
-        <label>✅ Sim, concordo em participar.</label>
-      </label>
-      <label class="opt" id="consent-no" onclick="showNoConsent()">
-        <input type="radio" name="consent" value="no">
-        <label>❌ Não, não concordo.</label>
-      </label>
-    </div>
-    <div id="no-consent-msg" style="display:none; background:#fef2f2; border-radius:10px; padding:16px; color:#b91c1c; margin-bottom:16px;">
-      Tudo bem. Obrigado pelo seu tempo. Você pode fechar esta página.
-    </div>
-    <button class="btn btn-primary btn-lg" id="btn-consent" onclick="goTo(1)" disabled>
-      Começar a pesquisa →
-    </button>
-    <div class="resume-wrap">
-      <p style="color:var(--muted); font-size:0.85rem; margin-bottom:8px;">Já começou antes e quer continuar?</p>
-      <button class="resume-toggle"
-        onclick="document.getElementById('resume-input-wrap').style.display='block'; this.style.display='none'">
-        Continuar de onde parei →
-      </button>
-      <div id="resume-input-wrap">
-        <div class="resume-row">
-          <input id="resume-pin-input" type="text" inputmode="numeric"
-            maxlength="6" placeholder="000000" autocomplete="off">
-          <button class="btn btn-primary" onclick="resumeSurvey()">Continuar →</button>
-        </div>
-        <div id="resume-error">Código não encontrado. Verifique os números e tente novamente.</div>
+  <div class="card" style="padding:28px;">
+    <div class="tcle-header">
+      <div class="tcle-icon">📋</div>
+      <div>
+        <div class="tcle-title">Termo de Consentimento Livre e Esclarecido</div>
+        <div class="tcle-subtitle">Leia com atenção antes de continuar</div>
       </div>
+    </div>
+    <div class="tcle-body">
+      <p>Você está sendo convidado(a) a participar de uma pesquisa realizada pela <strong>Universidad Carlos III de Madrid (Espanha)</strong>, em parceria com instituições de pesquisa e educação, sobre como os jovens utilizam a mídia e processam informações sobre diferentes temas.</p>
+      <p>A coleta de dados será realizada pela empresa de pesquisa <strong>Conectar Pesquisas</strong>.</p>
+      <p>A participação nesta pesquisa é <strong>voluntária</strong>. Antes de decidir, leia atentamente as informações abaixo.</p>
+    </div>
+    <div class="consent-inline">
+      <div class="question-text">Você concorda em participar desta pesquisa?</div>
+      <div class="options">
+        <label class="opt" id="consent-yes">
+          <input type="radio" name="consent" value="yes" onchange="enableNext('btn-consent')">
+          <label>✅ <strong>Sim, concordo em participar.</strong> Declaro que li as informações acima, compreendi os objetivos da pesquisa, fui informado(a) sobre o tratamento dos meus dados pessoais, sei que minha participação é voluntária e que posso retirar meu consentimento a qualquer momento, sem qualquer prejuízo.</label>
+        </label>
+        <label class="opt" id="consent-no" onclick="showNoConsent()">
+          <input type="radio" name="consent" value="no">
+          <label>❌ <strong>Não, não concordo em participar da pesquisa.</strong></label>
+        </label>
+      </div>
+      <div id="no-consent-msg" style="display:none; background:#fef2f2; border-radius:10px; padding:12px 16px; color:#b91c1c; margin-top:8px; font-size:0.88rem;">
+        Tudo bem. Obrigado pelo seu tempo. Você pode fechar esta página.
+      </div>
+      <div style="text-align:center; margin-top:16px;">
+        <button class="btn btn-primary btn-lg" id="btn-consent" onclick="goTo(1)" disabled>
+          Começar a pesquisa →
+        </button>
+      </div>
+      <div class="resume-wrap">
+        <p style="color:var(--muted); font-size:0.85rem; margin-bottom:8px;">Já começou antes e quer continuar?</p>
+        <button class="resume-toggle"
+          onclick="document.getElementById('resume-input-wrap').style.display='block'; this.style.display='none'">
+          Continuar de onde parei →
+        </button>
+        <div id="resume-input-wrap">
+          <div class="resume-row">
+            <input id="resume-pin-input" type="text" inputmode="numeric"
+              maxlength="6" placeholder="000000" autocomplete="off">
+            <button class="btn btn-primary" onclick="resumeSurvey()">Continuar →</button>
+          </div>
+          <div id="resume-error">Código não encontrado. Verifique os números e tente novamente.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcle-section">
+      <div class="tcle-section-label">Sobre a pesquisa</div>
+      <ul class="tcle-list">
+        <li>O questionário leva aproximadamente <strong>40 a 50 minutos</strong> para ser respondido.</li>
+        <li>Não existem respostas certas ou erradas. Queremos conhecer apenas a sua opinião sincera.</li>
+        <li>Você pode deixar qualquer pergunta sem responder, caso não se sinta confortável.</li>
+        <li>Sua decisão de participar ou não participar não terá qualquer consequência para você, sua escola ou seus professores.</li>
+      </ul>
+    </div>
+    <div class="tcle-section">
+      <div class="tcle-section-label">Confidencialidade</div>
+      <div class="tcle-body">
+        <p>Todas as respostas serão tratadas de forma <strong>estritamente confidencial</strong> e utilizadas exclusivamente para fins de pesquisa científica.</p>
+        <p>Seu professor, sua escola e outras pessoas não terão acesso às suas respostas individuais. Os resultados poderão ser apresentados apenas de forma agregada, sem permitir a identificação dos participantes.</p>
+      </div>
+    </div>
+    <div class="tcle-section">
+      <div class="tcle-section-label">Revogação do consentimento</div>
+      <div class="tcle-body">
+        <p>Sua participação é totalmente voluntária. Você pode <strong>interromper o questionário ou retirar seu consentimento a qualquer momento</strong>, sem necessidade de justificar sua decisão e sem qualquer prejuízo para você.</p>
+      </div>
+    </div>
+    <div class="prot-box">
+      <div class="prot-box-title">Proteção de dados pessoais</div>
+      <div class="prot-row"><span class="prot-label">Responsável: </span><span class="prot-val">Universidad Carlos III de Madrid</span></div>
+      <div class="prot-row"><span class="prot-label">Identificação do tratamento: </span><span class="prot-val">PIBAHIA</span></div>
+      <div class="prot-row"><span class="prot-label">Finalidade: </span><span class="prot-val">Realizar pesquisa científica sobre educação, consumo de mídia, alfabetização midiática e processamento de informações por estudantes, utilizando os dados exclusivamente para fins acadêmicos e científicos.</span></div>
+      <div class="prot-row"><span class="prot-label">Exercício de direitos: </span><span class="prot-val">Acesso, retificação, exclusão, limitação, portabilidade e oposição ao tratamento por meio do e-mail <a href="mailto:dpd@uc3m.es" class="prot-link"><strong>dpd@uc3m.es</strong></a></span></div>
+      <div class="prot-row"><span class="prot-label">Informações adicionais: </span><span class="prot-val"><a href="https://www.uc3m.es/protecciondedatos" class="prot-link">www.uc3m.es/protecciondedatos</a></span></div>
     </div>
   </div>
 </div>
@@ -930,7 +947,7 @@
     <div class="intro-icon">🔍</div>
     <div class="intro-title">Próxima seção</div>
     <div class="intro-sub">
-      Agora vamos mostrar a você <strong>15 informações</strong> que circularam recentemente online.<br><br>
+      Agora vamos mostrar a você <strong>14 informações</strong> que circularam recentemente online.<br><br>
       Algumas dessas afirmações são <strong>verdadeiras</strong>, enquanto outras são <strong>falsas</strong>.<br><br>
       Para cada afirmação, indique <strong>o quanto você acredita que ela seja precisa</strong>, com base no seu melhor julgamento. Caso não tenha certeza, forneça sua melhor estimativa.<br><br>
       Não há penalidades para respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
@@ -942,7 +959,7 @@
   </div>
 </div>
 
-<div class="screen" id="screen-26">
+<div class="screen" id="screen-25">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">💬</div>
     <div class="intro-title">Próxima tarefa</div>
@@ -954,13 +971,13 @@
       Estamos interessados em suas reações sinceras às mensagens apresentadas.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(25)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(27)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(24)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(26)">Começar →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-33">
+<div class="screen" id="screen-32">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📰</div>
     <div class="intro-title">Próxima tarefa</div>
@@ -969,13 +986,13 @@
       Em cada caso, identifique qual delas tem maior probabilidade de fornecer <strong>informações objetivas e detalhadas</strong> sobre os fatos.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(32)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(34)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(31)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(33)">Começar →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-38">
+<div class="screen" id="screen-37">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Qual das seguintes opções seria a fonte MAIS confiável para obter informações sobre a segurança de um novo medicamento?</div>
@@ -997,29 +1014,35 @@
     </div>
     <div class="alert" id="alert-se">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 39)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(36)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 38)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-39">
+<div class="screen" id="screen-38">
   <div class="card">
     <div class="question-block">
-      <div class="question-text">Quais dos itens a seguir são sinais de alerta de que uma mensagem pode ser falsa ou enganosa?</div>
+      <div class="headline-img-wrap" style="margin-bottom:10px;"><img src="assets/whatsapp_fake.png" alt="Mensagem de WhatsApp" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+      <div class="question-text">Observe a mensagem de WhatsApp abaixo. Quais dos itens a seguir são sinais de alerta de que essa mensagem pode ser falsa ou enganosa?</div>
       <div class="question-subtext">Selecione TODAS as opções que se aplicam.</div>
       <div class="options" id="q-whatsapp_redflags">
         <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="a"><label>Usa letras maiúsculas e excesso de pontos de exclamação</label></label>
         <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="b"><label>Cria um forte senso de urgência ("Compartilhe antes que apaguem isso!")</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="c"><label>Afirma que alguém está escondendo algo</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="c"><label>Afirma que o governo ou as autoridades estão escondendo algo</label></label>
         <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="d"><label>Contém erros ortográficos e gramaticais</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="e"><label>Menciona fonte, autor ou evidência identificável</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="f"><label>Tem data de publicação</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="g"><label>Tem data de atualização</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="h"><label>Tem autor claramente identificado</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="i"><label>O título utiliza palavras chocantes, emocionais ou que provocam raiva para chamar sua atenção</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="k"><label>A matéria apresenta links para as pesquisas ou estudos originais mencionados</label></label>
-        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="j"><label>Nenhuma das opções acima</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="e"><label>Não menciona nenhuma fonte, autor ou evidência identificável</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="f"><label>Promete um resultado extremo ou milagroso (por exemplo, "cura o câncer em 3 dias")</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="g"><label>Nenhuma das opções acima — esta mensagem parece confiável</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Qual das seguintes opções é um SINAL DE ALERTA de que uma notícia pode ser enganosa?</div>
+      <div class="options" id="q-misleading_redflag">
+        <label class="opt"><input type="radio" name="misleading_redflag" value="a"><label>A matéria inclui citações de vários especialistas identificados</label></label>
+        <label class="opt"><input type="radio" name="misleading_redflag" value="b"><label>O título utiliza palavras chocantes, emocionais ou que provocam raiva para chamar sua atenção</label></label>
+        <label class="opt"><input type="radio" name="misleading_redflag" value="c"><label>A matéria apresenta links para as pesquisas ou estudos originais mencionados</label></label>
+        <label class="opt"><input type="radio" name="misleading_redflag" value="d"><label>A matéria informa claramente a data de publicação</label></label>
       </div>
     </div>
     <div class="question-block">
@@ -1031,13 +1054,13 @@
     </div>
     <div class="alert" id="alert-fc1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','professional_site_tf'], 'alert-fc1', 40)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','misleading_redflag','professional_site_tf'], 'alert-fc1', 39)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-40">
+<div class="screen" id="screen-39">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Você lê a seguinte estatística: "90% dos adolescentes compartilham fake news todos os dias." O que você deve fazer ANTES de decidir acreditar ou compartilhar essa afirmação?</div>
@@ -1071,21 +1094,21 @@
     </div>
     <div class="alert" id="alert-fc2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 41)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 40)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-41">
+<div class="screen" id="screen-40">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Seu colega de classe envia uma mensagem pedindo que você compartilhe uma matéria sobre uma fraude nas urnas eletrônicas nas eleições brasileiras. Você está cético e não acredita que a matéria esteja correta. Qual é a atitude MAIS responsável?</div>
       <div class="options" id="q-peer_share_fraud">
-        <label class="opt"><input type="radio" name="peer_share_fraud" value="a"><label>Compartilhar para ajudar seu amigo</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="a"><label>Compartilhar para apoiar seu amigo — ele não enviaria algo falso</label></label>
         <label class="opt"><input type="radio" name="peer_share_fraud" value="b"><label>Procurar fontes confiáveis sobre o tema e, caso a afirmação seja falsa, informar educadamente seu amigo</label></label>
-        <label class="opt"><input type="radio" name="peer_share_fraud" value="c"><label>Você reage com um emoji, mas não compartilha</label></label>
-        <label class="opt"><input type="radio" name="peer_share_fraud" value="d"><label>Ignorar a mensagem</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="c"><label>Compartilhar porque seu amigo disse que funciona e isso é evidência suficiente</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="d"><label>Ignorar a mensagem e não dizer nada</label></label>
       </div>
     </div>
     <div class="question-block">
@@ -1099,13 +1122,13 @@
     </div>
     <div class="alert" id="alert-peer">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 42)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 41)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-42">
+<div class="screen" id="screen-41">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Queremos ter certeza de que você está lendo com atenção. Apenas neste item, por favor selecione a opção <strong>"Discordo totalmente"</strong>.</div>
@@ -1118,13 +1141,13 @@
     </div>
     <div class="alert" id="alert-att2">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(41)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 43)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 42)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-43">
+<div class="screen" id="screen-42">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Nos últimos meses, perfis anônimos no Instagram em diversas escolas públicas no estado da Bahia foram criados para espalhar informações falsas sobre professores e alunos. Um documento está sendo organizado com assinaturas de alunos que irão pedir ao Instagram que remova esses perfis. Você gostaria de assinar esse pedido?</div>
@@ -1140,13 +1163,13 @@
     </div>
     <div class="alert" id="alert-petition">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(42)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validatePetition(44)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(41)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validatePetition(43)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-44">
+<div class="screen" id="screen-43">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Observe a manchete abaixo e escreva três perguntas que você faria a si mesmo para determinar se ela está correta ou não.</div>
@@ -1165,157 +1188,29 @@
     </div>
     <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(43)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateCTFC1(45)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(42)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(44)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-45">
-  <div class="card">
-    <div class="question-subtext" style="margin-bottom:14px;">Agora gostaríamos de saber se você conversou com outras pessoas sobre o conteúdo das aulas de desinformação.</div>
-    <div class="question-block">
-      <div class="question-text">Com que frequência você conversou sobre o conteúdo das aulas ou sobre o que aprendeu com cada um dos grupos abaixo?</div>
-      <div class="question-subtext">Marque uma resposta por linha.</div>
-      <div style="overflow-x:auto;"><table class="grid-table" id="conv-table">
-        <thead><tr><th>Grupo</th><th>Nunca</th><th>Uma ou duas vezes durante o período das aulas</th><th>Algumas vezes durante o período das aulas</th><th>Após cada aula</th></tr></thead>
-        <tbody>
-            <tr><td class="m7n">Familiares ou pessoas que moram com você</td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="4"></td></tr>
-            <tr><td class="m7n">Colegas da mesma escola, mas de outra classe</td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="4"></td></tr>
-            <tr><td class="m7n">Amigos de fora da escola</td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="4"></td></tr>
-            <tr><td class="m7n">Colegas da mesma classe</td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="4"></td></tr>
-        </tbody></table></div>
-    </div>
-    <div class="alert" id="alert-conv">Por favor, responda todas as linhas.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(44)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['conv_familiares','conv_colegas_outra_classe','conv_amigos_fora','conv_colegas_classe'], 'alert-conv', 46)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="screen-46">
-  <div class="card">
-    <div class="question-subtext" style="margin-bottom:14px;">Agora vamos fazer algumas perguntas sobre sua experiência ao participar das aulas sobre desinformação.</div>
-    <div class="question-block">
-      <div class="question-text">Como você avaliaria a qualidade geral dessas aulas?</div>
-      <div class="options" id="q-class_quality">
-        <label class="opt"><input type="radio" name="class_quality" value="a"><label>Muito ruim</label></label>
-        <label class="opt"><input type="radio" name="class_quality" value="b"><label>Ruim</label></label>
-        <label class="opt"><input type="radio" name="class_quality" value="c"><label>Regular</label></label>
-        <label class="opt"><input type="radio" name="class_quality" value="d"><label>Boa</label></label>
-        <label class="opt"><input type="radio" name="class_quality" value="e"><label>Excelente</label></label>
-      </div>
-    </div>
-    <div class="question-block">
-      <div class="question-text">Como você avaliaria o nível de dificuldade dessas aulas?</div>
-      <div class="options" id="q-class_difficulty">
-        <label class="opt"><input type="radio" name="class_difficulty" value="a"><label>Muito fácil</label></label>
-        <label class="opt"><input type="radio" name="class_difficulty" value="b"><label>Um pouco fácil demais</label></label>
-        <label class="opt"><input type="radio" name="class_difficulty" value="c"><label>Adequado</label></label>
-        <label class="opt"><input type="radio" name="class_difficulty" value="d"><label>Um pouco difícil demais</label></label>
-        <label class="opt"><input type="radio" name="class_difficulty" value="e"><label>Muito difícil</label></label>
-      </div>
-    </div>
-    <div class="question-block">
-      <div class="question-text">Quão eficaz foi o(a) professor(a) nessas aulas?</div>
-      <div class="options" id="q-teacher_effectiveness">
-        <label class="opt"><input type="radio" name="teacher_effectiveness" value="a"><label>Nada eficaz</label></label>
-        <label class="opt"><input type="radio" name="teacher_effectiveness" value="b"><label>Pouco eficaz</label></label>
-        <label class="opt"><input type="radio" name="teacher_effectiveness" value="c"><label>Moderadamente eficaz</label></label>
-        <label class="opt"><input type="radio" name="teacher_effectiveness" value="d"><label>Muito eficaz</label></label>
-        <label class="opt"><input type="radio" name="teacher_effectiveness" value="e"><label>Extremamente eficaz</label></label>
-      </div>
-    </div>
-    <div class="alert" id="alert-classexp">Por favor, responda todas as perguntas desta seção.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(45)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['class_quality','class_difficulty','teacher_effectiveness'], 'alert-classexp', 47)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="screen-47">
-  <div class="card">
-    <div class="question-block">
-      <div class="question-text">Qual a probabilidade de você votar na eleição presidencial de 2026? (Lembre-se: aos 16 anos o voto é facultativo; aos 18 anos ele se torna obrigatório.)</div>
-      <div class="options" id="q-vote_2026">
-        <label class="opt"><input type="radio" name="vote_2026" value="a"><label>Com certeza vou votar</label></label>
-        <label class="opt"><input type="radio" name="vote_2026" value="b"><label>Provavelmente vou votar</label></label>
-        <label class="opt"><input type="radio" name="vote_2026" value="c"><label>Não tenho certeza</label></label>
-        <label class="opt"><input type="radio" name="vote_2026" value="d"><label>Provavelmente não vou votar</label></label>
-        <label class="opt"><input type="radio" name="vote_2026" value="e"><label>Não poderei votar em 2026</label></label>
-        <label class="opt"><input type="radio" name="vote_2026" value="f"><label>Não sabe</label></label>
-      </div>
-    </div>
-    <div class="alert" id="alert-vote">Por favor, responda a pergunta acima.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(46)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['vote_2026'], 'alert-vote', 48)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="screen-48">
-  <div class="card">
-    <div class="question-block">
-      <div class="question-text">Você gostaria de participar de um grupo de WhatsApp que fará checagem de informações duvidosas sobre as eleições de 2026?</div>
-      <div class="options" id="q-whatsapp_fact_check" onchange="onWhatsappChange()">
-        <label class="opt"><input type="radio" name="whatsapp_fact_check" value="sim"><label>Sim</label></label>
-        <label class="opt"><input type="radio" name="whatsapp_fact_check" value="nao"><label>Não</label></label>
-      </div>
-    </div>
-    <div class="question-block" id="block-whatsapp_number" style="display:none;">
-      <div class="question-text">Por favor, informe seu número de WhatsApp:</div>
-      <input type="text" id="whatsapp-number" placeholder="(DDD) número" inputmode="tel">
-    </div>
-    <div class="alert" id="alert-wa">Por favor, responda a pergunta acima.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(47)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateWhatsapp(49)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="screen-49">
-  <div class="card">
-    <div class="question-block">
-      <div class="question-text">Nos últimos 7 dias, com que frequência você fez cada uma das coisas abaixo?</div>
-      <div class="question-subtext">Marque uma resposta por linha.</div>
-      <div style="overflow-x:auto;"><table class="grid-table rand-rows" id="media-diet-table">
-        <thead><tr><th>Afirmação</th><th>Nunca</th><th>Uma vez na semana</th><th>Entre 2 e 3 dias na semana</th><th>Entre 4 e 5 dias na semana</th><th>Praticamente todos os dias da semana</th></tr></thead>
-        <tbody>
-            <tr><td class="m7n">Li posts ou assisti vídeos, podcasts ou lives que davam dicas sobre como ser homem numa sociedade que quer acabar com a masculinidade.</td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="1"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="2"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="3"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="4"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="5"></td></tr>
-            <tr><td class="m7n">Li posts ou assisti vídeos, podcasts ou lives que falavam sobre empoderamento feminino e igualdade de gênero.</td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="1"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="2"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="3"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="4"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="5"></td></tr>
-        </tbody></table></div>
-    </div>
-    <div class="alert" id="alert-md">Por favor, responda todas as linhas.</div>
-    <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(48)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 50)">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<div class="screen" id="screen-50">
+<div class="screen" id="screen-44">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
     <div class="intro-sub">
-      Você concluiu a pesquisa. Suas respostas foram registradas com sucesso.
-    </div>
-    <div style="margin-top:22px; padding:18px 22px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; text-align:left; font-size:0.92rem; line-height:1.5; color:#1e3a5f;">
-      <strong>Esclarecimento importante</strong><br><br>
-      Obrigado por participar no nosso estudo. Agora que respondeu às nossas perguntas, gostaríamos de esclarecer alguns pontos importantes sobre os materiais que viu. Algumas imagens que você viu reproduziam conteúdos falsos que circulam na internet. Por favor, ignore o conteúdo, uma vez que estas mensagens que circulam na Internet contêm informação falsa. Em algumas semanas o seu professor irá entregar um material mostrando quais imagens eram falsas.
-    </div>
-    <div class="intro-sub" style="margin-top:18px;">
+      Você concluiu a pesquisa. Suas respostas foram registradas com sucesso.<br><br>
+      Sua participação é muito importante para a nossa pesquisa sobre mídia e informação no Brasil.<br><br>
       <strong>Você pode fechar esta página.</strong>
     </div>
     <div id="submit-error" style="display:none; margin-top:20px; padding:16px 18px; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; color:#b91c1c; font-size:0.86rem; line-height:1.4;">
       ⚠️ Não foi possível enviar suas respostas automaticamente. Verifique sua conexão com a internet e tente novamente.
       <div style="margin-top:10px;"><button class="btn btn-primary" onclick="submitToGoogleSheets()" style="font-size:0.85rem;">Tentar enviar novamente</button></div>
     </div>
-
+    <div style="margin-top:24px; padding:20px; background:#f0fdf4; border-radius:10px; border:1px solid #bbf7d0;">
+      <div style="font-size:0.82rem; color:#166534; font-weight:600; margin-bottom:8px;">Resumo das suas respostas:</div>
+      <div id="response-summary" style="font-size:0.78rem; color:#374151; text-align:left; max-height:300px; overflow-y:auto;"></div>
+    </div>
   </div>
 </div>
 
@@ -1418,9 +1313,8 @@ const DISCERNMENT_ITEMS = [
   { id:"e10", img:"assets/e10.jpg", key:"non_political_false", truth:false, headline:"Hantavírus está listado como evento adverso da vacina contra coronavírus." },
   { id:"e11", img:"assets/e11.jpg", key:"old_true", truth:true, headline:"Água de cidade no Canadá fica rosa e assusta moradores." },
   { id:"e12", img:"assets/e12.jpg", key:"old_false", truth:false, headline:"WhatsApp passará a avisar a motoristas quando o farol for abrir." },
-  { id:"e13", img:"assets/e13.jpg", key:"gender_falseaccusation_false", truth:false, headline:"Probabilidade de um homem ser preso injustamente por falsa acusação de violência doméstica é maior do que a de uma mulher sofrer agressão real." },
-  { id:"e14", img:"assets/e14.jpg", key:"viral_false", truth:false, headline:"Mensagem alerta sobre brinquedo que pode esconder câmera e polícia faz alerta." },
-  { id:"e15", img:"assets/e15.jpg", key:"gender_resources_true", truth:true, headline:"Maior parte dos recursos distribuídos pelo governo é destinada diretamente a mulheres." }
+  { id:"e13", img:"assets/e13.jpg", key:"viral_true", truth:true, headline:"Red Bull pagará US$ 13 mi a clientes 'que não ganharam asas'." },
+  { id:"e14", img:"assets/e14.jpg", key:"viral_false", truth:false, headline:"Mensagem alerta sobre brinquedo que pode esconder câmera e polícia faz alerta." }
 ];
 
 // Conjoint: 6 false (f1-f6) and 6 true (t1-t6) stories, 4 source variants, 2 virality variants.
@@ -1444,11 +1338,11 @@ const OPINION_PAIRS = [
 // ═══════════════════════════════════════════════════════
 // SCREEN LAYOUT CONSTANTS  (computed by build_survey_v4.py)
 // ═══════════════════════════════════════════════════════
-const TOTAL_SCREENS = 51;
-const FINAL_SCREEN  = 50;
-const DISC_START = 11, DISC_COUNT = 15, DISC_ANCHOR = 26;
-const CONJ_START = 27, CONJ_COUNT = 6, CONJ_ANCHOR = 33;
-const OPIN_START = 34, OPIN_COUNT = 4, OPIN_ANCHOR = 38;
+const TOTAL_SCREENS = 45;
+const FINAL_SCREEN  = 44;
+const DISC_START = 11, DISC_COUNT = 14, DISC_ANCHOR = 25;
+const CONJ_START = 26, CONJ_COUNT = 6, CONJ_ANCHOR = 32;
+const OPIN_START = 33, OPIN_COUNT = 4, OPIN_ANCHOR = 37;
 const SURVEY_GROUP = "treatment";
 
 let currentScreen = 0;
@@ -1569,12 +1463,13 @@ function generateDiscernmentScreens() {
         <div class="zoom-hint">🔍 Toque na imagem para ampliar</div>
         <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
         <div class="scale-wrap">
-          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
+          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
           <div class="scale-buttons" id="scale-${key}">
             <button class="scale-btn" onclick="setScale('${key}',1,this)">1</button>
             <button class="scale-btn" onclick="setScale('${key}',2,this)">2</button>
             <button class="scale-btn" onclick="setScale('${key}',3,this)">3</button>
             <button class="scale-btn" onclick="setScale('${key}',4,this)">4</button>
+            <button class="scale-btn" onclick="setScale('${key}',5,this)">5</button>
           </div>
         </div>
         <div class="alert" id="alert-${key}">Por favor, selecione uma opção.</div>
@@ -1644,8 +1539,6 @@ function generateOpinionScreens() {
     const div = document.createElement('div');
     div.className='screen'; div.id=`screen-${n}`;
     div.dataset.leftnews = leftIsNews ? '1' : '0';
-    div.dataset.leftimg = leftImg;
-    div.dataset.rightimg = rightImg;
     div.innerHTML = `
       <div class="card">
         <div class="instruction-box">
@@ -1708,7 +1601,7 @@ function restoreFormState() {
 
 // ── OPTION RANDOMIZATION ──
 function randomizeOptions() {
-  const groups = ['q-manipulation_check','q-m1','q-youth_problem','q-whatsapp_redflags'];
+  const groups = ['q-manipulation_check','q-m1','q-youth_problem'];
   const lastPattern = /não sei|não quero|nenhuma|outro/i;
   groups.forEach(id => {
     const c=document.getElementById(id); if(!c) return;
@@ -1718,12 +1611,6 @@ function randomizeOptions() {
     for(let i=rest.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rest[i],rest[j]]=[rest[j],rest[i]];}
     [...rest,...keep].forEach(o=>c.appendChild(o));
   });
-  // Shuffle the rows of any matrix table marked .rand-rows (e.g. media_diet)
-  document.querySelectorAll('table.rand-rows tbody').forEach(tb => {
-    const rows=[...tb.querySelectorAll(':scope > tr')];
-    for(let i=rows.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rows[i],rows[j]]=[rows[j],rows[i]];}
-    rows.forEach(r=>tb.appendChild(r));
-  });
 }
 
 // ── NAVIGATION ──
@@ -1732,8 +1619,8 @@ function getSectionLabel(n) {
   if (n <= 2) return 'Seção 2 de 6';
   if (n <= 5) return 'Seção 3 de 6';
   if (n <= 9) return 'Seção 4 de 6';
-  if (n <= 37) return 'Seção 5 de 6';
-  if (n <= 50) return 'Seção 6 de 6';
+  if (n <= 36) return 'Seção 5 de 6';
+  if (n <= 44) return 'Seção 6 de 6';
   return 'Seção 6 de 6';
 }
 
@@ -1766,21 +1653,9 @@ function updateDiscernmentDots(n) {
 }
 
 function setupOptionListeners() {
-  // Options that mean "none of the above" — mutually exclusive with the rest.
-  const NONE_RE = /nenhuma das|nada de grave|não utilizei nenhum/i;
   document.addEventListener('change', e => {
     if (e.target.type==='radio'){ const name=e.target.name; document.querySelectorAll(`input[name="${name}"]`).forEach(inp=>{inp.closest('.opt')?.classList.toggle('selected',inp.checked);}); }
-    if (e.target.type==='checkbox'){
-      const box=e.target; box.closest('.opt')?.classList.toggle('selected', box.checked);
-      if (box.checked) {
-        const meNone = NONE_RE.test(box.closest('.opt')?.textContent || '');
-        document.querySelectorAll(`input[type="checkbox"][name="${box.name}"]`).forEach(o=>{
-          if (o===box || !o.checked) return;
-          // if I'm "none" uncheck everything else; if I'm a normal option uncheck the "none" option
-          if (meNone || NONE_RE.test(o.closest('.opt')?.textContent || '')) { o.checked=false; o.closest('.opt')?.classList.remove('selected'); }
-        });
-      }
-    }
+    if (e.target.type==='checkbox'){ e.target.closest('.opt')?.classList.toggle('selected',e.target.checked); }
   });
 }
 
@@ -1806,16 +1681,6 @@ function checkIdentifiers(){ const t=document.getElementById('teacher-select').v
 
 function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
 function onPetitionChange(){ const v=document.querySelector('input[name="petition"]:checked')?.value; document.getElementById('block-petition_text').style.display = v==='sim'?'block':'none'; }
-function onWhatsappChange(){ const v=document.querySelector('input[name="whatsapp_fact_check"]:checked')?.value; document.getElementById('block-whatsapp_number').style.display = v==='sim'?'block':'none'; }
-function validateWhatsapp(next){
-  const a=document.getElementById('alert-wa');
-  const w=document.querySelector('input[name="whatsapp_fact_check"]:checked');
-  if(!w){ a.classList.add('show'); return; }
-  a.classList.remove('show');
-  responses.whatsapp_fact_check=w.value;
-  responses.whatsapp_number=document.getElementById('whatsapp-number')?.value||'';
-  goTo(next);
-}
 
 // ── VALIDATORS ──
 function validateSection(names, alertId, next) {
@@ -1888,47 +1753,27 @@ function validatePetition(next) {
 // ── FINAL: collect + (pipeline-injected submit) + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
-  if (n === 50) {
+  if (n === 44) {
     collectAllResponses();
-    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);
 };
 
-const IBPAD_GS_URL = 'https://script.google.com/macros/s/AKfycbwXsYfxne_k4r7vbvdLBNdqPVSm419nz-nt3UKtU5E1qcRbW8_GXxYKopFOfh2HV7zh/exec';
+const GOOGLE_SHEET_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
 function submitToGoogleSheets() {
-  const url = IBPAD_GS_URL;
-  if (!url || url.includes('PASTE_')) return;
-
-  // Flatten responses into tidy spreadsheet columns:
-  //  - checkbox arrays -> one-hot columns (key_value = 1)
-  //  - conjoint tasks  -> conjoint_i_left/right/dv/selected
-  const flat = {};
-  Object.entries(responses).forEach(([k, v]) => {
-    if (k === 'conjoint_tasks' || k === 'm7_order') return;
-    if (Array.isArray(v)) { v.forEach(val => { flat[k + '_' + val] = 1; }); }
-    else { flat[k] = v; }
-  });
-  (responses.conjoint_tasks || []).forEach((task, i) => {
-    flat[`conjoint_${i}_left`]     = task.left;
-    flat[`conjoint_${i}_right`]    = task.right;
-    flat[`conjoint_${i}_dv`]       = task.dv;
-    flat[`conjoint_${i}_selected`] = responses[`conjoint_${i}`];
-  });
-  Object.keys(flat).forEach(k => { if (/^conjoint_[0-9]+$/.test(k)) delete flat[k]; });
-
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 15000);
-  fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(flat),
-    headers: { 'Content-Type': 'text/plain' },
-    signal: controller.signal
-  })
-  .then(r => { clearTimeout(timer); return r.json(); })
-  .then(data => { if (data.status !== 'ok') throw new Error(data.message || 'error'); })
-  .catch(() => { if (typeof showSubmissionError === 'function') showSubmissionError(); });
+  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
+    console.warn('Google Sheet URL not configured.');
+    return;
+  }
+  try {
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(responses)
+    });
+  } catch(err) { console.warn('Submission error:', err); }
 }
 
 function collectAllResponses() {
@@ -1936,51 +1781,21 @@ function collectAllResponses() {
     if (inp.type==='checkbox'){ if(!responses[inp.name])responses[inp.name]=[]; if(!Array.isArray(responses[inp.name]))responses[inp.name]=[responses[inp.name]]; if(!responses[inp.name].includes(inp.value))responses[inp.name].push(inp.value); }
     else responses[inp.name]=inp.value;
   });
-  // For every "select all that apply" question, emit a column for EVERY option
-  // (1 = selected, 0 = not) so all options are visible in the sheet, not only
-  // the chosen ones. Reads all checkboxes from the DOM (covers randomized order).
-  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    if (cb.name && cb.value) responses[`${cb.name}_${cb.value}`] = cb.checked ? 1 : 0;
-  });
   document.querySelectorAll('#m7-table select, #rec-table select').forEach(s => { if(s.value!=='') responses[s.name]=s.value; });
   responses.ctfc1_q1=document.getElementById('ctfc1-q1')?.value||'';
   responses.ctfc1_q2=document.getElementById('ctfc1-q2')?.value||'';
   responses.ctfc1_q3=document.getElementById('ctfc1-q3')?.value||'';
   responses.petition_text=document.getElementById('petition-text')?.value||responses.petition_text||'';
-  const wn=document.getElementById('whatsapp-number'); if(wn) responses.whatsapp_number=wn.value;
   responses.survey_version='v4';
   responses.survey_group=SURVEY_GROUP;
   responses.timestamp=new Date().toISOString();
-  // Record the actual image FILENAMES shown (and the one chosen) for the two
-  // image-choice tasks, so the characteristics of chosen vs. not-chosen images
-  // are recoverable directly from the spreadsheet (not just from a parsed key).
-  // NOTE: we intentionally do NOT set responses.conjoint_tasks — that fed the
-  // older R-injected `conjoint_i_left/right/selected` (key) columns, which
-  // duplicated the `*_img` columns below. The *_img filenames are the canonical record.
-  if (CONJOINT_TASKS) {
-    CONJOINT_TASKS.forEach((t,i)=>{
-      const sel=responses[`conjoint_${i}`];
-      responses[`conjoint_${i}_dv`]           = t.dv;
-      responses[`conjoint_${i}_left_img`]     = t.left;
-      responses[`conjoint_${i}_right_img`]    = t.right;
-      responses[`conjoint_${i}_selected_img`] = sel===t.leftKey ? t.left : (sel===t.rightKey ? t.right : '');
-    });
-  }
-  if (OPINION_PAIRS_ORDER) OPINION_PAIRS_ORDER.forEach((pair,i)=>{
-    const scr=document.getElementById(`op-${i}-A`)?.closest('.screen'); if(!scr) return;
-    const side=responses[`opinion_${i}`];
-    responses[`opinion_${i}_outlet`]       = pair.outlet;
-    responses[`opinion_${i}_left_img`]     = scr.dataset.leftimg||'';
-    responses[`opinion_${i}_right_img`]    = scr.dataset.rightimg||'';
-    responses[`opinion_${i}_selected_img`] = side==='A' ? (scr.dataset.leftimg||'') : (side==='B' ? (scr.dataset.rightimg||'') : '');
-  });
+  if (CONJOINT_TASKS) responses.conjoint_tasks=CONJOINT_TASKS.map(t=>({left:t.leftKey,right:t.rightKey,dv:t.dv}));
   if (M7_ORDER) responses.m7_order=M7_ORDER.map(o=>o.slug);
   console.log('Survey responses:', JSON.stringify(responses, null, 2));
 }
 
 function showSummary() {
   const el=document.getElementById('response-summary');
-  if(!el) return;
   el.innerHTML = Object.entries(responses).filter(([k])=>!['conjoint_tasks','m7_order'].includes(k))
     .map(([k,v])=>`<div style="margin-bottom:4px;"><strong>${k}:</strong> ${Array.isArray(v)?v.join(', '):v}</div>`).join('');
 }

@@ -1678,11 +1678,16 @@ function submitToGoogleSheets() {
     return;
   }
   try {
+    const payload = Object.assign({}, responses);
+    const WR_OPTIONS = ['a','b','c','d','e','f','g','h','i','j','k'];
+    const selected = Array.isArray(payload.whatsapp_redflags) ? payload.whatsapp_redflags : (payload.whatsapp_redflags ? [payload.whatsapp_redflags] : []);
+    WR_OPTIONS.forEach(opt => { payload['whatsapp_redflags_' + opt] = selected.includes(opt) ? 1 : 0; });
+    delete payload.whatsapp_redflags;
     fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(responses)
+      body: JSON.stringify(payload)
     });
   } catch(err) { console.warn('Submission error:', err); }
 }

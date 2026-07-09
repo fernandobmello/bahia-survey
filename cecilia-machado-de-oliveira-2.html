@@ -1633,9 +1633,9 @@ function closeLightbox(){ const lb=document.getElementById('lightbox'); if(!lb) 
 function setScale(key,val,btn){ const c=document.getElementById(`scale-${key}`); if(!c) return; c.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); responses[key]=val; }
 function requireScale(key,next){ const a=document.getElementById(`alert-${key}`); if(!responses[key]){ if(a)a.classList.add('show'); return;} if(a)a.classList.remove('show'); goTo(next); }
 
-function selectConjoint(idx,side){ ['A','B'].forEach(s=>document.getElementById(`conj-${idx}-${s}`)?.classList.remove('selected')); document.getElementById(`conj-${idx}-${side}`)?.classList.add('selected'); responses[`conjoint_${idx}`]= side==='A'?CONJOINT_TASKS[idx].leftKey:CONJOINT_TASKS[idx].rightKey; responses[`conjoint_${idx}_dv`]=CONJOINT_TASKS[idx].dv; }
+function selectConjoint(idx,side){ ['A','B'].forEach(s=>document.getElementById(`conj-${idx}-${s}`)?.classList.remove('selected')); document.getElementById(`conj-${idx}-${side}`)?.classList.add('selected'); const t=CONJOINT_TASKS[idx]; const selKey=side==='A'?t.leftKey:t.rightKey; const selImg=side==='A'?t.left:t.right; responses[`conjoint_${idx}`]=selKey; responses[`conjoint_${idx}_dv`]=t.dv; responses[`conjoint_${idx}_left`]=t.leftKey; responses[`conjoint_${idx}_right`]=t.rightKey; responses[`conjoint_${idx}_selected`]=selKey; responses[`conjoint_${idx}_left_img`]=t.left; responses[`conjoint_${idx}_right_img`]=t.right; responses[`conjoint_${idx}_selected_img`]=selImg; }
 function requireConjoint(idx,next){ if(!responses[`conjoint_${idx}`]){ document.getElementById(`alert-conj-${idx}`)?.classList.add('show'); return;} goTo(next); }
-function selectOpinion(idx,side){ ['A','B'].forEach(s=>document.getElementById(`op-${idx}-${s}`)?.classList.remove('selected')); document.getElementById(`op-${idx}-${side}`)?.classList.add('selected'); const scr=document.getElementById(`op-${idx}-A`).closest('.screen'); const leftNews=scr?.dataset.leftnews==='1'; const chosenNews=(side==='A')===leftNews; responses[`opinion_${idx}`]=side; responses[`opinion_${idx}_chose`]=chosenNews?'news':'opinion'; }
+function selectOpinion(idx,side){ ['A','B'].forEach(s=>document.getElementById(`op-${idx}-${s}`)?.classList.remove('selected')); document.getElementById(`op-${idx}-${side}`)?.classList.add('selected'); const scr=document.getElementById(`op-${idx}-A`).closest('.screen'); const leftNews=scr?.dataset.leftnews==='1'; const chosenNews=(side==='A')===leftNews; responses[`opinion_${idx}`]=side; responses[`opinion_${idx}_chose`]=chosenNews?'news':'opinion'; const pair=OPINION_PAIRS_ORDER[idx]; const leftImg=leftNews?pair.news:pair.opinion; const rightImg=leftNews?pair.opinion:pair.news; const selImg=side==='A'?leftImg:rightImg; responses[`opinion_${idx}_outlet`]=pair.outlet; responses[`opinion_${idx}_left_img`]=leftImg; responses[`opinion_${idx}_right_img`]=rightImg; responses[`opinion_${idx}_selected_img`]=selImg; }
 function requireOpinion(idx,next){ if(!responses[`opinion_${idx}`]){ document.getElementById(`alert-op-${idx}`)?.classList.add('show'); return;} goTo(next); }
 
 function enableNext(btnId){ document.getElementById(btnId).disabled=false; }
@@ -1735,10 +1735,24 @@ function submitToGoogleSheets() {
   }
   try {
     const payload = Object.assign({}, responses);
+
+    // Expand whatsapp_redflags array → individual 0/1 columns
     const WR_OPTIONS = ['a','b','c','d','e','f','g','h','i','j','k'];
-    const selected = Array.isArray(payload.whatsapp_redflags) ? payload.whatsapp_redflags : (payload.whatsapp_redflags ? [payload.whatsapp_redflags] : []);
-    WR_OPTIONS.forEach(opt => { payload['whatsapp_redflags_' + opt] = selected.includes(opt) ? 1 : 0; });
+    const wrSel = Array.isArray(payload.whatsapp_redflags) ? payload.whatsapp_redflags : (payload.whatsapp_redflags ? [payload.whatsapp_redflags] : []);
+    WR_OPTIONS.forEach(opt => { payload['whatsapp_redflags_' + opt] = wrSel.includes(opt) ? 1 : 0; });
     delete payload.whatsapp_redflags;
+
+    // Expand other checkbox arrays → individual 0/1 columns
+    function expandCheckbox(key, options) {
+      const sel = Array.isArray(payload[key]) ? payload[key] : (payload[key] ? String(payload[key]).split(',').map(s=>s.trim()) : []);
+      options.forEach(opt => { payload[key + '_' + opt] = sel.includes(String(opt)) ? 1 : 0; });
+      delete payload[key];
+    }
+    expandCheckbox('m1',                    ['a','b','c','d','e','f']);
+    expandCheckbox('hoax_consequences',     ['a','b','c','d','e']);
+    expandCheckbox('verification_methods_used', ['a','b','c','d','e']);
+    expandCheckbox('attendance_reasons',    ['1','2','3','4','5','6']);
+
     fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',

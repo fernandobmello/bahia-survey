@@ -1364,13 +1364,12 @@ function generateDiscernmentScreens() {
         <div class="zoom-hint">🔍 Toque na imagem para ampliar</div>
         <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
         <div class="scale-wrap">
-          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Não tenho certeza</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
+          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
           <div class="scale-buttons" id="scale-${key}">
             <button class="scale-btn" onclick="setScale('${key}',1,this)">1</button>
             <button class="scale-btn" onclick="setScale('${key}',2,this)">2</button>
             <button class="scale-btn" onclick="setScale('${key}',3,this)">3</button>
             <button class="scale-btn" onclick="setScale('${key}',4,this)">4</button>
-            <button class="scale-btn" onclick="setScale('${key}',5,this)">5</button>
           </div>
         </div>
         <div class="alert" id="alert-${key}">Por favor, selecione uma opção.</div>

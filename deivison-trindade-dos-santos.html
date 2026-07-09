@@ -1190,12 +1190,143 @@
 </div>
 
 <div class="screen" id="screen-44">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:14px;">Agora gostaríamos de saber se você conversou com outras pessoas sobre o conteúdo das aulas de desinformação.</div>
+    <div class="question-block">
+      <div class="question-text">Com que frequência você conversou sobre o conteúdo das aulas ou sobre o que aprendeu com cada um dos grupos abaixo?</div>
+      <div class="question-subtext">Marque uma resposta por linha.</div>
+      <div style="overflow-x:auto;"><table class="grid-table" id="conv-table">
+        <thead><tr><th>Grupo</th><th>Nunca</th><th>Uma ou duas vezes durante o período das aulas</th><th>Algumas vezes durante o período das aulas</th><th>Após cada aula</th></tr></thead>
+        <tbody>
+            <tr><td class="m7n">Familiares ou pessoas que moram com você</td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="4"></td></tr>
+            <tr><td class="m7n">Colegas da mesma escola, mas de outra classe</td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="4"></td></tr>
+            <tr><td class="m7n">Amigos de fora da escola</td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="4"></td></tr>
+            <tr><td class="m7n">Colegas da mesma classe</td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="4"></td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="alert" id="alert-conv">Por favor, responda todas as linhas.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(43)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['conv_familiares','conv_colegas_outra_classe','conv_amigos_fora','conv_colegas_classe'], 'alert-conv', 45)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-45">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:14px;">Agora vamos fazer algumas perguntas sobre sua experiência ao participar das aulas sobre desinformação.</div>
+    <div class="question-block">
+      <div class="question-text">Como você avaliaria a qualidade geral dessas aulas?</div>
+      <div class="options" id="q-class_quality">
+        <label class="opt"><input type="radio" name="class_quality" value="a"><label>Muito ruim</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="b"><label>Ruim</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="c"><label>Regular</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="d"><label>Boa</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="e"><label>Excelente</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Como você avaliaria o nível de dificuldade dessas aulas?</div>
+      <div class="options" id="q-class_difficulty">
+        <label class="opt"><input type="radio" name="class_difficulty" value="a"><label>Muito fácil</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="b"><label>Um pouco fácil demais</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="c"><label>Adequado</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="d"><label>Um pouco difícil demais</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="e"><label>Muito difícil</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Quão eficaz foi o(a) professor(a) nessas aulas?</div>
+      <div class="options" id="q-teacher_effectiveness">
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="a"><label>Nada eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="b"><label>Pouco eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="c"><label>Moderadamente eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="d"><label>Muito eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="e"><label>Extremamente eficaz</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-classexp">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(44)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['class_quality','class_difficulty','teacher_effectiveness'], 'alert-classexp', 46)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-46">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Qual a probabilidade de você votar na eleição presidencial de 2026? (Lembre-se: aos 16 anos o voto é facultativo; aos 18 anos ele se torna obrigatório.)</div>
+      <div class="options" id="q-vote_2026">
+        <label class="opt"><input type="radio" name="vote_2026" value="a"><label>Com certeza vou votar</label></label>
+        <label class="opt"><input type="radio" name="vote_2026" value="b"><label>Provavelmente vou votar</label></label>
+        <label class="opt"><input type="radio" name="vote_2026" value="c"><label>Não tenho certeza</label></label>
+        <label class="opt"><input type="radio" name="vote_2026" value="d"><label>Provavelmente não vou votar</label></label>
+        <label class="opt"><input type="radio" name="vote_2026" value="e"><label>Não poderei votar em 2026</label></label>
+        <label class="opt"><input type="radio" name="vote_2026" value="f"><label>Não sabe</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-vote">Por favor, responda a pergunta acima.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(45)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['vote_2026'], 'alert-vote', 47)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-47">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Você gostaria de participar de um grupo de WhatsApp que fará checagem de informações duvidosas sobre as eleições de 2026?</div>
+      <div class="options" id="q-whatsapp_fact_check" onchange="onWhatsappChange()">
+        <label class="opt"><input type="radio" name="whatsapp_fact_check" value="sim"><label>Sim</label></label>
+        <label class="opt"><input type="radio" name="whatsapp_fact_check" value="nao"><label>Não</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-whatsapp_number" style="display:none;">
+      <div class="question-text">Por favor, informe seu número de WhatsApp:</div>
+      <input type="text" id="whatsapp-number" placeholder="(DDD) número" inputmode="tel">
+    </div>
+    <div class="alert" id="alert-wa">Por favor, responda a pergunta acima.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(46)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateWhatsapp(48)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-48">
+  <div class="card">
+    <div class="question-block">
+      <div class="question-text">Nos últimos 7 dias, com que frequência você fez cada uma das coisas abaixo?</div>
+      <div class="question-subtext">Marque uma resposta por linha.</div>
+      <div style="overflow-x:auto;"><table class="grid-table rand-rows" id="media-diet-table">
+        <thead><tr><th>Afirmação</th><th>Nunca</th><th>Uma vez na semana</th><th>Entre 2 e 3 dias na semana</th><th>Entre 4 e 5 dias na semana</th><th>Praticamente todos os dias da semana</th></tr></thead>
+        <tbody>
+            <tr><td class="m7n">Li posts ou assisti vídeos, podcasts ou lives que davam dicas sobre como ser homem numa sociedade que quer acabar com a masculinidade.</td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="1"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="2"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="3"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="4"></td><td style="text-align:center;"><input type="radio" name="media_diet_masc" value="5"></td></tr>
+            <tr><td class="m7n">Li posts ou assisti vídeos, podcasts ou lives que falavam sobre empoderamento feminino e igualdade de gênero.</td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="1"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="2"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="3"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="4"></td><td style="text-align:center;"><input type="radio" name="media_diet_fem" value="5"></td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="alert" id="alert-md">Por favor, responda todas as linhas.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(47)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 49)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-49">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
     <div class="intro-sub">
-      Você concluiu a pesquisa. Suas respostas foram registradas com sucesso.<br><br>
-      Sua participação é muito importante para a nossa pesquisa sobre mídia e informação no Brasil.<br><br>
+      Você concluiu a pesquisa. Suas respostas foram registradas com sucesso.
+    </div>
+    <div style="margin-top:22px; padding:18px 22px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; text-align:left; font-size:0.92rem; line-height:1.5; color:#1e3a5f;">
+      <strong>Esclarecimento importante</strong><br><br>
+      Obrigado por participar no nosso estudo. Agora que respondeu às nossas perguntas, gostaríamos de esclarecer alguns pontos importantes sobre os materiais que viu. Algumas imagens que você viu reproduziam conteúdos falsos que circulam na internet. Por favor, ignore o conteúdo, uma vez que estas mensagens que circulam na Internet contêm informação falsa. Em algumas semanas o seu professor irá entregar um material mostrando quais imagens eram falsas.
+    </div>
+    <div class="intro-sub" style="margin-top:18px;">
       <strong>Você pode fechar esta página.</strong>
     </div>
     <div id="submit-error" style="display:none; margin-top:20px; padding:16px 18px; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; color:#b91c1c; font-size:0.86rem; line-height:1.4;">
@@ -1717,6 +1848,8 @@ function onStudentChange(){ const sel=document.getElementById('student-select').
 function checkIdentifiers(){ const t=document.getElementById('teacher-select').value, s=document.getElementById('school-select').value, st=document.getElementById('student-select').value, nn=document.getElementById('new-name-input').value.trim(); return !!(t&&s&&st&&(st!=='__other__'||nn)); }
 
 function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
+function onWhatsappChange(){ const v=document.querySelector('input[name="whatsapp_fact_check"]:checked')?.value; document.getElementById('block-whatsapp_number').style.display = v==='sim'?'block':'none'; }
+function validateWhatsapp(next){ const a=document.getElementById('alert-wa'); const w=document.querySelector('input[name="whatsapp_fact_check"]:checked'); if(!w){ a.classList.add('show'); return; } a.classList.remove('show'); responses.whatsapp_fact_check=w.value; responses.whatsapp_number=document.getElementById('whatsapp-number')?.value||''; goTo(next); }
 function onPetitionChange(){ const v=document.querySelector('input[name="petition"]:checked')?.value; document.getElementById('block-petition_text').style.display = v==='sim'?'block':'none'; }
 
 // ── VALIDATORS ──
@@ -1790,7 +1923,7 @@ function validatePetition(next) {
 // ── FINAL: collect + (pipeline-injected submit) + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
-  if (n === 44) {
+  if (n === 49) {
     collectAllResponses();
     showSummary();
   }

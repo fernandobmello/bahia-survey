@@ -1714,6 +1714,7 @@ const origGoTo = goTo;
 window.goTo = function(n) {
   if (n === 46) {
     collectAllResponses();
+    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);

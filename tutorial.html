@@ -484,7 +484,7 @@ body {
       </div>
     </div>
 
-    <!-- 5. WhatsApp conjoint – 3 pares reais -->
+    <!-- 5. WhatsApp conjoint – 3 pares, 1 imagem por vez -->
     <div class="slide" data-step="5">
       <div class="pane-mock">
         <div class="browser">
@@ -492,45 +492,21 @@ body {
             <div class="browser-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
             <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Mensagens do WhatsApp</div>
           </div>
-          <div class="browser-body">
-            <div class="s-title" style="font-size:12px;margin-bottom:6px;">Em qual dessas postagens você confiaria mais? (exemplos reais — alterne os pares)</div>
-            <div class="conj-tabs">
-              <button class="conj-tab active" onclick="showConj(0,this)">Par 1</button>
-              <button class="conj-tab" onclick="showConj(1,this)">Par 2</button>
-              <button class="conj-tab" onclick="showConj(2,this)">Par 3</button>
+          <div class="browser-body" style="padding:12px 10px;">
+            <!-- header with pair counter -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div id="conj-counter" style="font-size:11px;font-weight:700;color:var(--cobalt);">Par 1 · Mensagem 1 de 2</div>
+              <div id="conj-badge-wrap"></div>
             </div>
-            <!-- Par 0: t1_g1_high vs f1_no_source_high -->
-            <div class="conj-pair" id="conj-0">
-              <div class="conj-card trusted">
-                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t1_g1_high.jpg" alt="t1 G1" loading="lazy">
-                <div class="conj-footer"><span class="conj-badge green">✓ Fonte: G1</span></div>
-              </div>
-              <div class="conj-card suspect">
-                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/f1_no_source_high.jpg" alt="f1 sem fonte" loading="lazy">
-                <div class="conj-footer"><span class="conj-badge red">✗ Sem fonte</span></div>
-              </div>
+            <!-- single image display -->
+            <div id="conj-img-wrap" style="border:2px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px;transition:border-color .2s;">
+              <img id="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t1_g1_high.jpg" alt="conjoint" style="width:100%;display:block;" loading="lazy">
             </div>
-            <!-- Par 1: t2_g1_high vs f2_no_source_high -->
-            <div class="conj-pair" id="conj-1" style="display:none;">
-              <div class="conj-card trusted">
-                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t2_g1_high.jpg" alt="t2 G1" loading="lazy">
-                <div class="conj-footer"><span class="conj-badge green">✓ Fonte: G1</span></div>
-              </div>
-              <div class="conj-card suspect">
-                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/f2_no_source_high.jpg" alt="f2 sem fonte" loading="lazy">
-                <div class="conj-footer"><span class="conj-badge red">✗ Sem fonte</span></div>
-              </div>
-            </div>
-            <!-- Par 2: t3_post_source_high vs f3_post_high -->
-            <div class="conj-pair" id="conj-2" style="display:none;">
-              <div class="conj-card trusted">
-                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t3_post_source_high.jpg" alt="t3 post com fonte" loading="lazy">
-                <div class="conj-footer"><span class="conj-badge green">✓ Post c/ fonte</span></div>
-              </div>
-              <div class="conj-card suspect">
-                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/f3_post_high.jpg" alt="f3 post sem fonte" loading="lazy">
-                <div class="conj-footer"><span class="conj-badge red">✗ Post s/ fonte</span></div>
-              </div>
+            <!-- inner nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <button id="conj-prev-btn" onclick="conjNav(-1)" style="padding:6px 14px;border-radius:7px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--ink-2);cursor:pointer;">← Anterior</button>
+              <div id="conj-dots" style="display:flex;gap:5px;align-items:center;"></div>
+              <button id="conj-next-btn" onclick="conjNav(1)" style="padding:6px 14px;border-radius:7px;border:1.5px solid var(--cobalt);background:var(--cobalt);font-size:12px;font-weight:600;color:#fff;cursor:pointer;">Próxima →</button>
             </div>
           </div>
         </div>
@@ -539,10 +515,10 @@ body {
         <div class="step-eyebrow">Passo 5 de 9</div>
         <div class="step-title">Comparando mensagens de WhatsApp</div>
         <div class="callouts">
-          <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você receberá <strong>6 pares de postagens</strong> estilo WhatsApp. Cada par mostra a mesma notícia em formatos diferentes.</div></div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você verá <strong>6 pares de postagens</strong>. Cada par aparece <strong>uma mensagem por vez</strong> — primeiro a mensagem A, depois clique em "Próxima" para ver a mensagem B.</div></div>
           <div class="callout"><div class="callout-num verdade">2</div><div class="callout-text"><strong>Sinais de credibilidade:</strong> logo do G1 ou outro veículo identificado, fonte clara, data de publicação.</div></div>
-          <div class="callout"><div class="callout-num falso">3</div><div class="callout-text"><strong>Sinais de alerta:</strong> sem nome do veículo, letras maiúsculas excessivas, "compartilhe antes que apaguem", linguagem de urgência.</div></div>
-          <div class="callout"><div class="callout-num amber">4</div><div class="callout-text">Posts com <strong>logo do G1</strong> na imagem indicam que a reportagem foi publicada por um portal verificado. Isso aumenta a credibilidade.</div></div>
+          <div class="callout"><div class="callout-num falso">3</div><div class="callout-text"><strong>Sinais de alerta:</strong> sem nome do veículo, letras maiúsculas, "compartilhe antes que apaguem", linguagem de urgência e medo.</div></div>
+          <div class="callout"><div class="callout-num amber">4</div><div class="callout-text">Posts com <strong>logo do G1</strong> na imagem indicam que a reportagem foi publicada por um portal verificado — use isso como sinal de credibilidade.</div></div>
         </div>
       </div>
     </div>
@@ -803,13 +779,40 @@ function navigate(dir) {
   goTo(current+dir);
 }
 
-function showConj(idx, btn) {
-  [0,1,2].forEach(i => {
-    document.getElementById('conj-'+i).style.display = i===idx ? 'grid' : 'none';
-  });
-  btn.closest('.browser-body').querySelectorAll('.conj-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
+// Conjoint one-at-a-time navigation
+const CONJ_IMAGES = [
+  { src:'https://fernandobmello.github.io/bahia-survey/assets/t1_g1_high.jpg',      pair:1, pos:1, badge:'✓ Fonte: G1',   good:true  },
+  { src:'https://fernandobmello.github.io/bahia-survey/assets/f1_no_source_high.jpg', pair:1, pos:2, badge:'✗ Sem fonte',  good:false },
+  { src:'https://fernandobmello.github.io/bahia-survey/assets/t2_g1_high.jpg',      pair:2, pos:1, badge:'✓ Fonte: G1',   good:true  },
+  { src:'https://fernandobmello.github.io/bahia-survey/assets/f2_no_source_high.jpg', pair:2, pos:2, badge:'✗ Sem fonte',  good:false },
+  { src:'https://fernandobmello.github.io/bahia-survey/assets/t3_post_source_high.jpg', pair:3, pos:1, badge:'✓ Post c/ fonte', good:true },
+  { src:'https://fernandobmello.github.io/bahia-survey/assets/f3_post_high.jpg',    pair:3, pos:2, badge:'✗ Post s/ fonte', good:false },
+];
+let conjIdx = 0;
+
+function renderConj() {
+  const c = CONJ_IMAGES[conjIdx];
+  document.getElementById('conj-img').src = c.src;
+  document.getElementById('conj-counter').textContent = `Par ${c.pair} · Mensagem ${c.pos} de 2`;
+  const wrap = document.getElementById('conj-img-wrap');
+  wrap.style.borderColor = c.good ? 'var(--verdade)' : 'var(--falso)';
+  const bw = document.getElementById('conj-badge-wrap');
+  bw.innerHTML = `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:${c.good?'var(--verdade-light)':'var(--falso-light)'};color:${c.good?'var(--verdade)':'var(--falso)'};">${c.badge}</span>`;
+  document.getElementById('conj-prev-btn').style.opacity = conjIdx===0 ? '.35' : '1';
+  document.getElementById('conj-prev-btn').style.pointerEvents = conjIdx===0 ? 'none' : '';
+  document.getElementById('conj-next-btn').textContent = conjIdx===CONJ_IMAGES.length-1 ? 'Fim ✓' : 'Próxima →';
+  // dots
+  const dd = document.getElementById('conj-dots');
+  dd.innerHTML = CONJ_IMAGES.map((_,i) => `<span style="width:6px;height:6px;border-radius:50%;background:${i===conjIdx?'var(--cobalt)':'var(--border)'};display:inline-block;"></span>`).join('');
 }
+
+function conjNav(dir) {
+  conjIdx = Math.max(0, Math.min(CONJ_IMAGES.length-1, conjIdx+dir));
+  renderConj();
+}
+
+// init after DOM ready
+setTimeout(renderConj, 0);
 
 function showOpin(idx, btn) {
   [0,1].forEach(i => {

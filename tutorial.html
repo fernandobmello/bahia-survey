@@ -1,6 +1,6 @@
 <title>Como Responder a Pesquisa</title>
 <style>
-/* ── Design tokens ──────────────────────────────────────── */
+/* ── Tokens ─────────────────────────────────────────────── */
 :root {
   --cobalt:       #1659C5;
   --cobalt-light: #E6EEFB;
@@ -18,497 +18,281 @@
   --border:       #DDE3EE;
   --shadow-sm:    0 1px 4px rgba(22,89,197,.06), 0 2px 12px rgba(0,0,0,.06);
   --shadow-md:    0 4px 24px rgba(22,89,197,.10), 0 2px 8px rgba(0,0,0,.08);
-  --r:            10px;
+  --r: 10px;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --cobalt:       #5B8EF0;
-    --cobalt-light: #0E1E40;
-    --amber:        #F0AD30;
-    --amber-light:  #2A1E04;
-    --verdade:      #38C078;
-    --verdade-light:#082818;
-    --falso:        #E05040;
-    --falso-light:  #280A06;
-    --ink:          #DCE2EE;
-    --ink-2:        #8892A4;
-    --ink-3:        #545F74;
-    --paper:        #0D1222;
-    --surface:      #141C30;
-    --border:       #212C44;
-    --shadow-sm:    0 1px 4px rgba(0,0,0,.3), 0 2px 12px rgba(0,0,0,.3);
-    --shadow-md:    0 4px 24px rgba(0,0,0,.4), 0 2px 8px rgba(0,0,0,.3);
-  }
-}
+@media (prefers-color-scheme: dark) { :root {
+  --cobalt:#5B8EF0;--cobalt-light:#0E1E40;--amber:#F0AD30;--amber-light:#2A1E04;
+  --verdade:#38C078;--verdade-light:#082818;--falso:#E05040;--falso-light:#280A06;
+  --ink:#DCE2EE;--ink-2:#8892A4;--ink-3:#545F74;--paper:#0D1222;--surface:#141C30;
+  --border:#212C44;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.3),0 2px 12px rgba(0,0,0,.3);
+  --shadow-md:0 4px 24px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
+}}
 :root[data-theme="light"] {
   --cobalt:#1659C5;--cobalt-light:#E6EEFB;--amber:#E09820;--amber-light:#FDF3DC;
   --verdade:#1A7A4A;--verdade-light:#E4F3EC;--falso:#C0391B;--falso-light:#FBEAE6;
   --ink:#1C2030;--ink-2:#4A5368;--ink-3:#8892A4;--paper:#F4F6FA;--surface:#FFFFFF;
-  --border:#DDE3EE;--shadow-sm:0 1px 4px rgba(22,89,197,.06),0 2px 12px rgba(0,0,0,.06);
-  --shadow-md:0 4px 24px rgba(22,89,197,.10),0 2px 8px rgba(0,0,0,.08);
+  --border:#DDE3EE;
 }
 :root[data-theme="dark"] {
   --cobalt:#5B8EF0;--cobalt-light:#0E1E40;--amber:#F0AD30;--amber-light:#2A1E04;
   --verdade:#38C078;--verdade-light:#082818;--falso:#E05040;--falso-light:#280A06;
   --ink:#DCE2EE;--ink-2:#8892A4;--ink-3:#545F74;--paper:#0D1222;--surface:#141C30;
-  --border:#212C44;--shadow-sm:0 1px 4px rgba(0,0,0,.3),0 2px 12px rgba(0,0,0,.3);
-  --shadow-md:0 4px 24px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
+  --border:#212C44;
 }
 
-/* ── Reset & base ───────────────────────────────────────── */
+/* ── Base ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; overflow: hidden; }
 body {
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 15px;
-  line-height: 1.5;
+  background: var(--paper); color: var(--ink);
+  font-size: 15px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
-/* ── Layout shell ───────────────────────────────────────── */
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden;
-}
+/* ── Shell ──────────────────────────────────────────────── */
+#app { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
 /* ── Top bar ────────────────────────────────────────────── */
 #topbar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  z-index: 10;
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 24px;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0; z-index: 10;
 }
-#topbar .logo {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--cobalt);
-}
-#progress-track {
-  flex: 1;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-#progress-fill {
-  height: 100%;
-  background: var(--cobalt);
-  border-radius: 2px;
-  transition: width .4s ease;
-}
-#step-label {
-  font-size: 12px;
-  color: var(--ink-3);
-  font-weight: 500;
-  white-space: nowrap;
-  letter-spacing: .03em;
-}
+#topbar .logo { font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--cobalt); white-space: nowrap; }
+#progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+#progress-fill { height: 100%; background: var(--cobalt); border-radius: 2px; transition: width .4s ease; }
+#step-label { font-size: 12px; color: var(--ink-3); font-weight: 500; white-space: nowrap; }
 
-/* ── Slide area ─────────────────────────────────────────── */
+/* ── Slides ─────────────────────────────────────────────── */
 #slides { flex: 1; overflow: hidden; position: relative; }
 .slide {
   position: absolute; inset: 0;
-  display: grid;
-  grid-template-columns: 55fr 45fr;
-  gap: 0;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(32px);
-  transition: opacity .35s ease, transform .35s ease;
+  display: grid; grid-template-columns: 54fr 46fr;
+  opacity: 0; pointer-events: none;
+  transform: translateX(28px);
+  transition: opacity .32s ease, transform .32s ease;
 }
-.slide.active {
-  opacity: 1; pointer-events: all; transform: translateX(0);
-}
-.slide.out {
-  opacity: 0; transform: translateX(-32px);
-}
+.slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+.slide.out    { opacity: 0; transform: translateX(-28px); }
 
-/* mockup pane */
+/* panes */
 .pane-mock {
-  padding: 28px 20px 20px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--paper);
-  border-right: 1px solid var(--border);
+  padding: 20px 16px 16px 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper); border-right: 1px solid var(--border);
   overflow: hidden;
+}
+.pane-info {
+  padding: 28px 24px 16px 20px;
+  display: flex; flex-direction: column; gap: 0;
+  overflow-y: auto; background: var(--surface);
 }
 
 /* browser frame */
 .browser {
-  width: 100%;
-  max-width: 400px;
-  background: var(--surface);
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
+  width: 100%; max-width: 390px;
+  background: var(--surface); border-radius: 12px;
+  box-shadow: var(--shadow-md); overflow: hidden;
   border: 1px solid var(--border);
 }
 .browser-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 12px;
-  background: var(--paper);
-  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; background: var(--paper); border-bottom: 1px solid var(--border);
 }
-.browser-dots { display: flex; gap: 5px; }
-.browser-dots span {
-  width: 10px; height: 10px; border-radius: 50%;
-}
-.d1 { background: #E05040; } .d2 { background: #E09820; } .d3 { background: #38C078; }
+.browser-dots { display: flex; gap: 4px; }
+.browser-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.d1{background:#E05040;} .d2{background:#E09820;} .d3{background:#38C078;}
 .browser-url {
-  flex: 1;
-  font-size: 11px;
-  color: var(--ink-3);
-  background: var(--border);
-  padding: 3px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex: 1; font-size: 10px; color: var(--ink-3); background: var(--border);
+  padding: 3px 8px; border-radius: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.browser-body { padding: 20px 18px; }
+.browser-body { padding: 16px 14px; }
 
-/* annotation pane */
-.pane-info {
-  padding: 32px 28px 20px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  overflow-y: auto;
-  background: var(--surface);
-}
-.step-eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--cobalt);
-  margin-bottom: 6px;
-}
-.step-title {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.25;
-  text-wrap: balance;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
-.callouts { display: flex; flex-direction: column; gap: 14px; flex: 1; }
-.callout {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
+/* info panel */
+.step-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--cobalt); margin-bottom: 5px; }
+.step-title { font-size: 20px; font-weight: 700; line-height: 1.25; text-wrap: balance; margin-bottom: 16px; }
+.callouts { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.callout { display: flex; gap: 10px; align-items: flex-start; }
 .callout-num {
-  flex-shrink: 0;
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  background: var(--cobalt);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px;
+  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--cobalt); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px;
 }
-.callout-num.amber { background: var(--amber); }
-.callout-num.verdade { background: var(--verdade); }
-.callout-num.falso { background: var(--falso); }
-.callout-text { font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+.callout-num.amber  { background: var(--amber); }
+.callout-num.verdade{ background: var(--verdade); }
+.callout-num.falso  { background: var(--falso); }
+.callout-text { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
 .callout-text strong { color: var(--ink); font-weight: 600; }
-
 .tip-box {
-  margin-top: 18px;
-  padding: 12px 14px;
-  background: var(--amber-light);
-  border-left: 3px solid var(--amber);
-  border-radius: 0 6px 6px 0;
-  font-size: 13px;
-  color: var(--ink-2);
-  line-height: 1.5;
+  margin-top: 14px; padding: 11px 13px;
+  background: var(--amber-light); border-left: 3px solid var(--amber);
+  border-radius: 0 6px 6px 0; font-size: 13px; color: var(--ink-2); line-height: 1.5;
 }
 .tip-box strong { color: var(--ink); }
 
 /* ── Bottom nav ─────────────────────────────────────────── */
 #bottomnav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 28px;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 24px; background: var(--surface); border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
 .nav-btn {
-  display: flex; align-items: center; gap: 7px;
-  padding: 8px 20px;
-  border-radius: 8px;
-  border: 1.5px solid var(--border);
-  background: var(--surface);
-  color: var(--ink-2);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 18px; border-radius: 8px;
+  border: 1.5px solid var(--border); background: var(--surface);
+  color: var(--ink-2); font-size: 13.5px; font-weight: 600; cursor: pointer;
   transition: background .15s, border-color .15s, color .15s;
 }
 .nav-btn:hover { background: var(--cobalt-light); border-color: var(--cobalt); color: var(--cobalt); }
 .nav-btn:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
-.nav-btn.primary {
-  background: var(--cobalt); border-color: var(--cobalt); color: #fff;
-}
+.nav-btn.primary { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
 .nav-btn.primary:hover { background: #1248A8; border-color: #1248A8; }
-.dots { display: flex; gap: 8px; align-items: center; }
+.dots { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; justify-content: center; }
 .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--border);
-  cursor: pointer;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--border); cursor: pointer;
   transition: background .2s, transform .2s;
 }
-.dot.active { background: var(--cobalt); transform: scale(1.3); }
+.dot.active { background: var(--cobalt); transform: scale(1.4); }
 
-/* ── Survey UI elements ─────────────────────────────────── */
-.s-label {
-  font-size: 13px; font-weight: 600; color: var(--ink);
-  margin-bottom: 7px; display: block;
-}
+/* ── Survey UI ──────────────────────────────────────────── */
+.s-label { font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 6px; display: block; }
 .s-select {
-  width: 100%;
-  padding: 9px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: 7px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 13px;
+  width: 100%; padding: 8px 10px; border: 1.5px solid var(--border);
+  border-radius: 7px; background: var(--paper); color: var(--ink); font-size: 12px;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238892A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
 }
-.s-section { margin-bottom: 16px; }
+.s-section { margin-bottom: 12px; }
 .s-opt {
-  display: flex; align-items: center; gap: 9px;
-  padding: 8px 10px;
-  border-radius: 7px;
-  margin-bottom: 4px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background .12s;
-  border: 1.5px solid transparent;
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 9px; border-radius: 7px; margin-bottom: 4px;
+  font-size: 12px; cursor: pointer;
+  border: 1.5px solid transparent; transition: background .12s;
 }
 .s-opt:hover { background: var(--cobalt-light); }
 .s-opt.correct { background: var(--verdade-light); border-color: var(--verdade); }
-.s-opt.wrong { background: var(--falso-light); }
-.s-opt input[type=radio], .s-opt input[type=checkbox] {
-  accent-color: var(--cobalt); flex-shrink: 0;
-}
+.s-opt input[type=radio], .s-opt input[type=checkbox] { accent-color: var(--cobalt); flex-shrink: 0; }
 .s-opt.correct input { accent-color: var(--verdade); }
-.s-badge {
-  margin-left: auto;
-  font-size: 11px; font-weight: 700;
-  padding: 2px 8px; border-radius: 20px;
-  background: var(--verdade); color: #fff;
-  letter-spacing: .04em;
-}
-.s-input {
-  width: 100%;
-  padding: 9px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: 7px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 13px;
-}
-.s-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 14px; line-height: 1.4; }
-.s-subtitle { font-size: 12px; color: var(--ink-3); margin-top: -10px; margin-bottom: 14px; }
-.divider { height: 1px; background: var(--border); margin: 14px 0; }
+.s-badge { margin-left: auto; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: var(--verdade); color: #fff; }
+.s-input { width: 100%; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 7px; background: var(--paper); color: var(--ink); font-size: 12px; }
+.s-title { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.4; }
+.divider { height: 1px; background: var(--border); margin: 10px 0; }
+.student-list { max-height: 130px; overflow-y: auto; margin-bottom: 8px; }
 
-/* Discernment scale */
-.disc-card {
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 12px;
+/* ── Discernment items ──────────────────────────────────── */
+.disc-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.disc-scroll::-webkit-scrollbar { height: 4px; }
+.disc-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.disc-item { flex-shrink: 0; width: 140px; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+.disc-item.is-true  { border-color: var(--verdade); }
+.disc-item.is-false { border-color: var(--falso); }
+.disc-img-wrap { width: 100%; height: 90px; overflow: hidden; background: var(--paper); }
+.disc-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.disc-truth {
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px 8px; font-size: 10px; font-weight: 700; letter-spacing: .04em;
 }
-.disc-img {
-  width: 100%;
-  height: 80px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; text-align: center;
-  padding: 10px;
-  line-height: 1.35;
-}
-.disc-img.true-bg { background: var(--verdade-light); color: var(--verdade); }
-.disc-img.false-bg { background: var(--falso-light); color: var(--falso); }
+.disc-truth.true  { background: var(--verdade); color: #fff; }
+.disc-truth.false { background: var(--falso);   color: #fff; }
+.disc-label { padding: 5px 8px 7px; font-size: 10px; line-height: 1.4; color: var(--ink-2); }
 .disc-scale {
   display: grid; grid-template-columns: repeat(4,1fr);
   border-top: 1px solid var(--border);
 }
 .disc-btn {
-  padding: 8px 4px;
-  text-align: center;
-  font-size: 13px; font-weight: 600;
-  border-right: 1px solid var(--border);
-  cursor: pointer;
-  transition: background .12s;
-  color: var(--ink-2);
+  padding: 5px 3px; text-align: center; font-size: 11px; font-weight: 700;
+  border-right: 1px solid var(--border); cursor: pointer; color: var(--ink-3);
 }
 .disc-btn:last-child { border-right: none; }
-.disc-btn.sel-correct { background: var(--verdade); color: #fff; }
-.disc-btn.sel-wrong   { background: var(--falso);   color: #fff; }
-.disc-labels {
-  display: flex; justify-content: space-between;
-  padding: 4px 10px 8px;
-  font-size: 10px; color: var(--ink-3);
-}
-.truth-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 11px; font-weight: 700;
-  padding: 3px 10px; border-radius: 20px;
-  margin-bottom: 6px;
-}
-.truth-badge.true { background: var(--verdade); color: #fff; }
-.truth-badge.false { background: var(--falso); color: #fff; }
+.disc-btn.sel-t { background: var(--verdade); color: #fff; }
+.disc-btn.sel-f { background: var(--falso);   color: #fff; }
 
-/* WhatsApp conjoint */
-.wa-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.wa-card {
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  font-size: 11px;
-  position: relative;
+/* ── Conjoint pairs ─────────────────────────────────────── */
+.conj-tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.conj-tab {
+  padding: 4px 11px; border-radius: 20px; border: 1.5px solid var(--border);
+  font-size: 11px; font-weight: 600; cursor: pointer; color: var(--ink-3);
+  transition: all .15s;
 }
-.wa-card.trusted { border-color: var(--verdade); }
-.wa-card.suspect  { border-color: var(--falso); }
-.wa-img {
-  height: 72px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; letter-spacing: .05em;
-  text-transform: uppercase; position: relative;
+.conj-tab.active { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.conj-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.conj-card { border: 1.5px solid var(--border); border-radius: 9px; overflow: hidden; font-size: 11px; }
+.conj-card.trusted { border-color: var(--verdade); }
+.conj-card.suspect { border-color: var(--falso); }
+.conj-img { width: 100%; height: auto; display: block; }
+.conj-footer { padding: 6px 8px; display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.conj-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; display: inline-block;
 }
-.wa-img.has-g1 { background: var(--verdade-light); color: var(--verdade); }
-.wa-img.no-src { background: #F0F2F8; color: var(--ink-3); }
-.wa-img.no-src.dark-wa { background: #1C2030; color: #545F74; }
-.g1-logo {
-  position: absolute; top: 6px; right: 6px;
-  background: #CC0000; color: #fff;
-  font-size: 9px; font-weight: 800;
-  padding: 2px 6px; border-radius: 4px;
-  letter-spacing: .06em;
-}
-.wa-body { padding: 8px; }
-.wa-headline { font-weight: 600; color: var(--ink); line-height: 1.3; margin-bottom: 4px; font-size: 11px; }
-.wa-meta { font-size: 10px; color: var(--ink-3); }
-.wa-meta.red { color: var(--falso); font-weight: 600; }
-.wa-indicator {
-  margin-top: 5px;
-  font-size: 10px; font-weight: 700;
-  padding: 2px 7px; border-radius: 20px;
-  display: inline-block;
-}
-.wa-indicator.green { background: var(--verdade-light); color: var(--verdade); }
-.wa-indicator.red   { background: var(--falso-light);   color: var(--falso);   }
+.conj-badge.green { background: var(--verdade-light); color: var(--verdade); }
+.conj-badge.red   { background: var(--falso-light);   color: var(--falso); }
 
-/* Opinion vs News */
-.article-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.article-card {
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  font-size: 11px;
+/* ── Opinion pairs ──────────────────────────────────────── */
+.opin-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.opin-tab {
+  padding: 4px 11px; border-radius: 20px; border: 1.5px solid var(--border);
+  font-size: 11px; font-weight: 600; cursor: pointer; color: var(--ink-3); transition: all .15s;
 }
-.article-tag {
-  padding: 5px 10px;
-  font-size: 10px; font-weight: 800;
-  letter-spacing: .08em; text-transform: uppercase;
-}
-.article-tag.news    { background: var(--cobalt); color: #fff; }
-.article-tag.opinion { background: var(--amber);  color: #fff; }
-.article-body { padding: 10px; }
-.article-headline { font-weight: 700; color: var(--ink); font-size: 12px; line-height: 1.3; margin-bottom: 6px; }
-.article-byline  { font-size: 10px; color: var(--ink-3); margin-bottom: 5px; }
-.article-text { font-size: 10px; color: var(--ink-2); line-height: 1.4; }
-.article-text em { color: var(--amber); font-style: normal; font-weight: 600; }
+.opin-tab.active { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.opin-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.opin-card { border: 1.5px solid var(--border); border-radius: 9px; overflow: hidden; }
+.opin-tag { padding: 4px 10px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.opin-tag.news    { background: var(--cobalt); color: #fff; }
+.opin-tag.opinion { background: var(--amber);  color: #fff; }
+.opin-img { width: 100%; height: auto; display: block; }
 
-/* Fake post annotations */
-.fake-post {
-  background: #E8F5E9;
-  border-radius: 10px;
-  padding: 12px;
-  position: relative;
-  border: 2px solid var(--falso);
-  font-size: 12px;
+/* ── Confirmation bias ──────────────────────────────────── */
+.bias-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.bias-card {
+  border: 1.5px solid var(--border); border-radius: 9px; overflow: hidden; font-size: 11px;
 }
-.fake-post-header {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 8px;
+.bias-header { padding: 6px 9px; font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.bias-header.a  { background: var(--cobalt-light); color: var(--cobalt); }
+.bias-header.b  { background: var(--falso-light);  color: var(--falso); }
+.bias-img-wrap { height: 70px; overflow: hidden; background: var(--paper); }
+.bias-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.bias-body { padding: 7px 9px; }
+.bias-truth { font-size: 10px; font-weight: 700; }
+.bias-truth.true  { color: var(--verdade); }
+.bias-truth.false { color: var(--falso); }
+.bias-response {
+  margin-top: 4px; font-size: 10px;
+  padding: 3px 7px; border-radius: 5px; display: inline-block; font-weight: 600;
 }
-.fake-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--ink-3);
-}
-.fake-name { font-size: 11px; font-weight: 700; color: var(--ink); }
-.fake-text { line-height: 1.45; color: var(--ink); margin-bottom: 8px; }
-.fake-text .caps    { color: var(--falso); font-weight: 800; }
-.fake-text .emocao  { background: var(--falso-light); border-radius: 3px; padding: 0 2px; }
-.fake-text .erro    { text-decoration: underline wavy var(--falso); }
-.annotation-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 10px; font-weight: 700;
-  padding: 2px 8px; border-radius: 20px;
-  background: var(--falso); color: #fff;
-  margin: 2px;
-}
-.annotation-chips { margin-top: 8px; }
+.bias-response.wrong { background: var(--falso-light); color: var(--falso); }
+.bias-response.right { background: var(--verdade-light); color: var(--verdade); }
+.bias-arrow { text-align: center; padding: 4px 0; font-size: 13px; color: var(--amber); font-weight: 700; }
 
-/* Student list mockup */
-.student-list { max-height: 150px; overflow-y: auto; margin-bottom: 10px; }
-.student-list .s-opt { font-size: 12px; padding: 6px 10px; }
-.write-name-box {
-  background: var(--amber-light);
-  border: 1.5px dashed var(--amber);
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 12px;
-}
-.write-name-box .wn-label { font-weight: 700; color: var(--amber); margin-bottom: 7px; font-size: 11px; }
+/* write-in box */
+.write-name-box { background: var(--amber-light); border: 1.5px dashed var(--amber); border-radius: 8px; padding: 9px; font-size: 12px; }
+.write-name-box .wn-label { font-weight: 700; color: var(--amber); margin-bottom: 6px; font-size: 10.5px; }
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 680px) {
-  .slide { grid-template-columns: 1fr; grid-template-rows: 1fr auto; overflow-y: auto; }
-  .pane-mock { padding: 16px; border-right: none; border-bottom: 1px solid var(--border); }
-  .pane-info { padding: 16px; }
-  .step-title { font-size: 18px; }
+  .slide { grid-template-columns: 1fr; grid-template-rows: auto 1fr; overflow-y: auto; }
+  .pane-mock { border-right: none; border-bottom: 1px solid var(--border); padding: 14px; }
+  .pane-info { padding: 14px; }
+  .step-title { font-size: 17px; }
 }
 </style>
 
 <div id="app">
-  <!-- Top bar -->
   <div id="topbar">
     <span class="logo">Tutorial da Pesquisa</span>
-    <div id="progress-track"><div id="progress-fill" style="width:14%"></div></div>
-    <span id="step-label">Passo 1 de 7</span>
+    <div id="progress-track"><div id="progress-fill" style="width:11%"></div></div>
+    <span id="step-label">Passo 1 de 9</span>
   </div>
 
-  <!-- Slides -->
   <div id="slides">
 
-    <!-- ── Slide 1: Encontrar o professor ── -->
+    <!-- 1. Encontrar professor -->
     <div class="slide active" data-step="1">
       <div class="pane-mock">
         <div class="browser">
@@ -519,58 +303,34 @@ body {
           <div class="browser-body">
             <div class="s-section">
               <span class="s-label">🔍 Pesquise o nome do seu professor</span>
-              <input class="s-input" type="text" placeholder="Ex: JEAN LUCAS VINHAS…" value="ANA CARLA" style="border-color:var(--cobalt);box-shadow:0 0 0 3px var(--cobalt-light);">
+              <input class="s-input" type="text" value="ANA CARLA" style="border-color:var(--cobalt);box-shadow:0 0 0 3px var(--cobalt-light);">
             </div>
             <div class="s-section">
-              <span class="s-label" style="font-size:12px;color:var(--ink-3);">Resultados:</span>
-              <div class="s-opt correct" style="margin-bottom:6px;">
-                <input type="radio" checked> ANA CARLA BARBUDA DOS SANTOS
-                <span class="s-badge">✓</span>
-              </div>
-              <div class="s-opt" style="color:var(--ink-3);">
-                <input type="radio"> ANA CAROLINA SOUZA LIMA
-              </div>
+              <span class="s-label" style="font-size:11px;color:var(--ink-3);">Resultados:</span>
+              <div class="s-opt correct"><input type="radio" checked> ANA CARLA BARBUDA DOS SANTOS <span class="s-badge">✓</span></div>
+              <div class="s-opt" style="color:var(--ink-3);"><input type="radio"> ANA CAROLINA SOUZA LIMA</div>
             </div>
             <div class="divider"></div>
             <div class="s-section">
               <span class="s-label">Escola</span>
-              <select class="s-select">
-                <option>CENTRO EST DE EDUC PROF — NEWTON SUCUPIRA</option>
-              </select>
+              <select class="s-select"><option>COLEGIO ESTADUAL CLEONICE OLEGARIO DOS SANTOS</option></select>
             </div>
           </div>
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 1 de 7</div>
+        <div class="step-eyebrow">Passo 1 de 9</div>
         <div class="step-title">Encontrar o seu professor</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num">1</div>
-            <div class="callout-text">
-              <strong>Digite o nome do seu professor</strong> no campo de busca. Não precisa escrever o nome completo — as primeiras palavras já são suficientes para filtrar.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num">2</div>
-            <div class="callout-text">
-              <strong>Clique no nome correto</strong> na lista de resultados. Se dois professores tiverem nomes parecidos, verifique a escola antes de confirmar.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num">3</div>
-            <div class="callout-text">
-              A <strong>escola é preenchida automaticamente</strong>. Confira se está certa antes de avançar.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text"><strong>Digite o nome do seu professor</strong> no campo de busca. Não precisa escrever o nome completo.</div></div>
+          <div class="callout"><div class="callout-num">2</div><div class="callout-text"><strong>Clique no nome correto</strong> na lista. Se dois professores tiverem nomes parecidos, verifique a escola antes de confirmar.</div></div>
+          <div class="callout"><div class="callout-num">3</div><div class="callout-text">A <strong>escola é preenchida automaticamente</strong>. Confira se está certa antes de avançar.</div></div>
         </div>
-        <div class="tip-box">
-          <strong>Dica:</strong> Se não encontrar o nome do professor, tente variações da grafia — por exemplo, com ou sem acentos.
-        </div>
+        <div class="tip-box"><strong>Dica:</strong> Se não encontrar o nome, tente variações — com ou sem acentos.</div>
       </div>
     </div>
 
-    <!-- ── Slide 2: Selecionar o nome ── -->
+    <!-- 2. Selecionar nome -->
     <div class="slide" data-step="2">
       <div class="pane-mock">
         <div class="browser">
@@ -579,14 +339,13 @@ body {
             <div class="browser-url">fernandobmello.github.io/bahia-survey/ana-carla…</div>
           </div>
           <div class="browser-body">
-            <div class="s-title" style="font-size:14px;">Selecione seu nome na lista:</div>
+            <div class="s-title" style="font-size:13px;">Selecione seu nome na lista:</div>
             <div class="student-list">
               <div class="s-opt"><input type="radio"> ADRIANO DO VALE SOUSA</div>
               <div class="s-opt"><input type="radio"> ANA BEATRIZ SOUZA DOS SANTOS</div>
               <div class="s-opt correct"><input type="radio" checked> ANA CAROLINA DE JESUS DOS SANTOS <span class="s-badge">✓</span></div>
               <div class="s-opt"><input type="radio"> ARTHUR MACEDO DOS SANTOS</div>
               <div class="s-opt"><input type="radio"> CARMEN HELEN TEIXEIRA DA SILVA</div>
-              <div class="s-opt"><input type="radio" style="opacity:.4"> ⬇ role para ver mais…</div>
             </div>
             <div class="write-name-box">
               <div class="wn-label">⚠ Não encontrei meu nome na lista</div>
@@ -597,35 +356,18 @@ body {
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 2 de 7</div>
+        <div class="step-eyebrow">Passo 2 de 9</div>
         <div class="step-title">Encontrar ou escrever seu nome</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num">1</div>
-            <div class="callout-text">
-              <strong>Role a lista</strong> até encontrar seu nome. Os nomes estão em ordem alfabética.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num">2</div>
-            <div class="callout-text">
-              <strong>Clique no seu nome</strong> para selecioná-lo. O campo ficará destacado em verde.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num amber">3</div>
-            <div class="callout-text">
-              <strong>Se o seu nome não aparecer</strong>, vá até o final da lista, marque a opção <em>"Não encontrei meu nome"</em> e <strong>escreva seu nome completo</strong> no campo que aparece.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text"><strong>Role a lista</strong> até encontrar seu nome — estão em ordem alfabética.</div></div>
+          <div class="callout"><div class="callout-num">2</div><div class="callout-text"><strong>Clique no seu nome</strong> para selecioná-lo. O fundo ficará verde.</div></div>
+          <div class="callout"><div class="callout-num amber">3</div><div class="callout-text"><strong>Se não aparecer:</strong> marque "Não encontrei meu nome" e escreva o nome completo no campo que aparece.</div></div>
         </div>
-        <div class="tip-box">
-          <strong>Importante:</strong> Escreva seu nome exatamente como aparece no seu cadastro escolar, com nome e sobrenome.
-        </div>
+        <div class="tip-box"><strong>Importante:</strong> Escreva seu nome exatamente como no cadastro escolar, com nome e sobrenome.</div>
       </div>
     </div>
 
-    <!-- ── Slide 3: Questões gerais ── -->
+    <!-- 3. Questões gerais -->
     <div class="slide" data-step="3">
       <div class="pane-mock">
         <div class="browser">
@@ -634,46 +376,31 @@ body {
             <div class="browser-url">fernandobmello.github.io/bahia-survey/…</div>
           </div>
           <div class="browser-body">
-            <div class="s-title">Qual é a principal diferença entre <em>desinformação</em> e <em>informação falsa</em>?</div>
-            <div class="s-opt wrong"><input type="radio"> a) Desinformação é sempre sobre política</div>
-            <div class="s-opt wrong"><input type="radio"> b) Informação falsa é sempre intencional</div>
-            <div class="s-opt correct"><input type="radio" checked> c) Desinformação é falsa <strong>e intencional</strong>; info. falsa pode ser acidental <span class="s-badge">CORRETA</span></div>
-            <div class="s-opt wrong"><input type="radio"> d) São sinônimos perfeitos</div>
+            <div class="s-title">Qual é a principal diferença entre <em>desinformação</em> e <em>notícia falsa acidental</em>?</div>
+            <div class="s-opt" style="color:var(--ink-3);"><input type="radio"> a) Desinformação é sempre sobre política</div>
+            <div class="s-opt" style="color:var(--ink-3);"><input type="radio"> b) Informação falsa é sempre intencional</div>
+            <div class="s-opt correct"><input type="radio" checked> c) Desinformação é falsa <strong>e intencional</strong>; notícia falsa pode ser acidental <span class="s-badge">CORRETA</span></div>
+            <div class="s-opt" style="color:var(--ink-3);"><input type="radio"> d) São sinônimos perfeitos</div>
             <div class="divider"></div>
-            <div class="s-title" style="margin-top:4px;font-size:13px;">⚠ Atenção especial: uma pergunta vai pedir para selecionar <strong>"Discordo totalmente"</strong> — isso confirma que você está lendo as instruções.</div>
+            <div style="background:var(--amber-light);border-radius:8px;padding:10px;font-size:11.5px;color:var(--ink-2);line-height:1.5;">
+              ⚠ <strong>Atenção:</strong> Uma pergunta vai pedir para selecionar <strong>"Discordo totalmente"</strong> — isso confirma que você está lendo as instruções com atenção.
+            </div>
           </div>
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 3 de 7</div>
-        <div class="step-title">Respondendo as perguntas do questionário</div>
+        <div class="step-eyebrow">Passo 3 de 9</div>
+        <div class="step-title">Respondendo o questionário</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num">1</div>
-            <div class="callout-text">
-              Algumas perguntas testam seu conhecimento sobre <strong>mídia e desinformação</strong>. Leia todas as opções antes de marcar.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num verdade">2</div>
-            <div class="callout-text">
-              A resposta correta aparece <strong>destacada em verde</strong> neste tutorial. No questionário real, escolha a opção que você considera correta.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num amber">3</div>
-            <div class="callout-text">
-              Uma pergunta especial vai pedir que você selecione <strong>"Discordo totalmente"</strong> — independente da sua opinião. Isso verifica se você está lendo com atenção.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text">Algumas perguntas testam seu conhecimento sobre <strong>mídia e desinformação</strong>. Leia todas as opções antes de marcar.</div></div>
+          <div class="callout"><div class="callout-num verdade">2</div><div class="callout-text">A resposta correta aparece <strong>destacada em verde</strong> neste tutorial. No questionário real, escolha o que você considera correto.</div></div>
+          <div class="callout"><div class="callout-num amber">3</div><div class="callout-text">Uma pergunta especial vai pedir que você selecione <strong>"Discordo totalmente"</strong> independente de sua opinião — verifica se você está lendo com atenção.</div></div>
         </div>
-        <div class="tip-box">
-          <strong>Dica:</strong> Não existe problema em errar. Responda com honestidade — os dados são usados apenas para pesquisa científica.
-        </div>
+        <div class="tip-box"><strong>Dica:</strong> Não existe problema em errar. Responda com honestidade — os dados são usados apenas para pesquisa científica.</div>
       </div>
     </div>
 
-    <!-- ── Slide 4: Discernimento ── -->
+    <!-- 4. Discernimento – 5 exemplos reais -->
     <div class="slide" data-step="4">
       <div class="pane-mock">
         <div class="browser">
@@ -682,67 +409,82 @@ body {
             <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Tarefa de discernimento</div>
           </div>
           <div class="browser-body">
-            <div class="s-title" style="font-size:13px;">O quanto você acredita que esta manchete é precisa?</div>
+            <div class="s-title" style="font-size:12.5px;margin-bottom:8px;">O quanto você acredita que esta manchete é precisa? (exemplos reais da pesquisa — role →)</div>
+            <div class="disc-scroll" id="disc-scroll">
 
-            <div class="truth-badge true">✓ VERDADEIRA</div>
-            <div class="disc-card">
-              <div class="disc-img true-bg">"Trump publica foto com Flávio Bolsonaro: Jovem inteligente que ama muito o seu país."</div>
-              <div class="disc-scale">
-                <div class="disc-btn">1</div>
-                <div class="disc-btn">2</div>
-                <div class="disc-btn sel-correct">3</div>
-                <div class="disc-btn sel-correct">4</div>
+              <!-- e5: positive_bolsonaro_true → TRUE -->
+              <div class="disc-item is-true">
+                <div class="disc-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e5.jpg" alt="manchete e5" loading="lazy"></div>
+                <div class="disc-truth true">✓ VERDADEIRA</div>
+                <div class="disc-label">Trump publica foto com Flávio Bolsonaro: "Jovem inteligente que ama muito o seu país".</div>
+                <div class="disc-scale">
+                  <div class="disc-btn">1</div><div class="disc-btn">2</div>
+                  <div class="disc-btn sel-t">3</div><div class="disc-btn sel-t">4</div>
+                </div>
               </div>
-              <div class="disc-labels"><span>Definitivamente falsa</span><span>Definitivamente verdadeira</span></div>
-            </div>
 
-            <div class="truth-badge false" style="margin-top:10px;">✗ FALSA</div>
-            <div class="disc-card">
-              <div class="disc-img false-bg">"Filho de Lula comprou a companhia aérea Azul."</div>
-              <div class="disc-scale">
-                <div class="disc-btn sel-wrong">1</div>
-                <div class="disc-btn sel-wrong">2</div>
-                <div class="disc-btn">3</div>
-                <div class="disc-btn">4</div>
+              <!-- e3: negative_lula_true → TRUE -->
+              <div class="disc-item is-true">
+                <div class="disc-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e3.jpg" alt="manchete e3" loading="lazy"></div>
+                <div class="disc-truth true">✓ VERDADEIRA</div>
+                <div class="disc-label">Filho de Lula, Lulinha, é citado em investigações sobre irregularidades no INSS.</div>
+                <div class="disc-scale">
+                  <div class="disc-btn">1</div><div class="disc-btn">2</div>
+                  <div class="disc-btn sel-t">3</div><div class="disc-btn sel-t">4</div>
+                </div>
               </div>
-              <div class="disc-labels"><span>Definitivamente falsa</span><span>Definitivamente verdadeira</span></div>
+
+              <!-- e11: old_true → TRUE (água rosa) -->
+              <div class="disc-item is-true">
+                <div class="disc-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e11.jpg" alt="manchete e11" loading="lazy"></div>
+                <div class="disc-truth true">✓ VERDADEIRA</div>
+                <div class="disc-label">Água de cidade no Canadá fica rosa e assusta moradores.</div>
+                <div class="disc-scale">
+                  <div class="disc-btn">1</div><div class="disc-btn">2</div>
+                  <div class="disc-btn sel-t">3</div><div class="disc-btn sel-t">4</div>
+                </div>
+              </div>
+
+              <!-- e10: non_political_false → FALSE (vacina) -->
+              <div class="disc-item is-false">
+                <div class="disc-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e10.jpg" alt="manchete e10" loading="lazy"></div>
+                <div class="disc-truth false">✗ FALSA</div>
+                <div class="disc-label">Hantavírus está listado como evento adverso da vacina contra coronavírus.</div>
+                <div class="disc-scale">
+                  <div class="disc-btn sel-f">1</div><div class="disc-btn sel-f">2</div>
+                  <div class="disc-btn">3</div><div class="disc-btn">4</div>
+                </div>
+              </div>
+
+              <!-- e12: old_false → FALSE (WhatsApp farol) -->
+              <div class="disc-item is-false">
+                <div class="disc-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e12.jpg" alt="manchete e12" loading="lazy"></div>
+                <div class="disc-truth false">✗ FALSA</div>
+                <div class="disc-label">WhatsApp passará a avisar a motoristas quando o farol for abrir.</div>
+                <div class="disc-scale">
+                  <div class="disc-btn sel-f">1</div><div class="disc-btn sel-f">2</div>
+                  <div class="disc-btn">3</div><div class="disc-btn">4</div>
+                </div>
+              </div>
+
             </div>
+            <div style="font-size:10px;color:var(--ink-3);margin-top:5px;text-align:right;">← role para ver os 5 exemplos →</div>
           </div>
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 4 de 7</div>
+        <div class="step-eyebrow">Passo 4 de 9</div>
         <div class="step-title">A tarefa de discernimento</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num">1</div>
-            <div class="callout-text">
-              Você verá <strong>14 manchetes</strong> reais, uma por vez. Para cada uma, indique o quanto acredita que é verdadeira usando a escala de <strong>1 (definitivamente falsa) a 4 (definitivamente verdadeira)</strong>.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num verdade">2</div>
-            <div class="callout-text">
-              Para manchetes <strong>verdadeiras</strong>: as respostas corretas são <strong>3 ou 4</strong> — "provavelmente verdadeira" ou "definitivamente verdadeira".
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num falso">3</div>
-            <div class="callout-text">
-              Para manchetes <strong>falsas</strong>: as respostas corretas são <strong>1 ou 2</strong> — "definitivamente falsa" ou "provavelmente falsa".
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num amber">4</div>
-            <div class="callout-text">
-              A <strong>ordem das manchetes é aleatória</strong> — cada estudante vê uma sequência diferente. Isso faz parte do design da pesquisa.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você verá <strong>14 manchetes reais</strong>, uma por vez. Para cada uma, indique o quanto acredita que é verdadeira — escala de <strong>1 (definitivamente falsa) a 4 (definitivamente verdadeira)</strong>.</div></div>
+          <div class="callout"><div class="callout-num verdade">2</div><div class="callout-text">Manchetes <strong>verdadeiras</strong>: respostas corretas são <strong>3 ou 4</strong>. Exemplos: Trump+Flávio, Lulinha+INSS, Água Rosa no Canadá.</div></div>
+          <div class="callout"><div class="callout-num falso">3</div><div class="callout-text">Manchetes <strong>falsas</strong>: respostas corretas são <strong>1 ou 2</strong>. Exemplos: hantavírus/vacina, WhatsApp/farol.</div></div>
+          <div class="callout"><div class="callout-num amber">4</div><div class="callout-text">A <strong>ordem é aleatória</strong> — cada estudante vê uma sequência diferente. Isso faz parte do design da pesquisa.</div></div>
         </div>
       </div>
     </div>
 
-    <!-- ── Slide 5: Conjoint WhatsApp ── -->
+    <!-- 5. WhatsApp conjoint – 3 pares reais -->
     <div class="slide" data-step="5">
       <div class="pane-mock">
         <div class="browser">
@@ -751,66 +493,61 @@ body {
             <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Mensagens do WhatsApp</div>
           </div>
           <div class="browser-body">
-            <div class="s-title" style="font-size:13px;">Você prefere compartilhar ou em qual mais confia? Escolha uma das duas mensagens:</div>
-            <div class="wa-pair">
-              <div class="wa-card trusted">
-                <div class="wa-img has-g1">
-                  <span style="font-size:10px;text-align:center;padding:0 8px;">Estudo aponta aumento<br>de casos de dengue no<br>Nordeste</span>
-                  <div class="g1-logo">G1</div>
-                </div>
-                <div class="wa-body">
-                  <div class="wa-meta" style="color:var(--verdade);font-weight:700;">📰 G1 — Portal de notícias Globo</div>
-                  <div class="wa-meta" style="margin-top:3px;">25 abr 2025 · 1,2k compartilhamentos</div>
-                  <div class="wa-indicator green">✓ Fonte identificada</div>
-                </div>
+            <div class="s-title" style="font-size:12px;margin-bottom:6px;">Em qual dessas postagens você confiaria mais? (exemplos reais — alterne os pares)</div>
+            <div class="conj-tabs">
+              <button class="conj-tab active" onclick="showConj(0,this)">Par 1</button>
+              <button class="conj-tab" onclick="showConj(1,this)">Par 2</button>
+              <button class="conj-tab" onclick="showConj(2,this)">Par 3</button>
+            </div>
+            <!-- Par 0: t1_g1_high vs f1_no_source_high -->
+            <div class="conj-pair" id="conj-0">
+              <div class="conj-card trusted">
+                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t1_g1_high.jpg" alt="t1 G1" loading="lazy">
+                <div class="conj-footer"><span class="conj-badge green">✓ Fonte: G1</span></div>
               </div>
-              <div class="wa-card suspect">
-                <div class="wa-img no-src">
-                  <span style="font-size:10px;text-align:center;padding:0 8px;">VACINA CAUSA PROBLEMAS!!<br>COMPARTILHE ANTES<br>QUE APAGUEM!!!</span>
-                </div>
-                <div class="wa-body">
-                  <div class="wa-meta red">⚠ Nenhuma fonte identificada</div>
-                  <div class="wa-meta" style="margin-top:3px;">Encaminhada muitas vezes</div>
-                  <div class="wa-indicator red">✗ Suspeita</div>
-                </div>
+              <div class="conj-card suspect">
+                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/f1_no_source_high.jpg" alt="f1 sem fonte" loading="lazy">
+                <div class="conj-footer"><span class="conj-badge red">✗ Sem fonte</span></div>
+              </div>
+            </div>
+            <!-- Par 1: t2_g1_high vs f2_no_source_high -->
+            <div class="conj-pair" id="conj-1" style="display:none;">
+              <div class="conj-card trusted">
+                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t2_g1_high.jpg" alt="t2 G1" loading="lazy">
+                <div class="conj-footer"><span class="conj-badge green">✓ Fonte: G1</span></div>
+              </div>
+              <div class="conj-card suspect">
+                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/f2_no_source_high.jpg" alt="f2 sem fonte" loading="lazy">
+                <div class="conj-footer"><span class="conj-badge red">✗ Sem fonte</span></div>
+              </div>
+            </div>
+            <!-- Par 2: t3_post_source_high vs f3_post_high -->
+            <div class="conj-pair" id="conj-2" style="display:none;">
+              <div class="conj-card trusted">
+                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/t3_post_source_high.jpg" alt="t3 post com fonte" loading="lazy">
+                <div class="conj-footer"><span class="conj-badge green">✓ Post c/ fonte</span></div>
+              </div>
+              <div class="conj-card suspect">
+                <img class="conj-img" src="https://fernandobmello.github.io/bahia-survey/assets/f3_post_high.jpg" alt="f3 post sem fonte" loading="lazy">
+                <div class="conj-footer"><span class="conj-badge red">✗ Post s/ fonte</span></div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 5 de 7</div>
+        <div class="step-eyebrow">Passo 5 de 9</div>
         <div class="step-title">Comparando mensagens de WhatsApp</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num">1</div>
-            <div class="callout-text">
-              Você receberá <strong>6 pares de mensagens</strong> de WhatsApp. Cada par tem uma mensagem real e outra que pode ser falsa.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num verdade">2</div>
-            <div class="callout-text">
-              <strong>Indicadores de credibilidade:</strong> fonte identificada (G1, Folha, BBC), data de publicação, autoria clara, links para pesquisas originais.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num falso">3</div>
-            <div class="callout-text">
-              <strong>Sinais de alerta:</strong> sem fonte identificada, letras maiúsculas, "compartilhe antes que apaguem!", linguagem de urgência e medo, sem data.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num amber">4</div>
-            <div class="callout-text">
-              Alguns posts têm o logo de veículos como o <strong>G1</strong> na imagem — isso indica que a reportagem foi publicada por um portal confiável.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você receberá <strong>6 pares de postagens</strong> estilo WhatsApp. Cada par mostra a mesma notícia em formatos diferentes.</div></div>
+          <div class="callout"><div class="callout-num verdade">2</div><div class="callout-text"><strong>Sinais de credibilidade:</strong> logo do G1 ou outro veículo identificado, fonte clara, data de publicação.</div></div>
+          <div class="callout"><div class="callout-num falso">3</div><div class="callout-text"><strong>Sinais de alerta:</strong> sem nome do veículo, letras maiúsculas excessivas, "compartilhe antes que apaguem", linguagem de urgência.</div></div>
+          <div class="callout"><div class="callout-num amber">4</div><div class="callout-text">Posts com <strong>logo do G1</strong> na imagem indicam que a reportagem foi publicada por um portal verificado. Isso aumenta a credibilidade.</div></div>
         </div>
       </div>
     </div>
 
-    <!-- ── Slide 6: Opinião vs Reportagem ── -->
+    <!-- 6. Opinião vs Reportagem – 2 pares reais -->
     <div class="slide" data-step="6">
       <div class="pane-mock">
         <div class="browser">
@@ -819,63 +556,152 @@ body {
             <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Artigos</div>
           </div>
           <div class="browser-body">
-            <div class="s-title" style="font-size:13px;">Qual destes conteúdos você prefere compartilhar?</div>
-            <div class="article-pair">
-              <div class="article-card">
-                <div class="article-tag news">📰 Reportagem</div>
-                <div class="article-body">
-                  <div class="article-headline">Inflação sobe 0,38% em abril, diz IBGE</div>
-                  <div class="article-byline">Folha de S. Paulo · 30 abr 2025 · Por redação</div>
-                  <div class="article-text">O IPCA de abril ficou em 0,38%, segundo dados divulgados pelo <em>IBGE</em> nesta terça-feira. Economistas ouvidos pela Folha apontaram…</div>
-                </div>
+            <div class="s-title" style="font-size:12px;margin-bottom:6px;">Qual destes conteúdos você prefere compartilhar? (exemplos reais)</div>
+            <div class="opin-tabs">
+              <button class="opin-tab active" onclick="showOpin(0,this)">Folha de S.Paulo</button>
+              <button class="opin-tab" onclick="showOpin(1,this)">O Globo</button>
+            </div>
+            <!-- Par 0: Folha -->
+            <div class="opin-pair" id="opin-0">
+              <div class="opin-card">
+                <div class="opin-tag news">📰 Reportagem</div>
+                <img class="opin-img" src="https://fernandobmello.github.io/bahia-survey/assets/1_news_folha.png" alt="Folha reportagem" loading="lazy">
               </div>
-              <div class="article-card">
-                <div class="article-tag opinion">✍ Opinião</div>
-                <div class="article-body">
-                  <div class="article-headline">A inflação vai destruir o Brasil se nada mudar</div>
-                  <div class="article-byline">Por <em>Carlos Menezes</em> · Colunista</div>
-                  <div class="article-text">Em minha visão, o governo tem falhado sistematicamente em controlar os preços. <em>Acredito</em> que sem reformas urgentes…</div>
-                </div>
+              <div class="opin-card">
+                <div class="opin-tag opinion">✍ Opinião</div>
+                <img class="opin-img" src="https://fernandobmello.github.io/bahia-survey/assets/1_opinion_folha.png" alt="Folha opinião" loading="lazy">
               </div>
             </div>
-            <div style="margin-top:10px;font-size:11px;color:var(--ink-3);">← Role para comparar → A ordem dos artigos é aleatória</div>
+            <!-- Par 1: O Globo -->
+            <div class="opin-pair" id="opin-1" style="display:none;">
+              <div class="opin-card">
+                <div class="opin-tag news">📰 Reportagem</div>
+                <img class="opin-img" src="https://fernandobmello.github.io/bahia-survey/assets/2_news_oglobo.png" alt="O Globo reportagem" loading="lazy">
+              </div>
+              <div class="opin-card">
+                <div class="opin-tag opinion">✍ Opinião</div>
+                <img class="opin-img" src="https://fernandobmello.github.io/bahia-survey/assets/2_opinion_globo.png" alt="O Globo opinião" loading="lazy">
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 6 de 7</div>
+        <div class="step-eyebrow">Passo 6 de 9</div>
         <div class="step-title">Reportagem versus artigo de opinião</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num">1</div>
-            <div class="callout-text">
-              Você verá <strong>4 pares de artigos</strong> lado a lado: uma reportagem jornalística e um artigo de opinião do mesmo veículo.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num verdade">2</div>
-            <div class="callout-text">
-              <strong>Reportagem:</strong> traz fatos verificados, data, fontes citadas (IBGE, especialistas), e é escrita de forma impessoal. A tag azul indica "Reportagem".
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num amber">3</div>
-            <div class="callout-text">
-              <strong>Artigo de opinião:</strong> tem o nome do colunista em destaque, usa expressões como <em>"em minha visão"</em>, <em>"acredito que"</em>, e defende um ponto de vista. A tag laranja indica "Opinião".
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num">4</div>
-            <div class="callout-text">
-              A posição esquerda/direita é <strong>aleatória</strong>. Identifique qual é qual pelo conteúdo, não pela posição na tela.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você verá <strong>4 pares de artigos</strong> lado a lado: uma reportagem e um artigo de opinião do mesmo veículo — Folha, O Globo, Estadão, UOL.</div></div>
+          <div class="callout"><div class="callout-num verdade">2</div><div class="callout-text"><strong>Reportagem</strong> (tag azul): fatos verificados, fontes citadas, linguagem impessoal, sem opinião do autor.</div></div>
+          <div class="callout"><div class="callout-num amber">3</div><div class="callout-text"><strong>Opinião</strong> (tag laranja): colunista em destaque, expressões como "em minha visão", "acredito que", defende um ponto de vista.</div></div>
+          <div class="callout"><div class="callout-num">4</div><div class="callout-text">A posição esquerda/direita é <strong>aleatória</strong>. Identifique pelo conteúdo, não pela posição.</div></div>
         </div>
       </div>
     </div>
 
-    <!-- ── Slide 7: Indicadores de desinformação ── -->
+    <!-- 7. Viés de confirmação – exemplo 1 -->
     <div class="slide" data-step="7">
+      <div class="pane-mock">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Viés de confirmação</div>
+          </div>
+          <div class="browser-body">
+            <div class="s-title" style="font-size:12px;margin-bottom:8px;">⚠ Cuidado com o viés de confirmação — Exemplo 1:</div>
+
+            <div style="background:var(--cobalt-light);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;color:var(--cobalt);font-weight:600;">
+              👤 Estudante que <strong>apoia o Lula</strong>
+            </div>
+
+            <div class="bias-pair">
+              <!-- Verdadeira negativa sobre Lula → estudante tende a marcar como FALSA (erro) -->
+              <div class="bias-card">
+                <div class="bias-header b">Manchete verdadeira sobre Lula</div>
+                <div class="bias-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e3.jpg" alt="e3" loading="lazy"></div>
+                <div class="bias-body">
+                  <div class="bias-truth true">✓ VERDADEIRA</div>
+                  <div class="bias-response wrong">Marcou 1 — "não acredito" ✗ ERROU</div>
+                </div>
+              </div>
+              <!-- Verdadeira positiva sobre Lula → acerta facilmente -->
+              <div class="bias-card">
+                <div class="bias-header a">Manchete verdadeira que favorece Lula</div>
+                <div class="bias-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e1.jpg" alt="e1" loading="lazy"></div>
+                <div class="bias-body">
+                  <div class="bias-truth true">✓ VERDADEIRA</div>
+                  <div class="bias-response right">Marcou 4 — "acredito totalmente" ✓ ACERTOU</div>
+                </div>
+              </div>
+            </div>
+            <div class="bias-arrow">⬆ Mesma pessoa, mesmo nível de evidência — resultado diferente por causa da política</div>
+          </div>
+        </div>
+      </div>
+      <div class="pane-info">
+        <div class="step-eyebrow">Passo 7 de 9</div>
+        <div class="step-title">Viés de confirmação — Exemplo 1</div>
+        <div class="callouts">
+          <div class="callout"><div class="callout-num amber">1</div><div class="callout-text"><strong>Viés de confirmação</strong> é a tendência de acreditar em informações que confirmam o que já acreditamos — e rejeitar as que contradizem.</div></div>
+          <div class="callout"><div class="callout-num falso">2</div><div class="callout-text">Um estudante que apoia Lula tende a <strong>acreditar menos</strong> em manchetes negativas sobre Lula — mesmo quando são verdadeiras (como o caso do Lulinha+INSS).</div></div>
+          <div class="callout"><div class="callout-num verdade">3</div><div class="callout-text">O mesmo estudante acredita mais facilmente em manchetes <strong>positivas sobre Lula</strong> — como a promessa de acabar com a escala 6x1.</div></div>
+          <div class="callout"><div class="callout-num">4</div><div class="callout-text">A pesquisa mede esse viés comparando suas respostas em manchetes <strong>pró e contra</strong> cada figura política.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Viés de confirmação – exemplo 2 -->
+    <div class="slide" data-step="8">
+      <div class="pane-mock">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Viés de confirmação</div>
+          </div>
+          <div class="browser-body">
+            <div class="s-title" style="font-size:12px;margin-bottom:8px;">⚠ Cuidado com o viés de confirmação — Exemplo 2:</div>
+
+            <div style="background:var(--falso-light);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;color:var(--falso);font-weight:600;">
+              👤 Estudante que <strong>apoia o Bolsonaro</strong>
+            </div>
+
+            <div class="bias-pair">
+              <!-- Falsa positiva sobre Bolsonaro → acredita (erro) -->
+              <div class="bias-card">
+                <div class="bias-header a">Manchete FALSA que favorece Bolsonaro</div>
+                <div class="bias-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e6.jpg" alt="e6" loading="lazy"></div>
+                <div class="bias-body">
+                  <div class="bias-truth false">✗ FALSA</div>
+                  <div class="bias-response wrong">Marcou 4 — "acredito totalmente" ✗ ERROU</div>
+                </div>
+              </div>
+              <!-- Verdadeira negativa sobre Bolsonaro → rejeita (erro) -->
+              <div class="bias-card">
+                <div class="bias-header b">Manchete verdadeira negativa sobre Bolsonaro</div>
+                <div class="bias-img-wrap"><img src="https://fernandobmello.github.io/bahia-survey/assets/e7.jpg" alt="e7" loading="lazy"></div>
+                <div class="bias-body">
+                  <div class="bias-truth true">✓ VERDADEIRA</div>
+                  <div class="bias-response wrong">Marcou 1 — "não acredito" ✗ ERROU</div>
+                </div>
+              </div>
+            </div>
+            <div class="bias-arrow">⬆ Nos dois casos o viés político levou a respostas erradas</div>
+          </div>
+        </div>
+      </div>
+      <div class="pane-info">
+        <div class="step-eyebrow">Passo 8 de 9</div>
+        <div class="step-title">Viés de confirmação — Exemplo 2</div>
+        <div class="callouts">
+          <div class="callout"><div class="callout-num falso">1</div><div class="callout-text">Um estudante que apoia Bolsonaro pode <strong>acreditar em uma manchete falsa</strong> que o favorece — como o Intercept desmentindo o financiamento do filme.</div></div>
+          <div class="callout"><div class="callout-num falso">2</div><div class="callout-text">O mesmo estudante pode <strong>rejeitar uma manchete verdadeira</strong> que é negativa para Bolsonaro — como a análise de analistas internacionais sobre Flávio.</div></div>
+          <div class="callout"><div class="callout-num amber">3</div><div class="callout-text"><strong>A solução:</strong> antes de acreditar numa manchete, pergunte: "Eu acreditaria nessa notícia se fosse sobre um político que não apoio?"</div></div>
+          <div class="callout"><div class="callout-num verdade">4</div><div class="callout-text">A pesquisa ajuda a medir o quanto esse viés afeta diferentes grupos de estudantes no Brasil.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Posts com desinformação -->
+    <div class="slide" data-step="9">
       <div class="pane-mock">
         <div class="browser">
           <div class="browser-bar">
@@ -883,94 +709,68 @@ body {
             <div class="browser-url">fernandobmello.github.io/bahia-survey/… — Sinais de alerta</div>
           </div>
           <div class="browser-body">
-            <div class="s-title" style="font-size:13px;">Quais itens são sinais de alerta de que esta mensagem pode ser falsa?</div>
-            <div class="fake-post">
-              <div class="fake-post-header">
-                <div class="fake-avatar">👤</div>
+            <div class="s-title" style="font-size:12px;margin-bottom:6px;">Quais itens são sinais de que esta mensagem pode ser falsa?</div>
+            <div style="background:#E8F5E9;border-radius:10px;padding:12px;border:2px solid var(--falso);font-size:11.5px;position:relative;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink-3);">👤</div>
                 <div>
-                  <div class="fake-name">Grupo Família 🇧🇷❤️</div>
+                  <div style="font-size:11px;font-weight:700;color:var(--ink);">Grupo Família 🇧🇷❤️</div>
                   <div style="font-size:9px;color:var(--ink-3);">Encaminhada várias vezes</div>
                 </div>
               </div>
-              <div class="fake-text">
-                <span class="caps">🚨🚨 URGENTE!!! BOLSA FAMÍLIA VAI ACABAR!!!</span><br>
-                <span class="emocao">O governo está <strong>ESCONDENDO</strong> isso de vocês!!</span><br><br>
-                Fontes confiavéis <span class="erro">diseram</span> que a partir do mês que vem
-                o benefício será <span class="emocao">cortado para TODOS</span>.<br><br>
-                <span class="caps">COMPARTILHE ANTES QUE APAGUEM ESSE VÍDEO!!!</span>
+              <div style="line-height:1.45;color:var(--ink);margin-bottom:8px;">
+                <span style="color:var(--falso);font-weight:800;">🚨🚨 URGENTE!!! BOLSA FAMÍLIA VAI ACABAR!!!</span><br>
+                <span style="background:var(--falso-light);border-radius:3px;padding:0 2px;">O governo está <strong>ESCONDENDO</strong> isso de vocês!!</span><br><br>
+                Fontes confiavéis <span style="text-decoration:underline wavy var(--falso)">diseram</span> que a partir do mês que vem
+                o benefício será <span style="background:var(--falso-light);border-radius:3px;padding:0 2px;">cortado para TODOS</span>.<br><br>
+                <span style="color:var(--falso);font-weight:800;">COMPARTILHE ANTES QUE APAGUEM ESSE VÍDEO!!!</span>
               </div>
-              <div class="annotation-chips">
-                <span class="annotation-chip">⚠ Letras maiúsculas</span>
-                <span class="annotation-chip">⚠ Erros ortográficos</span>
-                <span class="annotation-chip">⚠ Tom emocional</span>
-                <span class="annotation-chip">⚠ Urgência falsa</span>
-                <span class="annotation-chip">⚠ Sem fonte</span>
-                <span class="annotation-chip">⚠ "Escondendo"</span>
+              <div>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--falso);color:#fff;margin:2px;">⚠ Letras maiúsculas</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--falso);color:#fff;margin:2px;">⚠ Erros ortográficos</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--falso);color:#fff;margin:2px;">⚠ Tom emocional</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--falso);color:#fff;margin:2px;">⚠ Urgência falsa</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--falso);color:#fff;margin:2px;">⚠ Sem fonte</span>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="pane-info">
-        <div class="step-eyebrow">Passo 7 de 7</div>
-        <div class="step-title">Identificando posts com características de desinformação</div>
+        <div class="step-eyebrow">Passo 9 de 9</div>
+        <div class="step-title">Posts com características de desinformação</div>
         <div class="callouts">
-          <div class="callout">
-            <div class="callout-num falso">1</div>
-            <div class="callout-text">
-              <strong>Letras maiúsculas em excesso</strong> e muitos pontos de exclamação são usados para criar pânico e fazer o leitor compartilhar sem pensar.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num falso">2</div>
-            <div class="callout-text">
-              <strong>Erros ortográficos e gramaticais</strong> ("confiavéis", "diseram") são comuns em conteúdo falso produzido sem revisão jornalística.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num falso">3</div>
-            <div class="callout-text">
-              <strong>Linguagem emocional e conspiracionista</strong> — "o governo está escondendo", "antes que apaguem" — tenta criar medo e senso de urgência.
-            </div>
-          </div>
-          <div class="callout">
-            <div class="callout-num falso">4</div>
-            <div class="callout-text">
-              <strong>Nenhuma fonte identificável</strong> — sem nome de veículo, sem data, sem link. Informações confiáveis sempre indicam de onde vêm.
-            </div>
-          </div>
+          <div class="callout"><div class="callout-num falso">1</div><div class="callout-text"><strong>Letras maiúsculas em excesso</strong> e muitos "!!!" criam pânico e fazem compartilhar sem pensar.</div></div>
+          <div class="callout"><div class="callout-num falso">2</div><div class="callout-text"><strong>Erros ortográficos</strong> ("confiavéis", "diseram") — conteúdo falso é produzido sem revisão jornalística.</div></div>
+          <div class="callout"><div class="callout-num falso">3</div><div class="callout-text"><strong>Linguagem conspiracionista</strong> — "o governo está escondendo", "antes que apaguem" — cria medo e senso de urgência.</div></div>
+          <div class="callout"><div class="callout-num falso">4</div><div class="callout-text"><strong>Nenhuma fonte identificável</strong> — sem nome de veículo, sem data, sem link. Informações confiáveis sempre indicam de onde vêm.</div></div>
         </div>
-        <div class="tip-box">
-          <strong>Na pesquisa:</strong> marque <em>todas</em> as opções que você reconhece como sinais de alerta. Pode marcar mais de uma.
-        </div>
+        <div class="tip-box"><strong>Na pesquisa:</strong> marque <em>todas</em> as opções que você reconhece como sinais de alerta. Pode marcar mais de uma.</div>
       </div>
     </div>
 
   </div><!-- /slides -->
 
-  <!-- Bottom nav -->
   <div id="bottomnav">
-    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" aria-label="Anterior">← Anterior</button>
+    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← Anterior</button>
     <div class="dots" id="dots-container"></div>
-    <button class="nav-btn primary" id="btn-next" onclick="navigate(1)" aria-label="Próximo">Próximo →</button>
+    <button class="nav-btn primary" id="btn-next" onclick="navigate(1)">Próximo →</button>
   </div>
 </div>
 
 <script>
-const TOTAL = 7;
+const TOTAL = 9;
 let current = 0;
+const slides   = document.querySelectorAll('.slide');
+const fill     = document.getElementById('progress-fill');
+const stepLbl  = document.getElementById('step-label');
+const btnPrev  = document.getElementById('btn-prev');
+const btnNext  = document.getElementById('btn-next');
+const dotsWrap = document.getElementById('dots-container');
 
-const slides     = document.querySelectorAll('.slide');
-const fill       = document.getElementById('progress-fill');
-const stepLabel  = document.getElementById('step-label');
-const btnPrev    = document.getElementById('btn-prev');
-const btnNext    = document.getElementById('btn-next');
-const dotsWrap   = document.getElementById('dots-container');
-
-// Build dots
-slides.forEach((_, i) => {
+slides.forEach((_,i) => {
   const d = document.createElement('button');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.className = 'dot' + (i===0?' active':'');
   d.setAttribute('aria-label', `Passo ${i+1}`);
   d.onclick = () => goTo(i);
   dotsWrap.appendChild(d);
@@ -979,51 +779,51 @@ slides.forEach((_, i) => {
 function goTo(n) {
   if (n < 0 || n >= TOTAL) return;
   const prev = slides[current];
-  prev.classList.remove('active');
-  prev.classList.add('out');
-  setTimeout(() => prev.classList.remove('out'), 380);
-
+  prev.classList.remove('active'); prev.classList.add('out');
+  setTimeout(() => prev.classList.remove('out'), 350);
   current = n;
-  const next = slides[current];
-  next.classList.add('active');
-
-  // Update UI
-  const pct = ((current + 1) / TOTAL * 100).toFixed(0);
-  fill.style.width = pct + '%';
-  stepLabel.textContent = `Passo ${current+1} de ${TOTAL}`;
-  btnPrev.disabled = current === 0;
-  btnPrev.style.opacity = current === 0 ? '.35' : '1';
-  btnPrev.style.pointerEvents = current === 0 ? 'none' : '';
-  btnNext.textContent = current === TOTAL - 1 ? 'Concluir ✓' : 'Próximo →';
-
-  dotsWrap.querySelectorAll('.dot').forEach((d, i) => {
-    d.classList.toggle('active', i === current);
-  });
+  slides[current].classList.add('active');
+  fill.style.width = ((current+1)/TOTAL*100).toFixed(0)+'%';
+  stepLbl.textContent = `Passo ${current+1} de ${TOTAL}`;
+  btnPrev.disabled = current===0;
+  btnPrev.style.opacity = current===0 ? '.35' : '1';
+  btnPrev.style.pointerEvents = current===0 ? 'none' : '';
+  btnNext.textContent = current===TOTAL-1 ? 'Concluir ✓' : 'Próximo →';
+  dotsWrap.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
 }
 
 function navigate(dir) {
-  if (dir === 1 && current === TOTAL - 1) {
-    // Final step — pulse the button as a done state
+  if (dir===1 && current===TOTAL-1) {
     btnNext.textContent = '✓ Tutorial concluído!';
     btnNext.style.background = 'var(--verdade)';
     btnNext.style.borderColor = 'var(--verdade)';
-    setTimeout(() => {
-      btnNext.textContent = 'Concluir ✓';
-      btnNext.style.background = '';
-      btnNext.style.borderColor = '';
-    }, 2000);
+    setTimeout(() => { btnNext.textContent='Concluir ✓'; btnNext.style.background=''; btnNext.style.borderColor=''; }, 2000);
     return;
   }
-  goTo(current + dir);
+  goTo(current+dir);
 }
 
-// Keyboard navigation
+function showConj(idx, btn) {
+  [0,1,2].forEach(i => {
+    document.getElementById('conj-'+i).style.display = i===idx ? 'grid' : 'none';
+  });
+  btn.closest('.browser-body').querySelectorAll('.conj-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function showOpin(idx, btn) {
+  [0,1].forEach(i => {
+    document.getElementById('opin-'+i).style.display = i===idx ? 'grid' : 'none';
+  });
+  btn.closest('.browser-body').querySelectorAll('.opin-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navigate(1); }
-  if (e.key === 'ArrowLeft')                    { e.preventDefault(); navigate(-1); }
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); navigate(1); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); navigate(-1); }
 });
 
-// Init
 btnPrev.style.opacity = '.35';
 btnPrev.style.pointerEvents = 'none';
 </script>

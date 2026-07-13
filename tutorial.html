@@ -156,8 +156,8 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 <div id="app">
 <div id="topbar">
   <span class="logo">Tutorial da Pesquisa</span>
-  <div id="progress-track"><div id="progress-fill" style="width:7.7%"></div></div>
-  <span id="step-label">Passo 1 de 13</span>
+  <div id="progress-track"><div id="progress-fill" style="width:7.1%"></div></div>
+  <span id="step-label">Passo 1 de 14</span>
 </div>
 
 <div id="slides">
@@ -181,7 +181,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 1 de 13</div>
+    <div class="step-eyebrow">Passo 1 de 14</div>
     <div class="step-title">Encontrar o seu professor</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num">1</div><div class="callout-text"><strong>Digite o nome do professor</strong> no campo de busca. Não precisa escrever o nome completo.</div></div>
@@ -213,7 +213,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 2 de 13</div>
+    <div class="step-eyebrow">Passo 2 de 14</div>
     <div class="step-title">Encontrar ou escrever seu nome</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num">1</div><div class="callout-text"><strong>Role a lista</strong> até encontrar seu nome — em ordem alfabética.</div></div>
@@ -224,7 +224,96 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
   </div>
 </div>
 
-<!-- 3. Questões gerais -->
+<!-- 3. Pausar e retomar -->
+<div class="slide">
+  <div class="pane-mock"><div class="browser">
+    <div class="browser-bar"><div class="browser-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="browser-url">fernandobmello.github.io/bahia-survey/…</div></div>
+    <div class="browser-body" style="padding:0;">
+
+      <!-- Step switcher tabs -->
+      <div style="display:flex;border-bottom:1px solid var(--border);">
+        <button class="pause-tab active" id="ptab-0" onclick="showPause(0)" style="flex:1;padding:7px 4px;font-size:10.5px;font-weight:700;border:none;background:var(--cobalt);color:#fff;cursor:pointer;border-radius:0;">① Clicar Pausar</button>
+        <button class="pause-tab" id="ptab-1" onclick="showPause(1)" style="flex:1;padding:7px 4px;font-size:10.5px;font-weight:600;border:none;background:var(--paper);color:var(--ink-3);cursor:pointer;border-radius:0;border-left:1px solid var(--border);">② Anotar código</button>
+        <button class="pause-tab" id="ptab-2" onclick="showPause(2)" style="flex:1;padding:7px 4px;font-size:10.5px;font-weight:600;border:none;background:var(--paper);color:var(--ink-3);cursor:pointer;border-radius:0;border-left:1px solid var(--border);">③ Retomar depois</button>
+      </div>
+
+      <!-- Panel 0: pause button in header -->
+      <div id="ppanel-0" style="padding:14px 12px;">
+        <div style="background:var(--cobalt);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <span style="font-size:11px;font-weight:700;color:#fff;">Pesquisa sobre Mídia e Informação</span>
+          <button style="background:rgba(255,255,255,.2);border:none;border-radius:6px;padding:5px 10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;">
+            ⏸ Pausar
+          </button>
+        </div>
+        <div style="border:2px dashed var(--amber);border-radius:8px;padding:10px 12px;background:var(--amber-light);">
+          <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:5px;">↑ Botão "Pausar" no topo da página</div>
+          <div style="font-size:11px;color:var(--ink-2);line-height:1.5;">Aparece em <strong>todas as telas</strong> da pesquisa. Clique a qualquer momento para salvar seu progresso e sair.</div>
+        </div>
+        <div style="margin-top:10px;padding:9px 11px;background:var(--verdade-light);border-radius:7px;font-size:10.5px;color:var(--verdade);font-weight:600;">
+          ✓ Suas respostas até aqui ficam salvas automaticamente neste computador.
+        </div>
+      </div>
+
+      <!-- Panel 1: PIN modal -->
+      <div id="ppanel-1" style="display:none;padding:14px 12px;">
+        <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.08);">
+          <div style="font-size:16px;margin-bottom:4px;">⏸</div>
+          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;">Pesquisa pausada</div>
+          <div style="font-size:11px;color:var(--ink-3);margin-bottom:12px;">Anote este código para continuar de onde parou:</div>
+          <!-- PIN display -->
+          <div style="display:flex;gap:6px;justify-content:center;margin-bottom:10px;">
+            <span style="width:34px;height:44px;border:2px solid var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--cobalt);background:var(--cobalt-light);">4</span>
+            <span style="width:34px;height:44px;border:2px solid var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--cobalt);background:var(--cobalt-light);">8</span>
+            <span style="width:34px;height:44px;border:2px solid var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--cobalt);background:var(--cobalt-light);">3</span>
+            <span style="width:34px;height:44px;border:2px solid var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--cobalt);background:var(--cobalt-light);">7</span>
+            <span style="width:34px;height:44px;border:2px solid var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--cobalt);background:var(--cobalt-light);">2</span>
+            <span style="width:34px;height:44px;border:2px solid var(--cobalt);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--cobalt);background:var(--cobalt-light);">9</span>
+          </div>
+          <div style="font-size:10px;color:var(--ink-3);line-height:1.5;margin-bottom:12px;">💡 O código fica salvo <strong>neste computador</strong>.<br>Use-o ao voltar para retomar do mesmo ponto.</div>
+          <!-- Paper note illustration -->
+          <div style="background:#FFFDE7;border:1.5px solid #F9A825;border-radius:6px;padding:8px 12px;display:inline-block;transform:rotate(-1.5deg);font-family:monospace;font-size:13px;font-weight:700;color:#5D4037;box-shadow:2px 3px 8px rgba(0,0,0,.15);">
+            📝 &nbsp;4 8 3 7 2 9
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: resume flow -->
+      <div id="ppanel-2" style="display:none;padding:14px 12px;">
+        <div style="font-size:11px;color:var(--ink-3);margin-bottom:8px;">Ao abrir a pesquisa novamente, role até o final da primeira tela:</div>
+        <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--ink-2);margin-bottom:8px;">Já começou antes e quer continuar?</div>
+          <button style="width:100%;padding:7px;border-radius:7px;border:1.5px solid var(--cobalt);background:var(--cobalt-light);color:var(--cobalt);font-size:11px;font-weight:700;cursor:pointer;margin-bottom:8px;">▶ Continuar pesquisa →</button>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <div style="display:flex;gap:4px;">
+              <span style="width:28px;height:36px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cobalt);">4</span>
+              <span style="width:28px;height:36px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cobalt);">8</span>
+              <span style="width:28px;height:36px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cobalt);">3</span>
+              <span style="width:28px;height:36px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cobalt);">7</span>
+              <span style="width:28px;height:36px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cobalt);">2</span>
+              <span style="width:28px;height:36px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cobalt);">9</span>
+            </div>
+            <button style="padding:6px 12px;border-radius:7px;border:none;background:var(--cobalt);color:#fff;font-size:11px;font-weight:700;cursor:pointer;">Continuar →</button>
+          </div>
+          <div style="margin-top:8px;padding:7px 10px;background:var(--verdade-light);border-radius:6px;font-size:10.5px;color:var(--verdade);font-weight:600;">✓ A pesquisa retoma exatamente da tela onde você parou.</div>
+        </div>
+      </div>
+
+    </div>
+  </div></div>
+  <div class="pane-info">
+    <div class="step-eyebrow">Passo 3 de 14</div>
+    <div class="step-title">Pausar e retomar depois</div>
+    <div class="callouts">
+      <div class="callout"><div class="callout-num">1</div><div class="callout-text">A pesquisa pode ser <strong>pausada a qualquer momento</strong> — clique o botão ⏸ <strong>Pausar</strong> no topo da tela.</div></div>
+      <div class="callout"><div class="callout-num amber">2</div><div class="callout-text">Um <strong>código de 6 dígitos</strong> aparece na tela. <strong>Anote em papel</strong> ou tire foto — sem ele não é possível retomar.</div></div>
+      <div class="callout"><div class="callout-num verdade">3</div><div class="callout-text">Para continuar, abra o link novamente, clique em <strong>"Continuar pesquisa"</strong> e digite o código anotado.</div></div>
+      <div class="callout"><div class="callout-num">4</div><div class="callout-text">O progresso fica salvo <strong>neste computador</strong> — se trocar de dispositivo, precisará começar do zero.</div></div>
+    </div>
+    <div class="tip-box"><strong>Importante:</strong> O código só funciona no mesmo computador/navegador onde você pausou. Anote antes de fechar a aba.</div>
+  </div>
+</div>
+
+<!-- 4. Questões gerais -->
 <div class="slide">
   <div class="pane-mock"><div class="browser">
     <div class="browser-bar"><div class="browser-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="browser-url">fernandobmello.github.io/bahia-survey/…</div></div>
@@ -239,7 +328,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 3 de 13</div>
+    <div class="step-eyebrow">Passo 4 de 14</div>
     <div class="step-title">Respondendo o questionário</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num">1</div><div class="callout-text">Algumas perguntas testam conhecimento sobre <strong>mídia e desinformação</strong>. Leia todas as opções antes de marcar.</div></div>
@@ -270,7 +359,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 4 de 13 — Discernimento (1/5)</div>
+    <div class="step-eyebrow">Passo 5 de 14 — Discernimento (1/5)</div>
     <div class="step-title">Manchete verdadeira sobre Bolsonaro</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num verdade">✓</div><div class="callout-text"><strong>Esta manchete é VERDADEIRA.</strong> Trump publicou uma foto com Flávio Bolsonaro com essa legenda em suas redes sociais.</div></div>
@@ -301,7 +390,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 5 de 13 — Discernimento (2/5)</div>
+    <div class="step-eyebrow">Passo 6 de 14 — Discernimento (2/5)</div>
     <div class="step-title">Manchete verdadeira sobre Lula</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num verdade">✓</div><div class="callout-text"><strong>Esta manchete é VERDADEIRA.</strong> O filho de Lula, Lulinho, foi citado em investigações sobre irregularidades no INSS — notícia publicada por vários veículos.</div></div>
@@ -332,7 +421,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 6 de 13 — Discernimento (3/5)</div>
+    <div class="step-eyebrow">Passo 7 de 14 — Discernimento (3/5)</div>
     <div class="step-title">Manchete verdadeira sem política</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num verdade">✓</div><div class="callout-text"><strong>Esta manchete é VERDADEIRA.</strong> Em 2019, a água de uma cidade no Canadá ficou rosa por causa de um aditivo químico de remoção de corrosão, causando preocupação nos moradores.</div></div>
@@ -363,7 +452,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 7 de 13 — Discernimento (4/5)</div>
+    <div class="step-eyebrow">Passo 8 de 14 — Discernimento (4/5)</div>
     <div class="step-title">Manchete falsa sobre vacina</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num falso">✗</div><div class="callout-text"><strong>Esta manchete é FALSA.</strong> O hantavírus não está listado como evento adverso da vacina contra COVID-19. É um exemplo clássico de desinformação sobre vacinas.</div></div>
@@ -394,7 +483,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 8 de 13 — Discernimento (5/5)</div>
+    <div class="step-eyebrow">Passo 9 de 14 — Discernimento (5/5)</div>
     <div class="step-title">Manchete falsa sobre WhatsApp</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num falso">✗</div><div class="callout-text"><strong>Esta manchete é FALSA.</strong> O WhatsApp nunca lançou nem anunciou essa funcionalidade. É um boato que circulou amplamente nas redes sociais.</div></div>
@@ -425,7 +514,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 9 de 13</div>
+    <div class="step-eyebrow">Passo 10 de 14</div>
     <div class="step-title">Comparando mensagens de WhatsApp</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você verá <strong>6 pares</strong> de postagens. Cada mensagem aparece <strong>sozinha</strong> — clique "Próxima" para ver a segunda mensagem do par.</div></div>
@@ -457,7 +546,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 10 de 13</div>
+    <div class="step-eyebrow">Passo 11 de 14</div>
     <div class="step-title">Reportagem versus artigo de opinião</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num">1</div><div class="callout-text">Você verá <strong>4 pares</strong>: uma reportagem e um artigo de opinião do mesmo veículo — Folha, O Globo, Estadão, UOL.</div></div>
@@ -496,7 +585,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 11 de 13 — Viés de confirmação (1/2)</div>
+    <div class="step-eyebrow">Passo 12 de 14 — Viés de confirmação (1/2)</div>
     <div class="step-title">Quando o viés político distorce o julgamento</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num amber">!</div><div class="callout-text"><strong>Viés de confirmação:</strong> tendência de acreditar em informações que confirmam o que já acreditamos — e rejeitar as que contradizem.</div></div>
@@ -534,7 +623,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 12 de 13 — Viés de confirmação (2/2)</div>
+    <div class="step-eyebrow">Passo 13 de 14 — Viés de confirmação (2/2)</div>
     <div class="step-title">O viés funciona nos dois lados</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num falso">✗</div><div class="callout-text">Quem apoia Bolsonaro pode <strong>acreditar em uma manchete falsa</strong> que o favorece — como a que diz que o Intercept admitiu erro.</div></div>
@@ -573,7 +662,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
     </div>
   </div></div>
   <div class="pane-info">
-    <div class="step-eyebrow">Passo 13 de 13</div>
+    <div class="step-eyebrow">Passo 14 de 14</div>
     <div class="step-title">Posts com características de desinformação</div>
     <div class="callouts">
       <div class="callout"><div class="callout-num falso">1</div><div class="callout-text"><strong>Letras maiúsculas e "!!!"</strong> criam pânico para fazer compartilhar sem pensar.</div></div>
@@ -595,7 +684,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 </div>
 
 <script>
-const TOTAL = 13;
+const TOTAL = 14;
 let current = 0;
 const slides  = document.querySelectorAll('.slide');
 const fill    = document.getElementById('progress-fill');
@@ -667,6 +756,18 @@ function renderConj(){
 }
 function conjNav(dir){conjIdx=Math.max(0,Math.min(CONJ.length-1,conjIdx+dir));renderConj();}
 setTimeout(renderConj,0);
+
+function showPause(idx) {
+  [0,1,2].forEach(i => {
+    const p = document.getElementById('ppanel-'+i);
+    const t = document.getElementById('ptab-'+i);
+    if (!p || !t) return;
+    p.style.display = i===idx ? 'block' : 'none';
+    t.style.background = i===idx ? 'var(--cobalt)' : 'var(--paper)';
+    t.style.color = i===idx ? '#fff' : 'var(--ink-3)';
+    t.style.fontWeight = i===idx ? '700' : '600';
+  });
+}
 
 function showOpin(idx,btn){
   [0,1].forEach(i=>document.getElementById('opin-'+i).style.display=i===idx?'grid':'none');

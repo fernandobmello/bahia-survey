@@ -200,8 +200,8 @@
 
   /* ── SCALE (5-point) ── */
   .scale-wrap { margin-top: 8px; }
-  .scale-labels { display: flex; justify-content: space-between; margin-bottom: 6px; gap: 2px; }
-  .scale-labels span { font-size: 0.65rem; color: var(--muted); max-width: 60px; text-align: center; line-height: 1.2; word-break: break-word; flex: 1; }
+  .scale-labels { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .scale-labels span { font-size: 0.58rem; color: var(--muted); text-align: center; line-height: 1.3; white-space: nowrap; flex: 0 1 auto; }
   .scale-buttons { display: flex; gap: 8px; }
   .scale-btn {
     flex: 1;
@@ -664,6 +664,59 @@
 <div class="screen" id="screen-2">
   <div class="card">
     <div class="question-block">
+      <div class="question-text">De quantas aulas do programa da pesquisa você participou?</div>
+      <div class="options" id="q-attendance" onchange="onAttendanceChange()">
+        <label class="opt"><input type="radio" name="attendance" value="6"><label>Todas as seis</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="5"><label>Cinco</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="4"><label>Quatro</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="3"><label>Três</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="2"><label>Duas</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="1"><label>Uma</label></label>
+        <label class="opt"><input type="radio" name="attendance" value="0"><label>Nenhuma</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-attendance_reasons" style="display:none;">
+      <div class="question-text">Por que você não conseguiu participar de todas as sessões?</div>
+      <div class="question-subtext">Selecione todas as opções que se aplicam.</div>
+      <div class="options" id="q-attendance_reasons">
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="1"><label>O local ou horário da escola era inconveniente</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="2"><label>Eu tinha outras obrigações relacionadas à escola (por exemplo, reforço escolar)</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="3"><label>Eu tinha outras obrigações em casa (por exemplo, trabalho, tarefas domésticas)</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="4"><label>Eu não tinha interesse no conteúdo</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="5"><label>O professor não deu todas as aulas</label></label>
+        <label class="opt"><input type="checkbox" name="attendance_reasons" value="6"><label>Outro</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Você recebeu algum material impresso das aulas?</div>
+      <div class="options" id="q-tipsheet">
+        <label class="opt"><input type="radio" name="tipsheet" value="1"><label>Sim, o professor distribuiu em sala</label></label>
+        <label class="opt"><input type="radio" name="tipsheet" value="2"><label>Sim, outro aluno me entregou</label></label>
+        <label class="opt"><input type="radio" name="tipsheet" value="3"><label>Não recebi nenhum material impresso</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Pensando nas aulas das quais você participou, qual foi o principal tema ensinado?</div>
+      <div class="options" id="q-manipulation_check">
+        <label class="opt"><input type="radio" name="manipulation_check" value="1"><label>Como consumir informações de forma responsável</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="2"><label>Inglês conversacional</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="3"><label>Física básica</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="4"><label>Eleições</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="5"><label>Como interagir com outras pessoas</label></label>
+        <label class="opt"><input type="radio" name="manipulation_check" value="9"><label>Não sei</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-a">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSectionA(3)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-3">
+  <div class="card">
+    <div class="question-block">
       <div class="question-text">Com que frequência você utiliza as redes sociais para buscar notícias ou informações sobre política e acontecimentos atuais?</div>
       <div class="options" id="q-dl7">
         <label class="opt"><input type="radio" name="dl7" value="5"><label>Muitas vezes por dia</label></label>
@@ -703,13 +756,13 @@
     </div>
     <div class="alert" id="alert-b">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateB1(3)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateB1(4)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-3">
+<div class="screen" id="screen-4">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Na última semana, antes de confiar e compartilhar uma informação online, com que frequência você verificou de onde ela veio?</div>
@@ -736,13 +789,13 @@
     </div>
     <div class="alert" id="alert-b2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['verified_source','rec_bolsafamilia','rec_ype','rec_pix','rec_ancelotti'], 'alert-b2', 4)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['verified_source','rec_bolsafamilia','rec_ype','rec_pix','rec_ancelotti'], 'alert-b2', 5)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-4">
+<div class="screen" id="screen-5">
   <div class="card">
     <div class="question-block">
       <div class="question-text">As pessoas gostam de diferentes tipos de conteúdo online. Nesta pergunta, pedimos que você selecione <strong>"Notícias e acontecimentos atuais"</strong>, independentemente da sua preferência real, para confirmar que está lendo as instruções.</div>
@@ -756,13 +809,13 @@
     </div>
     <div class="alert" id="alert-att1">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 5)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(1, 'att1', 'alert-att1', 6)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-5">
+<div class="screen" id="screen-6">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Qual é a principal diferença entre desinformação e informação falsa?</div>
@@ -795,13 +848,13 @@
     </div>
     <div class="alert" id="alert-c1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['misinfo_disinfo','pier','report_vs_opinion'], 'alert-c1', 6)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['misinfo_disinfo','pier','report_vs_opinion'], 'alert-c1', 7)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-6">
+<div class="screen" id="screen-7">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Na sua opinião, qual é o maior problema enfrentado pelos jovens no Brasil hoje? Selecione 1.</div>
@@ -826,13 +879,13 @@
     </div>
     <div class="alert" id="alert-c2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['youth_problem','hoax_consequences'], 'alert-c2', 7)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['youth_problem','hoax_consequences'], 'alert-c2', 8)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-7">
+<div class="screen" id="screen-8">
   <div class="card">
     <div class="question-subtext" style="margin-bottom:18px;">Agora gostaríamos de saber sua opinião sobre os meios de comunicação.</div>
     <div class="question-block">
@@ -846,13 +899,13 @@
     </div>
     <div class="alert" id="alert-c3">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['media_ownership'], 'alert-c3', 8)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['media_ownership'], 'alert-c3', 9)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-8">
+<div class="screen" id="screen-9">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Leia a descrição abaixo. Que comportamento ela descreve?<br><br><em>"Sofia lê apenas notícias que concordam com suas opiniões políticas já existentes. Quando encontra uma matéria que desafia suas opiniões, ela imediatamente a descarta como 'fake news' sem sequer lê-la."</em></div>
@@ -883,13 +936,13 @@
     </div>
     <div class="alert" id="alert-c4">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['confirmation_bias_id','tiago_confirmation','avoid_confirmation'], 'alert-c4', 9)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(8)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['confirmation_bias_id','tiago_confirmation','avoid_confirmation'], 'alert-c4', 10)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-9">
+<div class="screen" id="screen-10">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">🔍</div>
     <div class="intro-title">Próxima seção</div>
@@ -900,13 +953,13 @@
       Não há penalidades para respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(8)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(10)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(9)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(11)">Começar →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-24">
+<div class="screen" id="screen-25">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">💬</div>
     <div class="intro-title">Próxima tarefa</div>
@@ -918,13 +971,13 @@
       Estamos interessados em suas reações sinceras às mensagens apresentadas.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(23)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(25)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(24)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(26)">Começar →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-31">
+<div class="screen" id="screen-32">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
     <div class="intro-icon">📰</div>
     <div class="intro-title">Próxima tarefa</div>
@@ -933,13 +986,13 @@
       Em cada caso, identifique qual delas tem maior probabilidade de fornecer <strong>informações objetivas e detalhadas</strong> sobre os fatos.
     </div>
     <div class="nav-buttons" style="justify-content:center;">
-      <button class="btn btn-secondary" onclick="goTo(30)">← Voltar</button>
-      <button class="btn btn-primary btn-lg" onclick="goTo(32)">Começar →</button>
+      <button class="btn btn-secondary" onclick="goTo(31)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(33)">Começar →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-36">
+<div class="screen" id="screen-37">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Qual das seguintes opções seria a fonte MAIS confiável para obter informações sobre a segurança de um novo medicamento?</div>
@@ -961,13 +1014,13 @@
     </div>
     <div class="alert" id="alert-se">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(35)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 37)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(36)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['source_medication','source_climate'], 'alert-se', 38)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-37">
+<div class="screen" id="screen-38">
   <div class="card">
     <div class="question-block">
       <div class="headline-img-wrap" style="margin-bottom:10px;"><img src="assets/whatsapp_fake.png" alt="Mensagem de WhatsApp" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
@@ -996,13 +1049,13 @@
     </div>
     <div class="alert" id="alert-fc1">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(36)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','professional_site_tf'], 'alert-fc1', 38)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['whatsapp_redflags','professional_site_tf'], 'alert-fc1', 39)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-38">
+<div class="screen" id="screen-39">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Você lê a seguinte estatística: "90% dos adolescentes compartilham fake news todos os dias." O que você deve fazer ANTES de decidir acreditar ou compartilhar essa afirmação?</div>
@@ -1036,13 +1089,13 @@
     </div>
     <div class="alert" id="alert-fc2">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(37)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 39)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['statistic_check','not_reliable_method','verification_methods_used'], 'alert-fc2', 40)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-39">
+<div class="screen" id="screen-40">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Seu colega de classe envia uma mensagem pedindo que você compartilhe uma matéria sobre uma fraude nas urnas eletrônicas nas eleições brasileiras. Você está cético e não acredita que a matéria esteja correta. Qual é a atitude MAIS responsável?</div>
@@ -1064,13 +1117,13 @@
     </div>
     <div class="alert" id="alert-peer">Por favor, responda todas as perguntas desta seção.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(38)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 40)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['peer_share_fraud','corrected_someone'], 'alert-peer', 41)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-40">
+<div class="screen" id="screen-41">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Queremos ter certeza de que você está lendo com atenção. Apenas neste item, por favor selecione a opção <strong>"Discordo totalmente"</strong>.</div>
@@ -1083,13 +1136,13 @@
     </div>
     <div class="alert" id="alert-att2">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(39)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 41)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAtt(2, 'att2', 'alert-att2', 42)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-41">
+<div class="screen" id="screen-42">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Nos últimos meses, perfis anônimos no Instagram em diversas escolas públicas no estado da Bahia foram criados para espalhar informações falsas sobre professores e alunos. Um documento está sendo organizado com assinaturas de alunos que irão pedir ao Instagram que remova esses perfis. Você gostaria de assinar esse pedido?</div>
@@ -1105,13 +1158,13 @@
     </div>
     <div class="alert" id="alert-petition">Por favor, selecione uma opção para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(40)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validatePetition(42)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(41)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validatePetition(43)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-42">
+<div class="screen" id="screen-43">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Observe a manchete abaixo e escreva três perguntas que você faria a si mesmo para determinar se ela está correta ou não.</div>
@@ -1130,13 +1183,77 @@
     </div>
     <div class="alert" id="alert-ctfc">Por favor, escreva as três perguntas para continuar.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(41)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateCTFC1(43)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(42)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateCTFC1(44)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-43">
+<div class="screen" id="screen-44">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:14px;">Agora gostaríamos de saber se você conversou com outras pessoas sobre o conteúdo das aulas de desinformação.</div>
+    <div class="question-block">
+      <div class="question-text">Com que frequência você conversou sobre o conteúdo das aulas ou sobre o que aprendeu com cada um dos grupos abaixo?</div>
+      <div class="question-subtext">Marque uma resposta por linha.</div>
+      <div style="overflow-x:auto;"><table class="grid-table" id="conv-table">
+        <thead><tr><th>Grupo</th><th>Nunca</th><th>Uma ou duas vezes durante o período das aulas</th><th>Algumas vezes durante o período das aulas</th><th>Após cada aula</th></tr></thead>
+        <tbody>
+            <tr><td class="m7n">Familiares ou pessoas que moram com você</td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_familiares" value="4"></td></tr>
+            <tr><td class="m7n">Colegas da mesma escola, mas de outra classe</td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_outra_classe" value="4"></td></tr>
+            <tr><td class="m7n">Amigos de fora da escola</td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_amigos_fora" value="4"></td></tr>
+            <tr><td class="m7n">Colegas da mesma classe</td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="1"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="2"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="3"></td><td style="text-align:center;"><input type="radio" name="conv_colegas_classe" value="4"></td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="alert" id="alert-conv">Por favor, responda todas as linhas.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(43)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['conv_familiares','conv_colegas_outra_classe','conv_amigos_fora','conv_colegas_classe'], 'alert-conv', 45)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-45">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:14px;">Agora vamos fazer algumas perguntas sobre sua experiência ao participar das aulas sobre desinformação.</div>
+    <div class="question-block">
+      <div class="question-text">Como você avaliaria a qualidade geral dessas aulas?</div>
+      <div class="options" id="q-class_quality">
+        <label class="opt"><input type="radio" name="class_quality" value="a"><label>Muito ruim</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="b"><label>Ruim</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="c"><label>Regular</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="d"><label>Boa</label></label>
+        <label class="opt"><input type="radio" name="class_quality" value="e"><label>Excelente</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Como você avaliaria o nível de dificuldade dessas aulas?</div>
+      <div class="options" id="q-class_difficulty">
+        <label class="opt"><input type="radio" name="class_difficulty" value="a"><label>Muito fácil</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="b"><label>Um pouco fácil demais</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="c"><label>Adequado</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="d"><label>Um pouco difícil demais</label></label>
+        <label class="opt"><input type="radio" name="class_difficulty" value="e"><label>Muito difícil</label></label>
+      </div>
+    </div>
+    <div class="question-block">
+      <div class="question-text">Quão eficaz foi o(a) professor(a) nessas aulas?</div>
+      <div class="options" id="q-teacher_effectiveness">
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="a"><label>Nada eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="b"><label>Pouco eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="c"><label>Moderadamente eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="d"><label>Muito eficaz</label></label>
+        <label class="opt"><input type="radio" name="teacher_effectiveness" value="e"><label>Extremamente eficaz</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-classexp">Por favor, responda todas as perguntas desta seção.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(44)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['class_quality','class_difficulty','teacher_effectiveness'], 'alert-classexp', 46)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-46">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Qual a probabilidade de você votar na eleição presidencial de 2026? (Lembre-se: aos 16 anos o voto é facultativo; aos 18 anos ele se torna obrigatório.)</div>
@@ -1151,13 +1268,13 @@
     </div>
     <div class="alert" id="alert-vote">Por favor, responda a pergunta acima.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(42)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['vote_2026'], 'alert-vote', 44)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(45)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['vote_2026'], 'alert-vote', 47)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-44">
+<div class="screen" id="screen-47">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Você gostaria de participar de um grupo de WhatsApp que fará checagem de informações duvidosas sobre as eleições de 2026?</div>
@@ -1172,13 +1289,13 @@
     </div>
     <div class="alert" id="alert-wa">Por favor, responda a pergunta acima.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(43)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateWhatsapp(45)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(46)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateWhatsapp(48)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-45">
+<div class="screen" id="screen-48">
   <div class="card">
     <div class="question-block">
       <div class="question-text">Nos últimos 7 dias, com que frequência você fez cada uma das coisas abaixo?</div>
@@ -1192,13 +1309,13 @@
     </div>
     <div class="alert" id="alert-md">Por favor, responda todas as linhas.</div>
     <div class="nav-buttons">
-      <button class="btn btn-secondary" onclick="goTo(44)">← Voltar</button>
-      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 46)">Próximo →</button>
+      <button class="btn btn-secondary" onclick="goTo(47)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['media_diet_masc','media_diet_fem'], 'alert-md', 49)">Próximo →</button>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-46">
+<div class="screen" id="screen-49">
   <div class="card" style="text-align:center; padding:48px 28px;">
     <div class="thanks-icon">🎉</div>
     <div class="thanks-title">Muito obrigado!</div>
@@ -1234,98 +1351,30 @@
 const TEACHERS_DATA = [
 {
 "nte": "NTE não identificado",
-"name": "PAULA HYANNE RODRIGUES FERNANDES",
+"name": "ANA VALERIA FERREIRA DA SILVA",
 "schools": [
-{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CECENTINO PEREIRA MAIA", "students": [
-"ADELSON OLIVEIRA DE SOUZA",
-"ALANA MEDRADO DE OLIVEIRA",
-"ALEXANDRE HENRIQUE ALMEIDA SILVA",
-"ALICE IZABELA DA SILVA CRUZ",
-"AMANDA ALMEIDA SILVA MOTA",
-"AMANDA OLIVEIRA SILVA",
-"ANA CECILIA MAIA BONFIM",
-"ANA CLARA CRUZ DA SILVA",
-"ANA CLARA TELES DE SOUZA",
-"ANA KELLE FERREIRA GOMES",
-"ANA PAULA GOMES COSTA",
-"ANDRYEL ROSENALDO DOS SANTOS LIMA",
-"ANNA CATHARINA MAIA ALEIXO",
-"ANNA CLARA SILVA SOUZA",
-"ANNA JULIA DA SILVA MOREIRA",
-"ANNA MARYA GOMES SILVA",
-"ANNY ISABEL SOUZA SILVA FARIAS",
-"ANTHONNY GABRIEL COSTA DOS SANTOS",
-"ANTHONY JOAQUIM GONCALVES BARBOSA",
-"ANTONIO DIAS DA MOTTA",
-"ANTONIO GABRIEL DA COSTA SILVA",
-"BRUNA PEREIRA DE JESUS",
-"CAMILLA ALVES GONCALVES",
-"CARLOS DANIEL GOMES DOS SANTOS",
-"CESAR HENRIQUE SANTOS DE JESUS",
-"CLEITON JUNIOR ALVES CAVALCANTE",
-"DANIEL ALVES ANTUNES",
-"DANILO DA SILVA NUNES",
-"DAVID OLIVEIRA DOS SANTOS",
-"ELLEN LARISSA DA SILVA LEAL",
-"EMANUEL MENEZES DA SILVA",
-"EVILLYN SANTOS COSTA",
-"FLAVIO HENRIQUE DIAS DE OLIVEIRA",
-"GABRIEL GOMES DA SILVA",
-"GEAN OLIVEIRA LEAL",
-"GEOVANNA ALVES SANTANA",
-"GUILHERME BATISTA DA SILVA",
-"GUSTAVO AMIM OLIVEIRA DUARTE",
-"GUSTAVO BARBOSA DIAS",
-"HELOYSE VICTORIA DE JESUS LOPES",
-"IAGO CAUA DE OLIVEIRA CRUZ",
-"IAGO LICINIO BARRETO GOMES",
-"IAN LIMA OLIMPIO",
-"ISABELA MAIA DAMASCENO SANTOS",
-"ISABELA SOPHIA MENDES SILVA",
-"ISAC KAUA",
-"JOAO GABRIEL ALCANTARA MOTA",
-"JOELSON SANTOS NASCIMENTO",
-"JONAS GUILHERME CARVALHO SILVA",
-"JONATAS DA SILVA OLIVEIRA",
-"JONATHAN IAN MAIA COSTA",
-"JONATHAN LUIZ DA SILVA DAMASCENO",
-"JONATHAS FELIPE PEREIRA DE ANDRADE",
-"JOSILANE GAMA DE SOUZA",
-"JULIANA SANTANA FREITAS",
-"KARINNE GUIRRA SANTOS",
-"KARINY DA SILVA COSTA",
-"KARLA KARINE VIANA DO NASCIMENTO",
-"KASSIANE OLIVEIRA DE MIRANDA",
-"KEVEN GOUVEIA OLIVEIRA",
-"KEYLLA GOUVEIA OLIVEIRA",
-"KHEDIMA KHAUANNE SOUZA SILVA",
-"LARA KAUANY FIGUEREDO DE OLIVEIRA",
-"LAURA FERREIRA",
-"LORENA NERI SOUZA",
-"LORRANY GOMES FREITAS",
-"LUAN GOMES DA SILVA",
-"LUCAS KAUE MAIA DAMASCENO SILVA",
-"LUIZ FERNANDO SOUSA GOMES",
-"MARCOS VINICIUS PAIXAO DA SILVA",
-"MARCUS VINICIUS DE ALMEIDA",
-"MARIA EDUARDA CRUZ DA SILVA",
-"MARIA IZABEL LOPES DE AZEVEDO",
-"MATEUS DA SILVA DE SOUZA",
-"MAYLANE DA CONCEICAO GAMA",
-"PAULO HENRIQUE ROCHA DE SANTANA",
-"PEDRO PAULO ALVES DE OLIVEIRA LOPES",
-"PRISCILA VIANA BINA",
-"RAFAEL PEREIRA GOMES",
-"RAFAELLA COSTA SILVA",
-"RENATO PEREIRA DA SILVA RIBEIRO",
-"RICARDO DE SOUZA MOTA SANTOS",
-"RICARDO LEAL PINTO",
-"RIKELME DA SILVA NASCIMENTO",
-"ROSANGELA CUNHA DA SILVA",
-"SABRINA SOUZA PINTO",
-"SAMARA SILVA PEDROSA DE CASTRO",
-"WESLLEY GOMES MACHADO",
-"YASMIM VITORIA ANTUNES LIMA"
+{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL ANTONIO BATISTA", "students": [
+"CAUE NERIS DE JESUS",
+"CRYSTHIAN SANTOS DE ASSIS",
+"ELOISE ROSA TEOBALDO PAES",
+"EMANOELE HENRIQUE ALVES MATOS SANTANA",
+"EMANOELE ROCHA DA SILVA",
+"ERIK NUNES GOMES",
+"GABRIELY PELIZZARI",
+"HANRY DE SOUZA ABREU DUARTE",
+"HERON LUIZA CORREIA MARIA VITORIA DAMASCENO ANE EMANUELE BONFIM",
+"JESSICA DO CARMO COSTA",
+"JOALISON GUEDES FERNANDES",
+"KLAUS EDUARDA SANTOS DE JESUS",
+"LUNARA SANTANA PEREIRA",
+"MAI MENDES DE OLIVEIRA",
+"MAIRA BORGES DA SILVA",
+"MARIO PEREIRA DE JESUS",
+"MICAELLY SANTOS FLORES",
+"MICHELE VITORIA BARBOSA CAFFE",
+"RAVINNE MARTINS REIS SILVA",
+"ROBENILSON LOURRANE DA SILVA NASCIMENTO",
+"TAMIRIS FERREIRA SANTOS"
 ]}
 ]
 }
@@ -1371,12 +1420,12 @@ const OPINION_PAIRS = [
 // ═══════════════════════════════════════════════════════
 // SCREEN LAYOUT CONSTANTS  (computed by build_survey_v4.py)
 // ═══════════════════════════════════════════════════════
-const TOTAL_SCREENS = 44;
-const FINAL_SCREEN  = 43;
-const DISC_START = 10, DISC_COUNT = 14, DISC_ANCHOR = 24;
-const CONJ_START = 25, CONJ_COUNT = 6, CONJ_ANCHOR = 31;
-const OPIN_START = 32, OPIN_COUNT = 4, OPIN_ANCHOR = 36;
-const SURVEY_GROUP = "control";
+const TOTAL_SCREENS = 45;
+const FINAL_SCREEN  = 44;
+const DISC_START = 11, DISC_COUNT = 14, DISC_ANCHOR = 25;
+const CONJ_START = 26, CONJ_COUNT = 6, CONJ_ANCHOR = 32;
+const OPIN_START = 33, OPIN_COUNT = 4, OPIN_ANCHOR = 37;
+const SURVEY_GROUP = "treatment";
 
 let currentScreen = 0;
 const responses = {};
@@ -1442,7 +1491,6 @@ function onTeacherChange() {
   const allStudents = [...new Set(teacher.schools.flatMap(s => s.students))].sort();
   fillStudentSelect(allStudents, studentSelect);
   blockStudent.style.display='block';
-  // Auto-assign school if only one school
   if (teacher.schools.length === 1) {
     document.getElementById('school-select').value = teacher.schools[0].name;
   }
@@ -1641,12 +1689,13 @@ function randomizeOptions() {
 
 // ── NAVIGATION ──
 function getSectionLabel(n) {
-  if (n <= 1) return 'Seção 1 de 5';
-  if (n <= 4) return 'Seção 2 de 5';
-  if (n <= 8) return 'Seção 3 de 5';
-  if (n <= 35) return 'Seção 4 de 5';
-  if (n <= 43) return 'Seção 5 de 5';
-  return 'Seção 5 de 5';
+  if (n <= 1) return 'Seção 1 de 6';
+  if (n <= 2) return 'Seção 2 de 6';
+  if (n <= 5) return 'Seção 3 de 6';
+  if (n <= 9) return 'Seção 4 de 6';
+  if (n <= 36) return 'Seção 5 de 6';
+  if (n <= 44) return 'Seção 6 de 6';
+  return 'Seção 6 de 6';
 }
 
 function goTo(n) {
@@ -1788,48 +1837,12 @@ function validatePetition(next) {
 // ── FINAL: collect + (pipeline-injected submit) + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
-  if (n === 46) {
+  if (n === 49) {
     collectAllResponses();
-    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);
 };
-
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwXsYfxne_k4r7vbvdLBNdqPVSm419nz-nt3UKtU5E1qcRbW8_GXxYKopFOfh2HV7zh/exec';
-function submitToGoogleSheets() {
-  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
-    console.warn('Google Sheet URL not configured.');
-    return;
-  }
-  try {
-    const payload = Object.assign({}, responses);
-
-    // Expand whatsapp_redflags array → individual 0/1 columns
-    const WR_OPTIONS = ['a','b','c','d','e','f','g','h','i','j','k'];
-    const wrSel = Array.isArray(payload.whatsapp_redflags) ? payload.whatsapp_redflags : (payload.whatsapp_redflags ? [payload.whatsapp_redflags] : []);
-    WR_OPTIONS.forEach(opt => { payload['whatsapp_redflags_' + opt] = wrSel.includes(opt) ? 1 : 0; });
-    delete payload.whatsapp_redflags;
-
-    // Expand other checkbox arrays → individual 0/1 columns
-    function expandCheckbox(key, options) {
-      const sel = Array.isArray(payload[key]) ? payload[key] : (payload[key] ? String(payload[key]).split(',').map(s=>s.trim()) : []);
-      options.forEach(opt => { payload[key + '_' + opt] = sel.includes(String(opt)) ? 1 : 0; });
-      delete payload[key];
-    }
-    expandCheckbox('m1',                    ['a','b','c','d','e','f']);
-    expandCheckbox('hoax_consequences',     ['a','b','c','d','e']);
-    expandCheckbox('verification_methods_used', ['a','b','c','d','e']);
-    expandCheckbox('attendance_reasons',    ['1','2','3','4','5','6']);
-
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } catch(err) { console.warn('Submission error:', err); }
-}
 
 function collectAllResponses() {
   document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(inp => {

@@ -1234,98 +1234,30 @@
 const TEACHERS_DATA = [
 {
 "nte": "NTE não identificado",
-"name": "PAULA HYANNE RODRIGUES FERNANDES",
+"name": "MIGUEL JUSTINO GOMES DE CARVALHO",
 "schools": [
-{"name": "COLEGIO ESTADUAL DE TEMPO INTEGRAL CECENTINO PEREIRA MAIA", "students": [
-"ADELSON OLIVEIRA DE SOUZA",
-"ALANA MEDRADO DE OLIVEIRA",
-"ALEXANDRE HENRIQUE ALMEIDA SILVA",
-"ALICE IZABELA DA SILVA CRUZ",
-"AMANDA ALMEIDA SILVA MOTA",
-"AMANDA OLIVEIRA SILVA",
-"ANA CECILIA MAIA BONFIM",
-"ANA CLARA CRUZ DA SILVA",
-"ANA CLARA TELES DE SOUZA",
-"ANA KELLE FERREIRA GOMES",
-"ANA PAULA GOMES COSTA",
-"ANDRYEL ROSENALDO DOS SANTOS LIMA",
-"ANNA CATHARINA MAIA ALEIXO",
-"ANNA CLARA SILVA SOUZA",
-"ANNA JULIA DA SILVA MOREIRA",
-"ANNA MARYA GOMES SILVA",
-"ANNY ISABEL SOUZA SILVA FARIAS",
-"ANTHONNY GABRIEL COSTA DOS SANTOS",
-"ANTHONY JOAQUIM GONCALVES BARBOSA",
-"ANTONIO DIAS DA MOTTA",
-"ANTONIO GABRIEL DA COSTA SILVA",
-"BRUNA PEREIRA DE JESUS",
-"CAMILLA ALVES GONCALVES",
-"CARLOS DANIEL GOMES DOS SANTOS",
-"CESAR HENRIQUE SANTOS DE JESUS",
-"CLEITON JUNIOR ALVES CAVALCANTE",
-"DANIEL ALVES ANTUNES",
-"DANILO DA SILVA NUNES",
-"DAVID OLIVEIRA DOS SANTOS",
-"ELLEN LARISSA DA SILVA LEAL",
-"EMANUEL MENEZES DA SILVA",
-"EVILLYN SANTOS COSTA",
-"FLAVIO HENRIQUE DIAS DE OLIVEIRA",
-"GABRIEL GOMES DA SILVA",
-"GEAN OLIVEIRA LEAL",
-"GEOVANNA ALVES SANTANA",
-"GUILHERME BATISTA DA SILVA",
-"GUSTAVO AMIM OLIVEIRA DUARTE",
-"GUSTAVO BARBOSA DIAS",
-"HELOYSE VICTORIA DE JESUS LOPES",
-"IAGO CAUA DE OLIVEIRA CRUZ",
-"IAGO LICINIO BARRETO GOMES",
-"IAN LIMA OLIMPIO",
-"ISABELA MAIA DAMASCENO SANTOS",
-"ISABELA SOPHIA MENDES SILVA",
-"ISAC KAUA",
-"JOAO GABRIEL ALCANTARA MOTA",
-"JOELSON SANTOS NASCIMENTO",
-"JONAS GUILHERME CARVALHO SILVA",
-"JONATAS DA SILVA OLIVEIRA",
-"JONATHAN IAN MAIA COSTA",
-"JONATHAN LUIZ DA SILVA DAMASCENO",
-"JONATHAS FELIPE PEREIRA DE ANDRADE",
-"JOSILANE GAMA DE SOUZA",
-"JULIANA SANTANA FREITAS",
-"KARINNE GUIRRA SANTOS",
-"KARINY DA SILVA COSTA",
-"KARLA KARINE VIANA DO NASCIMENTO",
-"KASSIANE OLIVEIRA DE MIRANDA",
-"KEVEN GOUVEIA OLIVEIRA",
-"KEYLLA GOUVEIA OLIVEIRA",
-"KHEDIMA KHAUANNE SOUZA SILVA",
-"LARA KAUANY FIGUEREDO DE OLIVEIRA",
-"LAURA FERREIRA",
-"LORENA NERI SOUZA",
-"LORRANY GOMES FREITAS",
-"LUAN GOMES DA SILVA",
-"LUCAS KAUE MAIA DAMASCENO SILVA",
-"LUIZ FERNANDO SOUSA GOMES",
-"MARCOS VINICIUS PAIXAO DA SILVA",
-"MARCUS VINICIUS DE ALMEIDA",
-"MARIA EDUARDA CRUZ DA SILVA",
-"MARIA IZABEL LOPES DE AZEVEDO",
-"MATEUS DA SILVA DE SOUZA",
-"MAYLANE DA CONCEICAO GAMA",
-"PAULO HENRIQUE ROCHA DE SANTANA",
-"PEDRO PAULO ALVES DE OLIVEIRA LOPES",
-"PRISCILA VIANA BINA",
-"RAFAEL PEREIRA GOMES",
-"RAFAELLA COSTA SILVA",
-"RENATO PEREIRA DA SILVA RIBEIRO",
-"RICARDO DE SOUZA MOTA SANTOS",
-"RICARDO LEAL PINTO",
-"RIKELME DA SILVA NASCIMENTO",
-"ROSANGELA CUNHA DA SILVA",
-"SABRINA SOUZA PINTO",
-"SAMARA SILVA PEDROSA DE CASTRO",
-"WESLLEY GOMES MACHADO",
-"YASMIM VITORIA ANTUNES LIMA"
+{"name": "COL\u00c9GIO ESTADUAL DE TEMPO INTEGRAL PROFESSORA MARIA DO SOCORRO GOMES POSSID\u00d4NIO", "students": [
+"ANDREA ALVES DOS SANTOS",
+"ARICIA MARRY DOS SANTOS MOTA",
+"CAIO FRANCISCO LIMA DOS SANTOS",
+"CAMILA LIMA DE SA",
+"DANIEL CONCEICAO DA SILVA",
+"DEIVID CAUAN DOS SANTOS",
+"ERIKA POSSIDONIO DOS SANTOS",
+"FLAVIA SILVA DE ALMEIDA",
+"FREDSON DOS SANTOS EVANGELISTA",
+"GLEYDSON EZEQUIAS DA SILVA BARBOSA",
+"HELEN THAINA CONCEICAO DOS SANTOS",
+"HIGO BARBOSA DE ALMEIDA",
+"ISABELLE CONCEICAO DOS SANTOS",
+"LIVIA DA SILVA PEREIRA",
+"LUCIENE DE BARROS SILVA",
+"MARIA CLARA DE OLIVEIRA MENEZES",
+"MARIA INES DOS SANTOS SILVA",
+"MICAELLY DE LIMA TOLENTINO",
+"RUAN DOS SANTOS DANTAS",
+"WANDERSON GABRIEL BARBOSA SILVA",
+"YASMIM ARAUJO ZEFERINO"
 ]}
 ]
 }
@@ -1442,7 +1374,6 @@ function onTeacherChange() {
   const allStudents = [...new Set(teacher.schools.flatMap(s => s.students))].sort();
   fillStudentSelect(allStudents, studentSelect);
   blockStudent.style.display='block';
-  // Auto-assign school if only one school
   if (teacher.schools.length === 1) {
     document.getElementById('school-select').value = teacher.schools[0].name;
   }
@@ -1790,46 +1721,10 @@ const origGoTo = goTo;
 window.goTo = function(n) {
   if (n === 46) {
     collectAllResponses();
-    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);
 };
-
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwXsYfxne_k4r7vbvdLBNdqPVSm419nz-nt3UKtU5E1qcRbW8_GXxYKopFOfh2HV7zh/exec';
-function submitToGoogleSheets() {
-  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
-    console.warn('Google Sheet URL not configured.');
-    return;
-  }
-  try {
-    const payload = Object.assign({}, responses);
-
-    // Expand whatsapp_redflags array → individual 0/1 columns
-    const WR_OPTIONS = ['a','b','c','d','e','f','g','h','i','j','k'];
-    const wrSel = Array.isArray(payload.whatsapp_redflags) ? payload.whatsapp_redflags : (payload.whatsapp_redflags ? [payload.whatsapp_redflags] : []);
-    WR_OPTIONS.forEach(opt => { payload['whatsapp_redflags_' + opt] = wrSel.includes(opt) ? 1 : 0; });
-    delete payload.whatsapp_redflags;
-
-    // Expand other checkbox arrays → individual 0/1 columns
-    function expandCheckbox(key, options) {
-      const sel = Array.isArray(payload[key]) ? payload[key] : (payload[key] ? String(payload[key]).split(',').map(s=>s.trim()) : []);
-      options.forEach(opt => { payload[key + '_' + opt] = sel.includes(String(opt)) ? 1 : 0; });
-      delete payload[key];
-    }
-    expandCheckbox('m1',                    ['a','b','c','d','e','f']);
-    expandCheckbox('hoax_consequences',     ['a','b','c','d','e']);
-    expandCheckbox('verification_methods_used', ['a','b','c','d','e']);
-    expandCheckbox('attendance_reasons',    ['1','2','3','4','5','6']);
-
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } catch(err) { console.warn('Submission error:', err); }
-}
 
 function collectAllResponses() {
   document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(inp => {

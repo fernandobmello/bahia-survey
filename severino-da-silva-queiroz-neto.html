@@ -1494,26 +1494,20 @@ function onTeacherChange() {
   const blockSchool = document.getElementById('block-school');
   const blockStudent = document.getElementById('block-student');
   const studentSelect = document.getElementById('student-select');
-  const schoolDisplay = document.getElementById('school-display');
-  const schoolDropdown = document.getElementById('school-select-dropdown');
   studentSelect.innerHTML = '<option value="">— Selecione seu nome —</option>';
   document.getElementById('new-name-wrap').style.display='none';
-  schoolDisplay.style.display='none'; schoolDisplay.textContent='';
-  schoolDropdown.style.display='none'; schoolDropdown.innerHTML='<option value="">— Selecione sua escola —</option>';
-  document.getElementById('school-select').value=''; blockStudent.style.display='none';
-  if (!teacherName) { blockSchool.style.display='none'; return; }
+  document.getElementById('school-select').value='';
+  blockStudent.style.display='none';
+  blockSchool.style.display='none';
+  if (!teacherName) { return; }
   const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
   if (!teacher) return;
-  blockSchool.style.display='block';
   const allStudents = [...new Set(teacher.schools.flatMap(s => s.students))].sort();
   fillStudentSelect(allStudents, studentSelect);
   blockStudent.style.display='block';
+  // Auto-assign school if only one school
   if (teacher.schools.length === 1) {
-    schoolDisplay.textContent = teacher.schools[0].name; schoolDisplay.style.display='block';
     document.getElementById('school-select').value = teacher.schools[0].name;
-  } else {
-    teacher.schools.forEach(s => { const o=document.createElement('option'); o.value=s.name; o.textContent=s.name; schoolDropdown.appendChild(o); });
-    schoolDropdown.style.display='block';
   }
   checkIdentifiers();
 }
@@ -1771,8 +1765,16 @@ function requireOpinion(idx,next){ if(!responses[`opinion_${idx}`]){ document.ge
 
 function enableNext(btnId){ document.getElementById(btnId).disabled=false; }
 function showNoConsent(){ document.getElementById('no-consent-msg').style.display='block'; }
-function onStudentChange(){ const sel=document.getElementById('student-select').value; document.getElementById('new-name-wrap').style.display= sel==='__other__'?'block':'none'; if(sel!=='__other__') document.getElementById('new-name-input').value=''; checkIdentifiers(); }
-function checkIdentifiers(){ const t=document.getElementById('teacher-select').value, s=document.getElementById('school-select').value, st=document.getElementById('student-select').value, nn=document.getElementById('new-name-input').value.trim(); return !!(t&&s&&st&&(st!=='__other__'||nn)); }
+function onStudentChange(){ const sel=document.getElementById('student-select').value; document.getElementById('new-name-wrap').style.display= sel==='__other__'?'block':'none'; if(sel!=='__other__') document.getElementById('new-name-input').value=''; // Auto-assign school from student lookup
+  const teacherName = document.getElementById('teacher-select').value;
+  const teacher = TEACHERS_DATA.find(t => t.name === teacherName);
+  if (teacher && sel && sel !== '__other__') {
+    const school = teacher.schools.find(s => s.students.includes(sel));
+    if (school) document.getElementById('school-select').value = school.name;
+    else if (teacher.schools.length > 0) document.getElementById('school-select').value = teacher.schools[0].name;
+  }
+  checkIdentifiers(); }
+function checkIdentifiers(){ const t=document.getElementById('teacher-select').value, st=document.getElementById('student-select').value, nn=document.getElementById('new-name-input').value.trim(); return !!(t&&st&&(st!=='__other__'||nn)); }
 
 function onAttendanceChange(){ const v=document.querySelector('input[name="attendance"]:checked')?.value; const blk=document.getElementById('block-attendance_reasons'); if(!blk) return; const show = v!==undefined && v!=='6' && v!=='0'; blk.style.display = show?'block':'none'; }
 function onWhatsappChange(){ const v=document.querySelector('input[name="whatsapp_fact_check"]:checked')?.value; document.getElementById('block-whatsapp_number').style.display = v==='sim'?'block':'none'; }

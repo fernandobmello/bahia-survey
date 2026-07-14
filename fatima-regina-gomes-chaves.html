@@ -1863,6 +1863,7 @@ function validateAndGoTo(next, alertId, checkFn) {
   responses.school=document.getElementById('school-select').value;
   const sel=document.getElementById('student-select').value;
   responses.student= sel==='__other__'?document.getElementById('new-name-input').value.trim():sel;
+  responses.start_time = new Date().toISOString();
   randomizeOptions();
   CONJOINT_TASKS = pickConjointTasks();
   generateDiscernmentScreens(); generateConjointScreens(); generateOpinionScreens();

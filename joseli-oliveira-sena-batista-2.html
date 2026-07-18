@@ -1386,22 +1386,23 @@ function slugify(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,
 
 // ── Conjoint: 3 "share" pairs + 3 "trust" pairs ──
 function pickConjointTasks() {
-  const falseStories = shuffle(CONJOINT_STORIES.filter(s => s.false)).slice(0, CONJ_COUNT);
-  const trueStories  = shuffle(CONJOINT_STORIES.filter(s => !s.false)).slice(0, CONJ_COUNT);
-  return falseStories.map((f, i) => {
-    const t = trueStories[i];
+  const allStories = shuffle([...CONJOINT_STORIES]);
+  const tasks = [];
+  for (let i = 0; i < CONJ_COUNT; i++) {
+    const s1 = allStories[i * 2], s2 = allStories[i * 2 + 1];
     const src1 = SOURCES[Math.floor(Math.random()*SOURCES.length)];
     const vir1 = VIRALITY[Math.floor(Math.random()*VIRALITY.length)];
     const src2 = SOURCES[Math.floor(Math.random()*SOURCES.length)];
     const vir2 = VIRALITY[Math.floor(Math.random()*VIRALITY.length)];
     const flip = Math.random() > 0.5;
-    const fImg = `assets/${f.prefix}_${src1}_${vir1}.jpg`, fKey = `${f.prefix}_${src1}_${vir1}`;
-    const tImg = `assets/${t.prefix}_${src2}_${vir2}.jpg`, tKey = `${t.prefix}_${src2}_${vir2}`;
+    const img1 = `assets/${s1.prefix}_${src1}_${vir1}.jpg`, key1 = `${s1.prefix}_${src1}_${vir1}`;
+    const img2 = `assets/${s2.prefix}_${src2}_${vir2}.jpg`, key2 = `${s2.prefix}_${src2}_${vir2}`;
     const dv = i < (CONJ_COUNT/2) ? 'share' : 'trust';
-    return flip
-      ? { left:tImg, right:fImg, leftKey:tKey, rightKey:fKey, dv }
-      : { left:fImg, right:tImg, leftKey:fKey, rightKey:tKey, dv };
-  });
+    tasks.push(flip
+      ? { left:img2, right:img1, leftKey:key2, rightKey:key1, dv }
+      : { left:img1, right:img2, leftKey:key1, rightKey:key2, dv });
+  }
+  return tasks;
 }
 
 // ═══════════════════════════════════════════════════════

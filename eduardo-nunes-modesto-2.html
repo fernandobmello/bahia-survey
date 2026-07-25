@@ -1809,15 +1809,52 @@ function validatePetition(next) {
   goTo(next);
 }
 
-// ── FINAL: collect + (pipeline-injected submit) + summary ──
+// ── FINAL: collect + submit + summary ──
 const origGoTo = goTo;
 window.goTo = function(n) {
   if (n === 47) {
     collectAllResponses();
+    submitToGoogleSheets();
     showSummary();
   }
   origGoTo(n);
 };
+
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwXsYfxne_k4r7vbvdLBNdqPVSm419nz-nt3UKtU5E1qcRbW8_GXxYKopFOfh2HV7zh/exec';
+function submitToGoogleSheets() {
+  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('PASTE_')) {
+    console.warn('Google Sheet URL not configured.');
+    return;
+  }
+  try {
+    const payload = Object.assign({}, responses);
+
+    // Expand whatsapp_redflags array → individual 0/1 columns
+    const WR_OPTIONS = ['a','b','c','d','e','f','g','h','i','j','k'];
+    const wrSel = Array.isArray(payload.whatsapp_redflags) ? payload.whatsapp_redflags : (payload.whatsapp_redflags ? [payload.whatsapp_redflags] : []);
+    WR_OPTIONS.forEach(opt => { payload['whatsapp_redflags_' + opt] = wrSel.includes(opt) ? 1 : 0; });
+    delete payload.whatsapp_redflags;
+
+    // Expand other checkbox arrays → individual 0/1 columns
+    function expandCheckbox(key, options) {
+      const sel = Array.isArray(payload[key]) ? payload[key] : (payload[key] ? String(payload[key]).split(',').map(s=>s.trim()) : []);
+      options.forEach(opt => { payload[key + '_' + opt] = sel.includes(String(opt)) ? 1 : 0; });
+      delete payload[key];
+    }
+    expandCheckbox('m1',                    ['a','b','c','d','e','f']);
+    expandCheckbox('hoax_consequences',     ['a','b','c','d','e']);
+    expandCheckbox('verification_methods_used', ['a','b','c','d','e']);
+    expandCheckbox('attendance_reasons',    ['1','2','3','4','5','6']);
+
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(err) { console.warn('Submission error:', err); }
+}
+
 
 function collectAllResponses() {
   document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(inp => {

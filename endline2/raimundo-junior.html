@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" translate="no">
+<head>
+  <meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa sobre Mídia e Informação</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1e40af;
+    --accent: #0ea5e9;
+    --success: #10b981;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* ── HEADER ── */
+  .survey-header {
+    background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+    color: #fff;
+    padding: 20px 24px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,86,219,0.3);
+  }
+  .survey-header h1 { font-size: 1rem; font-weight: 600; opacity: 0.9; }
+  .survey-header .section-label { font-size: 0.75rem; opacity: 0.7; margin-top: 2px; }
+  .progress-bar-wrap { margin-top: 12px; }
+  .progress-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #7dd3fc;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  /* ── PAUSE BUTTON (header top-right) ── */
+  .survey-header { position: relative; }
+  #pause-btn {
+    position: absolute; top: 14px; right: 16px;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4);
+    color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.76rem;
+    cursor: pointer; display: none; align-items: center; gap: 4px;
+    transition: background 0.2s;
+  }
+  #pause-btn:hover { background: rgba(255,255,255,0.32); }
+
+  /* ── PAUSE MODAL ── */
+  #pause-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 2000; display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .pause-box {
+    background: #fff; border-radius: 18px; padding: 32px 28px;
+    max-width: 360px; width: 100%; text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  }
+  .pause-box h3 { font-size: 1.15rem; margin-bottom: 6px; color: var(--text); }
+  .pause-box .sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 20px; }
+  .pin-display {
+    font-size: 2.6rem; font-weight: 800; letter-spacing: 0.18em;
+    color: var(--primary); background: #eff6ff; border-radius: 12px;
+    padding: 14px 20px; margin: 0 auto 14px; font-family: monospace;
+  }
+  .pin-hint { font-size: 0.79rem; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+
+  /* ── RESUME SECTION (screen 0) ── */
+  .resume-wrap {
+    margin-top: 18px; padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+  .resume-toggle {
+    background: none; border: none; color: var(--primary); font-size: 0.87rem;
+    cursor: pointer; text-decoration: underline; padding: 0;
+  }
+  #resume-input-wrap { display: none; margin-top: 12px; }
+  .resume-row { display: flex; gap: 8px; justify-content: center; align-items: center; }
+  #resume-pin-input {
+    width: 140px; padding: 10px 14px; border: 2px solid var(--border);
+    border-radius: 10px; font-size: 1.05rem; text-align: center;
+    letter-spacing: 0.12em; font-family: monospace;
+  }
+  #resume-pin-input:focus { outline: none; border-color: var(--primary); }
+  #resume-error { color: #dc2626; font-size: 0.82rem; margin-top: 8px; display: none; }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+
+  /* ── SCREEN ── */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card-intro {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 4px solid var(--primary);
+  }
+
+  /* ── SECTION BADGE ── */
+  .section-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* ── QUESTION ── */
+  .question-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .question-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .question-subtext {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .question-block { margin-bottom: 28px; }
+  .question-block:last-child { margin-bottom: 0; }
+
+  /* ── RADIO / CHECKBOX OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    position: relative;
+  }
+  .opt:hover { border-color: var(--accent); background: #f0f9ff; }
+  .opt input[type="radio"], .opt input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .opt.selected { border-color: var(--primary); background: #eff6ff; }
+  .opt label { cursor: pointer; font-size: 0.93rem; line-height: 1.4; flex: 1; }
+  input[type="radio"]:checked + label, input[type="checkbox"]:checked + label { font-weight: 600; color: var(--primary-dark); }
+
+  /* ── SCALE (5-point) ── */
+  .scale-wrap { margin-top: 8px; }
+  .scale-labels { display: flex; justify-content: space-between; margin-bottom: 6px; gap: 2px; }
+  .scale-labels span { font-size: 0.65rem; color: var(--muted); max-width: 60px; text-align: center; line-height: 1.2; word-break: break-word; flex: 1; }
+  .scale-buttons { display: flex; gap: 8px; }
+  .scale-btn {
+    flex: 1;
+    aspect-ratio: 1;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scale-btn:hover { border-color: var(--accent); color: var(--primary); }
+  .scale-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; }
+
+  /* ── SELECT / DROPDOWN ── */
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text);
+    background: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  select:focus { outline: none; border-color: var(--primary); }
+
+  /* ── TEXT INPUT ── */
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--primary); }
+
+  /* ── GRID (M7) ── */
+  .grid-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .grid-table th {
+    background: var(--primary);
+    color: #fff;
+    padding: 8px 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .grid-table th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+  .grid-table th:last-child { border-radius: 0 8px 0 0; }
+  .grid-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .grid-table tr:nth-child(even) td { background: #f8fafc; }
+  .grid-table td:first-child { font-weight: 500; }
+  .grid-table td:not(:first-child) { text-align: center; }
+  .grid-table select { padding: 6px 24px 6px 8px; font-size: 0.8rem; }
+
+  /* ── HEADLINE IMAGE ── */
+  .headline-img-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    margin-bottom: 20px;
+    text-align: center;
+    background: #f8fafc;
+  }
+  .headline-img-wrap img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .headline-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  /* ── CONJOINT PAIR ── */
+  .conjoint-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 500px) { .conjoint-pair { grid-template-columns: 1fr; } }
+  .conjoint-card {
+    border: 3px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .conjoint-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .conjoint-card.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,86,219,0.15); }
+  .conjoint-card img { width: 100%; height: auto; display: block; }
+  .conjoint-card .choice-label {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: #f8fafc;
+    border-top: 1px solid var(--border);
+  }
+  .conjoint-card.selected .choice-label { color: var(--primary); background: #eff6ff; }
+
+  /* ── OPINION PAIR ── */
+  .opinion-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 500px) { .opinion-pair { grid-template-columns: 1fr; } }
+  .opinion-card {
+    border: 3px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .opinion-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .opinion-card.selected { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,86,219,0.15); }
+  .opinion-card img { width: 100%; height: auto; display: block; }
+  .opinion-card .choice-label {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: #f8fafc;
+    border-top: 1px solid var(--border);
+  }
+  .opinion-card.selected .choice-label { color: var(--primary); background: #eff6ff; }
+
+  /* ── NAVIGATION BUTTONS ── */
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    justify-content: flex-end;
+  }
+  .btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.93rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 2px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+  .btn-lg { padding: 16px 36px; font-size: 1.05rem; }
+
+  /* ── INTRO SCREEN ── */
+  .intro-icon { font-size: 3rem; margin-bottom: 16px; }
+  .intro-title { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; }
+  .intro-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    color: var(--primary-dark);
+    margin: 4px;
+  }
+
+  /* ── TASK COUNTER ── */
+  .task-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .task-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+  .task-dot.active { background: var(--primary); }
+  .task-dot.done { background: var(--success); }
+
+  /* ── THANK YOU ── */
+  .thanks-icon { font-size: 4rem; margin-bottom: 16px; }
+  .thanks-title { font-size: 1.8rem; font-weight: 700; color: var(--success); margin-bottom: 12px; }
+
+  /* ── TEXTAREA ── */
+  textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text);
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  textarea:focus { outline: none; border-color: var(--primary); }
+  .input-label { font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; display: block; }
+
+  /* ── ALERT ── */
+  .alert {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+  .alert.show { display: block; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* ── INSTRUCTION BOX ── */
+  .instruction-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+    color: #166534;
+    line-height: 1.5;
+  }
+  .instruction-box strong { display: block; margin-bottom: 4px; }
+</style>
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="notranslate">
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="survey-header">
+  <h1>📋 Pesquisa sobre Mídia e Informação</h1>
+  <div class="section-label" id="section-label">Seção 1 de 6</div>
+  <button id="pause-btn" onclick="pauseSurvey()">⏸ Pausar</button>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-label" id="progress-label">0 de 30</div>
+  </div>
+</div>
+
+<!-- PAUSE MODAL -->
+<div id="pause-modal">
+  <div class="pause-box">
+    <div style="font-size:2.2rem; margin-bottom:6px;">⏸</div>
+    <h3>Pesquisa pausada!</h3>
+    <p class="sub">Anote este código para continuar de onde parou:</p>
+    <div class="pin-display" id="pause-pin-display">000000</div>
+    <p class="pin-hint">💡 O código fica salvo <strong>neste computador</strong>.<br>Use-o ao voltar para retomar do mesmo ponto.</p>
+    <button class="btn btn-primary" style="width:100%"
+      onclick="document.getElementById('pause-modal').style.display='none'">
+      Entendi — vou anotar ✓
+    </button>
+  </div>
+</div>
+
+<div class="container">
+<style>
+  /* Center the "Próximo" button so its position can't bias answers toward the
+     option on the right. "Voltar" is pinned compactly to the far left. */
+  .nav-buttons { display: flex !important; justify-content: center !important; align-items: center; position: relative; min-height: 48px; gap: 0; }
+  .nav-buttons .btn-primary { margin: 0 auto; }
+  .nav-buttons .btn-secondary { position: absolute; left: 0; top: 50%; transform: translateY(-50%); padding: 8px 13px !important; font-size: 0.84rem !important; }
+  /* Bigger task images: stack the WhatsApp + journalism pairs one-per-row on
+     phones/tablets so each image is full width. */
+  @media (max-width: 820px) { .conjoint-pair, .opinion-pair { grid-template-columns: 1fr; } }
+  .conjoint-card, .opinion-card { position: relative; }
+  .zoom-btn { position: absolute; top: 8px; right: 8px; z-index: 3;
+    background: rgba(255,255,255,0.94); border: none; border-radius: 8px;
+    width: 38px; height: 38px; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.28); }
+  .zoom-btn:hover { background: #fff; }
+  .zoomable { cursor: zoom-in; }
+  .zoom-hint { font-size: 0.74rem; color: var(--muted); text-align: center; margin-top: 6px; }
+  #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+    display: none; align-items: center; justify-content: center; z-index: 9999; padding: 10px; }
+  #lightbox.show { display: flex; }
+  #lightbox img { max-width: 100%; max-height: 92vh; border-radius: 6px; }
+  #lightbox .lb-close { position: absolute; top: 10px; right: 18px; color: #fff;
+    font-size: 2.4rem; background: none; border: none; cursor: pointer; line-height: 1; }
+  /* Discernment 4-point scale labels: never break a word mid-character
+     ("Definitivamente"/"Provavelmente" must stay whole). The original head CSS
+     caps each label at 60px with word-break:break-word, which split words ugly. */
+  .scale-labels span { max-width: none; word-break: normal; overflow-wrap: normal; hyphens: none; }
+  @media (max-width: 480px) { .scale-labels span { font-size: 0.6rem; overflow-wrap: break-word; } }
+</style>
+
+<div class="screen active" id="screen-0">
+  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
+    <div class="intro-icon">📖</div>
+    <div class="intro-title">Olá! Bem-vindo(a) à pesquisa</div>
+    <div class="intro-sub">
+      Somos pesquisadores conduzindo um estudo sobre como os jovens utilizam a mídia e processam informações sobre diversos temas.<br><br>O questionário leva aproximadamente <strong>10 minutos</strong>. Não há respostas certas ou erradas — queremos apenas a sua opinião sincera.
+    </div>
+    <div style="margin-bottom:20px;"><span class="info-pill">⏱ 10 minutos</span><span class="info-pill">📱 Responda com honestidade</span></div>
+    <div class="question-text" style="margin-bottom:16px;">Você concorda em participar?</div>
+    <div class="options" style="max-width:360px; margin:0 auto 20px;">
+      <label class="opt" id="consent-yes">
+        <input type="radio" name="consent" value="yes" onchange="enableNext('btn-consent')">
+        <label>✅ Sim, concordo em participar.</label>
+      </label>
+      <label class="opt" id="consent-no" onclick="showNoConsent()">
+        <input type="radio" name="consent" value="no">
+        <label>❌ Não, não concordo.</label>
+      </label>
+    </div>
+    <div id="no-consent-msg" style="display:none; background:#fef2f2; border-radius:10px; padding:16px; color:#b91c1c; margin-bottom:16px;">
+      Tudo bem. Obrigado pelo seu tempo. Você pode fechar esta página.
+    </div>
+    <button class="btn btn-primary btn-lg" id="btn-consent" onclick="goTo(1)" disabled>Começar a pesquisa →</button>
+    <div class="resume-wrap">
+      <p style="color:var(--muted); font-size:0.85rem; margin-bottom:8px;">Já começou antes e quer continuar?</p>
+      <button class="resume-toggle" onclick="document.getElementById('resume-input-wrap').style.display='block'; this.style.display='none'">Continuar de onde parei →</button>
+      <div id="resume-input-wrap">
+        <div class="resume-row">
+          <input id="resume-pin-input" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="off">
+          <button class="btn btn-primary" onclick="resumeSurvey()">Continuar →</button>
+        </div>
+        <div id="resume-error">Código não encontrado. Verifique os números e tente novamente.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-1">
+  <div class="card">
+    <div class="question-block" id="block-teacher">
+      <div class="question-number">Confirmação do professor</div>
+      <div class="question-text">Selecione o nome do seu professor:</div>
+      <select id="teacher-select" onchange="onTeacherChange()">
+        <option value="">— Selecione o professor —</option>
+      </select>
+    </div>
+    <div class="question-block" id="block-student" style="display:none;">
+      <div class="question-number">Seu nome</div>
+      <div class="question-text">Selecione seu nome na lista:</div>
+      <select id="student-select" onchange="onStudentChange()">
+        <option value="">— Selecione seu nome —</option>
+      </select>
+      <div style="margin-top:14px;">
+        <label class="input-label">Se o seu nome estiver escrito errado, por favor insira o nome correto aqui (opcional):</label>
+        <input type="text" id="name-correction-input" placeholder="Nome correto" autocomplete="off">
+      </div>
+    </div>
+    <div class="question-block" id="block-turma">
+      <div class="question-number">Sua turma</div>
+      <div class="question-text">Qual é a sua turma? (Ano e turma, por exemplo: 3A, 2B, 3C)</div>
+      <input type="text" id="turma-input" placeholder="Ex: 3A" maxlength="12" autocomplete="off" oninput="checkIdentifiers()">
+    </div>
+    <div class="alert" id="alert-id">Por favor, preencha todos os campos acima.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(0)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateAndGoTo(2, 'alert-id', checkIdentifiers)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen sd-only" id="screen-2">
+  <div class="card">
+    <div class="question-block" id="block-sd_confirm_anonymity">
+      <div class="question-text">Agradecemos sua participação neste projeto. Você pode confirmar que sabe que ninguém (nem seus professores, nem os pesquisadores, nem a equipe do IAT) pode ver as respostas individuais que você dá aos questionários desta pesquisa, como este você vai começar a responder?</div>
+      <div class="options" id="q-sd_confirm_anonymity">
+        <label class="opt"><input type="radio" name="sd_confirm_anonymity" value="a"><label>Sim.</label></label>
+        <label class="opt"><input type="radio" name="sd_confirm_anonymity" value="b"><label>Não.</label></label>
+      </div>
+      <div data-reveal-after="sd_confirm_anonymity" style="display:none; margin-top:16px; padding:16px 18px; background:#fff7ed; border:2px solid #f97316; border-radius:12px; color:#9a3412; font-weight:600; line-height:1.5;">É importante que você saiba que, por lei e de acordo com os princípios éticos da pesquisa científica, ninguém pode identificar suas respostas individuais. As respostas de todos os estudantes são anonimizadas. Por isso, agradecemos sua participação e pedimos que responda com sinceridade, sem se preocupar com o que outras pessoas possam pensar de suas respostas.</div>
+    </div>
+    <div class="alert" id="alert-q0">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['sd_confirm_anonymity'], 'alert-q0', 3)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-3">
+  <div class="card">
+    <div class="question-block" id="block-answer_location">
+      <div class="question-text">Onde você está respondendo a este questionário neste momento?</div>
+      <div class="options" id="q-answer_location">
+        <label class="opt"><input type="radio" name="answer_location" value="a"><label>Na escola ou nas dependências da escola.</label></label>
+        <label class="opt"><input type="radio" name="answer_location" value="b"><label>Fora da escola — em casa.</label></label>
+        <label class="opt"><input type="radio" name="answer_location" value="c"><label>Fora da escola — em outro local.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-answer_with_school" data-show-if='{"answer_location": ["a"]}' style="display:none;">
+      <div class="question-text">Com quem você está respondendo a este questionário?</div>
+      <div class="question-subtext">Marque todas as opções aplicáveis (ou apenas “Sozinho(a)”).</div>
+      <div class="options" id="q-answer_with_school">
+        <label class="opt"><input type="checkbox" name="answer_with_school" value="a" data-exclusive="1"><label>Sozinho(a).</label></label>
+        <label class="opt"><input type="checkbox" name="answer_with_school" value="b"><label>Com colegas de turma.</label></label>
+        <label class="opt"><input type="checkbox" name="answer_with_school" value="c"><label>Com o(a) professor(a) e colegas de turma.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-answer_with_outside" data-show-if='{"answer_location": ["b", "c"]}' style="display:none;">
+      <div class="question-text">Com quem você está respondendo a este questionário?</div>
+      <div class="question-subtext">Marque todas as opções aplicáveis (ou apenas “Sozinho(a)”).</div>
+      <div class="options" id="q-answer_with_outside">
+        <label class="opt"><input type="checkbox" name="answer_with_outside" value="a" data-exclusive="1"><label>Sozinho(a).</label></label>
+        <label class="opt"><input type="checkbox" name="answer_with_outside" value="b"><label>Com amigos(as).</label></label>
+        <label class="opt"><input type="checkbox" name="answer_with_outside" value="c"><label>Com familiares ou responsáveis.</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-q1">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['answer_location','answer_with_school','answer_with_outside'], 'alert-q1', 4)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-4">
+  <div class="card">
+    <div class="question-subtext" style="margin-bottom:18px; font-size:1rem;"><strong>AGORA VAMOS FAZER ALGUMAS PERGUNTAS SOBRE INFORMAÇÃO.</strong></div>
+    <div class="question-block" id="block-reverse_image_how">
+      <div class="question-text">Como você faz uma busca reversa de imagem?</div>
+      <div class="options" id="q-reverse_image_how">
+        <label class="opt"><input type="radio" name="reverse_image_how" value="a"><label>Enviando a própria imagem (ou seu link) para uma ferramenta como Google Lens ou TinEye, que permite identificar em quais sites ela já apareceu e quando foi publicada pela primeira vez.</label></label>
+        <label class="opt"><input type="radio" name="reverse_image_how" value="b"><label>Digitando uma descrição detalhada do que aparece na foto em um buscador para encontrar imagens semelhantes.</label></label>
+        <label class="opt"><input type="radio" name="reverse_image_how" value="c"><label>Abrindo os metadados ocultos do arquivo da imagem (data, modelo da câmera e localização) para descobrir quem tirou a foto.</label></label>
+        <label class="opt"><input type="radio" name="reverse_image_how" value="d"><label>Ampliando a imagem em um aplicativo de edição para procurar sinais de manipulação, como bordas borradas ou sombras incomuns.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-pier">
+      <div class="question-text">Qual das alternativas abaixo descreve melhor o protocolo P.I.E.R. para avaliar informações na internet?</div>
+      <div class="options" id="q-pier">
+        <label class="opt"><input type="radio" name="pier" value="a"><label>Pare, Investigue a fonte, Explore outras fontes confiáveis e Rastreie a informação até sua origem.</label></label>
+        <label class="opt"><input type="radio" name="pier" value="b"><label>Pare, Identifique o autor, Examine as evidências e Reporte a desinformação.</label></label>
+        <label class="opt"><input type="radio" name="pier" value="c"><label>Proteja-se, Informe o autor, Examine e Revise a fonte.</label></label>
+        <label class="opt"><input type="radio" name="pier" value="d"><label>Pare, Investigue a fonte, Examine a informação e Responda ao autor.</label></label>
+        <label class="opt"><input type="radio" name="pier" value="e"><label>Não sei.</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-q2">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['reverse_image_how','pier'], 'alert-q2', 5)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-5">
+  <div class="card">
+    <div class="question-block" id="block-critical_thinking_def">
+      <div class="question-text">O que significa ter pensamento crítico ao consumir notícias e informações?</div>
+      <div class="options" id="q-critical_thinking_def">
+        <label class="opt"><input type="radio" name="critical_thinking_def" value="a"><label>Desconfiar de todas as informações divulgadas pela mídia, já que todos os veículos de comunicação têm seus próprios interesses.</label></label>
+        <label class="opt"><input type="radio" name="critical_thinking_def" value="b"><label>Analisar e avaliar as mensagens divulgadas pela mídia, perguntando quem as produziu, com qual objetivo, em que contexto, quais técnicas de persuasão foram utilizadas e quais possíveis vieses estão presentes.</label></label>
+        <label class="opt"><input type="radio" name="critical_thinking_def" value="c"><label>Apontar os erros nas opiniões diferentes das suas, utilizando argumentos bem fundamentados.</label></label>
+        <label class="opt"><input type="radio" name="critical_thinking_def" value="d"><label>Confiar apenas nas informações publicadas por veículos tradicionais de comunicação e especialistas reconhecidos.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-confirmation_bias_id">
+      <div class="question-text">Leia a situação abaixo. Que comportamento ela descreve?<br><br><em>"Sofia só lê notícias que concordam com suas opiniões políticas. Quando encontra uma reportagem que contraria o que pensa, imediatamente diz que é 'fake news', sem nem mesmo ler o conteúdo."</em></div>
+      <div class="options" id="q-confirmation_bias_id">
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="a"><label>Pensamento crítico.</label></label>
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="b"><label>Viés de confirmação.</label></label>
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="c"><label>Checagem de fatos.</label></label>
+        <label class="opt"><input type="radio" name="confirmation_bias_id" value="d"><label>Educação midiática.</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-q3">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['critical_thinking_def','confirmation_bias_id'], 'alert-q3', 6)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-6">
+  <div class="card">
+    <div class="question-block" id="block-source_election">
+      <div class="question-text">Você quer verificar uma informação que está circulando nas redes sociais sobre o resultado das eleições na sua cidade. Qual das fontes abaixo seria a MAIS confiável?</div>
+      <div class="options" id="q-source_election">
+        <label class="opt"><input type="radio" name="source_election" value="a"><label>Uma publicação no perfil de um influenciador político.</label></label>
+        <label class="opt"><input type="radio" name="source_election" value="b"><label>Os resultados oficiais divulgados pelo Tribunal Superior Eleitoral (TSE), em seu site ou aplicativo oficial.</label></label>
+        <label class="opt"><input type="radio" name="source_election" value="c"><label>Uma pesquisa de boca de urna divulgada por um instituto de pesquisa.</label></label>
+        <label class="opt"><input type="radio" name="source_election" value="d"><label>Uma imagem de um gráfico enviada pelo WhatsApp.</label></label>
+        <label class="opt"><input type="radio" name="source_election" value="e"><label>Nenhuma das alternativas anteriores.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-whatsapp_redflags">
+      <div class="question-text">Quais das características abaixo podem ser sinais de alerta de que uma mensagem contém informações falsas ou enganosas?</div>
+      <div class="question-subtext">Marque TODAS as alternativas que se aplicam.</div>
+      <div class="options" id="q-whatsapp_redflags">
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="a"><label>Usa letras maiúsculas e pontos de exclamação em excesso.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="b"><label>Cria uma forte sensação de urgência ("Compartilhe antes que apaguem!").</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="c"><label>Afirma que alguém está escondendo alguma coisa.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="d"><label>Contém erros de ortografia e gramática.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="e"><label>Cita uma fonte, um autor ou apresenta evidências que podem ser identificadas.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="f"><label>Apresenta a data de publicação.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="g"><label>Apresenta a data da última atualização.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="h"><label>Identifica claramente quem escreveu o conteúdo.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="i"><label>Usa palavras chocantes, emocionais ou que provocam indignação no título para chamar a atenção.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="k"><label>Inclui links para as pesquisas ou estudos originais mencionados na reportagem.</label></label>
+        <label class="opt"><input type="checkbox" name="whatsapp_redflags" value="j" data-exclusive="1"><label>Nenhuma das alternativas anteriores.</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-q4">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['source_election','whatsapp_redflags'], 'alert-q4', 7)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-7">
+  <div class="card">
+    <div class="question-block" id="block-sci_association_site_tf">
+      <div class="question-text">Verdadeiro ou falso: Se uma informação foi publicada no site de uma associação profissional de cientistas, isso significa que ela é provavelmente confiável.</div>
+      <div class="options" id="q-sci_association_site_tf">
+        <label class="opt"><input type="radio" name="sci_association_site_tf" value="a"><label>Verdadeiro.</label></label>
+        <label class="opt"><input type="radio" name="sci_association_site_tf" value="b"><label>Falso.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-statistic_check">
+      <div class="question-text">Você lê a seguinte informação: "90% dos adolescentes compartilham notícias falsas todos os dias". O que você deveria fazer ANTES de decidir se acredita nessa informação ou se vai compartilhá-la?</div>
+      <div class="options" id="q-statistic_check">
+        <label class="opt"><input type="radio" name="statistic_check" value="a"><label>Compartilhar imediatamente, pois a presença de uma porcentagem faz a informação parecer confiável.</label></label>
+        <label class="opt"><input type="radio" name="statistic_check" value="b"><label>Procurar a fonte original ou o estudo de onde essa estatística foi retirada.</label></label>
+        <label class="opt"><input type="radio" name="statistic_check" value="c"><label>Considerar a informação verdadeira se ela aparecer em qualquer site de notícias.</label></label>
+        <label class="opt"><input type="radio" name="statistic_check" value="d"><label>Discordar automaticamente porque a informação não corresponde à sua experiência pessoal.</label></label>
+      </div>
+    </div>
+    <div class="question-block" id="block-peer_share_fraud">
+      <div class="question-text">Um colega da sua turma envia uma mensagem pedindo que você compartilhe uma reportagem sobre uma suposta fraude envolvendo urnas eletrônicas nas eleições brasileiras. Você desconfia da informação e acredita que ela não seja verdadeira. Qual seria a atitude MAIS responsável?</div>
+      <div class="options" id="q-peer_share_fraud">
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="a"><label>Compartilhar a reportagem para ajudar seu colega.</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="b"><label>Procurar fontes confiáveis sobre o assunto e, se a informação for falsa, avisar seu colega de maneira educada.</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="c"><label>Reagir à mensagem com um emoji, mas não compartilhar.</label></label>
+        <label class="opt"><input type="radio" name="peer_share_fraud" value="d"><label>Ignorar a mensagem.</label></label>
+      </div>
+    </div>
+    <div class="alert" id="alert-q5">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['sci_association_site_tf','statistic_check','peer_share_fraud'], 'alert-q5', 8)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-8">
+  <div class="card card-intro" style="text-align:center; padding:36px 28px;">
+    <div class="intro-icon">🔍</div>
+    <div class="intro-title">Próxima seção</div>
+    <div class="intro-sub">
+      Agora vamos mostrar a você <strong>16 informações</strong> que circularam recentemente online.<br><br>Algumas dessas afirmações são <strong>verdadeiras</strong>, enquanto outras são <strong>falsas</strong>.<br><br>Para cada afirmação, indique <strong>o quanto você acredita que ela seja precisa</strong>, com base no seu melhor julgamento. Caso não tenha certeza, forneça sua melhor estimativa.<br><br>Não há penalidades para respostas incorretas, e algumas afirmações podem ser difíceis de avaliar.
+    </div>
+    <div class="nav-buttons" style="justify-content:center;">
+      <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goTo(9)">Começar →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-25">
+  <div class="card">
+    <div class="question-block" id="block-m7">
+      <div class="question-text">Para cada uma das seguintes organizações de notícias, informe:</div>
+      <div class="question-subtext">(b) Você obteve notícias por meio dela no último mês? &nbsp; (c) Você considera que ela é uma fonte confiável de notícias?</div>
+      <div style="overflow-x:auto;">
+        <table class="grid-table rand-rows" id="grid-m7">
+          <thead><tr><th>Veículo</th><th>(b) Usou no último mês?</th><th>(c) Confiável?</th></tr></thead>
+          <tbody>
+            <tr data-slug="globo_tv_globo_g1"><td>Globo / TV Globo / G1</td><td><select name="m7_globo_tv_globo_g1_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_globo_tv_globo_g1_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="record_record_news"><td>Record / Record News</td><td><select name="m7_record_record_news_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_record_record_news_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="cnn_brasil"><td>CNN Brasil</td><td><select name="m7_cnn_brasil_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_cnn_brasil_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="folha_de_s_paulo"><td>Folha de S. Paulo</td><td><select name="m7_folha_de_s_paulo_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_folha_de_s_paulo_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="brasil_247"><td>Brasil 247</td><td><select name="m7_brasil_247_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_brasil_247_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="jovem_pan"><td>Jovem Pan</td><td><select name="m7_jovem_pan_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_jovem_pan_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="jornal_da_cidade_online"><td>Jornal da Cidade Online</td><td><select name="m7_jornal_da_cidade_online_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_jornal_da_cidade_online_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="diario_do_centro_do_mundo"><td>Diário do Centro do Mundo</td><td><select name="m7_diario_do_centro_do_mundo_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_diario_do_centro_do_mundo_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="canal_leo_dias"><td>Canal Léo Dias</td><td><select name="m7_canal_leo_dias_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_canal_leo_dias_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+            <tr data-slug="te_atualizei"><td>Te Atualizei</td><td><select name="m7_te_atualizei_b"><option value="">—</option><option value="1">Sim</option><option value="0">Não</option></select></td><td><select name="m7_te_atualizei_c"><option value="">—</option><option value="3">Sim</option><option value="2">Em parte</option><option value="0">Não</option><option value="9">Não sei</option></select></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="alert" id="alert-q6">Por favor, responda todas as perguntas desta tela.</div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goTo(24)">← Voltar</button>
+      <button class="btn btn-primary" onclick="validateSection(['m7'], 'alert-q6', 26)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-26">
+  <div class="card" style="text-align:center; padding:48px 28px;">
+    <div class="thanks-icon">🎉</div>
+    <div class="thanks-title">Muito obrigado!</div>
+    <div class="intro-sub">Você concluiu a pesquisa. Suas respostas foram registradas com sucesso.</div>
+    <div style="margin-top:22px; padding:18px 22px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; text-align:left; font-size:0.92rem; line-height:1.5; color:#1e3a5f;">
+      <strong>Esclarecimento importante</strong><br><br>
+      Obrigado por participar no nosso estudo. Algumas manchetes que você viu reproduziam conteúdos <strong>falsos</strong> que circulam na internet. Por favor, desconsidere esses conteúdos. As manchetes falsas eram:
+      <ul style="margin:10px 0 0 18px;"><li>Polícia Federal informa que Nikolas Ferreira não cometeu nenhum crime nas mensagens trocadas com Vorcaro</li><li>Presidente Lula defendeu a pedofilia durante discurso em Belém</li><li>Flávio Bolsonaro promete retirar de Nossa Senhora Aparecida o título de padroeira do Brasil</li><li>Café vendido no Brasil contém fórmula que provoca calvície</li><li>WhatsApp passará a avisar a motoristas quando o farol for abrir</li><li>Filho de Lula comprou a companhia aérea Azul</li><li>Vídeo mostra Bolsonaro embolsando objeto dourado dado por militar</li><li>Probabilidade de um homem ser preso injustamente por falsa acusação de violência doméstica é maior do que a de uma mulher sofrer agressão real</li></ul>
+    </div>
+    <div class="intro-sub" style="margin-top:18px;"><strong>Você pode fechar esta página.</strong></div>
+    <div id="submit-error" style="display:none; margin-top:20px; padding:16px 18px; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; color:#b91c1c; font-size:0.86rem; line-height:1.4;">
+      ⚠️ Não foi possível enviar suas respostas automaticamente. Verifique sua conexão com a internet e tente novamente.
+      <div style="margin-top:10px;"><button class="btn btn-primary" onclick="submitToGoogleSheets()" style="font-size:0.85rem;">Tentar enviar novamente</button></div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>document.write('<script src="config.js?v=' + Date.now() + '"><\/script>');</script>
+<script>
+const TEACHERS_DATA = [{"name": "RAIMUNDO DA PAIXAO JUNIOR", "students": ["ANDRE VICTOR VIEIRA SILVA", "ANTHONY CAUA DE JESUS ROCHA", "CARLOS EDUARDO BENTO SANTANA", "CAUE CARLOS ALCANTARA DE MATOS", "CRISLANE SOARES SANTOS", "GABRIEL VINICIUS MARQUES RIBEIRO DA SILVA", "JAINE RODRIGUES DE OLIVEIRA", "JORGE HENRIQUE SILVA CAVALCANTE", "KAYKY ALVES DE CARVALHO", "LARA FERNANDA SILVA SANTOS", "LUZIA EMILI PEREIRA DOS REIS", "MAI RAFAELLI DE ARAUJO FERREIRA", "MAIARA ARAUJO SILVA", "MARIA LUIZA COSTA SILVA", "MIGUEL EVANGELISTA SILVA", "PAULO VICTOR", "PEDRO LUCAS CARDOZO SANTOS", "ROBERTA LIMA FARIAS", "THALISSON EMANUEL COSTA DA ROCHA RAMOS", "UANE CRISTINA FERNANDES DE SOUZA SANTOS", "VICTOR ESTEVAO MENDES", "VITOR GABRIEL DOS SANTOS RAMOS"], "uids": {"ANDRE VICTOR VIEIRA SILVA": "BA-127670B2A264", "ANTHONY CAUA DE JESUS ROCHA": "BA-1D2F8C07B527", "CARLOS EDUARDO BENTO SANTANA": "BA-73BA17BA46D2", "CAUE CARLOS ALCANTARA DE MATOS": "BA-32A403E7E8DA", "CRISLANE SOARES SANTOS": "BA-8585C9B272DE", "GABRIEL VINICIUS MARQUES RIBEIRO DA SILVA": "BA-73CFF415D141", "JAINE RODRIGUES DE OLIVEIRA": "BA-905B395DA99F", "JORGE HENRIQUE SILVA CAVALCANTE": "BA-45389D36F1D4", "KAYKY ALVES DE CARVALHO": "BA-485CC7550882", "LARA FERNANDA SILVA SANTOS": "BA-9BF575442AF8", "LUZIA EMILI PEREIRA DOS REIS": "BA-7A187C65150D", "MAI RAFAELLI DE ARAUJO FERREIRA": "BA-CDC2F8570D5D", "MAIARA ARAUJO SILVA": "BA-4BEB68FC7B05", "MARIA LUIZA COSTA SILVA": "BA-191DAE45AA66", "MIGUEL EVANGELISTA SILVA": "BA-09E4DA430222", "PAULO VICTOR": "BA-89111F78F210", "PEDRO LUCAS CARDOZO SANTOS": "BA-36EDB7370775", "ROBERTA LIMA FARIAS": "BA-27278EB3F006", "THALISSON EMANUEL COSTA DA ROCHA RAMOS": "BA-9008AFA14CC6", "UANE CRISTINA FERNANDES DE SOUZA SANTOS": "BA-977C82CFDBF4", "VICTOR ESTEVAO MENDES": "BA-11D6CFF5CB41", "VITOR GABRIEL DOS SANTOS RAMOS": "BA-DDE9C8EE830D"}, "sd": {"ANDRE VICTOR VIEIRA SILVA": 0, "ANTHONY CAUA DE JESUS ROCHA": 0, "CARLOS EDUARDO BENTO SANTANA": 0, "CAUE CARLOS ALCANTARA DE MATOS": 1, "CRISLANE SOARES SANTOS": 1, "GABRIEL VINICIUS MARQUES RIBEIRO DA SILVA": 0, "JAINE RODRIGUES DE OLIVEIRA": 1, "JORGE HENRIQUE SILVA CAVALCANTE": 0, "KAYKY ALVES DE CARVALHO": 1, "LARA FERNANDA SILVA SANTOS": 1, "LUZIA EMILI PEREIRA DOS REIS": 1, "MAI RAFAELLI DE ARAUJO FERREIRA": 0, "MAIARA ARAUJO SILVA": 0, "MARIA LUIZA COSTA SILVA": 0, "MIGUEL EVANGELISTA SILVA": 1, "PAULO VICTOR": 0, "PEDRO LUCAS CARDOZO SANTOS": 1, "ROBERTA LIMA FARIAS": 1, "THALISSON EMANUEL COSTA DA ROCHA RAMOS": 0, "UANE CRISTINA FERNANDES DE SOUZA SANTOS": 0, "VICTOR ESTEVAO MENDES": 1, "VITOR GABRIEL DOS SANTOS RAMOS": 1}}];
+
+const DISCERNMENT_ITEMS = [
+  { id:"e1", img:"assets/e1.png", key:"political_false", truth:false },
+  { id:"e2", img:"assets/e2.png", key:"political_true", truth:true },
+  { id:"e3", img:"assets/e3.png", key:"lula_false", truth:false },
+  { id:"e4", img:"assets/e4.png", key:"lula_true", truth:true },
+  { id:"e5", img:"assets/e5.png", key:"flavio_false", truth:false },
+  { id:"e6", img:"assets/e6.png", key:"flavio_true", truth:true },
+  { id:"e7", img:"assets/e7.png", key:"non_political_false", truth:false },
+  { id:"e8", img:"assets/e8.png", key:"political_ai_true", truth:true },
+  { id:"e9", img:"assets/e9.png", key:"old_false", truth:false },
+  { id:"e10", img:"assets/e10.png", key:"old_true", truth:true },
+  { id:"e11", img:"assets/e11.png", key:"negative_lula_false", truth:false },
+  { id:"e12", img:"assets/e12.png", key:"positive_lula_true", truth:true },
+  { id:"e13", img:"assets/e13.png", key:"negative_bolsonaro_false", truth:false },
+  { id:"e14", img:"assets/e14.png", key:"positive_bolsonaro_true", truth:true },
+  { id:"e15", img:"assets/e15.png", key:"gender_resources_true", truth:true },
+  { id:"e16", img:"assets/e16.png", key:"gender_falseaccusation_false", truth:false }
+];
+
+const TOTAL_SCREENS = 27, FINAL_SCREEN = 26;
+const DISC_START = 9, DISC_COUNT = 16, DISC_ANCHOR = 25;
+const RANDOMIZE = ["reverse_image_how", "critical_thinking_def", "source_election", "whatsapp_redflags"];
+const SURVEY_GROUP = 'control';
+let SD_TREAT = 0;
+let currentScreen = 0, DISCERNMENT_ORDER = null, OPTION_ORDER = null;
+const responses = {};
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+document.addEventListener('DOMContentLoaded', () => { populateTeachers(); updateProgress(); setupOptionListeners(); });
+
+function populateTeachers() {
+  const ts=document.getElementById('teacher-select');
+  TEACHERS_DATA.forEach(t => { const o=document.createElement('option'); o.value=t.name; o.textContent=t.name; ts.appendChild(o); });
+  if (TEACHERS_DATA.length===1){ ts.value=TEACHERS_DATA[0].name; onTeacherChange(); }
+}
+function onTeacherChange() {
+  if (!currentTeacher()) return;
+  fillStudents(); document.getElementById('block-student').style.display='block';
+}
+function currentTeacher(){ return TEACHERS_DATA.find(x=>x.name===document.getElementById('teacher-select').value); }
+function fillStudents() {
+  const t=currentTeacher(), ss=document.getElementById('student-select'), list=t.students;
+  ss.innerHTML='<option value="">— Selecione seu nome —</option>';
+  list.forEach(n=>{const o=document.createElement('option'); o.value=n; o.textContent=n; ss.appendChild(o);});
+}
+function onStudentChange(){ checkIdentifiers(); }
+function checkIdentifiers(){
+  const g=id=>document.getElementById(id).value.trim();
+  const st=g('student-select');
+  return !!(g('teacher-select') && st && g('turma-input'));
+}
+function validateAndGoTo(next, alertId, fn) {
+  if (!fn()){ document.getElementById(alertId).classList.add('show'); return; }
+  document.getElementById(alertId).classList.remove('show');
+  const t=currentTeacher(), sel=document.getElementById('student-select').value;
+  responses.teacher=t.name;
+  responses.student=sel;
+  responses.student_uid=(t.uids && t.uids[sel]) || '';
+  responses.name_correction=document.getElementById('name-correction-input').value.trim();
+  responses.turma=document.getElementById('turma-input').value.trim().toUpperCase();
+  SD_TREAT = (t.sd && t.sd[sel]) ? 1 : 0; responses.sd_treatment = SD_TREAT;
+  if (!OPTION_ORDER) randomizeOptions();
+  if (!DISCERNMENT_ORDER || !document.getElementById(`screen-${DISC_START}`)) generateDiscernmentScreens();
+  goTo(next);
+}
+
+function randomizeOptions(saved) {
+  const keepLast=/não sei|nenhuma|nada de grave/i;
+  OPTION_ORDER = saved || {};
+  RANDOMIZE.forEach(name => {
+    const c=document.getElementById(`q-${name}`); if(!c) return;
+    const opts=[...c.querySelectorAll(':scope > label.opt')];
+    const byVal=o=>o.querySelector('input').value;
+    let order = OPTION_ORDER[name];
+    const last=o=>keepLast.test(o.textContent) || o.querySelector('input').dataset.exclusive==='1';
+    if (!order) {
+      const keep=opts.filter(last), rest=shuffle(opts.filter(o=>!last(o)));
+      order=[...rest,...keep].map(byVal); OPTION_ORDER[name]=order;
+    }
+    order.forEach(v=>{ const o=opts.find(x=>byVal(x)===v); if(o) c.appendChild(o); });
+  });
+  // matrix rows (outlets) in random order, kept on resume
+  document.querySelectorAll('table.rand-rows').forEach(tb=>{
+    const body=tb.tBodies[0], rows=[...body.rows], id=tb.id;
+    let order=OPTION_ORDER[id];
+    if (!order){ order=shuffle(rows.map(r=>r.dataset.slug)); OPTION_ORDER[id]=order; }
+    order.forEach(sl=>{ const r=rows.find(x=>x.dataset.slug===sl); if(r) body.appendChild(r); });
+  });
+}
+
+function generateDiscernmentScreens() {
+  const container=document.querySelector('.container'), ref=document.getElementById(`screen-${DISC_ANCHOR}`);
+  if (!DISCERNMENT_ORDER) DISCERNMENT_ORDER=shuffle(DISCERNMENT_ITEMS);
+  DISCERNMENT_ORDER.forEach((item, idx) => {
+    const n=DISC_START+idx, key=`disc_${item.key}`;
+    const dots=Array.from({length:DISC_COUNT},(_,i)=>`<div class="task-dot${i<idx?' done':i===idx?' active':''}"></div>`).join('');
+    const div=document.createElement('div'); div.className='screen'; div.id=`screen-${n}`;
+    div.innerHTML=`
+      <div class="card">
+        <div class="task-counter">${dots}</div>
+        <div class="headline-label">Avalie a precisão da manchete abaixo:</div>
+        <div class="headline-img-wrap"><img src="${item.img}" alt="Manchete" class="zoomable" onclick="openLightbox('${item.img}')" loading="lazy"></div>
+        <div class="zoom-hint">🔍 Toque na imagem para ampliar</div>
+        <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
+        <div class="scale-wrap">
+          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
+          <div class="scale-buttons" id="scale-${key}">
+            ${[1,2,3,4].map(v=>`<button class="scale-btn${responses[key]===v?' selected':''}" onclick="setScale('${key}',${v},this)">${v}</button>`).join('')}
+          </div>
+        </div>
+        <div class="alert" id="alert-${key}">Por favor, selecione uma opção.</div>
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goTo(${n-1})">← Voltar</button>
+          <button class="btn btn-primary" onclick="requireScale('${key}', ${n+1})">Próximo →</button>
+        </div>
+      </div>`;
+    container.insertBefore(div, ref);
+  });
+}
+function setScale(key,val,btn){ document.querySelectorAll(`#scale-${key} .scale-btn`).forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); responses[key]=val; }
+function requireScale(key,next){ const a=document.getElementById(`alert-${key}`); if(!responses[key]){a.classList.add('show'); return;} a.classList.remove('show'); goTo(next); }
+
+function isShown(n){ const b=document.getElementById(`block-${n}`); return !b || b.style.display!=='none'; }
+function answered(n){
+  const grid=document.getElementById(`grid-${n}`);
+  if (grid) return [...grid.querySelectorAll('select')].every(s=>s.value!=='');
+  return !!document.querySelector(`input[name="${n}"]:checked`);
+}
+function validateSection(names, alertId, next) {
+  const active=names.filter(isShown), missing=active.filter(n=>!answered(n));
+  if (missing.length){ document.getElementById(alertId).classList.add('show');
+    const g=document.getElementById(`grid-${missing[0]}`);
+    (g ? [...g.querySelectorAll('select')].find(s=>!s.value)?.closest('tr') : document.getElementById(`q-${missing[0]}`))?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  document.getElementById(alertId).classList.remove('show');
+  names.forEach(n=>{
+    if (!isShown(n)) { delete responses[n]; return; }
+    const grid=document.getElementById(`grid-${n}`);
+    if (grid) { grid.querySelectorAll('select').forEach(s=>{ responses[s.name]=s.value; }); return; }
+    const b=document.querySelectorAll(`input[name="${n}"]:checked`); responses[n]= b[0].type==='checkbox'?[...b].map(x=>x.value):b[0].value; });
+  goTo(next);
+}
+// show_if: blocks that depend on another answer; reveal: message after answering
+function updateConditionals(){
+  document.querySelectorAll('[data-show-if]').forEach(b=>{
+    const cond=JSON.parse(b.dataset.showIf);
+    const ok=Object.entries(cond).every(([v,vals])=>{ const c=document.querySelector(`input[name="${v}"]:checked`); return c && vals.includes(c.value); });
+    b.style.display = ok ? '' : 'none';
+    if (!ok) b.querySelectorAll('input').forEach(i=>{ i.checked=false; i.closest('.opt')?.classList.remove('selected'); });
+  });
+  document.querySelectorAll('[data-reveal-after]').forEach(r=>{
+    r.style.display = document.querySelector(`input[name="${r.dataset.revealAfter}"]:checked`) ? 'block' : 'none';
+  });
+}
+function setupOptionListeners() {
+  const NONE_RE=/nenhuma das|nada de grave/i;
+  const isEx=el=>el.dataset.exclusive==='1' || NONE_RE.test(el.closest('.opt')?.textContent||'');
+  document.addEventListener('change', e => {
+    const t=e.target;
+    if (t.type==='radio' || t.type==='checkbox') setTimeout(updateConditionals, 0);
+    if (t.type==='radio') document.querySelectorAll(`input[name="${t.name}"]`).forEach(i=>i.closest('.opt')?.classList.toggle('selected', i.checked));
+    if (t.type==='checkbox') {
+      t.closest('.opt')?.classList.toggle('selected', t.checked);
+      if (t.checked) { const meNone=isEx(t);
+        document.querySelectorAll(`input[type="checkbox"][name="${t.name}"]`).forEach(o=>{ if(o===t||!o.checked) return;
+          if (meNone || isEx(o)) { o.checked=false; o.closest('.opt')?.classList.remove('selected'); } }); }
+    }
+  });
+}
+function enableNext(id){ document.getElementById(id).disabled=false; }
+function showNoConsent(){ document.getElementById('no-consent-msg').style.display='block'; }
+
+// ── navigation / progress ──
+function getSectionLabel(n) {
+  if (n <= 1) return 'Seção 1 de 6';
+  if (n <= 3) return 'Seção 2 de 6';
+  if (n <= 5) return 'Seção 3 de 6';
+  if (n <= 7) return 'Seção 4 de 6';
+  if (n <= 24) return 'Seção 5 de 6';
+  if (n <= 26) return 'Seção 6 de 6';
+  return '';
+}
+function goTo(n) {
+  let target=document.getElementById(`screen-${n}`); if(!target) return;
+  while (target && target.classList.contains('sd-only') && !SD_TREAT) { n += (n > currentScreen ? 1 : -1); target=document.getElementById(`screen-${n}`); }
+  if (!target) return;
+  if (n===FINAL_SCREEN && currentScreen!==FINAL_SCREEN) { collectAllResponses(); submitToGoogleSheets(); }
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  target.classList.add('active'); currentScreen=n; updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('pause-btn').style.display = (n>=2 && n<FINAL_SCREEN) ? 'inline-flex' : 'none';
+}
+function updateProgress() {
+  document.getElementById('progress-fill').style.width=Math.round(currentScreen/(TOTAL_SCREENS-1)*100)+'%';
+  document.getElementById('progress-label').textContent=`${currentScreen} de ${TOTAL_SCREENS-1}`;
+  document.getElementById('section-label').textContent=getSectionLabel(currentScreen);
+}
+
+// ── pause / resume (saved on this device) ──
+function pauseSurvey() {
+  const pin=String(Math.floor(100000+Math.random()*900000));
+  const ids={ student:document.getElementById('student-select').value, nameFix:document.getElementById('name-correction-input').value,
+              turma:document.getElementById('turma-input').value };
+  const sel={}; document.querySelectorAll('.grid-table select').forEach(s=>{ if(s.value!=='') sel[s.name]=s.value; });
+  const state={ v:'endline2', screen:currentScreen, responses:Object.assign({},responses), disc:DISCERNMENT_ORDER, opts:OPTION_ORDER, ids, sel, sd:SD_TREAT };
+  try { localStorage.setItem('bahiae2_'+pin, JSON.stringify(state)); } catch(e){ alert('Não foi possível salvar neste dispositivo.'); return; }
+  document.getElementById('pause-pin-display').textContent=pin; document.getElementById('pause-modal').style.display='flex';
+}
+function resumeSurvey() {
+  const pin=document.getElementById('resume-pin-input').value.replace(/\D/g,''), err=document.getElementById('resume-error'); err.style.display='none';
+  let st=null; try { st=JSON.parse(localStorage.getItem('bahiae2_'+pin)); } catch(e){}
+  if (!st){ err.style.display='block'; return; }
+  Object.assign(responses, st.responses); DISCERNMENT_ORDER=st.disc; randomizeOptions(st.opts); SD_TREAT=st.sd||0;
+  Object.entries(st.sel||{}).forEach(([k,v])=>{ const s=document.querySelector(`select[name="${k}"]`); if(s) s.value=v; });
+  document.getElementById('student-select').value=st.ids.student; onStudentChange();
+  document.getElementById('name-correction-input').value=st.ids.nameFix||''; document.getElementById('turma-input').value=st.ids.turma||'';
+  Object.entries(responses).forEach(([k,v])=>{ (Array.isArray(v)?v:[v]).forEach(val=>{ const el=document.querySelector(`input[name="${k}"][value="${val}"]`); if(el){ el.checked=true; el.closest('.opt')?.classList.add('selected'); } }); });
+  document.getElementById('consent-yes').querySelector('input').checked=true;
+  updateConditionals(); generateDiscernmentScreens(); currentScreen=st.screen; goTo(st.screen);
+}
+
+// ── submit ──
+function collectAllResponses() {
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb=>{ if(cb.name && isShown(cb.name)) responses[`${cb.name}_${cb.value}`]=cb.checked?1:0; });
+  document.querySelectorAll('.grid-table select').forEach(s=>{ if(s.value!=='') responses[s.name]=s.value; });
+  document.querySelectorAll('table.rand-rows').forEach(tb=>{ responses[`${tb.id.replace(/^grid-/,'')}_order`]=(OPTION_ORDER[tb.id]||[]).join(','); });
+  responses.sd_treatment=SD_TREAT;
+  responses.consent='yes';
+  (DISCERNMENT_ORDER||[]).forEach((it,i)=>{ responses[`disc_${it.key}_pos`]=i+1; });
+  responses.disc_order=(DISCERNMENT_ORDER||[]).map(it=>it.id).join(',');
+  RANDOMIZE.forEach(n=>{ if(OPTION_ORDER && OPTION_ORDER[n]) responses[`${n}_order`]=OPTION_ORDER[n].join(''); });
+  responses.survey_version='endline2.1'; responses.survey_group=SURVEY_GROUP;
+  responses.timestamp=new Date().toISOString();
+}
+function submitToGoogleSheets() {
+  const ENDLINE2_GS_URL = window.ENDLINE2_GS_URL || '';
+  if (!ENDLINE2_GS_URL || ENDLINE2_GS_URL.includes('PASTE_')) { console.warn('ENDLINE2_GS_URL not set in config.js — responses not sent', responses); return; }
+  const flat={}; Object.entries(responses).forEach(([k,v])=>{ if(!Array.isArray(v)) flat[k]=v; });
+  const ctl=new AbortController(), timer=setTimeout(()=>ctl.abort(),15000);
+  fetch(ENDLINE2_GS_URL,{method:'POST',body:JSON.stringify(flat),headers:{'Content-Type':'text/plain'},signal:ctl.signal})
+    .then(r=>{clearTimeout(timer); return r.json();})
+    .then(d=>{ if(d.status!=='ok') throw new Error(d.message||'error'); document.getElementById('submit-error').style.display='none'; })
+    .catch(()=>{ document.getElementById('submit-error').style.display='block'; });
+}
+function openLightbox(src){ document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').classList.add('show'); document.body.style.overflow='hidden'; }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('show'); document.getElementById('lightbox-img').src=''; document.body.style.overflow=''; }
+
+</script>
+</body>
+</html>

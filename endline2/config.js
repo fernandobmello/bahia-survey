@@ -6,4 +6,4 @@ window.ENDLINE2_GS_URL = "PASTE_ENDLINE2_APPS_SCRIPT_URL_HERE";
 // Leave empty to use the Apps Script above (?action=status), or point it to a
 // Google Sheet CSV query selecting the teacher and student columns, e.g.
 // https://docs.google.com/spreadsheets/d/<ID>/gviz/tq?tqx=out:csv&gid=875547696&tq=select%20B%2C%20D
-window.ENDLINE2_STATUS_URL = "";
+window.ENDLINE2_STATUS_URL = "https://docs.google.com/spreadsheets/d/1uguAvCbZCZSb4_QhHQeoSsqXUAMcV_8xXLQaO9ij5sw/gviz/tq?tqx=out:csv&gid=875547696&tq=select%20B%2C%20D";   // EXAMPLE: first-endline IBPAD completion tab — replace with the Endline 2 sheet

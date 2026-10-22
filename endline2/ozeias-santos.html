@@ -561,20 +561,6 @@
   .scale-labels span { max-width: none; word-break: normal; overflow-wrap: normal; hyphens: none; }
   @media (max-width: 480px) { .scale-labels span { font-size: 0.6rem; overflow-wrap: break-word; } }
 </style>
-<style>
-  .disc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 6px 0 14px; }
-  .disc-opt { min-height: 74px; padding: 12px 10px; border: 2px solid var(--border, #cbd5e1); border-radius: 14px;
-    background: #fff; color: var(--text, #1e293b); font-size: 1.08rem; font-weight: 600; line-height: 1.25;
-    cursor: pointer; font-family: inherit; transition: background .15s, border-color .15s; }
-  .disc-opt:hover { border-color: var(--primary, #2563eb); }
-  .disc-opt.selected { background: var(--primary, #2563eb); border-color: var(--primary, #2563eb); color: #fff; }
-  @media (max-width: 480px) { .disc-opt { min-height: 68px; font-size: 1rem; } }
-  /* computers: keep headline + all four options + "Próximo" on one screen */
-  @media (min-width: 821px) {
-    .headline-img-wrap img { max-height: max(200px, calc(100vh - 530px)); width: auto; max-width: 100%;
-      display: block; margin: 0 auto; }
-  }
-</style>
 
 <div class="screen active" id="screen-0">
   <div class="card card-intro" style="text-align:center; padding:36px 28px;">
@@ -927,7 +913,6 @@ const DISCERNMENT_ITEMS = [
 const TOTAL_SCREENS = 27, FINAL_SCREEN = 26;
 const DISC_START = 9, DISC_COUNT = 16, DISC_ANCHOR = 25;
 const RANDOMIZE = ["reverse_image_how", "critical_thinking_def", "source_election", "whatsapp_redflags"];
-const HL_LABELS = ["Definitivamente<br>falsa", "Provavelmente<br>falsa", "Provavelmente<br>verdadeira", "Definitivamente<br>verdadeira"];   // headline response options (value = position 1..4)
 const SURVEY_GROUP = 'control';
 let SD_TREAT = 0;
 let currentScreen = 0, DISCERNMENT_ORDER = null, OPTION_ORDER = null;
@@ -1010,8 +995,11 @@ function generateDiscernmentScreens() {
         <div class="headline-img-wrap"><img src="${item.img}" alt="Manchete" class="zoomable" onclick="openLightbox('${item.img}')" loading="lazy"></div>
         <div class="zoom-hint">🔍 Toque na imagem para ampliar</div>
         <div class="question-text" style="margin-bottom:16px;">O quanto você acredita que esta manchete seja precisa?</div>
-        <div class="disc-options" id="scale-${key}">
-          ${HL_LABELS.map((lab,i)=>`<button class="disc-opt${responses[key]===i+1?' selected':''}" onclick="setScale('${key}',${i+1},this)">${lab}</button>`).join('')}
+        <div class="scale-wrap">
+          <div class="scale-labels"><span>Definitivamente falsa</span><span>Provavelmente falsa</span><span>Provavelmente verdadeira</span><span>Definitivamente verdadeira</span></div>
+          <div class="scale-buttons" id="scale-${key}">
+            ${[1,2,3,4].map(v=>`<button class="scale-btn${responses[key]===v?' selected':''}" onclick="setScale('${key}',${v},this)">${v}</button>`).join('')}
+          </div>
         </div>
         <div class="alert" id="alert-${key}">Por favor, selecione uma opção.</div>
         <div class="nav-buttons">
@@ -1022,7 +1010,7 @@ function generateDiscernmentScreens() {
     container.insertBefore(div, ref);
   });
 }
-function setScale(key,val,btn){ document.querySelectorAll(`#scale-${key} button`).forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); responses[key]=val; document.getElementById(`alert-${key}`)?.classList.remove('show'); }
+function setScale(key,val,btn){ document.querySelectorAll(`#scale-${key} .scale-btn`).forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); responses[key]=val; document.getElementById(`alert-${key}`)?.classList.remove('show'); }
 function requireScale(key,next){ const a=document.getElementById(`alert-${key}`); if(!responses[key]){a.classList.add('show'); return;} a.classList.remove('show'); goTo(next); }
 
 function isShown(n){ const b=document.getElementById(`block-${n}`); return !b || b.style.display!=='none'; }

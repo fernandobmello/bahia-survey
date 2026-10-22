@@ -569,6 +569,11 @@
   .disc-opt:hover { border-color: var(--primary, #2563eb); }
   .disc-opt.selected { background: var(--primary, #2563eb); border-color: var(--primary, #2563eb); color: #fff; }
   @media (max-width: 480px) { .disc-opt { min-height: 68px; font-size: 1rem; } }
+  /* computers: keep headline + all four options + "Próximo" on one screen */
+  @media (min-width: 821px) {
+    .headline-img-wrap img { max-height: max(200px, calc(100vh - 530px)); width: auto; max-width: 100%;
+      display: block; margin: 0 auto; }
+  }
 </style>
 
 <div class="screen active" id="screen-0">
